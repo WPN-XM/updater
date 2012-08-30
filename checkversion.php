@@ -53,7 +53,7 @@ require_once __DIR__ . '/vendor/goutte.phar';
 use Goutte\Client;
 
 // load software components registry
-$registry = include __DIR__ . DIRECTORY_SEPARATOR . '\wpnxm-software-registry.php';
+$registry = include __DIR__ . '/wpnxm-software-registry.php';
 
 // ensure registry array is available
 if (!is_array($registry)) {

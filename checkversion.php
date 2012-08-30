@@ -160,14 +160,15 @@ function get_latest_version_of_apc()
         if (preg_match("#(\d+\.\d+(\.\d+)*)$#", $node->nodeValue, $matches)) {
             $version = $matches[1];
             $filename = 'php_apc-'.$version.'-5.4-nts-vc9-x86.zip';
-            if ($registry['apc']['latest']['version'] <= $version) {
+            if ($registry['phpext_apc']['latest']['version'] <= $version) {
                 return array('version' => $version, 'url' => 'http://windows.php.net/downloads/pecl/releases/apc/'.$version.'/'.$filename);
             }
         }
     });
 }
 
-add('apc', get_latest_version_of_apc() );
+add('phpext_
+    apc', get_latest_version_of_apc() );
 
 /**
  * phpMyAdmin
@@ -277,7 +278,7 @@ function adjust_php_download_path()
         // do not modify array key with version number like latest version (that one must point to releases)
         if( $version === $registry['php']['latest']['version']) continue;
         // adjust path and insert at old array position (overwriting)
-        $new_url = str_replace('php.net/downloads/releases/', 'php.net/downloads/releases/archives/', $url);
+        $new_url = str_replace('php.net/downloads/releases/php', 'php.net/downloads/releases/archives/php', $url);
         $registry['php'][$version] = $new_url;
     }
 
@@ -332,7 +333,7 @@ function write_registry_file(array $registry)
     <td>xdebug</td><td><?php echo $old_registry['xdebug']['latest']['version'] ?></td><td><?php echo $registry['xdebug']['latest']['version'] ?></td>
 </tr>
 <tr>
-    <td>apc</td><td><?php echo $old_registry['apc']['latest']['version'] ?></td><td><?php echo $registry['apc']['latest']['version'] ?></td>
+    <td>apc</td><td><?php echo $old_registry['phpext_apc']['latest']['version'] ?></td><td><?php echo $registry['phpext_apc']['latest']['version'] ?></td>
 </tr>
 <tr>
     <td>phpmyadmin</td><td><?php echo $old_registry['phpmyadmin']['latest']['version'] ?></td><td><?php echo $registry['phpmyadmin']['latest']['version'] ?></td>

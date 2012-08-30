@@ -2,7 +2,7 @@
 	/**
 	 * WPN-XM Software Registry
 	 * ------------------------
-	 * Last Update Thu, 30 Aug 2012 20:53:44 +0000.
+	 * Last Update Thu, 30 Aug 2012 22:23:40 +0000.
 	 * Do not edit manually!
 	 */
 
@@ -236,6 +236,17 @@
     array (
       'version' => '0.2.1',
       'url' => 'http://nodeload.github.com/jakoch/Clansuite/zipball/svnsync',
+    ),
+  ),
+  'phpext_apc' =>
+  array (
+    '3.1.10' => 'http://downloads.php.net/pierre/php_apc-3.1.10-5.3-vc9-x86.zip',
+    '3.1.11' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.11/php_apc-3.1.11-5.4-nts-vc9-x86.zip',
+    '3.1.12' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.12/php_apc-3.1.12-5.4-nts-vc9-x86.zip',
+    'latest' =>
+    array (
+      'version' => '3.1.12',
+      'url' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.12/php_apc-3.1.12-5.4-nts-vc9-x86.zip',
     ),
   ),
 );

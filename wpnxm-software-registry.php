@@ -2,7 +2,7 @@
 	/**
 	 * WPN-XM Software Registry
 	 * ------------------------
-	 * Last Update Thu, 30 Aug 2012 20:36:09 +0000.
+	 * Last Update Thu, 30 Aug 2012 20:53:44 +0000.
 	 * Do not edit manually!
 	 */
 
@@ -26,7 +26,7 @@
   ),
   'php' => 
   array (
-    '5.4.5' => 'http://windows.php.net/downloads/releases/php-5.4.5-nts-Win32-VC9-x86.zip',
+    '5.4.5' => 'http://windows.php.net/downloads/releases/archives/php-5.4.5-nts-Win32-VC9-x86.zip',
     '5.4.6' => 'http://windows.php.net/downloads/releases/php-5.4.6-nts-Win32-VC9-x86.zip',
     'latest' => 
     array (

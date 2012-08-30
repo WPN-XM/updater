@@ -264,6 +264,27 @@ function add($name, array $array)
 
 #var_dump($registry);
 
+/**
+ * PHP release files are moved from "/releases" to "/releases/archives".
+ */
+function adjust_php_download_path()
+{
+    global $registry;
+
+    foreach($registry['php'] as $version => $url) {
+        // do not modify array key "latest"
+        if( $version === 'latest') continue;
+        // do not modify array key with version number like latest version (that one must point to releases)
+        if( $version === $registry['php']['latest']['version']) continue;
+        // adjust path and insert at old array position (overwriting)
+        $new_url = str_replace('php.net/downloads/releases/', 'php.net/downloads/releases/archives/', $url);
+        $registry['php'][$version] = $new_url;
+    }
+
+}
+
+adjust_php_download_path();
+
 write_registry_file($registry);
 
 /**

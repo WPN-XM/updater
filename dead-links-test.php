@@ -38,8 +38,12 @@ if (!extension_loaded('curl')) {
     exit('Error: PHP Extension cURL required.');
 }
 
-echo 'This is a check for broken links in the WPN-XM software components registry.<br>';
-echo 'Results:';
+/**
+ * Broken link check on the download links of the software comonents registry
+ */
+
+echo 'This is a check for dead and broken links in the WPN-XM software components registry.<br>';
+echo 'Results:<br>';
 
 // load software components registry
 $registry = include __DIR__ . '/wpnxm-software-registry.php';
@@ -86,4 +90,40 @@ function is_available($url, $timeout = 30)
     curl_close($ch);
 
     return $retval;
+}
+
+/**
+ * Broken link check on the download links of the innosetup file
+ */
+
+echo 'This is a check for dead and broken links in the WPN-XM innosetup script file.<br>';
+echo 'Results:<br>';
+
+$innosetup_entries = array(
+  'URL_nginx'            => 'http://wpn-xm.org/get.php?s=nginx',
+  'URL_php'              => 'http://wpn-xm.org/get.php?s=php',
+  'URL_mariadb'          => 'http://wpn-xm.org/get.php?s=mariadb',
+  'URL_phpext_xdebug'    => 'http://wpn-xm.org/get.php?s=phpext_xdebug',
+  'URL_phpext_apc'       => 'http://wpn-xm.org/get.php?s=phpext_apc',
+  'URL_webgrind'         => 'http://wpn-xm.org/get.php?s=webgrind',
+  'URL_xhprof'           => 'http://wpn-xm.org/get.php?s=xhprof',
+  'URL_memcached'        => 'http://wpn-xm.org/get.php?s=memcached',
+  'URL_memadmin'         => 'http://wpn-xm.org/get.php?s=memadmin',
+  'URL_phpext_memcached' => 'http://wpn-xm.org/get.php?s=phpext_memcache',
+  'URL_phpext_zeromq'    => 'http://wpn-xm.org/get.php?s=phpext_zeromq',
+  'URL_phpmyadmin'       => 'http://wpn-xm.org/get.php?s=phpmyadmin',
+  'URL_adminer'          => 'http://wpn-xm.org/get.php?s=adminer',
+  'URL_junction'         => 'http://wpn-xm.org/get.php?s=junction',
+  'URL_pear'             => 'http://wpn-xm.org/get.php?s=pear',
+  'URL_composer'         => 'http://wpn-xm.org/get.php?s=composer',
+  'URL_wpnxmscp'         => 'http://wpn-xm.org/get.php?s=wpnxmscp',
+);
+
+foreach($innosetup_entries as $name => $url)
+{
+    if(is_available($url) === true)
+    {       echo ' <span style="font-weight: light; color: green;">'.$url.'</span><br>';
+        } else {
+            echo ' <span style="font-weight: bold; color: red;">'.$url.'</span><br>';
+    }
 }

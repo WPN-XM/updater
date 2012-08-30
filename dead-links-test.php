@@ -38,12 +38,15 @@ if (!extension_loaded('curl')) {
     exit('Error: PHP Extension cURL required.');
 }
 
+echo 'This is a check for broken links in the WPN-XM software components registry.<br>';
+echo 'Results:';
+
 // load software components registry
 $registry = include __DIR__ . '/wpnxm-software-registry.php';
 
 foreach($registry as $software => $versions) {
 
-    echo '<br>Testing Links of '. $software .'<br>';
+    echo '<br>Testing Link(s) of '. $software .'<br>';
 
     foreach($versions as $version => $url) {
 
@@ -53,7 +56,7 @@ foreach($registry as $software => $versions) {
 
         // only test latest (for now)
         if($version === 'latest') {
-            echo 'Testing Link of Latest Version (' . $url['version'] . ') => ' . $url['url'];
+            echo 'Latest Version (' . $url['version'] . ') => ' . $url['url'];
             if(is_available($url['url']) === true)
             {       echo ' <span style="font-weight: light; color: green;">good</span><br>';
                 } else {
@@ -73,7 +76,8 @@ function is_available($url, $timeout = 30)
         CURLOPT_RETURNTRANSFER => true,         // do not output to browser
         CURLOPT_URL => $url,
         CURLOPT_NOBODY => true,                 // do HEAD request only
-        CURLOPT_TIMEOUT => $timeout
+        CURLOPT_TIMEOUT => $timeout,
+        CURLOPT_FOLLOWLOCATION => true
     );
 
     curl_setopt_array($ch, $options);

@@ -177,6 +177,15 @@
       'url' => 'http://windows.php.net/downloads/pecl/releases/varnish/1.0.0/php_varnish-1.0.0-5.4-nts-vc9-x86.zip',
     ),
   ),
+ 'phpext_xcache' =>
+  array (
+    '2.0.1' => 'http://dev.freshsite.pl/nc/php-accelerators/xcache/download/xcache-201-for-php-54-vc9-nts.html',
+    'latest' =>
+    array (
+      'version' => '2.0.1',
+      'url' => 'http://dev.freshsite.pl/nc/php-accelerators/xcache/download/xcache-201-for-php-54-vc9-nts.html',
+    ),
+  ),
   'phpext_xdebug' =>
   array (
     '2.2.0RC2' => 'http://xdebug.org/files/php_xdebug-2.2.0RC2-5.4-vc9-nts.dll',

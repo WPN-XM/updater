@@ -116,6 +116,7 @@ $innosetup_entries = array(
   'URL_pear'             => 'http://wpn-xm.org/get.php?s=pear',
   'URL_composer'         => 'http://wpn-xm.org/get.php?s=composer',
   'URL_wpnxmscp'         => 'http://wpn-xm.org/get.php?s=wpnxmscp',
+  'URL_sendmail'         => 'http://wpn-xm.org/get.php?s=sendmail',
 );
 
 foreach($innosetup_entries as $name => $url) {

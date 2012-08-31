@@ -214,6 +214,14 @@
       'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.2.2/phpMyAdmin-3.5.2.2-english.zip',
     ),
   ),
+  'sendmail' =>
+  array (
+    '1.0' => 'http://www.glob.com.au/sendmail/sendmail.zip',
+    array (
+      'version' => '1.0',
+      'url' => 'http://www.glob.com.au/sendmail/sendmail.zip',
+    ),
+  ),
   'webgrind' =>
   array (
     '1.0' => 'http://cloud.github.com/downloads/jokkedk/webgrind/webgrind-release-1.0.zip',

@@ -298,7 +298,7 @@ write_registry_file($registry);
 function write_registry_file(array $registry)
 {
     // backup current registry
-    rename( 'wpnxm-software-registry.php', 'wpnxm-software-registry-old.php' );
+    rename( 'wpnxm-software-registry.php', 'wpnxm-software-registry' . date("d-m-y-H-i-s") . '.php' );
 
     // file header
     $content = "<?php\n";

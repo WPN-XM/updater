@@ -119,8 +119,8 @@ $innosetup_entries = array(
 
 foreach($innosetup_entries as $name => $url) {
     if(is_available($url) === true)
-    {       echo ' <a style="font-weight: light; color: green;" href="$url">'.$url.'</a><br>';
+    {       echo ' <a style="font-weight: light; color: green;" href="'.$url.'">'.$url.'</a><br>';
         } else {
-            echo ' <a style="font-weight: bold; color: red;" href="$url">'.$url.'</a><br>';
+            echo ' <a style="font-weight: bold; color: red;" href="'.$url.'">'.$url.'</a><br>';
     }
 }

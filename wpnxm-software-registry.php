@@ -146,16 +146,6 @@
       'url' => 'http://windows.php.net/downloads/releases/php-5.4.6-nts-Win32-VC9-x86.zip',
     ),
   ),
-  'phpext_
-    apc' =>
-  array (
-    '3.1.12' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.12/php_apc-3.1.12-5.4-nts-vc9-x86.zip',
-    'latest' =>
-    array (
-      'version' => '3.1.12',
-      'url' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.12/php_apc-3.1.12-5.4-nts-vc9-x86.zip',
-    ),
-  ),
   'phpext_apc' =>
   array (
     '3.1.10' => 'http://downloads.php.net/pierre/php_apc-3.1.10-5.3-vc9-x86.zip',
@@ -170,10 +160,11 @@
   'phpext_memcache' =>
   array (
     '2.2.6' => 'http://downloads.php.net/pierre/php_memcache-2.2.6-5.3-vc9-x86.zip',
+    '3.0.6' => 'http://windows.php.net/downloads/pecl/releases/memcache/3.0.6/php_memcache-3.0.6-5.4-nts-vc9-x86.zip',
     'latest' =>
     array (
-      'version' => '2.2.6',
-      'url' => 'http://downloads.php.net/pierre/php_memcache-2.2.6-5.3-vc9-x86.zip',
+      'version' => '3.0.6',
+      'url' => 'http://windows.php.net/downloads/pecl/releases/memcache/3.0.6/php_memcache-3.0.6-5.4-nts-vc9-x86.zip',
     ),
   ),
   'phpext_xdebug' =>
@@ -196,21 +187,21 @@
   ),
   'phpmyadmin' =>
   array (
-    '3.5.2.2' => 'http://kent.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.2.2/phpMyAdmin-3.5.2.2-english.zip',
+    '3.5.2.2' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.2.2/phpMyAdmin-3.5.2.2-english.zip',
     '3.5.2.1' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.2.1/phpMyAdmin-3.5.2.1-english.zip',
     'latest' =>
     array (
       'version' => '3.5.2.2',
-      'url' => 'http://kent.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.2.2/phpMyAdmin-3.5.2.2-english.zip',
+      'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.2.2/phpMyAdmin-3.5.2.2-english.zip',
     ),
   ),
   'webgrind' =>
   array (
-    '1.0' => 'http://webgrind.googlecode.com/files/webgrind-release-1.0.zip',
+    '1.0' => 'http://cloud.github.com/downloads/jokkedk/webgrind/webgrind-release-1.0.zip',
     'latest' =>
     array (
       'version' => '1.0',
-      'url' => 'http://webgrind.googlecode.com/files/webgrind-release-1.0.zip',
+      'url' => 'http://cloud.github.com/downloads/jokkedk/webgrind/webgrind-release-1.0.zip',
     ),
   ),
   'wpnxmscp' =>
@@ -247,5 +238,14 @@
       'version' => '1.0',
       'url' => 'http://nodeload.github.com/preinheimer/xhprof/zipball/master',
     ),
+  ),
+  'phpext_varnish' =>
+  array (
+    '1.0' => 'http://windows.php.net/downloads/pecl/releases/varnish/1.0.0/php_varnish-1.0.0-5.4-nts-vc9-x86.zip',
+    'latest' =>
+    array (
+      'version' => '1.0',
+      'url' => 'http://windows.php.net/downloads/pecl/releases/varnish/1.0.0/php_varnish-1.0.0-5.4-nts-vc9-x86.zip',
+      ),
   ),
 );

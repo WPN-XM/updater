@@ -195,6 +195,15 @@
       'url' => 'http://snapshot.zero.mq/download/win32/php53-ext/php-zmq-20111011_12-39.zip',
     ),
   ),
+   'phpext_xhprof' =>
+  array (
+    '0.10.3' => 'http://dev.freshsite.pl/php-extensions/xhprof/file/details/xhprof-0103-for-php-54-vc9-nts.html',
+    'latest' =>
+    array (
+      'version' => '0.10.3',
+      'url' => 'http://dev.freshsite.pl/php-extensions/xhprof/file/details/xhprof-0103-for-php-54-vc9-nts.html',
+    ),
+  ),
   'phpmyadmin' =>
   array (
     '3.5.2.2' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.2.2/phpMyAdmin-3.5.2.2-english.zip',

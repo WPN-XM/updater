@@ -100,6 +100,7 @@
     array (
       'version' => '1.0.12',
       'url' => 'https://github.com/junstor/memadmin/zipball/v1.0.12',
+    ),
   ),
   'memcached' =>
   array (

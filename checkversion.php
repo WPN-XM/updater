@@ -309,6 +309,10 @@ function write_registry_file(array $registry)
     $content .= "\t * Do not edit manually!\n";
     $content .= "\t */\n";
     $content .= "\n return ";
+
+    // sort registry (software components in alphabetical order)
+    ksort($registry);
+
     // pretty print the array
     $content .= var_export( $registry, true ) . ';';
 

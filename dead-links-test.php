@@ -42,15 +42,14 @@ if (!extension_loaded('curl')) {
  * Broken link check on the download links of the software comonents registry
  */
 
-echo 'This is a check for dead and broken links in the WPN-XM software components registry.<br>';
-echo 'Results:<br>';
+echo '<b>This is a check for dead and broken links in the WPN-XM software components registry.</b><br>';
 
 // load software components registry
 $registry = include __DIR__ . '/wpnxm-software-registry.php';
 
 foreach($registry as $software => $versions) {
 
-    echo '<br>Testing Link(s) of '. $software .'<br>';
+    echo '<b>'. $software .'</b><br>';
 
     foreach($versions as $version => $url) {
 
@@ -60,11 +59,11 @@ foreach($registry as $software => $versions) {
 
         // only test latest (for now)
         if($version === 'latest') {
-            echo 'Latest Version (' . $url['version'] . ') => ' . $url['url'];
+            echo 'Latest Version (' . $url['version'] . ')';
             if(is_available($url['url']) === true)
-            {       echo ' <span style="font-weight: light; color: green;">good</span><br>';
+            {       echo ' <a style="font-weight: light; color: green;" href="'.$url['url'].'">'.$url['url'].'</a><br>';
                 } else {
-                    echo ' <span style="font-weight: bold; color: red;">*dead*</span><br>';
+                    echo ' <a style="font-weight: bold; color: red;" href="'.$url['url'].'">'.$url['url'].'</a><br>';
             }
         }
     }
@@ -96,8 +95,7 @@ function is_available($url, $timeout = 30)
  * Broken link check on the download links of the innosetup file
  */
 
-echo 'This is a check for dead and broken links in the WPN-XM innosetup script file.<br>';
-echo 'Results:<br>';
+echo '<br><b>This is a check for dead and broken links in the WPN-XM innosetup script file.</b><br>';
 
 $innosetup_entries = array(
   'URL_nginx'            => 'http://wpn-xm.org/get.php?s=nginx',
@@ -119,11 +117,10 @@ $innosetup_entries = array(
   'URL_wpnxmscp'         => 'http://wpn-xm.org/get.php?s=wpnxmscp',
 );
 
-foreach($innosetup_entries as $name => $url)
-{
+foreach($innosetup_entries as $name => $url) {
     if(is_available($url) === true)
-    {       echo ' <span style="font-weight: light; color: green;">'.$url.'</span><br>';
+    {       echo ' <a style="font-weight: light; color: green;" href="$url">'.$url.'</a><br>';
         } else {
-            echo ' <span style="font-weight: bold; color: red;">'.$url.'</span><br>';
+            echo ' <a style="font-weight: bold; color: red;" href="$url">'.$url.'</a><br>';
     }
 }

@@ -2,36 +2,46 @@
 	/**
 	 * WPN-XM Software Registry
 	 * ------------------------
-	 * Last Update Thu, 30 Aug 2012 22:23:40 +0000.
+	 * Last Update Fri, 31 Aug 2012 09:40:13 +0000.
 	 * Do not edit manually!
 	 */
 
  return array (
-  'nginx' =>
+  'adminer' =>
   array (
-    '1.2.1' => 'http://www.nginx.org/download/nginx-1.2.1.zip',
-    '1.2.2' => 'http://www.nginx.org/download/nginx-1.2.2.zip',
-    '1.2.3' => 'http://www.nginx.org/download/nginx-1.2.3.zip',
-    '1.3.0' => 'http://www.nginx.org/download/nginx-1.3.0.zip',
-    '1.3.1' => 'http://www.nginx.org/download/nginx-1.3.1.zip',
-    '1.3.2' => 'http://www.nginx.org/download/nginx-1.3.2.zip',
-    '1.3.3' => 'http://www.nginx.org/download/nginx-1.3.3.zip',
-    '1.3.4' => 'http://www.nginx.org/download/nginx-1.3.4.zip',
-    '1.3.5' => 'http://www.nginx.org/download/nginx-1.3.5.zip',
+    '3.5.0' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.5.0/adminer-3.5.0.php',
+    '3.5.1' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.5.1/adminer-3.5.1.php',
     'latest' =>
     array (
-      'version' => '1.3.5',
-      'url' => 'http://www.nginx.org/download/nginx-1.3.5.zip',
+      'version' => '3.5.1',
+      'url' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.5.1/adminer-3.5.1.php',
     ),
   ),
-  'php' =>
+  'clansuite' =>
   array (
-    '5.4.5' => 'http://windows.php.net/downloads/releases/archives/php-5.4.5-nts-Win32-VC9-x86.zip',
-    '5.4.6' => 'http://windows.php.net/downloads/releases/php-5.4.6-nts-Win32-VC9-x86.zip',
+    '0.2.1' => 'http://nodeload.github.com/Clansuite/Clansuite/zipball/develop',
     'latest' =>
     array (
-      'version' => '5.4.6',
-      'url' => 'http://windows.php.net/downloads/releases/php-5.4.6-nts-Win32-VC9-x86.zip',
+      'version' => '0.2.1',
+      'url' => 'http://nodeload.github.com/Clansuite/Clansuite/zipball/develop',
+    ),
+  ),
+  'composer' =>
+  array (
+    '1.0' => 'http://getcomposer.org/composer.phar',
+    'latest' =>
+    array (
+      'version' => '1.0',
+      'url' => 'http://getcomposer.org/composer.phar',
+    ),
+  ),
+  'junction' =>
+  array (
+    '1.0' => 'http://download.sysinternals.com/files/Junction.zip',
+    'latest' =>
+    array (
+      'version' => '1.0',
+      'url' => 'http://download.sysinternals.com/files/Junction.zip',
     ),
   ),
   'mariadb' =>
@@ -82,41 +92,68 @@
       'url' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.25/windows/mariadb-5.5.25-win32.zip',
     ),
   ),
-  'xdebug' =>
+  'memadmin' =>
   array (
-    '2.0.4' => 'http://xdebug.org/files/php_xdebug-2.0.4-5.3.0-vc9-nts.dll',
-    '2.0.5' => 'http://xdebug.org/files/php_xdebug-2.0.5-5.3-vc9-nts.dll',
-    '2.1.0' => 'http://xdebug.org/files/php_xdebug-2.1.0beta3-5.3-vc9-nts.dll',
-    '2.1.1' => 'http://xdebug.org/files/php_xdebug-2.1.1rc1-5.3-vc9-nts.dll',
-    '2.1.2' => 'http://xdebug.org/files/php_xdebug-2.1.2-5.3-vc9-nts.dll',
-    '2.1.3' => 'http://xdebug.org/files/php_xdebug-2.1.3-5.3-vc9-nts.dll',
-    '2.1.4' => 'http://xdebug.org/files/php_xdebug-2.1.4-5.3-vc9-nts.dll',
-    '2.2.0' => 'http://xdebug.org/files/php_xdebug-2.2.0RC2-5.4-vc9-nts.dll',
-    '2.2.1' => 'http://xdebug.org/files/php_xdebug-2.2.1-5.3-vc9-nts.dll',
+    '1.0.11' => 'https://nodeload.github.com/junstor/memadmin/zipball/master',
     'latest' =>
     array (
-      'version' => '2.2.1',
-      'url' => 'http://xdebug.org/files/php_xdebug-2.2.1-5.4-vc9-nts.dll',
+      'version' => '1.0.11',
+      'url' => 'https://nodeload.github.com/junstor/memadmin/zipball/master',
     ),
   ),
-  'phpmyadmin' =>
+  'memcached' =>
   array (
-    '3.5.2.2' => 'http://kent.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.2.2/phpMyAdmin-3.5.2.2-english.zip',
-    '3.5.2.1' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.2.1/phpMyAdmin-3.5.2.1-english.zip',
+    '1.4.5' => 'http://downloads.northscale.com/memcached-1.4.5-x86.zip',
     'latest' =>
     array (
-      'version' => '3.5.2.2',
-      'url' => 'http://kent.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.2.2/phpMyAdmin-3.5.2.2-english.zip',
+      'version' => '1.4.5',
+      'url' => 'http://downloads.northscale.com/memcached-1.4.5-x86.zip',
     ),
   ),
-  'adminer' =>
+  'nginx' =>
   array (
-    '3.5.0' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.5.0/adminer-3.5.0.php',
-    '3.5.1' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.5.1/adminer-3.5.1.php',
+    '1.2.1' => 'http://www.nginx.org/download/nginx-1.2.1.zip',
+    '1.2.2' => 'http://www.nginx.org/download/nginx-1.2.2.zip',
+    '1.2.3' => 'http://www.nginx.org/download/nginx-1.2.3.zip',
+    '1.3.0' => 'http://www.nginx.org/download/nginx-1.3.0.zip',
+    '1.3.1' => 'http://www.nginx.org/download/nginx-1.3.1.zip',
+    '1.3.2' => 'http://www.nginx.org/download/nginx-1.3.2.zip',
+    '1.3.3' => 'http://www.nginx.org/download/nginx-1.3.3.zip',
+    '1.3.4' => 'http://www.nginx.org/download/nginx-1.3.4.zip',
+    '1.3.5' => 'http://www.nginx.org/download/nginx-1.3.5.zip',
     'latest' =>
     array (
-      'version' => '3.5.1',
-      'url' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.5.1/adminer-3.5.1.php',
+      'version' => '1.3.5',
+      'url' => 'http://www.nginx.org/download/nginx-1.3.5.zip',
+    ),
+  ),
+  'pear' =>
+  array (
+    '1.0' => 'http://pear.php.net/go-pear.phar',
+    'latest' =>
+    array (
+      'version' => '1.0',
+      'url' => 'http://pear.php.net/go-pear.phar',
+    ),
+  ),
+  'php' =>
+  array (
+    '5.4.5' => 'http://windows.php.net/downloads/releases/archives/php-5.4.5-nts-Win32-VC9-x86.zip',
+    '5.4.6' => 'http://windows.php.net/downloads/releases/php-5.4.6-nts-Win32-VC9-x86.zip',
+    'latest' =>
+    array (
+      'version' => '5.4.6',
+      'url' => 'http://windows.php.net/downloads/releases/php-5.4.6-nts-Win32-VC9-x86.zip',
+    ),
+  ),
+  'phpext_
+    apc' =>
+  array (
+    '3.1.12' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.12/php_apc-3.1.12-5.4-nts-vc9-x86.zip',
+    'latest' =>
+    array (
+      'version' => '3.1.12',
+      'url' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.12/php_apc-3.1.12-5.4-nts-vc9-x86.zip',
     ),
   ),
   'phpext_apc' =>
@@ -157,49 +194,14 @@
       'url' => 'http://snapshot.zero.mq/download/win32/php53-ext/php-zmq-20111011_12-39.zip',
     ),
   ),
-  'memcached' =>
+  'phpmyadmin' =>
   array (
-    '1.4.5' => 'http://downloads.northscale.com/memcached-1.4.5-x86.zip',
+    '3.5.2.2' => 'http://kent.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.2.2/phpMyAdmin-3.5.2.2-english.zip',
+    '3.5.2.1' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.2.1/phpMyAdmin-3.5.2.1-english.zip',
     'latest' =>
     array (
-      'version' => '1.4.5',
-      'url' => 'http://downloads.northscale.com/memcached-1.4.5-x86.zip',
-    ),
-  ),
-  'memadmin' =>
-  array (
-    '1.0.11' => 'https://nodeload.github.com/junstor/memadmin/zipball/master',
-    'latest' =>
-    array (
-      'version' => '1.0.11',
-      'url' => 'https://nodeload.github.com/junstor/memadmin/zipball/master',
-    ),
-  ),
-  'junction' =>
-  array (
-    '1.0' => 'http://download.sysinternals.com/files/Junction.zip',
-    'latest' =>
-    array (
-      'version' => '1.0',
-      'url' => 'http://download.sysinternals.com/files/Junction.zip',
-    ),
-  ),
-  'pear' =>
-  array (
-    '1.0' => 'http://pear.php.net/go-pear.phar',
-    'latest' =>
-    array (
-      'version' => '1.0',
-      'url' => 'http://pear.php.net/go-pear.phar',
-    ),
-  ),
-  'wpnxmscp' =>
-  array (
-    '0.3.0' => 'http://wpn-xm.org/files/wpn-xm-scp-0.3.0.zip',
-    'latest' =>
-    array (
-      'version' => '0.3.0',
-      'url' => 'http://wpn-xm.org/files/wpn-xm-scp-0.3.0.zip',
+      'version' => '3.5.2.2',
+      'url' => 'http://kent.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.2.2/phpMyAdmin-3.5.2.2-english.zip',
     ),
   ),
   'webgrind' =>
@@ -211,6 +213,32 @@
       'url' => 'http://webgrind.googlecode.com/files/webgrind-release-1.0.zip',
     ),
   ),
+  'wpnxmscp' =>
+  array (
+    '0.3.0' => 'http://wpn-xm.org/files/wpn-xm-scp-0.3.0.zip',
+    'latest' =>
+    array (
+      'version' => '0.3.0',
+      'url' => 'http://wpn-xm.org/files/wpn-xm-scp-0.3.0.zip',
+    ),
+  ),
+  'xdebug' =>
+  array (
+    '2.0.4' => 'http://xdebug.org/files/php_xdebug-2.0.4-5.3.0-vc9-nts.dll',
+    '2.0.5' => 'http://xdebug.org/files/php_xdebug-2.0.5-5.3-vc9-nts.dll',
+    '2.1.0' => 'http://xdebug.org/files/php_xdebug-2.1.0beta3-5.3-vc9-nts.dll',
+    '2.1.1' => 'http://xdebug.org/files/php_xdebug-2.1.1rc1-5.3-vc9-nts.dll',
+    '2.1.2' => 'http://xdebug.org/files/php_xdebug-2.1.2-5.3-vc9-nts.dll',
+    '2.1.3' => 'http://xdebug.org/files/php_xdebug-2.1.3-5.3-vc9-nts.dll',
+    '2.1.4' => 'http://xdebug.org/files/php_xdebug-2.1.4-5.3-vc9-nts.dll',
+    '2.2.0' => 'http://xdebug.org/files/php_xdebug-2.2.0RC2-5.4-vc9-nts.dll',
+    '2.2.1' => 'http://xdebug.org/files/php_xdebug-2.2.1-5.3-vc9-nts.dll',
+    'latest' =>
+    array (
+      'version' => '2.2.1',
+      'url' => 'http://xdebug.org/files/php_xdebug-2.2.1-5.4-vc9-nts.dll',
+    ),
+  ),
   'xhprof' =>
   array (
     '1.0' => 'http://nodeload.github.com/preinheimer/xhprof/zipball/master',
@@ -218,35 +246,6 @@
     array (
       'version' => '1.0',
       'url' => 'http://nodeload.github.com/preinheimer/xhprof/zipball/master',
-    ),
-  ),
-  'composer' =>
-  array (
-    '1.0' => 'http://getcomposer.org/composer.phar',
-    'latest' =>
-    array (
-      'version' => '1.0',
-      'url' => 'http://getcomposer.org/composer.phar',
-    ),
-  ),
-  'clansuite' =>
-  array (
-    '0.2.1' => 'http://nodeload.github.com/jakoch/Clansuite/zipball/svnsync',
-    'latest' =>
-    array (
-      'version' => '0.2.1',
-      'url' => 'http://nodeload.github.com/jakoch/Clansuite/zipball/svnsync',
-    ),
-  ),
-  'phpext_apc' =>
-  array (
-    '3.1.10' => 'http://downloads.php.net/pierre/php_apc-3.1.10-5.3-vc9-x86.zip',
-    '3.1.11' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.11/php_apc-3.1.11-5.4-nts-vc9-x86.zip',
-    '3.1.12' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.12/php_apc-3.1.12-5.4-nts-vc9-x86.zip',
-    'latest' =>
-    array (
-      'version' => '3.1.12',
-      'url' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.12/php_apc-3.1.12-5.4-nts-vc9-x86.zip',
     ),
   ),
 );

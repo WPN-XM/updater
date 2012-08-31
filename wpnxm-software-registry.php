@@ -217,6 +217,7 @@
   'sendmail' =>
   array (
     '1.0' => 'http://www.glob.com.au/sendmail/sendmail.zip',
+    'latest' =>
     array (
       'version' => '1.0',
       'url' => 'http://www.glob.com.au/sendmail/sendmail.zip',

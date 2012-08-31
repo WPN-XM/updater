@@ -2,7 +2,7 @@
 	/**
 	 * WPN-XM Software Registry
 	 * ------------------------
-	 * Last Update Fri, 31 Aug 2012 09:40:13 +0000.
+	 * Last Update Fri, 31 Aug 2012 12:06:48 +0000.
 	 * Do not edit manually!
 	 */
 
@@ -168,6 +168,15 @@
       'url' => 'http://windows.php.net/downloads/pecl/releases/memcache/3.0.6/php_memcache-3.0.6-5.4-nts-vc9-x86.zip',
     ),
   ),
+  'phpext_varnish' =>
+  array (
+    '1.0' => 'http://windows.php.net/downloads/pecl/releases/varnish/1.0.0/php_varnish-1.0.0-5.4-nts-vc9-x86.zip',
+    'latest' =>
+    array (
+      'version' => '1.0',
+      'url' => 'http://windows.php.net/downloads/pecl/releases/varnish/1.0.0/php_varnish-1.0.0-5.4-nts-vc9-x86.zip',
+    ),
+  ),
   'phpext_xdebug' =>
   array (
     '2.2.0RC2' => 'http://xdebug.org/files/php_xdebug-2.2.0RC2-5.4-vc9-nts.dll',
@@ -188,12 +197,12 @@
   ),
   'phpmyadmin' =>
   array (
-    '3.5.2.2' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.2.2/phpMyAdmin-3.5.2.2-english.zip',
+    '3.5.2.2' => 'http://kent.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.2.2/phpMyAdmin-3.5.2.2-english.zip',
     '3.5.2.1' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.2.1/phpMyAdmin-3.5.2.1-english.zip',
     'latest' =>
     array (
       'version' => '3.5.2.2',
-      'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.2.2/phpMyAdmin-3.5.2.2-english.zip',
+      'url' => 'http://kent.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.2.2/phpMyAdmin-3.5.2.2-english.zip',
     ),
   ),
   'webgrind' =>
@@ -239,14 +248,5 @@
       'version' => '1.0',
       'url' => 'http://nodeload.github.com/preinheimer/xhprof/zipball/master',
     ),
-  ),
-  'phpext_varnish' =>
-  array (
-    '1.0' => 'http://windows.php.net/downloads/pecl/releases/varnish/1.0.0/php_varnish-1.0.0-5.4-nts-vc9-x86.zip',
-    'latest' =>
-    array (
-      'version' => '1.0',
-      'url' => 'http://windows.php.net/downloads/pecl/releases/varnish/1.0.0/php_varnish-1.0.0-5.4-nts-vc9-x86.zip',
-      ),
   ),
 );

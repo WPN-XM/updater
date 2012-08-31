@@ -2,7 +2,7 @@
 	/**
 	 * WPN-XM Software Registry
 	 * ------------------------
-	 * Last Update Thu, 30 Aug 2012 17:14:41 +0000.
+	 * Last Update Thu, 30 Aug 2012 22:23:40 +0000.
 	 * Do not edit manually!
 	 */
 
@@ -26,7 +26,7 @@
   ),
   'php' =>
   array (
-    '5.4.5' => 'http://windows.php.net/downloads/releases/php-5.4.5-nts-Win32-VC9-x86.zip',
+    '5.4.5' => 'http://windows.php.net/downloads/releases/archives/php-5.4.5-nts-Win32-VC9-x86.zip',
     '5.4.6' => 'http://windows.php.net/downloads/releases/php-5.4.6-nts-Win32-VC9-x86.zip',
     'latest' =>
     array (
@@ -36,6 +36,44 @@
   ),
   'mariadb' =>
   array (
+    '5.1.41' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.1.41/windows/mariadb-5.1.41-win32.zip',
+    '5.1.42' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.1.42/windows/mariadb-5.1.42-win32.zip',
+    '5.1.44' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.1.44/windows/mariadb-5.1.44-win32.zip',
+    '5.1.47' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.1.47/windows/mariadb-5.1.47-win32.zip',
+    '5.1.49' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.1.49/windows/mariadb-5.1.49-win32.zip',
+    '5.1.50' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.1.50/windows/mariadb-5.1.50-win32.zip',
+    '5.1.51' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.1.51/windows/mariadb-5.1.51-win32.zip',
+    '5.1.53' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.1.53/windows/mariadb-5.1.53-win32.zip',
+    '5.1.55' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.1.55/windows/mariadb-5.1.55-win32.zip',
+    '5.1.60' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.1.60/windows/mariadb-5.1.60-win32.zip',
+    '5.1.61' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.1.61/windows/mariadb-5.1.61-win32.zip',
+    '5.1.62' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.1.62/windows/mariadb-5.1.62-win32.zip',
+    '5.2.0' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.2.0/windows/mariadb-5.2.0-win32.zip',
+    '5.2.1' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.2.1/windows/mariadb-5.2.1-win32.zip',
+    '5.2.10' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.2.10/windows/mariadb-5.2.10-win32.zip',
+    '5.2.11' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.2.11/windows/mariadb-5.2.11-win32.zip',
+    '5.2.12' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.2.12/windows/mariadb-5.2.12-win32.zip',
+    '5.2.2' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.2.2/windows/mariadb-5.2.2-win32.zip',
+    '5.2.3' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.2.3/windows/mariadb-5.2.3-win32.zip',
+    '5.2.4' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.2.4/windows/mariadb-5.2.4-win32.zip',
+    '5.2.5' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.2.5/windows/mariadb-5.2.5-win32.zip',
+    '5.2.6' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.2.6/windows/mariadb-5.2.6-win32.zip',
+    '5.2.7' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.2.7/windows/mariadb-5.2.7-win32.zip',
+    '5.2.8' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.2.8/windows/mariadb-5.2.8-win32.zip',
+    '5.2.9' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.2.9/windows/mariadb-5.2.9-win32.zip',
+    '5.3.0' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.3.0/windows/mariadb-5.3.0-win32.zip',
+    '5.3.1' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.3.1/windows/mariadb-5.3.1-win32.zip',
+    '5.3.2' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.3.2/windows/mariadb-5.3.2-win32.zip',
+    '5.3.3' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.3.3/windows/mariadb-5.3.3-win32.zip',
+    '5.3.4' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.3.4/windows/mariadb-5.3.4-win32.zip',
+    '5.3.5' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.3.5/windows/mariadb-5.3.5-win32.zip',
+    '5.3.6' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.3.6/windows/mariadb-5.3.6-win32.zip',
+    '5.3.7' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.3.7/windows/mariadb-5.3.7-win32.zip',
+    '5.3.8' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.3.8/windows/mariadb-5.3.8-win32.zip',
+    '5.5.20' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.20/windows/mariadb-5.5.20-win32.zip',
+    '5.5.21' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.21/windows/mariadb-5.5.21-win32.zip',
+    '5.5.22' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.22/windows/mariadb-5.5.22-win32.zip',
+    '5.5.23' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.23/windows/mariadb-5.5.23-win32.zip',
     '5.5.24' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.24/windows/mariadb-5.5.24-win32.zip',
     '5.5.25' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.25/windows/mariadb-5.5.25-win32.zip',
     'latest' =>
@@ -46,6 +84,13 @@
   ),
   'xdebug' =>
   array (
+    '2.0.4' => 'http://xdebug.org/files/php_xdebug-2.0.4-5.3.0-vc9-nts.dll',
+    '2.0.5' => 'http://xdebug.org/files/php_xdebug-2.0.5-5.3-vc9-nts.dll',
+    '2.1.0' => 'http://xdebug.org/files/php_xdebug-2.1.0beta3-5.3-vc9-nts.dll',
+    '2.1.1' => 'http://xdebug.org/files/php_xdebug-2.1.1rc1-5.3-vc9-nts.dll',
+    '2.1.2' => 'http://xdebug.org/files/php_xdebug-2.1.2-5.3-vc9-nts.dll',
+    '2.1.3' => 'http://xdebug.org/files/php_xdebug-2.1.3-5.3-vc9-nts.dll',
+    '2.1.4' => 'http://xdebug.org/files/php_xdebug-2.1.4-5.3-vc9-nts.dll',
     '2.2.0' => 'http://xdebug.org/files/php_xdebug-2.2.0RC2-5.4-vc9-nts.dll',
     '2.2.1' => 'http://xdebug.org/files/php_xdebug-2.2.1-5.3-vc9-nts.dll',
     'latest' =>
@@ -54,21 +99,10 @@
       'url' => 'http://xdebug.org/files/php_xdebug-2.2.1-5.4-vc9-nts.dll',
     ),
   ),
-  'apc' =>
-  array (
-    '3.1.10' => 'http://downloads.php.net/pierre/php_apc-3.1.10-5.3-vc9-x86.zip',
-    '3.1.11' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.11/php_apc-3.1.115.4-nts-vc9-x86.zip',
-    '3.1.12' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.12/php_apc-3.1.125.4-nts-vc9-x86.zip',
-    'latest' =>
-    array (
-      'version' => '3.1.12',
-      'url' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.12/php_apc-3.1.125.4-nts-vc9-x86.zip',
-    ),
-  ),
   'phpmyadmin' =>
   array (
+    '3.5.2.2' => 'http://kent.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.2.2/phpMyAdmin-3.5.2.2-english.zip',
     '3.5.2.1' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.2.1/phpMyAdmin-3.5.2.1-english.zip',
-    '3.5.2.2' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.2.2/phpMyAdmin-3.5.2.2-english.zip',
     'latest' =>
     array (
       'version' => '3.5.2.2',
@@ -85,13 +119,15 @@
       'url' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.5.1/adminer-3.5.1.php',
     ),
   ),
-  'phpext_xdebug' =>
+  'phpext_apc' =>
   array (
-    '2.2.0RC2' => 'http://xdebug.org/files/php_xdebug-2.2.0RC2-5.4-vc9-nts.dll',
+    '3.1.10' => 'http://downloads.php.net/pierre/php_apc-3.1.10-5.3-vc9-x86.zip',
+    '3.1.11' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.11/php_apc-3.1.11-5.4-nts-vc9-x86.zip',
+    '3.1.12' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.12/php_apc-3.1.12-5.4-nts-vc9-x86.zip',
     'latest' =>
     array (
-      'version' => '2.2.0RC2',
-      'url' => 'http://xdebug.org/files/php_xdebug-2.2.0RC2-5.4-vc9-nts.dll',
+      'version' => '3.1.12',
+      'url' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.12/php_apc-3.1.12-5.4-nts-vc9-x86.zip',
     ),
   ),
   'phpext_memcache' =>
@@ -103,6 +139,15 @@
       'url' => 'http://downloads.php.net/pierre/php_memcache-2.2.6-5.3-vc9-x86.zip',
     ),
   ),
+  'phpext_xdebug' =>
+  array (
+    '2.2.0RC2' => 'http://xdebug.org/files/php_xdebug-2.2.0RC2-5.4-vc9-nts.dll',
+    'latest' =>
+    array (
+      'version' => '2.2.0RC2',
+      'url' => 'http://xdebug.org/files/php_xdebug-2.2.0RC2-5.4-vc9-nts.dll',
+    ),
+  ),
   'phpext_zeromq' =>
   array (
     '1.0' => 'http://snapshot.zero.mq/download/win32/php53-ext/php-zmq-20111011_12-39.zip',
@@ -110,15 +155,6 @@
     array (
       'version' => '1.0',
       'url' => 'http://snapshot.zero.mq/download/win32/php53-ext/php-zmq-20111011_12-39.zip',
-    ),
-  ),
-  'phpext_apc' =>
-  array (
-    '3.1.10' => 'http://wpn-xm.org/files/php_apc-3.1.10-5.4-vc9-x86-xp.zip',
-    'latest' =>
-    array (
-      'version' => '3.1.10',
-      'url' => 'http://wpn-xm.org/files/php_apc-3.1.10-5.4-vc9-x86-xp.zip',
     ),
   ),
   'memcached' =>
@@ -200,6 +236,17 @@
     array (
       'version' => '0.2.1',
       'url' => 'http://nodeload.github.com/jakoch/Clansuite/zipball/svnsync',
+    ),
+  ),
+  'phpext_apc' =>
+  array (
+    '3.1.10' => 'http://downloads.php.net/pierre/php_apc-3.1.10-5.3-vc9-x86.zip',
+    '3.1.11' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.11/php_apc-3.1.11-5.4-nts-vc9-x86.zip',
+    '3.1.12' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.12/php_apc-3.1.12-5.4-nts-vc9-x86.zip',
+    'latest' =>
+    array (
+      'version' => '3.1.12',
+      'url' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.12/php_apc-3.1.12-5.4-nts-vc9-x86.zip',
     ),
   ),
 );

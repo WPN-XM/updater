@@ -55,6 +55,9 @@ use Goutte\Client;
 // load software components registry
 $registry = include __DIR__ . '/wpnxm-software-registry.php';
 
+// clone old registry for comparing latest versions (see html section below)
+$old_registry = $registry;
+
 // ensure registry array is available
 if (!is_array($registry)) {
     header("HTTP/1.0 404 Not Found");
@@ -73,14 +76,14 @@ function get_latest_version_of_nginx()
 
     return $nginx_latest = $crawler->filter('a')->each(function ($node, $i) use ($registry) {
         if (preg_match("#(\d+\.\d+(\.\d+)*)(.zip)$#i", $node->nodeValue, $matches)) {
-            if ($registry['nginx']['current'] <= $matches[1]) {
+            if ($registry['nginx']['latest']['version'] <= $matches[1]) {
                 return array('version' => $matches[1], 'url' => 'http://www.nginx.org/download/' . $node->nodeValue);
             }
         }
     });
 }
 
-#add('nginx', get_latest_version_of_nginx() );
+add('nginx', get_latest_version_of_nginx() );
 
 /**
  * PHP
@@ -93,14 +96,14 @@ function get_latest_version_of_php()
 
     return $php_latest = $crawler->filter('a')->each(function ($node, $i) use ($registry) {
         if (preg_match("#php-+(\d+\.\d+(\.\d+)*)-nts-Win32-VC9-x86.zip$#", $node->nodeValue, $matches)) {
-            if ($registry['php']['current'] <= $matches[1]) {
+            if ($registry['php']['latest']['version'] <= $matches[1]) {
                 return array('version' => $matches[1], 'url' => 'http://windows.php.net/downloads/releases/' . $node->nodeValue);
             }
         }
     });
 }
 
-#add('php', get_latest_version_of_php() );
+add('php', get_latest_version_of_php() );
 
 /**
  * MariaDB
@@ -115,15 +118,14 @@ function get_latest_version_of_mariadb()
         if (preg_match("#(\d+\.\d+(\.\d+)*)$#", $node->nodeValue, $matches)) {
             $version = $matches[0];
             $filename = 'mariadb-'.$version.'-win32.zip'; // e.g. mariadb-5.5.25-win32.zip
-            if ($registry['mariadb']['current'] < $version) {
-                echo $version;
+            if ($registry['mariadb']['latest']['version'] <= $version) {
                 return array('version' => $version, 'url' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-' . $version . '/windows/' . $filename);
             }
         }
     });
 }
 
-#add('mariadb', get_latest_version_of_mariadb() );
+add('mariadb', get_latest_version_of_mariadb() );
 
 /**
  * XDebug - PHP Extension
@@ -136,14 +138,14 @@ function get_latest_version_of_xdebug()
 
     return $xdebug_latest = $crawler->filter('a')->each(function ($node, $i) use ($registry) {
         if (preg_match("#((\d+\.)?(\d+\.)?(\d+\.)?(\*|\d+))([^\s]+nts(\.(?i)(dll))$)#i", $node->nodeValue, $matches)) {
-                if ($registry['xdebug']['current'] <= $matches[1]) {
+                if ($registry['xdebug']['latest']['version'] <= $matches[1]) {
                     return array('version' => $matches[1], 'url' => 'http://xdebug.org/files/' . $node->nodeValue);
                 }
         }
     });
 }
 
-#add('xdebug', get_latest_version_of_xdebug() );
+add('xdebug', get_latest_version_of_xdebug() );
 
 /**
  * APC - PHP Extension
@@ -157,15 +159,16 @@ function get_latest_version_of_apc()
     return  $apc_latest = $crawler->filter('a')->each(function ($node, $i) use ($registry) {
         if (preg_match("#(\d+\.\d+(\.\d+)*)$#", $node->nodeValue, $matches)) {
             $version = $matches[1];
-            $filename = 'php_apc-'.$version.'5.4-nts-vc9-x86.zip';
-            if ($registry['apc']['current'] <= $version) {
+            $filename = 'php_apc-'.$version.'-5.4-nts-vc9-x86.zip';
+            if ($registry['phpext_apc']['latest']['version'] <= $version) {
                 return array('version' => $version, 'url' => 'http://windows.php.net/downloads/pecl/releases/apc/'.$version.'/'.$filename);
             }
         }
     });
 }
 
-add('apc', get_latest_version_of_apc() );
+add('phpext_
+    apc', get_latest_version_of_apc() );
 
 /**
  * phpMyAdmin
@@ -178,7 +181,7 @@ function get_latest_version_of_phpmyadmin()
 
     return $phpmyadmin_latest = $crawler->filter('a')->each(function ($node, $i) use ($registry) {
         if (preg_match("#(\d+\.\d+(\.\d+)*)#", $node->nodeValue, $matches)) {
-            if ($registry['phpmyadmin']['current'] <= $matches[0]) {
+            if ($registry['phpmyadmin']['latest']['version'] <= $matches[0]) {
                 // mirror redirect fails somehow
                 //$url = 'http://sourceforge.net/projects/phpmyadmin/files/phpMyAdmin/'.$matches[0].'/phpMyAdmin-'.$matches[0].'-english.zip/download?use_mirror=autoselect';
                 // using direkt link
@@ -189,7 +192,7 @@ function get_latest_version_of_phpmyadmin()
     });
 }
 
-#add('phpmyadmin', get_latest_version_of_phpmyadmin() );
+add('phpmyadmin', get_latest_version_of_phpmyadmin() );
 
 /**
  * Adminer
@@ -202,7 +205,7 @@ function get_latest_version_of_adminer()
 
     return $adminer_latest = $crawler->filter('a')->each(function ($node, $i) use ($registry) {
         if (preg_match("#(\d+\.\d+(\.\d+)*)#", $node->nodeValue, $matches)) {
-            if ($registry['adminer']['current'] <= $matches[0]) {
+            if ($registry['adminer']['latest']['version'] <= $matches[0]) {
                 // mirror redirect fails somehow
                 //$url = 'http://sourceforge.net/projects/adminer/files/Adminer/Adminer%20'.$matches[0].'/adminer-'.$matches[0].'.php/download?use_mirror=autoselect';
                 // using direkt link
@@ -214,7 +217,7 @@ function get_latest_version_of_adminer()
     });
 }
 
-#add('adminer', get_latest_version_of_adminer() );
+add('adminer', get_latest_version_of_adminer() );
 
 /**
  * Removes all keys with value "null" from the array and returns the array.
@@ -262,26 +265,26 @@ function add($name, array $array)
 
 #var_dump($registry);
 
-function array_unset_current_values(array $array)
+/**
+ * PHP release files are moved from "/releases" to "/releases/archives".
+ */
+function adjust_php_download_path()
 {
-    foreach ($array as $key => $value) {
-        if ($value === 'current') {
-            unset($array[$key][$value]);
-        }
+    global $registry;
+
+    foreach($registry['php'] as $version => $url) {
+        // do not modify array key "latest"
+        if( $version === 'latest') continue;
+        // do not modify array key with version number like latest version (that one must point to releases)
+        if( $version === $registry['php']['latest']['version']) continue;
+        // adjust path and insert at old array position (overwriting)
+        $new_url = str_replace('php.net/downloads/releases/php', 'php.net/downloads/releases/archives/php', $url);
+        $registry['php'][$version] = $new_url;
     }
 
-    return $array;
 }
 
-var_export($registry);
-
-/**
- * combine arrays
- */
-$registry = $registry + $registry;
-$registry = array_unset_current_values($registry);
-
-var_export($registry);
+adjust_php_download_path();
 
 write_registry_file($registry);
 
@@ -312,30 +315,30 @@ function write_registry_file(array $registry)
     // write new registry
     file_put_contents( 'wpnxm-software-registry.php', $content );
 }
-//var_dump($registry['nginx']);
+
 ?>
 
 <table>
-    <thead>application</thead><thead>current version</thead><thead>latest version</thead>
+    <thead>Application</thead><thead>(Old) Latest Version</thead><thead>(New) Latest Version</thead>
 <tr>
-    <td>nginx</td><td><?php echo $registry['nginx']['current'] ?></td><td><?php echo $registry['nginx']['latest']['version'] ?></td>
+    <td>nginx</td><td><?php echo $old_registry['nginx']['latest']['version']  ?></td><td><?php echo $registry['nginx']['latest']['version'] ?></td>
 </tr>
 <tr>
-    <td>php</td><td><?php echo $registry['php']['current'] ?></td><td><?php echo $registry['php']['latest']['version'] ?></td>
+    <td>php</td><td><?php echo $old_registry['php']['latest']['version'] ?></td><td><?php echo $registry['php']['latest']['version'] ?></td>
 </tr>
 <tr>
-    <td>mariadb</td><td><?php echo $registry['mariadb']['current'] ?></td><td><?php echo $registry['mariadb']['latest']['version'] ?></td>
+    <td>mariadb</td><td><?php echo $old_registry['mariadb']['latest']['version'] ?></td><td><?php echo $registry['mariadb']['latest']['version'] ?></td>
 </tr>
 <tr>
-    <td>xdebug</td><td><?php echo $registry['xdebug']['current'] ?></td><td><?php echo $registry['xdebug']['latest']['version'] ?></td>
+    <td>xdebug</td><td><?php echo $old_registry['xdebug']['latest']['version'] ?></td><td><?php echo $registry['xdebug']['latest']['version'] ?></td>
 </tr>
 <tr>
-    <td>apc</td><td><?php echo $registry['apc']['current'] ?></td><td><?php echo $registry['apc']['latest']['version'] ?></td>
+    <td>apc</td><td><?php echo $old_registry['phpext_apc']['latest']['version'] ?></td><td><?php echo $registry['phpext_apc']['latest']['version'] ?></td>
 </tr>
 <tr>
-    <td>phpmyadmin</td><td><?php echo $registry['phpmyadmin']['current'] ?></td><td><?php echo $registry['phpmyadmin']['latest']['version'] ?></td>
+    <td>phpmyadmin</td><td><?php echo $old_registry['phpmyadmin']['latest']['version'] ?></td><td><?php echo $registry['phpmyadmin']['latest']['version'] ?></td>
 </tr>
 <tr>
-    <td>adminer</td><td><?php echo $registry['adminer']['current'] ?></td><td><?php echo $registry['adminer']['latest']['version'] ?></td>
+    <td>adminer</td><td><?php echo $old_registry['adminer']['latest']['version'] ?></td><td><?php echo $registry['adminer']['latest']['version'] ?></td>
 </tr>
 </table>

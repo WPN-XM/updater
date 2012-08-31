@@ -94,12 +94,12 @@
   ),
   'memadmin' =>
   array (
-    '1.0.11' => 'https://nodeload.github.com/junstor/memadmin/zipball/master',
+    '1.0.11' => 'https://github.com/junstor/memadmin/zipball/v1.0.11',
+    '1.0.12' => 'https://github.com/junstor/memadmin/zipball/v1.0.12',
     'latest' =>
     array (
-      'version' => '1.0.11',
-      'url' => 'https://nodeload.github.com/junstor/memadmin/zipball/master',
-    ),
+      'version' => '1.0.12',
+      'url' => 'https://github.com/junstor/memadmin/zipball/v1.0.12',
   ),
   'memcached' =>
   array (

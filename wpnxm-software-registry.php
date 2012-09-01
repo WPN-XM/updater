@@ -188,6 +188,15 @@
   ),
   'phpext_xdebug' =>
   array (
+    '2.0.4' => 'http://xdebug.org/files/php_xdebug-2.0.4-5.3.0-vc9-nts.dll',
+    '2.0.5' => 'http://xdebug.org/files/php_xdebug-2.0.5-5.3-vc9-nts.dll',
+    '2.1.0' => 'http://xdebug.org/files/php_xdebug-2.1.0beta3-5.3-vc9-nts.dll',
+    '2.1.1' => 'http://xdebug.org/files/php_xdebug-2.1.1rc1-5.3-vc9-nts.dll',
+    '2.1.2' => 'http://xdebug.org/files/php_xdebug-2.1.2-5.3-vc9-nts.dll',
+    '2.1.3' => 'http://xdebug.org/files/php_xdebug-2.1.3-5.3-vc9-nts.dll',
+    '2.1.4' => 'http://xdebug.org/files/php_xdebug-2.1.4-5.3-vc9-nts.dll',
+    '2.2.0' => 'http://xdebug.org/files/php_xdebug-2.2.0RC2-5.4-vc9-nts.dll',
+    '2.2.1' => 'http://xdebug.org/files/php_xdebug-2.2.1-5.3-vc9-nts.dll',
     '2.2.0RC2' => 'http://xdebug.org/files/php_xdebug-2.2.0RC2-5.4-vc9-nts.dll',
     'latest' =>
     array (
@@ -249,23 +258,6 @@
     array (
       'version' => '0.4.0',
       'url' => 'http://wpn-xm.org/files/wpn-xm-scp-0.4.0.zip',
-    ),
-  ),
-  'xdebug' =>
-  array (
-    '2.0.4' => 'http://xdebug.org/files/php_xdebug-2.0.4-5.3.0-vc9-nts.dll',
-    '2.0.5' => 'http://xdebug.org/files/php_xdebug-2.0.5-5.3-vc9-nts.dll',
-    '2.1.0' => 'http://xdebug.org/files/php_xdebug-2.1.0beta3-5.3-vc9-nts.dll',
-    '2.1.1' => 'http://xdebug.org/files/php_xdebug-2.1.1rc1-5.3-vc9-nts.dll',
-    '2.1.2' => 'http://xdebug.org/files/php_xdebug-2.1.2-5.3-vc9-nts.dll',
-    '2.1.3' => 'http://xdebug.org/files/php_xdebug-2.1.3-5.3-vc9-nts.dll',
-    '2.1.4' => 'http://xdebug.org/files/php_xdebug-2.1.4-5.3-vc9-nts.dll',
-    '2.2.0' => 'http://xdebug.org/files/php_xdebug-2.2.0RC2-5.4-vc9-nts.dll',
-    '2.2.1' => 'http://xdebug.org/files/php_xdebug-2.2.1-5.3-vc9-nts.dll',
-    'latest' =>
-    array (
-      'version' => '2.2.1',
-      'url' => 'http://xdebug.org/files/php_xdebug-2.2.1-5.4-vc9-nts.dll',
     ),
   ),
   'xhprof' =>

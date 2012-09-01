@@ -138,14 +138,14 @@ function get_latest_version_of_xdebug()
 
     return $xdebug_latest = $crawler->filter('a')->each(function ($node, $i) use ($registry) {
         if (preg_match("#((\d+\.)?(\d+\.)?(\d+\.)?(\*|\d+))([^\s]+nts(\.(?i)(dll))$)#i", $node->nodeValue, $matches)) {
-                if ($registry['xdebug']['latest']['version'] <= $matches[1]) {
+                if ($registry['phpext_xdebug']['latest']['version'] <= $matches[1]) {
                     return array('version' => $matches[1], 'url' => 'http://xdebug.org/files/' . $node->nodeValue);
                 }
         }
     });
 }
 
-add('xdebug', get_latest_version_of_xdebug() );
+add('phpext_xdebug', get_latest_version_of_xdebug() );
 
 /**
  * APC - PHP Extension

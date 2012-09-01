@@ -94,12 +94,12 @@
   ),
   'memadmin' =>
   array (
-    '1.0.11' => 'https://github.com/junstor/memadmin/zipball/v1.0.11',
-    '1.0.12' => 'https://github.com/junstor/memadmin/zipball/v1.0.12',
+    '1.0.11' => 'http://nodeload.github.com/junstor/memadmin/zipball/v1.0.11',
+    '1.0.12' => 'http://nodeload.github.com/junstor/memadmin/zipball/v1.0.12',
     'latest' =>
     array (
       'version' => '1.0.12',
-      'url' => 'https://github.com/junstor/memadmin/zipball/v1.0.12',
+      'url' => 'http://nodeload.github.com/junstor/memadmin/zipball/v1.0.12',
     ),
   ),
   'memcached' =>
@@ -204,14 +204,32 @@
       'url' => 'http://snapshot.zero.mq/download/win32/php53-ext/php-zmq-20111011_12-39.zip',
     ),
   ),
+   'phpext_xhprof' =>
+  array (
+    '0.10.3' => 'http://dev.freshsite.pl/php-extensions/xhprof/file/details/xhprof-0103-for-php-54-vc9-nts.html',
+    'latest' =>
+    array (
+      'version' => '0.10.3',
+      'url' => 'http://dev.freshsite.pl/php-extensions/xhprof/file/details/xhprof-0103-for-php-54-vc9-nts.html',
+    ),
+  ),
   'phpmyadmin' =>
   array (
-    '3.5.2.2' => 'http://kent.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.2.2/phpMyAdmin-3.5.2.2-english.zip',
+    '3.5.2.2' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.2.2/phpMyAdmin-3.5.2.2-english.zip',
     '3.5.2.1' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.2.1/phpMyAdmin-3.5.2.1-english.zip',
     'latest' =>
     array (
       'version' => '3.5.2.2',
-      'url' => 'http://kent.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.2.2/phpMyAdmin-3.5.2.2-english.zip',
+      'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.2.2/phpMyAdmin-3.5.2.2-english.zip',
+    ),
+  ),
+  'sendmail' =>
+  array (
+    '1.0' => 'http://www.glob.com.au/sendmail/sendmail.zip',
+    'latest' =>
+    array (
+      'version' => '1.0',
+      'url' => 'http://www.glob.com.au/sendmail/sendmail.zip',
     ),
   ),
   'webgrind' =>

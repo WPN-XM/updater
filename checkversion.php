@@ -167,8 +167,7 @@ function get_latest_version_of_apc()
     });
 }
 
-add('phpext_
-    apc', get_latest_version_of_apc() );
+add('phpext_apc', get_latest_version_of_apc() );
 
 /**
  * phpMyAdmin
@@ -185,7 +184,7 @@ function get_latest_version_of_phpmyadmin()
                 // mirror redirect fails somehow
                 //$url = 'http://sourceforge.net/projects/phpmyadmin/files/phpMyAdmin/'.$matches[0].'/phpMyAdmin-'.$matches[0].'-english.zip/download?use_mirror=autoselect';
                 // using direkt link
-                $url = 'http://kent.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/'.$matches[0].'/phpMyAdmin-'.$matches[0].'-english.zip';
+                $url = 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/'.$matches[0].'/phpMyAdmin-'.$matches[0].'-english.zip';
                 return array('version' => $matches[0], 'url' => $url);
             }
         }

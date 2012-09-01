@@ -109,12 +109,14 @@ $innosetup_entries = array(
   'URL_memadmin'         => 'http://wpn-xm.org/get.php?s=memadmin',
   'URL_phpext_memcached' => 'http://wpn-xm.org/get.php?s=phpext_memcache',
   'URL_phpext_zeromq'    => 'http://wpn-xm.org/get.php?s=phpext_zeromq',
+  'URL_phpext_xhprof'    => 'http://wpn-xm.org/get.php?s=phpext_xhprof',
   'URL_phpmyadmin'       => 'http://wpn-xm.org/get.php?s=phpmyadmin',
   'URL_adminer'          => 'http://wpn-xm.org/get.php?s=adminer',
   'URL_junction'         => 'http://wpn-xm.org/get.php?s=junction',
   'URL_pear'             => 'http://wpn-xm.org/get.php?s=pear',
   'URL_composer'         => 'http://wpn-xm.org/get.php?s=composer',
   'URL_wpnxmscp'         => 'http://wpn-xm.org/get.php?s=wpnxmscp',
+  'URL_sendmail'         => 'http://wpn-xm.org/get.php?s=sendmail',
 );
 
 foreach($innosetup_entries as $name => $url) {

@@ -226,10 +226,11 @@
   'wpnxmscp' =>
   array (
     '0.3.0' => 'http://wpn-xm.org/files/wpn-xm-scp-0.3.0.zip',
+    '0.4.0' => 'http://wpn-xm.org/files/wpn-xm-scp-0.4.0.zip',
     'latest' =>
     array (
-      'version' => '0.3.0',
-      'url' => 'http://wpn-xm.org/files/wpn-xm-scp-0.3.0.zip',
+      'version' => '0.4.0',
+      'url' => 'http://wpn-xm.org/files/wpn-xm-scp-0.4.0.zip',
     ),
   ),
   'xdebug' =>

@@ -333,7 +333,7 @@ function write_registry_file(array $registry)
     <td>mariadb</td><td><?php echo $old_registry['mariadb']['latest']['version'] ?></td><td><?php echo $registry['mariadb']['latest']['version'] ?></td>
 </tr>
 <tr>
-    <td>xdebug</td><td><?php echo $old_registry['xdebug']['latest']['version'] ?></td><td><?php echo $registry['xdebug']['latest']['version'] ?></td>
+    <td>xdebug</td><td><?php echo $old_registry['phpext_xdebug']['latest']['version'] ?></td><td><?php echo $registry['phpext_xdebug']['latest']['version'] ?></td>
 </tr>
 <tr>
     <td>apc</td><td><?php echo $old_registry['phpext_apc']['latest']['version'] ?></td><td><?php echo $registry['phpext_apc']['latest']['version'] ?></td>

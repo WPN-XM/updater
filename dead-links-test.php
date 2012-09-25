@@ -42,14 +42,17 @@ if (!extension_loaded('curl')) {
  * Broken link check on the download links of the software comonents registry
  */
 
-echo '<b>This is a check for dead and broken links in the WPN-XM software components registry.</b><br>';
+echo '<b>This is a check for dead and broken links in the <span style="color: red;">local</span> WPN-XM software components registry.</b><br>';
 
 // load software components registry
 $registry = include __DIR__ . '/wpnxm-software-registry.php';
 
+echo '<table>';
+echo '<tr><th>Software Component</th><th>Version</th><th>URL</th></tr>';
+
 foreach($registry as $software => $versions) {
 
-    echo '<b>'. $software .'</b><br>';
+    echo '<tr><td><b>'. $software .'</b></td>';
 
     foreach($versions as $version => $url) {
 
@@ -59,16 +62,19 @@ foreach($registry as $software => $versions) {
 
         // only test latest (for now)
         if($version === 'latest') {
-            echo 'Latest Version (' . $url['version'] . ')';
+            echo '<td>' . $url['version'] . '</td>';
             if(is_available($url['url']) === true)
-            {       echo ' <a style="font-weight: light; color: green;" href="'.$url['url'].'">'.$url['url'].'</a><br>';
+            {       echo '<td><a style="font-weight: light; color: green;" href="'.$url['url'].'">'.$url['url'].'</a></td>';
                 } else {
-                    echo ' <a style="font-weight: bold; color: red;" href="'.$url['url'].'">'.$url['url'].'</a><br>';
+                    echo '<td><a style="font-weight: bold; color: red;" href="'.$url['url'].'">'.$url['url'].'</a></td>';
             }
         }
     }
+
+    echo '</tr>';
 }
 
+echo '</table>';
 
 function is_available($url, $timeout = 30)
 {

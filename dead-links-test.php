@@ -39,16 +39,53 @@ if (!extension_loaded('curl')) {
 }
 
 /**
- * Broken link check on the download links of the software comonents registry
+ * Broken link check on the download links of the innosetup file.
+ * These are the download requests by the installation wizard to the server.
  */
 
-echo '<b>This is a check for dead and broken links in the <span style="color: red;">local</span> WPN-XM software components registry.</b><br>';
+echo '<h2>Test for broken links in the WPN-XM Software Components Registry</h2>';
+
+$server_urls = array(
+  'adminer'          => 'http://wpn-xm.org/get.php?s=adminer',
+  'composer'         => 'http://wpn-xm.org/get.php?s=composer',
+  'junction'         => 'http://wpn-xm.org/get.php?s=junction',
+  'mariadb'          => 'http://wpn-xm.org/get.php?s=mariadb',
+  'memadmin'         => 'http://wpn-xm.org/get.php?s=memadmin',
+  'memcached'        => 'http://wpn-xm.org/get.php?s=memcached',
+  'nginx'            => 'http://wpn-xm.org/get.php?s=nginx',
+  'pear'             => 'http://wpn-xm.org/get.php?s=pear',
+  'php'              => 'http://wpn-xm.org/get.php?s=php',
+  'phpext_apc'       => 'http://wpn-xm.org/get.php?s=phpext_apc',
+  'phpext_memcached' => 'http://wpn-xm.org/get.php?s=phpext_memcache',
+  'phpext_xdebug'    => 'http://wpn-xm.org/get.php?s=phpext_xdebug',
+  'phpext_xhprof'    => 'http://wpn-xm.org/get.php?s=phpext_xhprof',
+  'phpext_zeromq'    => 'http://wpn-xm.org/get.php?s=phpext_zeromq',
+  'phpmyadmin'       => 'http://wpn-xm.org/get.php?s=phpmyadmin',
+  'sendmail'         => 'http://wpn-xm.org/get.php?s=sendmail',
+  'webgrind'         => 'http://wpn-xm.org/get.php?s=webgrind',
+  'wpnxmscp'         => 'http://wpn-xm.org/get.php?s=wpnxmscp',
+  'xhprof'           => 'http://wpn-xm.org/get.php?s=xhprof',
+);
+
+$tested_server_urls = array();
+
+foreach($server_urls as $software => $url) {
+    $color = is_available($url) === true ? 'color: green' : 'color: red';
+    $tested_server_urls[$software] = '<a style="font-weight: bold; '.$color.';" href="'.$url.'">'.$url.'</a>';
+}
+
+/**
+ * Broken link check on the download links of the software comonents registry
+ * This tests the links in the local wpnxm software components registry.
+ */
 
 // load software components registry
 $registry = include __DIR__ . '/wpnxm-software-registry.php';
 
+echo '<h3>Components ('.count($registry).')</h3>';
+
 echo '<table>';
-echo '<tr><th>Software Component</th><th>Version</th><th>URL</th></tr>';
+echo '<tr><th>Software Component</th><th>Version</th><th>Download URL<br/>(local wpnxm-software-registry.php)</th><th>Forwarding URL<br/>(server wpnxm-software-registry.php)</th></tr>';
 
 foreach($registry as $software => $versions) {
 
@@ -63,12 +100,13 @@ foreach($registry as $software => $versions) {
         // only test latest (for now)
         if($version === 'latest') {
             echo '<td>' . $url['version'] . '</td>';
-            if(is_available($url['url']) === true)
-            {       echo '<td><a style="font-weight: light; color: green;" href="'.$url['url'].'">'.$url['url'].'</a></td>';
-                } else {
-                    echo '<td><a style="font-weight: bold; color: red;" href="'.$url['url'].'">'.$url['url'].'</a></td>';
-            }
+            $color = is_available($url['url']) === true ? 'color: green' : 'color: red';
+            echo '<td><a style="font-weight: bold; '.$color.';" href="'.$url['url'].'">'.$url['url'].'</a></td>';
         }
+    }
+
+    if(isset($tested_server_urls[$software])) {
+      echo '<td>'.$tested_server_urls[$software].'</td>';
     }
 
     echo '</tr>';
@@ -86,7 +124,10 @@ function is_available($url, $timeout = 30)
         CURLOPT_URL => $url,
         CURLOPT_NOBODY => true,                 // do HEAD request only
         CURLOPT_TIMEOUT => $timeout,
-        CURLOPT_FOLLOWLOCATION => true
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_SSL_VERIFYPEER => false,
+        CURLOPT_SSL_VERIFYHOST => false,
+        CURLOPT_USERAGENT, 'WPN-XM Server Stack - Update Tool - http://wpn-xm.org/',
     );
 
     curl_setopt_array($ch, $options);
@@ -95,40 +136,4 @@ function is_available($url, $timeout = 30)
     curl_close($ch);
 
     return $retval;
-}
-
-/**
- * Broken link check on the download links of the innosetup file
- */
-
-echo '<br><b>This is a check for dead and broken links in the WPN-XM innosetup script file.</b><br>';
-
-$innosetup_entries = array(
-  'URL_adminer'          => 'http://wpn-xm.org/get.php?s=adminer',
-  'URL_composer'         => 'http://wpn-xm.org/get.php?s=composer',
-  'URL_junction'         => 'http://wpn-xm.org/get.php?s=junction',
-  'URL_mariadb'          => 'http://wpn-xm.org/get.php?s=mariadb',
-  'URL_memadmin'         => 'http://wpn-xm.org/get.php?s=memadmin',
-  'URL_memcached'        => 'http://wpn-xm.org/get.php?s=memcached',
-  'URL_nginx'            => 'http://wpn-xm.org/get.php?s=nginx',
-  'URL_pear'             => 'http://wpn-xm.org/get.php?s=pear',
-  'URL_php'              => 'http://wpn-xm.org/get.php?s=php',
-  'URL_phpext_apc'       => 'http://wpn-xm.org/get.php?s=phpext_apc',
-  'URL_phpext_memcached' => 'http://wpn-xm.org/get.php?s=phpext_memcache',
-  'URL_phpext_xdebug'    => 'http://wpn-xm.org/get.php?s=phpext_xdebug',
-  'URL_phpext_xhprof'    => 'http://wpn-xm.org/get.php?s=phpext_xhprof',
-  'URL_phpext_zeromq'    => 'http://wpn-xm.org/get.php?s=phpext_zeromq',
-  'URL_phpmyadmin'       => 'http://wpn-xm.org/get.php?s=phpmyadmin',
-  'URL_sendmail'         => 'http://wpn-xm.org/get.php?s=sendmail',
-  'URL_webgrind'         => 'http://wpn-xm.org/get.php?s=webgrind',
-  'URL_wpnxmscp'         => 'http://wpn-xm.org/get.php?s=wpnxmscp',
-  'URL_xhprof'           => 'http://wpn-xm.org/get.php?s=xhprof',
-);
-
-foreach($innosetup_entries as $name => $url) {
-    if(is_available($url) === true)
-    {       echo ' <a style="font-weight: light; color: green;" href="'.$url.'">'.$url.'</a><br>';
-        } else {
-            echo ' <a style="font-weight: bold; color: red;" href="'.$url.'">'.$url.'</a><br>';
-    }
 }

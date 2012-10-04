@@ -179,7 +179,7 @@ function get_latest_version_of_phpmyadmin()
     $crawler = $goutte_client->request('GET', 'http://www.phpmyadmin.net/home_page/downloads.php');
 
     return $phpmyadmin_latest = $crawler->filter('a')->each(function ($node, $i) use ($registry) {
-        if (preg_match("#(\d+\.\d+(\.\d+)*)#", $node->nodeValue, $matches)) {
+        if (preg_match("#(\d+\.\d+(\.\d+)*)[._-]?(?:(beta|b|rc|alpha|a|patch|pl|p)?(\d+)(?:[.-]?(\d+))?)?([.-]?dev)?#", $node->nodeValue, $matches)) {
             if ($registry['phpmyadmin']['latest']['version'] <= $matches[0]) {
                 // mirror redirect fails somehow
                 //$url = 'http://sourceforge.net/projects/phpmyadmin/files/phpMyAdmin/'.$matches[0].'/phpMyAdmin-'.$matches[0].'-english.zip/download?use_mirror=autoselect';

@@ -154,7 +154,7 @@ $registry = include __DIR__ . '/wpnxm-software-registry.php';
 $html_list_array = getHTMLArray($registry);
 
 // these keys will come first in the array
-$sort_order_keys = array('PHP', 'Nginx', 'XDebug', 'MariaDB', 'Adminer', 'phpMyAdmin');
+$sort_order_keys = array('PHP', 'Nginx', 'XDebug', 'MariaDB', 'Adminer', 'phpMyAdmin', 'Composer', 'PEAR', 'APC');
 
 array_reorder_keys($html_list_array, $sort_order_keys);
 

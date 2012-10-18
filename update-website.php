@@ -147,6 +147,10 @@ function getHTMLArray(array $registry)
  * - Main -
  */
 
+if(!is_file(__DIR__ . '/index.html')) {
+    exit('index.html not found.');
+}
+
 // load software components registry
 $registry = include __DIR__ . '/wpnxm-software-registry.php';
 

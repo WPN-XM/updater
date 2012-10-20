@@ -43,7 +43,7 @@ if (!extension_loaded('curl')) {
  * These are the download requests by the installation wizard to the server.
  */
 
-echo '<h2>Test for broken links in the WPN-XM Software Components Registry</h2>';
+echo '<h2>WPN-XM Software Components Registry - Status</h2>';
 
 $server_urls = array(
   'adminer'          => 'http://wpn-xm.org/get.php?s=adminer',

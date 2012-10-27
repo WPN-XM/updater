@@ -2,7 +2,7 @@
 	/**
 	 * WPN-XM Software Registry
 	 * ------------------------
-	 * Last Update Fri, 26 Oct 2012 15:17:13 +0000.
+	 * Last Update Sat, 27 Oct 2012 20:14:01 +0000.
 	 * Do not edit manually!
 	 */
 
@@ -98,11 +98,11 @@
     '5.5.24' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.24/windows/mariadb-5.5.24-win32.zip',
     '5.5.25' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.25/windows/mariadb-5.5.25-win32.zip',
     '5.5.27' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.27/windows/mariadb-5.5.27-win32.zip',
-    '5.5.28' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.28/windows/mariadb-5.5.28-win32.zip',
+    '5.5.28' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.28/win32-packages/mariadb-5.5.28-win32.zip',
     'latest' => 
     array (
-      'version' => '5.5.27',
-      'url' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.27/windows/mariadb-5.5.27-win32.zip',
+      'version' => '5.5.28',
+      'url' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.28/win32-packages/mariadb-5.5.28-win32.zip',
     ),
   ),
   'memadmin' => 

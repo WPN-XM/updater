@@ -54,6 +54,7 @@ $server_urls = array(
   'memcached'        => 'http://wpn-xm.org/get.php?s=memcached',
   'mongodb'          => 'http://wpn-xm.org/get.php?s=mongodb',
   'nginx'            => 'http://wpn-xm.org/get.php?s=nginx',
+  'openssl'          => 'http://wpn-xm.org/get.php?s=openssl',
   'pear'             => 'http://wpn-xm.org/get.php?s=pear',
   'php'              => 'http://wpn-xm.org/get.php?s=php',
   'phpext_apc'       => 'http://wpn-xm.org/get.php?s=phpext_apc',

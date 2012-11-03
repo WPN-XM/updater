@@ -102,7 +102,7 @@
     'latest' =>
     array (
       'version' => '5.5.28',
-      'url' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.28/win32-packages/mariadb-5.5.28-win32.zip',
+      'url' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.28/windows/mariadb-5.5.28-win32.zip',
     ),
   ),
   'memadmin' =>
@@ -128,6 +128,17 @@
       'url' => 'http://downloads.northscale.com/memcached-1.4.5-x86.zip',
     ),
   ),
+  'mongodb' =>
+  array (
+    'name' => 'MongoDB',
+    'website' => 'http://mongodb.org/',
+    '2.2.1' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.2.1.zip',
+    'latest' =>
+    array (
+      'version' => '2.2.1',
+      'url' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.2.1.zip',
+    ),
+  ),
   'nginx' =>
   array (
     'name' => 'Nginx',
@@ -147,6 +158,17 @@
     array (
       'version' => '1.3.7',
       'url' => 'http://www.nginx.org/download/nginx-1.3.7.zip',
+    ),
+  ),
+  'openssl' =>
+  array (
+    'name' => 'OpenSSL',
+    'website' => 'http://slproweb.com/',
+    '1.0.1c' => 'http://slproweb.com/download/Win32OpenSSL_Light-1_0_1c.exe',
+    'latest' =>
+    array (
+      'version' => '1.0.1c',
+      'url' => 'http://slproweb.com/download/Win32OpenSSL_Light-1_0_1c.exe'
     ),
   ),
   'pear' =>

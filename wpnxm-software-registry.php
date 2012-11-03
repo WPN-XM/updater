@@ -102,7 +102,7 @@
     'latest' =>
     array (
       'version' => '5.5.28',
-      'url' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.28/windows/mariadb-5.5.28-win32.zip',
+      'url' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.28/win32-packages/mariadb-5.5.28-win32.zip',
     ),
   ),
   'memadmin' =>

@@ -118,8 +118,11 @@ function get_latest_version_of_mariadb()
         if (preg_match("#(\d+\.\d+(\.\d+)*)$#", $node->nodeValue, $matches)) {
             $version = $matches[0];
             $filename = 'mariadb-'.$version.'-win32.zip'; // e.g. mariadb-5.5.25-win32.zip
+            $folder = ($version >= '5.5.28') ? 'win32-packages' : 'windows'; // from v5.5.28 the folder name is "win32-packages", not "windows"
             if ($registry['mariadb']['latest']['version'] <= $version) {
-                return array('version' => $version, 'url' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-' . $version . '/windows/' . $filename);
+                // old http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.27/windows/mariadb-5.5.27-win32.zip
+                // new http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.28/win32-packages/mariadb-5.5.28-win32.zip
+                return array('version' => $version, 'url' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-' . $version . '/' . $folder .'/' . $filename);
             }
         }
     });
@@ -179,7 +182,7 @@ function get_latest_version_of_phpmyadmin()
     $crawler = $goutte_client->request('GET', 'http://www.phpmyadmin.net/home_page/downloads.php');
 
     return $phpmyadmin_latest = $crawler->filter('a')->each(function ($node, $i) use ($registry) {
-        if (preg_match("#(\d+\.\d+(\.\d+)*)[._-]?(?:(beta|b|rc|alpha|a|patch|pl|p)?(\d+)(?:[.-]?(\d+))?)?([.-]?dev)?#", $node->nodeValue, $matches)) {
+        if (preg_match("#(\d+\.\d+(\.\d+)*)(?:[._-]?(beta|b|rc|alpha|a|patch|pl|p)?(\d+)(?:[.-]?(\d+))?)?([.-]?dev)?#", $node->nodeValue, $matches)) {
             if ($registry['phpmyadmin']['latest']['version'] <= $matches[0]) {
                 // mirror redirect fails somehow
                 //$url = 'http://sourceforge.net/projects/phpmyadmin/files/phpMyAdmin/'.$matches[0].'/phpMyAdmin-'.$matches[0].'-english.zip/download?use_mirror=autoselect';
@@ -321,8 +324,10 @@ function write_registry_file(array $registry)
 
 ?>
 
-<table>
-    <thead>Application</thead><thead>(Old) Latest Version</thead><thead>(New) Latest Version</thead>
+<table border="1">
+<tr>
+    <th>Application</th><th>(Old) Latest Version</th><th>(New) Latest Version</th>
+</tr>
 <tr>
     <td>nginx</td><td><?php echo $old_registry['nginx']['latest']['version']  ?></td><td><?php echo $registry['nginx']['latest']['version'] ?></td>
 </tr>

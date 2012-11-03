@@ -127,6 +127,17 @@
       'url' => 'http://downloads.northscale.com/memcached-1.4.5-x86.zip',
     ),
   ),
+  'mongodb' =>
+  array (
+    'name' => 'MongoDB',
+    'website' => 'http://mongodb.org/',
+    '2.2.1' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.2.1.zip',
+    'latest' =>
+    array (
+      'version' => '2.2.1',
+      'url' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.2.1.zip',
+    ),
+  ),
   'nginx' =>
   array (
     'name' => 'Nginx',

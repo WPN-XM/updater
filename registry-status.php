@@ -52,6 +52,7 @@ $server_urls = array(
   'mariadb'          => 'http://wpn-xm.org/get.php?s=mariadb',
   'memadmin'         => 'http://wpn-xm.org/get.php?s=memadmin',
   'memcached'        => 'http://wpn-xm.org/get.php?s=memcached',
+  'mongodb'          => 'http://wpn-xm.org/get.php?s=mongodb',
   'nginx'            => 'http://wpn-xm.org/get.php?s=nginx',
   'pear'             => 'http://wpn-xm.org/get.php?s=pear',
   'php'              => 'http://wpn-xm.org/get.php?s=php',

@@ -334,6 +334,12 @@ function write_registry_file(array $registry)
     file_put_contents( 'wpnxm-software-registry.php', $content );
 }
 
+// anon function for printing an update symbol
+$printUpdatedSign = function($old_version, $new_version) {
+    if($old_version < $new_version) {
+        echo '<span style="color:green; font-size: 16px">&#x25B2;</span>';
+    }
+}
 ?>
 
 <table border="1">
@@ -341,24 +347,38 @@ function write_registry_file(array $registry)
     <th>Application</th><th>(Old) Latest Version</th><th>(New) Latest Version</th>
 </tr>
 <tr>
-    <td>nginx</td><td><?php echo $old_registry['nginx']['latest']['version']  ?></td><td><?php echo $registry['nginx']['latest']['version'] ?></td>
+    <td>nginx</td><td><?php echo $old_registry['nginx']['latest']['version'] ?></td><td><?php echo $registry['nginx']['latest']['version'];
+    $printUpdatedSign($old_registry['nginx']['latest']['version'], $registry['nginx']['latest']['version']); ?>
+    </td>
 </tr>
 <tr>
-    <td>php</td><td><?php echo $old_registry['php']['latest']['version'] ?></td><td><?php echo $registry['php']['latest']['version'] ?></td>
+    <td>php</td><td><?php echo $old_registry['php']['latest']['version'] ?></td><td><?php echo $registry['php']['latest']['version'];
+    $printUpdatedSign($old_registry['php']['latest']['version'], $registry['php']['latest']['version']); ?>
+    </td>
 </tr>
 <tr>
-    <td>mariadb</td><td><?php echo $old_registry['mariadb']['latest']['version'] ?></td><td><?php echo $registry['mariadb']['latest']['version'] ?></td>
+    <td>mariadb</td><td><?php echo $old_registry['mariadb']['latest']['version'] ?></td><td><?php echo $registry['mariadb']['latest']['version'];
+    $printUpdatedSign($old_registry['mariadb']['latest']['version'], $registry['mariadb']['latest']['version']); ?>
+    </td>
 </tr>
 <tr>
-    <td>xdebug</td><td><?php echo $old_registry['phpext_xdebug']['latest']['version'] ?></td><td><?php echo $registry['phpext_xdebug']['latest']['version'] ?></td>
+    <td>xdebug</td><td><?php echo $old_registry['phpext_xdebug']['latest']['version'] ?></td><td><?php echo $registry['phpext_xdebug']['latest']['version'];
+    $printUpdatedSign($old_registry['phpext_xdebug']['latest']['version'], $registry['phpext_xdebug']['latest']['version']); ?>
+    </td>
 </tr>
 <tr>
-    <td>apc</td><td><?php echo $old_registry['phpext_apc']['latest']['version'] ?></td><td><?php echo $registry['phpext_apc']['latest']['version'] ?></td>
+    <td>apc</td><td><?php echo $old_registry['phpext_apc']['latest']['version'] ?></td><td><?php echo $registry['phpext_apc']['latest']['version'];
+    $printUpdatedSign($old_registry['phpext_apc']['latest']['version'], $registry['phpext_apc']['latest']['version']); ?>
+    </td>
 </tr>
 <tr>
-    <td>phpmyadmin</td><td><?php echo $old_registry['phpmyadmin']['latest']['version'] ?></td><td><?php echo $registry['phpmyadmin']['latest']['version'] ?></td>
+    <td>phpmyadmin</td><td><?php echo $old_registry['phpmyadmin']['latest']['version'] ?></td><td><?php echo $registry['phpmyadmin']['latest']['version'];
+    $printUpdatedSign($old_registry['phpmyadmin']['latest']['version'], $registry['phpmyadmin']['latest']['version']); ?>
+    </td>
 </tr>
 <tr>
-    <td>adminer</td><td><?php echo $old_registry['adminer']['latest']['version'] ?></td><td><?php echo $registry['adminer']['latest']['version'] ?></td>
+    <td>adminer</td><td><?php echo $old_registry['adminer']['latest']['version'] ?></td><td><?php echo $registry['adminer']['latest']['version'];
+    $printUpdatedSign($old_registry['adminer']['latest']['version'],  $registry['adminer']['latest']['version']); ?>
+    </td>
 </tr>
 </table>

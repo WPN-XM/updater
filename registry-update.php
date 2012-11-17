@@ -382,3 +382,7 @@ $printUpdatedSign = function($old_version, $new_version) {
     </td>
 </tr>
 </table>
+
+<a href="registry-update.php">Run Software Components Registry Update (dry-run)</a>
+<br>
+<a href="registry-update.php?action=write-file">Run Software Components Registry Update</a>

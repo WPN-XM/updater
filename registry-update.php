@@ -288,7 +288,12 @@ function adjust_php_download_path()
 
 adjust_php_download_path();
 
-write_registry_file($registry);
+// handle $_GET['action']
+// example call: registry-update.php?action=write-file
+$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
+if(isset($action) && $action === 'write-file') {
+    write_registry_file($registry);
+}
 
 /**
  * Writes the registry array to a php file for (re-)inclusion.

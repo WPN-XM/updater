@@ -64,6 +64,13 @@ if (!is_array($registry)) {
 }
 
 $goutte_client = new Client();
+$guzzle = $goutte_client->getClient();
+$guzzle->setConfig(
+    array(
+        'curl.CURLOPT_SSL_VERIFYHOST' => false,
+        'curl.CURLOPT_SSL_VERIFYPEER' => false,
+    )
+);
 
 /**
  * NGINX

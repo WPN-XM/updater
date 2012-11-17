@@ -330,6 +330,9 @@ function write_registry_file(array $registry)
     // pretty print the array
     $content .= var_export( $registry, true ) . ';';
 
+    // remove trailing spaces
+    $content = trim($content);
+
     // write new registry
     file_put_contents( 'wpnxm-software-registry.php', $content );
 }

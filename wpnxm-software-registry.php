@@ -2,7 +2,7 @@
 	/**
 	 * WPN-XM Software Registry
 	 * ------------------------
-	 * Last Update Sat, 17 Nov 2012 14:23:58 +0000.
+	 * Last Update Wed, 28 Nov 2012 23:55:14 +0000.
 	 * Do not edit manually!
 	 */
 
@@ -155,10 +155,11 @@
     '1.3.6' => 'http://www.nginx.org/download/nginx-1.3.6.zip',
     '1.3.7' => 'http://www.nginx.org/download/nginx-1.3.7.zip',
     '1.3.8' => 'http://www.nginx.org/download/nginx-1.3.8.zip',
+    '1.3.9' => 'http://www.nginx.org/download/nginx-1.3.9.zip',
     'latest' => 
     array (
-      'version' => '1.3.8',
-      'url' => 'http://www.nginx.org/download/nginx-1.3.8.zip',
+      'version' => '1.3.9',
+      'url' => 'http://www.nginx.org/download/nginx-1.3.9.zip',
     ),
   ),
   'openssl' => 
@@ -190,11 +191,12 @@
     '5.4.5' => 'http://windows.php.net/downloads/releases/archives/php-5.4.5-nts-Win32-VC9-x86.zip',
     '5.4.6' => 'http://windows.php.net/downloads/releases/archives/php-5.4.6-nts-Win32-VC9-x86.zip',
     '5.4.7' => 'http://windows.php.net/downloads/releases/archives/php-5.4.7-nts-Win32-VC9-x86.zip',
-    '5.4.8' => 'http://windows.php.net/downloads/releases/php-5.4.8-nts-Win32-VC9-x86.zip',
+    '5.4.8' => 'http://windows.php.net/downloads/releases/archives/php-5.4.8-nts-Win32-VC9-x86.zip',
+    '5.4.9' => 'http://windows.php.net/downloads/releases/php-5.4.9-nts-Win32-VC9-x86.zip',
     'latest' => 
     array (
-      'version' => '5.4.8',
-      'url' => 'http://windows.php.net/downloads/releases/php-5.4.8-nts-Win32-VC9-x86.zip',
+      'version' => '5.4.9',
+      'url' => 'http://windows.php.net/downloads/releases/php-5.4.9-nts-Win32-VC9-x86.zip',
     ),
   ),
   'phpext_apc' => 

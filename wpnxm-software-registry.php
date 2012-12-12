@@ -99,7 +99,7 @@
     '5.5.25' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.25/windows/mariadb-5.5.25-win32.zip',
     '5.5.27' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.27/windows/mariadb-5.5.27-win32.zip',
     '5.5.28' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.28/win32-packages/mariadb-5.5.28-win32.zip',
-    'latest' => 
+    'latest' =>
     array (
       'version' => '5.5.28',
       'url' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.28/win32-packages/mariadb-5.5.28-win32.zip',
@@ -270,17 +270,6 @@
     array (
       'version' => '0.10.3',
       'url' => 'http://dev.freshsite.pl/php-extensions/xhprof/file/details/xhprof-0103-for-php-54-vc9-nts.html',
-    ),
-  ),
-  'phpext_zeromq' => 
-  array (
-    'name' => 'ZeroMQ',
-    'website' => 'http://zeromq.org/',
-    '1.0' => 'http://snapshot.zero.mq/download/win32/php53-ext/php-zmq-20111011_12-39.zip',
-    'latest' => 
-    array (
-      'version' => '1.0',
-      'url' => 'http://snapshot.zero.mq/download/win32/php53-ext/php-zmq-20111011_12-39.zip',
     ),
   ),
   'phpmyadmin' => 

@@ -83,7 +83,7 @@ function get_latest_version_of_nginx()
 
     return $nginx_latest = $crawler->filter('a')->each(function ($node, $i) use ($registry) {
         if (preg_match("#(\d+\.\d+(\.\d+)*)(.zip)$#i", $node->nodeValue, $matches)) {
-            if ($registry['nginx']['latest']['version'] <= $matches[1]) {
+            if (version_compare($matches[1], $registry['nginx']['latest']['version'], '>=')) {
                 return array('version' => $matches[1], 'url' => 'http://www.nginx.org/download/' . $node->nodeValue);
             }
         }
@@ -103,7 +103,7 @@ function get_latest_version_of_php()
 
     return $php_latest = $crawler->filter('a')->each(function ($node, $i) use ($registry) {
         if (preg_match("#php-+(\d+\.\d+(\.\d+)*)-nts-Win32-VC9-x86.zip$#", $node->nodeValue, $matches)) {
-            if ($registry['php']['latest']['version'] <= $matches[1]) {
+            if (version_compare($matches[1], $registry['php']['latest']['version'], '>=')) {
                 return array('version' => $matches[1], 'url' => 'http://windows.php.net/downloads/releases/' . $node->nodeValue);
             }
         }
@@ -126,7 +126,9 @@ function get_latest_version_of_mariadb()
             $version = $matches[0];
             $filename = 'mariadb-'.$version.'-win32.zip'; // e.g. mariadb-5.5.25-win32.zip
             $folder = ($version >= '5.5.28') ? 'win32-packages' : 'windows'; // from v5.5.28 the folder name is "win32-packages", not "windows"
-            if ($registry['mariadb']['latest']['version'] <= $version) {
+            // skip v10 alpha, by setting version to null
+            $version = ($version >= '10.0.0') ? '5.5.28' : $version;
+            if (version_compare($version, $registry['mariadb']['latest']['version'], '>=')) {
                 // old http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.27/windows/mariadb-5.5.27-win32.zip
                 // new http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.28/win32-packages/mariadb-5.5.28-win32.zip
                 return array('version' => $version, 'url' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-' . $version . '/' . $folder .'/' . $filename);
@@ -148,7 +150,7 @@ function get_latest_version_of_xdebug()
 
     return $xdebug_latest = $crawler->filter('a')->each(function ($node, $i) use ($registry) {
         if (preg_match("#((\d+\.)?(\d+\.)?(\d+\.)?(\*|\d+))([^\s]+nts(\.(?i)(dll))$)#i", $node->nodeValue, $matches)) {
-                if ($registry['phpext_xdebug']['latest']['version'] <= $matches[1]) {
+                if (version_compare($matches[1], $registry['phpext_xdebug']['latest']['version'], '>=')) {
                     return array('version' => $matches[1], 'url' => 'http://xdebug.org/files/' . $node->nodeValue);
                 }
         }
@@ -170,7 +172,7 @@ function get_latest_version_of_apc()
         if (preg_match("#(\d+\.\d+(\.\d+)*)$#", $node->nodeValue, $matches)) {
             $version = $matches[1];
             $filename = 'php_apc-'.$version.'-5.4-nts-vc9-x86.zip';
-            if ($registry['phpext_apc']['latest']['version'] <= $version) {
+            if (version_compare($version, $registry['phpext_apc']['latest']['version'], '>=')) {
                 return array('version' => $version, 'url' => 'http://windows.php.net/downloads/pecl/releases/apc/'.$version.'/'.$filename);
             }
         }
@@ -190,7 +192,7 @@ function get_latest_version_of_phpmyadmin()
 
     return $phpmyadmin_latest = $crawler->filter('a')->each(function ($node, $i) use ($registry) {
         if (preg_match("#(\d+\.\d+(\.\d+)*)(?:[._-]?(beta|b|rc|alpha|a|patch|pl|p)?(\d+)(?:[.-]?(\d+))?)?([.-]?dev)?#", $node->nodeValue, $matches)) {
-            if ($registry['phpmyadmin']['latest']['version'] <= $matches[0]) {
+            if (version_compare($matches[0], $registry['phpmyadmin']['latest']['version'], '>=')) {
                 // mirror redirect fails somehow
                 //$url = 'http://sourceforge.net/projects/phpmyadmin/files/phpMyAdmin/'.$matches[0].'/phpMyAdmin-'.$matches[0].'-english.zip/download?use_mirror=autoselect';
                 // using direkt link
@@ -214,7 +216,7 @@ function get_latest_version_of_adminer()
 
     return $adminer_latest = $crawler->filter('a')->each(function ($node, $i) use ($registry) {
         if (preg_match("#(\d+\.\d+(\.\d+)*)#", $node->nodeValue, $matches)) {
-            if ($registry['adminer']['latest']['version'] <= $matches[0]) {
+            if (version_compare($matches[0], $registry['adminer']['latest']['version'], '>=')) {
                 // mirror redirect fails somehow
                 //$url = 'http://sourceforge.net/projects/adminer/files/Adminer/Adminer%20'.$matches[0].'/adminer-'.$matches[0].'.php/download?use_mirror=autoselect';
                 // using direkt link

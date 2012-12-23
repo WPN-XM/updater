@@ -2,7 +2,7 @@
 	/**
 	 * WPN-XM Software Registry
 	 * ------------------------
-	 * Last Update Sun, 23 Dec 2012 18:26:12 +0000.
+	 * Last Update Sun, 23 Dec 2012 18:42:25 +0000.
 	 * Do not edit manually!
 	 */
 
@@ -99,11 +99,11 @@
     '5.5.24' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.24/windows/mariadb-5.5.24-win32.zip',
     '5.5.25' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.25/windows/mariadb-5.5.25-win32.zip',
     '5.5.27' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.27/windows/mariadb-5.5.27-win32.zip',
-    '5.5.28' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.28/windows/mariadb-5.1.42-win32.zip',
+    '5.5.28' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.28/win32-packages/mariadb-5.5.28-win32.zip',
     'latest' => 
     array (
       'version' => '5.5.28',
-      'url' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.28/windows/mariadb-5.1.41-win32.zip',
+      'url' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.28/win32-packages/mariadb-5.5.28-win32.zip',
     ),
   ),
   'memadmin' => 
@@ -374,8 +374,8 @@
     '2.1.2' => 'http://xdebug.org/files/php_xdebug-2.1.2-5.3-vc9-nts.dll',
     '2.1.3' => 'http://xdebug.org/files/php_xdebug-2.1.3-5.3-vc9-nts.dll',
     '2.1.4' => 'http://xdebug.org/files/php_xdebug-2.1.4-5.3-vc9-nts.dll',
-    '2.2.0' => 'http://xdebug.org/files/php_xdebug-2.2.0RC2-5.4-vc9-nts.dll',
     '2.2.0RC2' => 'http://xdebug.org/files/php_xdebug-2.2.0RC2-5.4-vc9-nts.dll',
+    '2.2.0' => 'http://xdebug.org/files/php_xdebug-2.2.0RC2-5.4-vc9-nts.dll',
     '2.2.1' => 'http://xdebug.org/files/php_xdebug-2.2.1-5.3-vc9-nts.dll',
     'latest' => 
     array (

@@ -301,6 +301,7 @@ adjust_php_download_path();
 // example call: registry-update.php?action=write-file
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 if(isset($action) && $action === 'write-file') {
+    array_unset_null_values($registry);
     write_registry_file($registry);
 }
 

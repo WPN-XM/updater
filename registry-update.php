@@ -124,10 +124,10 @@ function get_latest_version_of_mariadb()
     return $mariadb_latest = $crawler->filter('a')->each(function ($node, $i) use ($registry) {
         if (preg_match("#(\d+\.\d+(\.\d+)*)$#", $node->nodeValue, $matches)) {
             $version = $matches[0];
-            $filename = 'mariadb-'.$version.'-win32.zip'; // e.g. mariadb-5.5.25-win32.zip
-            $folder = ($version >= '5.5.28') ? 'win32-packages' : 'windows'; // from v5.5.28 the folder name is "win32-packages", not "windows"
             // skip v10 alpha, by setting version to null
             $version = ($version >= '10.0.0') ? '5.5.28' : $version;
+            $filename = 'mariadb-'.$version.'-win32.zip'; // e.g. mariadb-5.5.25-win32.zip
+            $folder = ($version >= '5.5.28') ? 'win32-packages' : 'windows'; // from v5.5.28 the folder name is "win32-packages", not "windows"
             if (version_compare($version, $registry['mariadb']['latest']['version'], '>=')) {
                 // old http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.27/windows/mariadb-5.5.27-win32.zip
                 // new http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.28/win32-packages/mariadb-5.5.28-win32.zip

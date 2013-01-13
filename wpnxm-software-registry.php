@@ -2,7 +2,7 @@
 	/**
 	 * WPN-XM Software Registry
 	 * ------------------------
-	 * Last Update Sun, 23 Dec 2012 18:42:25 +0000.
+	 * Last Update Sun, 13 Jan 2013 16:59:21 +0000.
 	 * Do not edit manually!
 	 */
 
@@ -269,6 +269,8 @@
     '1.2.6' => 'http://www.nginx.org/download/nginx-1.2.6.zip',
     '1.3.0' => 'http://www.nginx.org/download/nginx-1.3.0.zip',
     '1.3.1' => 'http://www.nginx.org/download/nginx-1.3.1.zip',
+    '1.3.10' => 'http://www.nginx.org/download/nginx-1.3.10.zip',
+    '1.3.11' => 'http://www.nginx.org/download/nginx-1.3.11.zip',
     '1.3.2' => 'http://www.nginx.org/download/nginx-1.3.2.zip',
     '1.3.3' => 'http://www.nginx.org/download/nginx-1.3.3.zip',
     '1.3.4' => 'http://www.nginx.org/download/nginx-1.3.4.zip',
@@ -329,10 +331,11 @@
     '3.1.11' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.11/php_apc-3.1.11-5.4-nts-vc9-x86.zip',
     '3.1.12' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.12/php_apc-3.1.12-5.4-nts-vc9-x86.zip',
     '3.1.13' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.13/php_apc-3.1.13-5.4-nts-vc9-x86.zip',
+    '3.1.14' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.14/php_apc-3.1.14-5.4-nts-vc9-x86.zip',
     'latest' => 
     array (
-      'version' => '3.1.13',
-      'url' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.13/php_apc-3.1.13-5.4-nts-vc9-x86.zip',
+      'version' => '3.1.14',
+      'url' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.14/php_apc-3.1.14-5.4-nts-vc9-x86.zip',
     ),
   ),
   'phpext_memcache' => 

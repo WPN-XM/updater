@@ -330,6 +330,26 @@ function write_registry_file(array $registry)
     // sort registry (software components in alphabetical order)
     ksort($registry);
 
+    // sort registry (version numbers in lower-to-higher order)
+    // maintain "name" and "website" keys on top, then versions, then "latest" key on bottom.
+    foreach($registry as $component => $array) {
+        uksort($array, 'version_compare');
+
+        // move 'latest' to the bottom of the arary
+        $value = $array['latest'];
+        unset($array['latest']);
+        $array['latest'] = $value;
+
+        // move 'name' to the top of the array
+        if(array_key_exists('name', $array) === true) {
+            $temp = array('name' => $array['name']);
+            unset($array['name']);
+            $array = $temp + $array;
+        }
+
+        $registry[$component] = $array;
+     }
+
     // pretty print the array
     $content .= var_export( $registry, true ) . ';';
 

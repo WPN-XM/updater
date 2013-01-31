@@ -2,7 +2,7 @@
 	/**
 	 * WPN-XM Software Registry
 	 * ------------------------
-	 * Last Update Fri, 18 Jan 2013 15:35:28 +0000.
+	 * Last Update Thu, 31 Jan 2013 08:38:15 +0000.
 	 * Do not edit manually!
 	 */
 
@@ -15,10 +15,11 @@
     '3.5.1' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.5.1/adminer-3.5.1.php',
     '3.6.1' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.6.1/adminer-3.6.1.php',
     '3.6.2' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.6.2/adminer-3.6.2.php',
+    '3.6.3' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.6.3/adminer-3.6.3.php',
     'latest' => 
     array (
-      'version' => '3.6.2',
-      'url' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.6.2/adminer-3.6.2.php',
+      'version' => '3.6.3',
+      'url' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.6.3/adminer-3.6.3.php',
     ),
   ),
   'clansuite' => 
@@ -407,10 +408,12 @@
     '3.5.3' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.3/phpMyAdmin-3.5.3-english.zip',
     '3.5.4' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.4/phpMyAdmin-3.5.4-english.zip',
     '3.5.5' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.5/phpMyAdmin-3.5.5-english.zip',
+    '3.5.6' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.6/phpMyAdmin-3.5.6-english.zip',
+    '4.0.0-alpha2' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-alpha2/phpMyAdmin-4.0.0-alpha2-english.zip',
     'latest' => 
     array (
-      'version' => '3.5.5',
-      'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.5/phpMyAdmin-3.5.5-english.zip',
+      'version' => '4.0.0-alpha2',
+      'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-alpha2/phpMyAdmin-4.0.0-alpha2-english.zip',
     ),
   ),
   'sendmail' => 

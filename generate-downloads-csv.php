@@ -28,10 +28,9 @@
     */
 
 /**
- * Generates the download-files.csv.
- *
- * The file is used by Nant's build.xml to download the software components,
- * when building the AllInOne Installer.
+ * Generates the file "downloads.csv".
+ * The file is used by the build task "download-components".
+ * Download the software components is required when building the All-In-One Installer.
  */
 
 set_time_limit(60*3);
@@ -45,7 +44,7 @@ if (!extension_loaded('curl')) {
     exit('Error: PHP Extension cURL required.');
 }
 
-echo '<h2>Generating "download_files.csv".</h2>';
+echo '<h2>Generating "downloads.csv".</h2>';
 
 $list = array (
   // 0 => sofware, 1 => download url, 2 => target file name
@@ -74,7 +73,7 @@ $list = array (
 
 asort($list);
 
-$fp = fopen('download-filelist.csv', 'w');
+$fp = fopen('downloads.csv', 'w');
 
 foreach($list as $fields) {
   fputcsv($fp, $fields);
@@ -82,4 +81,4 @@ foreach($list as $fields) {
 
 fclose($fp);
 
-echo "Done. <br> <br> Now copy the file to the WPN-XM main folder. <br> Then trigger new build.";
+echo 'Done. <br> <br> Now copy the file "downloads.csv" to the WPN-XM main project folder. <br> Then trigger new build.';

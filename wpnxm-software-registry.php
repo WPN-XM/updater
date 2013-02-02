@@ -2,7 +2,7 @@
 	/**
 	 * WPN-XM Software Registry
 	 * ------------------------
-	 * Last Update Thu, 31 Jan 2013 08:38:15 +0000.
+	 * Last Update Sat, 02 Feb 2013 01:01:20 +0000.
 	 * Do not edit manually!
 	 */
 
@@ -414,6 +414,18 @@
     array (
       'version' => '4.0.0-alpha2',
       'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-alpha2/phpMyAdmin-4.0.0-alpha2-english.zip',
+    ),
+  ),
+  'rockmongo' => 
+  array (
+    'name' => 'RockMongo',
+    'website' => 'http://rockmongo.org/',
+    '1.1.3' => 'http://rockmongo.org/release/rockmongo-1.1.3.zip',
+    '1.1.5' => 'http://rockmongo.com/release/rockmongo-1.1.5.zip',
+    'latest' => 
+    array (
+      'version' => '1.1.5',
+      'url' => 'http://rockmongo.com/release/rockmongo-1.1.5.zip',
     ),
   ),
   'sendmail' => 

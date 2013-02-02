@@ -67,6 +67,7 @@ $server_urls = array(
   'webgrind'         => 'http://wpn-xm.org/get.php?s=webgrind',
   'wpnxmscp'         => 'http://wpn-xm.org/get.php?s=wpnxmscp',
   'xhprof'           => 'http://wpn-xm.org/get.php?s=xhprof',
+  'rockmongo'        => 'http://wpn-xm.org/get.php?s=rockmongo',
 );
 
 $tested_server_urls = array();

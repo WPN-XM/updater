@@ -64,13 +64,9 @@ if (!is_array($registry)) {
 }
 
 $goutte_client = new Client();
+$goutte_client->setHeader('User-Agent', "WPN-XM Registry Updater");
 $guzzle = $goutte_client->getClient();
-$guzzle->setConfig(
-    array(
-        'curl.CURLOPT_SSL_VERIFYHOST' => false,
-        'curl.CURLOPT_SSL_VERIFYPEER' => false,
-    )
-);
+$guzzle->setSslVerification(false);
 
 /**
  * NGINX

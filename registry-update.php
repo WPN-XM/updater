@@ -231,6 +231,29 @@ function get_latest_version_of_adminer()
 add('adminer', get_latest_version_of_adminer() );
 
 /**
+ * RockMongo - MongoDB Administration Webinterface
+ */
+function get_latest_version_of_rockmongo()
+{
+    global $goutte_client, $registry;
+
+    $crawler = $goutte_client->request('GET', 'http://rockmongo.com/downloads');
+
+    // span tag contains "RockMongo v1.1.5"
+    $text = $crawler->filterXPath('//ul/li/a/span')->text();
+
+    if (preg_match("#(\d+\.\d+(\.\d+)*)#", $text, $matches)) {
+        if (version_compare($matches[0], $registry['rockmongo']['latest']['version'], '>=')) {
+            // using direkt link
+            $url = 'http://rockmongo.com/release/rockmongo-'.$matches[0].'.zip';
+            return array('version' => $matches[0], 'url' => $url);
+        }
+    }
+}
+
+add('rockmongo', get_latest_version_of_rockmongo() );
+
+/**
  * Removes all keys with value "null" from the array and returns the array.
  *
  * @param $array Array
@@ -260,15 +283,32 @@ function add($name, array $array)
     // cleanup by removing all null values
     $array = array_unset_null_values($array);
 
-    // insert the last array item as [latest][version] => [url]
-    $registry[$name]['latest'] = array_pop($array);
+    if(isset($array['url']) and isset($array['version'])) {
+        // the array contains only one element
 
-    // insert the last array item also as a pure [version] => [url] relationship
-    $registry[$name][ $registry[$name]['latest']['version'] ] = $registry[$name]['latest']['url'];
+        // create [latest] sub-array
+        $registry[$name]['latest']['url'] = $array['url'];
+        $registry[$name]['latest']['version'] = $array['version'];
 
-    // added remaining array items as pure [version] => [url] relationships
-    foreach ($array as $new_version_entry) {
-        $registry[$name][ $new_version_entry['version'] ] = $new_version_entry['url'];
+        // create [version] => [url] relationship
+        $registry[$name][ $array['version'] ] = $array['url'];
+
+        unset($array);
+    } else {
+        // add the last array item of multiple elements (the one with the highest version number)
+
+        // insert the last array item as [latest][version] => [url]
+        $registry[$name]['latest'] = array_pop($array);
+
+        // insert the last array item also as a pure [version] => [url] relationship
+        $registry[$name][ $registry[$name]['latest']['version'] ] = $registry[$name]['latest']['url'];
+    }
+
+    // added remaining array items (if any) as pure [version] => [url] relationships
+    if(false === empty($array)) {
+        foreach ($array as $new_version_entry) {
+            $registry[$name][ $new_version_entry['version'] ] = $new_version_entry['url'];
+        }
     }
 
     asort($registry[$name]);
@@ -405,6 +445,11 @@ $printUpdatedSign = function($old_version, $new_version) {
 <tr>
     <td>adminer</td><td><?php echo $old_registry['adminer']['latest']['version'] ?></td><td><?php echo $registry['adminer']['latest']['version'];
     $printUpdatedSign($old_registry['adminer']['latest']['version'],  $registry['adminer']['latest']['version']); ?>
+    </td>
+</tr>
+<tr>
+    <td>rockmongo</td><td><?php echo $old_registry['rockmongo']['latest']['version'] ?></td><td><?php echo $registry['rockmongo']['latest']['version'];
+    $printUpdatedSign($old_registry['rockmongo']['latest']['version'],  $registry['rockmongo']['latest']['version']); ?>
     </td>
 </tr>
 </table>

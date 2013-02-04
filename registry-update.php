@@ -400,12 +400,12 @@ function write_registry_file(array $registry)
 
     // file header
     $content = "<?php\n";
-    $content .= "\t/**\n";
-    $content .= "\t * WPN-XM Software Registry\n";
-    $content .= "\t * ------------------------\n";
-    $content .= "\t * Last Update " . date(DATE_RFC2822) . ".\n";
-    $content .= "\t * Do not edit manually!\n";
-    $content .= "\t */\n";
+    $content .= "   /**\n";
+    $content .= "    * WPN-XM Software Registry\n";
+    $content .= "    * ------------------------\n";
+    $content .= "    * Last Update " . date(DATE_RFC2822) . ".\n";
+    $content .= "    * Do not edit manually!\n";
+    $content .= "    */\n";
     $content .= "\n return ";
 
     // sort registry (software components in alphabetical order)

@@ -64,7 +64,7 @@ if (!is_array($registry)) {
 }
 
 $goutte_client = new Client();
-$goutte_client->setHeader('User-Agent', "WPN-XM Registry Updater");
+$goutte_client->setHeader('User-Agent', 'WPN-XM Server Stack - Registry Update Tool - http://wpn-xm.org/');
 $guzzle = $goutte_client->getClient();
 $guzzle->setSslVerification(false);
 

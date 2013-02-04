@@ -27,6 +27,19 @@
     +----------------------------------------------------------------------------------+
     */
 
+/**
+ * Registry Status
+ *
+ * This scripts performs a check for broken download links.
+ *
+ * We check for each software component of the registry
+ * a) the download link for the latest version
+ *    This link comes directly from the local registry.
+ * b) the forwarding downloading link
+ *    This link is a get request to the server and uses the registry on the server.
+ *    Forwarding links are used in the innosetup scripts of the web installation wizards.
+ */
+
 set_time_limit(60*3);
 
 date_default_timezone_set('UTC');
@@ -38,55 +51,11 @@ if (!extension_loaded('curl')) {
     exit('Error: PHP Extension cURL required.');
 }
 
-/**
- * Broken link check on the download links of the innosetup file.
- * These are the download requests by the installation wizard to the server.
- */
-
-echo '<h2>WPN-XM Software Components Registry - Status - '. date(DATE_RFC822) .'</h2>';
-
-$server_urls = array(
-  'adminer'          => 'http://wpn-xm.org/get.php?s=adminer',
-  'composer'         => 'http://wpn-xm.org/get.php?s=composer',
-  'junction'         => 'http://wpn-xm.org/get.php?s=junction',
-  'mariadb'          => 'http://wpn-xm.org/get.php?s=mariadb',
-  'memadmin'         => 'http://wpn-xm.org/get.php?s=memadmin',
-  'memcached'        => 'http://wpn-xm.org/get.php?s=memcached',
-  'mongodb'          => 'http://wpn-xm.org/get.php?s=mongodb',
-  'nginx'            => 'http://wpn-xm.org/get.php?s=nginx',
-  'openssl'          => 'http://wpn-xm.org/get.php?s=openssl',
-  'pear'             => 'http://wpn-xm.org/get.php?s=pear',
-  'php'              => 'http://wpn-xm.org/get.php?s=php',
-  'phpext_apc'       => 'http://wpn-xm.org/get.php?s=phpext_apc',
-  'phpext_memcached' => 'http://wpn-xm.org/get.php?s=phpext_memcache',
-  'phpext_xdebug'    => 'http://wpn-xm.org/get.php?s=phpext_xdebug',
-  'phpext_xhprof'    => 'http://wpn-xm.org/get.php?s=phpext_xhprof',
-  'phpext_zeromq'    => 'http://wpn-xm.org/get.php?s=phpext_zeromq',
-  'phpmyadmin'       => 'http://wpn-xm.org/get.php?s=phpmyadmin',
-  'sendmail'         => 'http://wpn-xm.org/get.php?s=sendmail',
-  'webgrind'         => 'http://wpn-xm.org/get.php?s=webgrind',
-  'wpnxmscp'         => 'http://wpn-xm.org/get.php?s=wpnxmscp',
-  'xhprof'           => 'http://wpn-xm.org/get.php?s=xhprof',
-  'rockmongo'        => 'http://wpn-xm.org/get.php?s=rockmongo',
-);
-
-$tested_server_urls = array();
-
-foreach($server_urls as $software => $url) {
-    $color = is_available($url) === true ? 'color: green' : 'color: red';
-    $tested_server_urls[$software] = '<a style="font-weight: bold; '.$color.';" href="'.$url.'">'.$url.'</a>';
-}
-
-/**
- * Broken link check on the download links of the software comonents registry
- * This tests the links in the local wpnxm software components registry.
- */
-
 // load software components registry
 $registry = include __DIR__ . '/wpnxm-software-registry.php';
 
+echo '<h2>WPN-XM Software Components Registry - Status - '. date(DATE_RFC822) .'</h2>';
 echo '<h3>Components ('.count($registry).')</h3>';
-
 echo '<table>';
 echo '<tr><th>Software Component</th><th>Version</th><th>Download URL<br/>(local wpnxm-software-registry.php)</th><th>Forwarding URL<br/>(server wpnxm-software-registry.php)</th></tr>';
 
@@ -100,7 +69,7 @@ foreach($registry as $software => $versions) {
         #echo 'Testing Version "' . $version . '" ' . $url;
         #echo is_available($url, 30);
 
-        // only test latest (for now)
+        // Test link of latest version
         if($version === 'latest') {
             echo '<td>' . $url['version'] . '</td>';
             $color = is_available($url['url']) === true ? 'color: green' : 'color: red';
@@ -108,9 +77,10 @@ foreach($registry as $software => $versions) {
         }
     }
 
-    if(isset($tested_server_urls[$software])) {
-      echo '<td>'.$tested_server_urls[$software].'</td>';
-    }
+    // Test forwarding links for all software components, e.g. http://wpn-xm.org/get.php?s=nginx
+    $url = 'http://wpn-xm.org/get.php?s=' . $software;
+    $color = is_available($url) === true ? 'color: green' : 'color: red';
+    echo '<td><a style="font-weight: bold; '.$color.';" href="'.$url.'">'.$url.'</a></td>';
 
     echo '</tr>';
 }
@@ -130,7 +100,7 @@ function is_available($url, $timeout = 30)
         CURLOPT_FOLLOWLOCATION => true,
         CURLOPT_SSL_VERIFYPEER => false,
         CURLOPT_SSL_VERIFYHOST => false,
-        CURLOPT_USERAGENT, 'WPN-XM Server Stack - Update Tool - http://wpn-xm.org/',
+        CURLOPT_USERAGENT, 'WPN-XM Server Stack - Registry Status Tool - http://wpn-xm.org/',
     );
 
     curl_setopt_array($ch, $options);

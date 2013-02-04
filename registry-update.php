@@ -263,17 +263,29 @@ function get_latest_version_of_mongodb()
 }
 
 /**
- * Get Latest Versions and add them to the registry.
+ * phpMemcachedAdmin
  */
-add('nginx', get_latest_version_of_nginx() );
-add('php', get_latest_version_of_php() );
-add('mariadb', get_latest_version_of_mariadb() );
-add('phpext_xdebug', get_latest_version_of_xdebug() );
-add('phpext_apc', get_latest_version_of_apc() );
-add('phpmyadmin', get_latest_version_of_phpmyadmin() );
-add('adminer', get_latest_version_of_adminer() );
-add('rockmongo', get_latest_version_of_rockmongo() );
-add('mongodb', get_latest_version_of_mongodb() );
+function get_latest_version_of_phpmemcachedadmin()
+{
+    global $goutte_client, $registry;
+
+    $crawler = $goutte_client->request('GET', 'http://code.google.com/p/phpmemcacheadmin/downloads/list');
+
+    return $crawler->filter('a')->each( function ($node, $i) use ($registry) {
+        // phpMemcachedAdmin-1.2.2-r262.zip
+        if (preg_match("#(\d+\.\d+(\.\d+)*)(?:[._-]?(r)?(\d+))?#", $node->getAttribute('href'), $matches)) {
+            $version_long = $matches[0]; // 1.2.3-r123
+            $version = $matches[1]; // 1.2.3
+            if (version_compare($version, $registry['phpmemcachedadmin']['latest']['version'], '>=')) {
+                return array(
+                    'version' => $version,
+                    'url' => 'http://phpmemcacheadmin.googlecode.com/files/phpMemcachedAdmin-'.$version_long.'.zip'
+                );
+            }
+        }
+     });
+}
+
 
 /**
  * Removes all keys with value "null" from the array and returns the array.
@@ -293,6 +305,17 @@ function array_unset_null_values(array $array)
 }
 
 /**
+ * Removes duplicates from the array.
+ *
+ * @param $array Array
+ * @return $array
+ */
+function array_remove_duplicates(array $array)
+{
+    return array_map("unserialize", array_unique(array_map("serialize", $array)));
+}
+
+/**
  * Adds array data to the main software component array.
  *
  * @param $name Name of Software Component
@@ -302,8 +325,10 @@ function add($name, array $array)
 {
     global $registry;
 
-    // cleanup by removing all null values
+    // cleanup array
     $array = array_unset_null_values($array);
+
+    $array = array_remove_duplicates($array);
 
     if(isset($array['url']) and isset($array['version'])) {
         // the array contains only one element
@@ -317,6 +342,9 @@ function add($name, array $array)
 
         unset($array);
     } else {
+        // sort by version number, from low to high
+        asort($array);
+
         // add the last array item of multiple elements (the one with the highest version number)
 
         // insert the last array item as [latest][version] => [url]
@@ -336,10 +364,10 @@ function add($name, array $array)
     asort($registry[$name]);
 }
 
-#var_dump($registry);
-
 /**
  * PHP release files are moved from "/releases" to "/releases/archives".
+ * That means, latest version must point to "/releases".
+ * Every other version points to "/releases/archives".
  */
 function adjust_php_download_path()
 {
@@ -348,23 +376,14 @@ function adjust_php_download_path()
     foreach($registry['php'] as $version => $url) {
         // do not modify array key "latest"
         if( $version === 'latest') continue;
-        // do not modify array key with version number like latest version (that one must point to releases)
+        // do not modify array key with latest version number - it must point to "/releases".
         if( $version === $registry['php']['latest']['version']) continue;
-        // adjust path and insert at old array position (overwriting)
+        // replace the path on any other version
         $new_url = str_replace('php.net/downloads/releases/php', 'php.net/downloads/releases/archives/php', $url);
+        // insert at old array position, overwriting the old url
         $registry['php'][$version] = $new_url;
     }
 
-}
-
-adjust_php_download_path();
-
-// handle $_GET['action']
-// example call: registry-update.php?action=write-file
-$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
-if(isset($action) && $action === 'write-file') {
-    array_unset_null_values($registry);
-    write_registry_file($registry);
 }
 
 /**
@@ -422,10 +441,40 @@ function write_registry_file(array $registry)
     file_put_contents( 'wpnxm-software-registry.php', $content );
 }
 
-// anon function for printing an update symbol
-$printUpdatedSign = function($old_version, $new_version) {
+/**
+ * Get Latest Versions and add them to the registry.
+ */
+add('nginx', get_latest_version_of_nginx() );
+add('php', get_latest_version_of_php() );
+add('mariadb', get_latest_version_of_mariadb() );
+add('phpext_xdebug', get_latest_version_of_xdebug() );
+add('phpext_apc', get_latest_version_of_apc() );
+add('phpmyadmin', get_latest_version_of_phpmyadmin() );
+add('adminer', get_latest_version_of_adminer() );
+add('rockmongo', get_latest_version_of_rockmongo() );
+add('mongodb', get_latest_version_of_mongodb() );
+add('phpmemcachedadmin', get_latest_version_of_phpmemcachedadmin() );
+
+adjust_php_download_path();
+
+#var_dump($registry);
+
+// handle $_GET['action']
+// example call: registry-update.php?action=write-file
+$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
+if(isset($action) && $action === 'write-file') {
+    write_registry_file($registry);
+}
+
+/**
+ * The function prints an update symbol if old_version is lower than new_version.
+ *
+ * @param string Old version.
+ * @param string New version.
+ */
+function printUpdatedSign($old_version, $new_version) {
     if($old_version < $new_version) {
-        echo '<span style="color:green; font-size: 16px">&#x25B2;</span>';
+        echo '<span style="color:green; font-size: 16px">&nbsp;&#x25B2;</span>';
     }
 }
 ?>
@@ -436,47 +485,52 @@ $printUpdatedSign = function($old_version, $new_version) {
 </tr>
 <tr>
     <td>nginx</td><td><?php echo $old_registry['nginx']['latest']['version'] ?></td><td><?php echo $registry['nginx']['latest']['version'];
-    $printUpdatedSign($old_registry['nginx']['latest']['version'], $registry['nginx']['latest']['version']); ?>
+    printUpdatedSign($old_registry['nginx']['latest']['version'], $registry['nginx']['latest']['version']); ?>
     </td>
 </tr>
 <tr>
     <td>php</td><td><?php echo $old_registry['php']['latest']['version'] ?></td><td><?php echo $registry['php']['latest']['version'];
-    $printUpdatedSign($old_registry['php']['latest']['version'], $registry['php']['latest']['version']); ?>
+    printUpdatedSign($old_registry['php']['latest']['version'], $registry['php']['latest']['version']); ?>
     </td>
 </tr>
 <tr>
     <td>mariadb</td><td><?php echo $old_registry['mariadb']['latest']['version'] ?></td><td><?php echo $registry['mariadb']['latest']['version'];
-    $printUpdatedSign($old_registry['mariadb']['latest']['version'], $registry['mariadb']['latest']['version']); ?>
+    printUpdatedSign($old_registry['mariadb']['latest']['version'], $registry['mariadb']['latest']['version']); ?>
     </td>
 </tr>
 <tr>
     <td>xdebug</td><td><?php echo $old_registry['phpext_xdebug']['latest']['version'] ?></td><td><?php echo $registry['phpext_xdebug']['latest']['version'];
-    $printUpdatedSign($old_registry['phpext_xdebug']['latest']['version'], $registry['phpext_xdebug']['latest']['version']); ?>
+    printUpdatedSign($old_registry['phpext_xdebug']['latest']['version'], $registry['phpext_xdebug']['latest']['version']); ?>
     </td>
 </tr>
 <tr>
     <td>apc</td><td><?php echo $old_registry['phpext_apc']['latest']['version'] ?></td><td><?php echo $registry['phpext_apc']['latest']['version'];
-    $printUpdatedSign($old_registry['phpext_apc']['latest']['version'], $registry['phpext_apc']['latest']['version']); ?>
+    printUpdatedSign($old_registry['phpext_apc']['latest']['version'], $registry['phpext_apc']['latest']['version']); ?>
     </td>
 </tr>
 <tr>
     <td>phpmyadmin</td><td><?php echo $old_registry['phpmyadmin']['latest']['version'] ?></td><td><?php echo $registry['phpmyadmin']['latest']['version'];
-    $printUpdatedSign($old_registry['phpmyadmin']['latest']['version'], $registry['phpmyadmin']['latest']['version']); ?>
+    printUpdatedSign($old_registry['phpmyadmin']['latest']['version'], $registry['phpmyadmin']['latest']['version']); ?>
     </td>
 </tr>
 <tr>
     <td>adminer</td><td><?php echo $old_registry['adminer']['latest']['version'] ?></td><td><?php echo $registry['adminer']['latest']['version'];
-    $printUpdatedSign($old_registry['adminer']['latest']['version'],  $registry['adminer']['latest']['version']); ?>
+    printUpdatedSign($old_registry['adminer']['latest']['version'],  $registry['adminer']['latest']['version']); ?>
     </td>
 </tr>
 <tr>
     <td>rockmongo</td><td><?php echo $old_registry['rockmongo']['latest']['version'] ?></td><td><?php echo $registry['rockmongo']['latest']['version'];
-    $printUpdatedSign($old_registry['rockmongo']['latest']['version'],  $registry['rockmongo']['latest']['version']); ?>
+    printUpdatedSign($old_registry['rockmongo']['latest']['version'],  $registry['rockmongo']['latest']['version']); ?>
     </td>
 </tr>
 <tr>
     <td>mongodb</td><td><?php echo $old_registry['mongodb']['latest']['version'] ?></td><td><?php echo $registry['mongodb']['latest']['version'];
-    $printUpdatedSign($old_registry['mongodb']['latest']['version'],  $registry['mongodb']['latest']['version']); ?>
+    printUpdatedSign($old_registry['mongodb']['latest']['version'],  $registry['mongodb']['latest']['version']); ?>
+    </td>
+</tr>
+<tr>
+    <td>phpmemcachedadmin</td><td><?php echo $old_registry['phpmemcachedadmin']['latest']['version'] ?></td><td><?php echo $registry['phpmemcachedadmin']['latest']['version'];
+    printUpdatedSign($old_registry['phpmemcachedadmin']['latest']['version'],  $registry['phpmemcachedadmin']['latest']['version']); ?>
     </td>
 </tr>
 </table>

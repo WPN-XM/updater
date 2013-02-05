@@ -28,9 +28,12 @@
     */
 
 /**
- * Generates the file "downloads.csv".
- * The file is used by the build task "download-components".
- * Download the software components is required when building the All-In-One Installer.
+ * Generate Downloads
+ *
+ * This scripts generates the file "downloads.csv".
+ * The file is used by the build task "download-components", see "build.xml".
+ * The file must be copied to the main WPN-XM folder.
+ * Downloading these software components is required when building the All-In-One Installer.
  */
 
 set_time_limit(60*3);
@@ -69,6 +72,7 @@ $list = array (
   18 => array ( 0 => 'openssl', 1 => 'http://wpn-xm.org/get.php?s=openssl', 2 => 'openssl.exe', ),
   19 => array ( 0 => 'rockmongo', 1 => 'http://wpn-xm.org/get.php?s=rockmongo', 2 => 'rockmongo.zip', ),
   20 => array ( 0 => 'mongodb', 1 => 'http://wpn-xm.org/get.php?s=mongodb', 2 => 'mongodb.zip', ),
+  21 => array ( 0 => 'phpmemcachedadmin', 1 => 'http://wpn-xm.org/get.php?s=phpmemcachedadmin', 2 => 'phpmemcachedadmin.zip', ),
 );
 
 asort($list);

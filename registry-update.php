@@ -185,7 +185,7 @@ function get_latest_version_of_phpmyadmin()
     $crawler = $goutte_client->request('GET', 'http://www.phpmyadmin.net/home_page/downloads.php');
 
     return $crawler->filter('a')->each(function ($node, $i) use ($registry) {
-        if (preg_match("#(\d+\.\d+(\.\d+)*)(?:[._-]?(beta|b|rc|alpha|a|patch|pl|p)?(\d+)(?:[.-]?(\d+))?)?([.-]?dev)?#", $node->nodeValue, $matches)) {
+        if (preg_match("#(\d+\.\d+(\.\d+)*)(?:[._-]?(beta|b|rc|alpha|a|patch|pl|p)?(\d+)(?:[.-]?(\d+))?)?([.-]?dev)?#i", $node->nodeValue, $matches)) {
             $version = $matches[0];
             if (version_compare($version, $registry['phpmyadmin']['latest']['version'], '>=')) {
                 return array(
@@ -286,6 +286,40 @@ function get_latest_version_of_phpmemcachedadmin()
      });
 }
 
+
+/**
+ * phpext_mongodb - PHP Extension for MongoDB
+ */
+function get_latest_version_of_phpext_mongo()
+{
+    global $goutte_client, $registry;
+
+    /**
+     * WARNING
+     * The windows builds got no version listing, because Github stopped their downloads service.
+     * Old Listing URL: https://github.com/mongodb/mongo-php-driver/downloads
+     *
+     * Downloads are now on AS3.
+     * We scrape the PECL site for version numbers (mongo-1.3.4.tgz)
+     * and expect a matching windows build on AS3  (mongo-1.3.4.zip).
+     */
+
+    $crawler = $goutte_client->request('GET', 'http://pecl.php.net/package/mongo');
+
+    return $crawler->filter('a')->each( function ($node, $i) use ($registry) {
+        // mongo-1.3.4.tgz
+        if (preg_match("#php_mongo-(\d+\.\d+(\.\d+)*)(?:[._-]?(rc)?(\d+))?#i", $node->getAttribute('href'), $matches)) {
+            var_dump($matches);
+            $version = $matches[1]; // 1.2.3
+            if (version_compare($version, $registry['phpmemcachedadmin']['latest']['version'], '>=')) {
+                return array(
+                    'version' => $version,
+                    'url' => 'https://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-'.$version.'.zip'
+                );
+            }
+        }
+     });
+}
 
 /**
  * Removes all keys with value "null" from the array and returns the array.
@@ -454,6 +488,7 @@ add('adminer', get_latest_version_of_adminer() );
 add('rockmongo', get_latest_version_of_rockmongo() );
 add('mongodb', get_latest_version_of_mongodb() );
 add('phpmemcachedadmin', get_latest_version_of_phpmemcachedadmin() );
+add('phpext_mongo' , get_latest_version_of_phpext_mongo());
 
 adjust_php_download_path();
 
@@ -526,6 +561,11 @@ function printUpdatedSign($old_version, $new_version) {
 <tr>
     <td>mongodb</td><td><?php echo $old_registry['mongodb']['latest']['version'] ?></td><td><?php echo $registry['mongodb']['latest']['version'];
     printUpdatedSign($old_registry['mongodb']['latest']['version'],  $registry['mongodb']['latest']['version']); ?>
+    </td>
+</tr>
+<tr>
+    <td>phpext_mongo</td><td><?php echo $old_registry['phpext_mongo']['latest']['version'] ?></td><td><?php echo $registry['phpext_mongo']['latest']['version'];
+    printUpdatedSign($old_registry['phpext_mongo']['latest']['version'],  $registry['phpext_mongo']['latest']['version']); ?>
     </td>
 </tr>
 <tr>

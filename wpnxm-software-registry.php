@@ -2,7 +2,7 @@
    /**
     * WPN-XM Software Registry
     * ------------------------
-    * Last Update Mon, 04 Feb 2013 20:58:48 +0000.
+    * Last Update Wed, 06 Feb 2013 16:17:44 +0000.
     * Do not edit manually!
     */
 
@@ -352,6 +352,20 @@
       'url' => 'http://windows.php.net/downloads/pecl/releases/memcache/2.2.7/php_memcache-2.2.7-5.4-nts-vc9-x86.zip',
     ),
   ),
+  'phpext_mongo' =>
+  array (
+    'name' => 'phpext_mongo',
+    'website' => 'http://www.mongodb.org/display/DOCS/PHP+Language+Center/',
+    '1.3.2RC1' => 'https://github.com/downloads/mongodb/mongo-php-driver/php_mongo-1.3.2RC1.zip',
+    '1.3.2' => 'https://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.2.zip',
+    '1.3.3' => 'https://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.3.zip',
+    '1.3.4' => 'https://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.4.zip',
+    'latest' =>
+    array (
+      'version' => '1.3.4',
+      'url' => 'https://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.4.zip',
+    ),
+  ),
   'phpext_varnish' =>
   array (
     '1.0' => 'http://windows.php.net/downloads/pecl/releases/varnish/1.0.0/php_varnish-1.0.0-5.4-nts-vc9-x86.zip',
@@ -399,17 +413,6 @@
     array (
       'version' => '0.10.3',
       'url' => 'http://dev.freshsite.pl/php-extensions/xhprof/file/details/xhprof-0103-for-php-54-vc9-nts.html',
-    ),
-  ),
-  'phpext_mongo' =>
-  array (
-    'name' => 'phpext_mongo',
-    'website' => 'http://www.mongodb.org/display/DOCS/PHP+Language+Center/',
-    '1.3.2RC1' => 'https://github.com/downloads/mongodb/mongo-php-driver/php_mongo-1.3.2RC1.zip',
-    'latest' =>
-    array (
-      'version' => '1.3.2RC1',
-      'url' => 'https://github.com/downloads/mongodb/mongo-php-driver/php_mongo-1.3.2RC1.zip',
     ),
   ),
   'phpmemcachedadmin' =>

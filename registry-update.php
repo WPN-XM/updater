@@ -308,10 +308,9 @@ function get_latest_version_of_phpext_mongo()
 
     return $crawler->filter('a')->each( function ($node, $i) use ($registry) {
         // mongo-1.3.4.tgz
-        if (preg_match("#php_mongo-(\d+\.\d+(\.\d+)*)(?:[._-]?(rc)?(\d+))?#i", $node->getAttribute('href'), $matches)) {
-            var_dump($matches);
+        if (preg_match("#mongo-(\d+\.\d+(\.\d+)*)(?:[._-]?(rc)?(\d+))?#i", $node->getAttribute('href'), $matches)) {
             $version = $matches[1]; // 1.2.3
-            if (version_compare($version, $registry['phpmemcachedadmin']['latest']['version'], '>=')) {
+            if (version_compare($version, $registry['phpext_mongo']['latest']['version'], '>=')) {
                 return array(
                     'version' => $version,
                     'url' => 'https://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-'.$version.'.zip'

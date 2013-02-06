@@ -401,9 +401,9 @@
       'url' => 'http://dev.freshsite.pl/php-extensions/xhprof/file/details/xhprof-0103-for-php-54-vc9-nts.html',
     ),
   ),
-  'phpext_mongodb' =>
+  'phpext_mongo' =>
   array (
-    'name' => 'phpext_mongodb',
+    'name' => 'phpext_mongo',
     'website' => 'http://www.mongodb.org/display/DOCS/PHP+Language+Center/',
     '1.3.2RC1' => 'https://github.com/downloads/mongodb/mongo-php-driver/php_mongo-1.3.2RC1.zip',
     'latest' =>

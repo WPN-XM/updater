@@ -73,6 +73,7 @@ $list = array (
   19 => array ( 0 => 'rockmongo', 1 => 'http://wpn-xm.org/get.php?s=rockmongo', 2 => 'rockmongo.zip', ),
   20 => array ( 0 => 'mongodb', 1 => 'http://wpn-xm.org/get.php?s=mongodb', 2 => 'mongodb.zip', ),
   21 => array ( 0 => 'phpmemcachedadmin', 1 => 'http://wpn-xm.org/get.php?s=phpmemcachedadmin', 2 => 'phpmemcachedadmin.zip', ),
+  22 => array ( 0 => 'phpext_mongo', 1 => 'http://wpn-xm.org/get.php?s=phpext_mongo', 2 => 'phpext_mongo.zip', ),
 );
 
 asort($list);

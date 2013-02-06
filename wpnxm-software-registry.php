@@ -7,7 +7,7 @@
     */
 
  return array (
-  'adminer' => 
+  'adminer' =>
   array (
     'name' => 'Adminer',
     'website' => 'http://adminer.org/',
@@ -16,46 +16,46 @@
     '3.6.1' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.6.1/adminer-3.6.1.php',
     '3.6.2' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.6.2/adminer-3.6.2.php',
     '3.6.3' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.6.3/adminer-3.6.3.php',
-    'latest' => 
+    'latest' =>
     array (
       'version' => '3.6.3',
       'url' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.6.3/adminer-3.6.3.php',
     ),
   ),
-  'clansuite' => 
+  'clansuite' =>
   array (
     'name' => 'Clansuite',
     'website' => 'http://clansuite.com/',
     '0.2.1' => 'http://nodeload.github.com/Clansuite/Clansuite/zip/develop',
-    'latest' => 
+    'latest' =>
     array (
       'version' => '0.2.1',
       'url' => 'http://nodeload.github.com/Clansuite/Clansuite/zip/develop',
     ),
   ),
-  'composer' => 
+  'composer' =>
   array (
     'name' => 'Composer',
     'website' => 'http://getcomposer.org/',
     '1.0' => 'http://getcomposer.org/composer.phar',
-    'latest' => 
+    'latest' =>
     array (
       'version' => '1.0',
       'url' => 'http://getcomposer.org/composer.phar',
     ),
   ),
-  'junction' => 
+  'junction' =>
   array (
     'name' => 'Junction',
     'website' => 'http://technet.microsoft.com/de-de/sysinternals/bb896768.aspx',
     '1.0' => 'http://download.sysinternals.com/files/Junction.zip',
-    'latest' => 
+    'latest' =>
     array (
       'version' => '1.0',
       'url' => 'http://download.sysinternals.com/files/Junction.zip',
     ),
   ),
-  'mariadb' => 
+  'mariadb' =>
   array (
     'name' => 'MariaDB',
     'website' => 'http://mariadb.org/',
@@ -101,49 +101,49 @@
     '5.5.25' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.25/windows/mariadb-5.5.25-win32.zip',
     '5.5.27' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.27/windows/mariadb-5.5.27-win32.zip',
     '5.5.28' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.28/win32-packages/mariadb-5.5.28-win32.zip',
-    'latest' => 
+    'latest' =>
     array (
       'version' => '5.5.28',
       'url' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.28/win32-packages/mariadb-5.5.28-win32.zip',
     ),
   ),
-  'memadmin' => 
+  'memadmin' =>
   array (
     'name' => 'Memadmin',
     'website' => 'http://www.junopen.com/memadmin/',
     '1.0.11' => 'http://nodeload.github.com/junstor/memadmin/zip/v1.0.11',
     '1.0.12' => 'http://nodeload.github.com/junstor/memadmin/zip/v1.0.12',
-    'latest' => 
+    'latest' =>
     array (
       'version' => '1.0.12',
       'url' => 'http://nodeload.github.com/junstor/memadmin/zip/v1.0.12',
     ),
   ),
-  'memcached' => 
+  'memcached' =>
   array (
     'name' => 'Memcached',
     'website' => 'http://memcached.org/',
     '1.4.5' => 'http://downloads.northscale.com/memcached-1.4.5-x86.zip',
-    'latest' => 
+    'latest' =>
     array (
       'version' => '1.4.5',
       'url' => 'http://downloads.northscale.com/memcached-1.4.5-x86.zip',
     ),
   ),
-  'mongodb' => 
+  'mongodb' =>
   array (
     'name' => 'MongoDB',
     'website' => 'http://mongodb.org/',
     '1.8.5' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-1.8.5.zip',
     '2.2.1' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.2.1.zip',
     '2.2.3' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.2.3.zip',
-    'latest' => 
+    'latest' =>
     array (
       'version' => '2.2.3',
       'url' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.2.3.zip',
     ),
   ),
-  'nginx' => 
+  'nginx' =>
   array (
     'name' => 'Nginx',
     'website' => 'http://nginx.org/',
@@ -282,35 +282,35 @@
     '1.3.9' => 'http://www.nginx.org/download/nginx-1.3.9.zip',
     '1.3.10' => 'http://www.nginx.org/download/nginx-1.3.10.zip',
     '1.3.11' => 'http://www.nginx.org/download/nginx-1.3.11.zip',
-    'latest' => 
+    'latest' =>
     array (
       'version' => '1.3.9',
       'url' => 'http://www.nginx.org/download/nginx-1.3.9.zip',
     ),
   ),
-  'openssl' => 
+  'openssl' =>
   array (
     'name' => 'OpenSSL',
     'website' => 'http://slproweb.com/',
     '1.0.1c' => 'http://slproweb.com/download/Win32OpenSSL_Light-1_0_1c.exe',
-    'latest' => 
+    'latest' =>
     array (
       'version' => '1.0.1c',
       'url' => 'http://slproweb.com/download/Win32OpenSSL_Light-1_0_1c.exe',
     ),
   ),
-  'pear' => 
+  'pear' =>
   array (
     'name' => 'PEAR',
     'website' => 'http://pear.php.net/',
     '1.0' => 'http://pear.php.net/go-pear.phar',
-    'latest' => 
+    'latest' =>
     array (
       'version' => '1.0',
       'url' => 'http://pear.php.net/go-pear.phar',
     ),
   ),
-  'php' => 
+  'php' =>
   array (
     'name' => 'PHP',
     'website' => 'http://php.net/',
@@ -321,13 +321,13 @@
     '5.4.9' => 'http://windows.php.net/downloads/releases/archives/php-5.4.9-nts-Win32-VC9-x86.zip',
     '5.4.10' => 'http://windows.php.net/downloads/releases/archives/php-5.4.10-nts-Win32-VC9-x86.zip',
     '5.4.11' => 'http://windows.php.net/downloads/releases/php-5.4.11-nts-Win32-VC9-x86.zip',
-    'latest' => 
+    'latest' =>
     array (
       'version' => '5.4.11',
       'url' => 'http://windows.php.net/downloads/releases/php-5.4.11-nts-Win32-VC9-x86.zip',
     ),
   ),
-  'phpext_apc' => 
+  'phpext_apc' =>
   array (
     'name' => 'APC',
     'website' => 'http://php.net/manual/de/book.apc.php/',
@@ -336,41 +336,41 @@
     '3.1.12' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.12/php_apc-3.1.12-5.4-nts-vc9-x86.zip',
     '3.1.13' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.13/php_apc-3.1.13-5.4-nts-vc9-x86.zip',
     '3.1.14' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.14/php_apc-3.1.14-5.4-nts-vc9-x86.zip',
-    'latest' => 
+    'latest' =>
     array (
       'version' => '3.1.14',
       'url' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.14/php_apc-3.1.14-5.4-nts-vc9-x86.zip',
     ),
   ),
-  'phpext_memcache' => 
+  'phpext_memcache' =>
   array (
     '2.2.6' => 'http://downloads.php.net/pierre/php_memcache-2.2.6-5.3-vc9-x86.zip',
     '2.2.7' => 'http://windows.php.net/downloads/pecl/releases/memcache/2.2.7/php_memcache-2.2.7-5.4-nts-vc9-x86.zip',
-    'latest' => 
+    'latest' =>
     array (
       'version' => '2.2.7',
       'url' => 'http://windows.php.net/downloads/pecl/releases/memcache/2.2.7/php_memcache-2.2.7-5.4-nts-vc9-x86.zip',
     ),
   ),
-  'phpext_varnish' => 
+  'phpext_varnish' =>
   array (
     '1.0' => 'http://windows.php.net/downloads/pecl/releases/varnish/1.0.0/php_varnish-1.0.0-5.4-nts-vc9-x86.zip',
-    'latest' => 
+    'latest' =>
     array (
       'version' => '1.0',
       'url' => 'http://windows.php.net/downloads/pecl/releases/varnish/1.0.0/php_varnish-1.0.0-5.4-nts-vc9-x86.zip',
     ),
   ),
-  'phpext_xcache' => 
+  'phpext_xcache' =>
   array (
     '2.0.1' => 'http://dev.freshsite.pl/nc/php-accelerators/xcache/download/xcache-201-for-php-54-vc9-nts.html',
-    'latest' => 
+    'latest' =>
     array (
       'version' => '2.0.1',
       'url' => 'http://dev.freshsite.pl/nc/php-accelerators/xcache/download/xcache-201-for-php-54-vc9-nts.html',
     ),
   ),
-  'phpext_xdebug' => 
+  'phpext_xdebug' =>
   array (
     'name' => 'XDebug',
     'website' => 'http://xdebug.org/',
@@ -384,36 +384,47 @@
     '2.2.0RC2' => 'http://xdebug.org/files/php_xdebug-2.2.0RC2-5.4-vc9-nts.dll',
     '2.2.0' => 'http://xdebug.org/files/php_xdebug-2.2.0RC2-5.4-vc9-nts.dll',
     '2.2.1' => 'http://xdebug.org/files/php_xdebug-2.2.1-5.3-vc9-nts.dll',
-    'latest' => 
+    'latest' =>
     array (
       'version' => '2.2.1',
       'url' => 'http://xdebug.org/files/php_xdebug-2.2.1-5.4-vc9-nts.dll',
     ),
   ),
-  'phpext_xhprof' => 
+  'phpext_xhprof' =>
   array (
     'name' => 'XHProf',
     'website' => 'https://github.com/facebook/xhprof/',
     '0.10.3' => 'http://dev.freshsite.pl/php-extensions/xhprof/file/details/xhprof-0103-for-php-54-vc9-nts.html',
-    'latest' => 
+    'latest' =>
     array (
       'version' => '0.10.3',
       'url' => 'http://dev.freshsite.pl/php-extensions/xhprof/file/details/xhprof-0103-for-php-54-vc9-nts.html',
     ),
   ),
-  'phpmemcachedadmin' => 
+  'phpext_mongodb' =>
+  array (
+    'name' => 'phpext_mongodb',
+    'website' => 'http://www.mongodb.org/display/DOCS/PHP+Language+Center/',
+    '1.3.2RC1' => 'https://github.com/downloads/mongodb/mongo-php-driver/php_mongo-1.3.2RC1.zip',
+    'latest' =>
+    array (
+      'version' => '1.3.2RC1',
+      'url' => 'https://github.com/downloads/mongodb/mongo-php-driver/php_mongo-1.3.2RC1.zip',
+    ),
+  ),
+  'phpmemcachedadmin' =>
   array (
     'name' => 'phpMemcachedAdmin',
     'website' => 'http://code.google.com/p/phpmemcacheadmin/',
     '1.2.1' => 'http://phpmemcacheadmin.googlecode.com/files/phpMemcachedAdmin-1.2.1-r233.zip',
     '1.2.2' => 'http://phpmemcacheadmin.googlecode.com/files/phpMemcachedAdmin-1.2.2-r262.zip',
-    'latest' => 
+    'latest' =>
     array (
       'version' => '1.2.2',
       'url' => 'http://phpmemcacheadmin.googlecode.com/files/phpMemcachedAdmin-1.2.2-r262.zip',
     ),
   ),
-  'phpmyadmin' => 
+  'phpmyadmin' =>
   array (
     'name' => 'phpMyAdmin',
     'website' => 'http://phpmyadmin.net/',
@@ -424,62 +435,62 @@
     '3.5.5' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.5/phpMyAdmin-3.5.5-english.zip',
     '3.5.6' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.6/phpMyAdmin-3.5.6-english.zip',
     '4.0.0-alpha2' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-alpha2/phpMyAdmin-4.0.0-alpha2-english.zip',
-    'latest' => 
+    'latest' =>
     array (
       'version' => '4.0.0-alpha2',
       'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-alpha2/phpMyAdmin-4.0.0-alpha2-english.zip',
     ),
   ),
-  'rockmongo' => 
+  'rockmongo' =>
   array (
     'name' => 'RockMongo',
     'website' => 'http://rockmongo.org/',
     '1.1.3' => 'http://rockmongo.org/release/rockmongo-1.1.3.zip',
     '1.1.5' => 'http://rockmongo.com/release/rockmongo-1.1.5.zip',
-    'latest' => 
+    'latest' =>
     array (
       'version' => '1.1.5',
       'url' => 'http://rockmongo.com/release/rockmongo-1.1.5.zip',
     ),
   ),
-  'sendmail' => 
+  'sendmail' =>
   array (
     'name' => 'Fake Sendmail',
     'website' => 'http://glob.com.au/sendmail/',
     '1.0' => 'http://www.glob.com.au/sendmail/sendmail.zip',
-    'latest' => 
+    'latest' =>
     array (
       'version' => '1.0',
       'url' => 'http://www.glob.com.au/sendmail/sendmail.zip',
     ),
   ),
-  'webgrind' => 
+  'webgrind' =>
   array (
     'name' => 'Webgrind',
     'website' => 'http://code.google.com/p/webgrind/',
     '1.0' => 'http://cloud.github.com/downloads/jokkedk/webgrind/webgrind-release-1.0.zip',
-    'latest' => 
+    'latest' =>
     array (
       'version' => '1.0',
       'url' => 'http://cloud.github.com/downloads/jokkedk/webgrind/webgrind-release-1.0.zip',
     ),
   ),
-  'wpnxmscp' => 
+  'wpnxmscp' =>
   array (
     'name' => 'WPN-XM SCP',
     'website' => 'http://wpn-xm.org/',
     '0.3.0' => 'http://wpn-xm.org/files/wpn-xm-scp-0.3.0.zip',
     '0.4.0' => 'http://wpn-xm.org/files/wpn-xm-scp-0.4.0.zip',
-    'latest' => 
+    'latest' =>
     array (
       'version' => '0.4.0',
       'url' => 'http://wpn-xm.org/files/wpn-xm-scp-0.4.0.zip',
     ),
   ),
-  'xhprof' => 
+  'xhprof' =>
   array (
     '1.0' => 'http://nodeload.github.com/preinheimer/xhprof/zip/master',
-    'latest' => 
+    'latest' =>
     array (
       'version' => '1.0',
       'url' => 'http://nodeload.github.com/preinheimer/xhprof/zip/master',

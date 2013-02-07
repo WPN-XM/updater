@@ -2,7 +2,7 @@
    /**
     * WPN-XM Software Registry
     * ------------------------
-    * Last Update Wed, 06 Feb 2013 16:17:44 +0000.
+    * Last Update Thu, 07 Feb 2013 19:10:43 +0000.
     * Do not edit manually!
     */
 
@@ -282,6 +282,7 @@
     '1.3.9' => 'http://www.nginx.org/download/nginx-1.3.9.zip',
     '1.3.10' => 'http://www.nginx.org/download/nginx-1.3.10.zip',
     '1.3.11' => 'http://www.nginx.org/download/nginx-1.3.11.zip',
+    '1.3.12' => 'http://www.nginx.org/download/nginx-1.3.12.zip',
     'latest' =>
     array (
       'version' => '1.3.9',
@@ -292,11 +293,12 @@
   array (
     'name' => 'OpenSSL',
     'website' => 'http://slproweb.com/',
+    '1.0.1d' => 'http://slproweb.com/download/Win32OpenSSL_Light-1_0_1d.exe',
     '1.0.1c' => 'http://slproweb.com/download/Win32OpenSSL_Light-1_0_1c.exe',
     'latest' =>
     array (
-      'version' => '1.0.1c',
-      'url' => 'http://slproweb.com/download/Win32OpenSSL_Light-1_0_1c.exe',
+      'version' => '1.0.1d',
+      'url' => 'http://slproweb.com/download/Win32OpenSSL_Light-1_0_1d.exe',
     ),
   ),
   'pear' =>

@@ -321,6 +321,30 @@ function get_latest_version_of_phpext_mongo()
 }
 
 /**
+ * OpenSSL
+ */
+function get_latest_version_of_openssl()
+{
+    global $goutte_client, $registry;
+
+    $crawler = $goutte_client->request('GET', 'http://slproweb.com/products/Win32OpenSSL.html');
+
+    return $crawler->filter('a')->each( function ($node, $i) use ($registry) {
+        // http://slproweb.com/download/Win32OpenSSL_Light-1_0_1d.exe
+        if (preg_match("#Win32OpenSSL_Light-(\d+\_\d+\_\d+[a-z]).exe$#", $node->getAttribute('href'), $matches)) {
+            // turn 1_0_1d to 1.0.1d - still not SemVer but anyway
+            $version = str_replace('_', '.', $matches[1]);
+            if (version_compare($version, $registry['openssl']['latest']['version'], '>=')) {
+                return array(
+                    'version' => $version,
+                    'url' => 'http://slproweb.com/download/Win32OpenSSL_Light-'.$matches[1].'.exe'
+                );
+            }
+        }
+     });
+}
+
+/**
  * Removes all keys with value "null" from the array and returns the array.
  *
  * @param $array Array
@@ -488,6 +512,7 @@ add('rockmongo', get_latest_version_of_rockmongo() );
 add('mongodb', get_latest_version_of_mongodb() );
 add('phpmemcachedadmin', get_latest_version_of_phpmemcachedadmin() );
 add('phpext_mongo' , get_latest_version_of_phpext_mongo());
+add('openssl' , get_latest_version_of_openssl());
 
 adjust_php_download_path();
 
@@ -570,6 +595,11 @@ function printUpdatedSign($old_version, $new_version) {
 <tr>
     <td>phpmemcachedadmin</td><td><?php echo $old_registry['phpmemcachedadmin']['latest']['version'] ?></td><td><?php echo $registry['phpmemcachedadmin']['latest']['version'];
     printUpdatedSign($old_registry['phpmemcachedadmin']['latest']['version'],  $registry['phpmemcachedadmin']['latest']['version']); ?>
+    </td>
+</tr>
+<tr>
+    <td>openssl</td><td><?php echo $old_registry['openssl']['latest']['version'] ?></td><td><?php echo $registry['openssl']['latest']['version'];
+    printUpdatedSign($old_registry['openssl']['latest']['version'],  $registry['openssl']['latest']['version']); ?>
     </td>
 </tr>
 </table>

@@ -135,6 +135,7 @@
     'name' => 'MongoDB',
     'website' => 'http://mongodb.org/',
     '1.8.5' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-1.8.5.zip',
+    '2.0.8' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.0.8.zip',
     '2.2.1' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.2.1.zip',
     '2.2.3' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.2.3.zip',
     'latest' =>

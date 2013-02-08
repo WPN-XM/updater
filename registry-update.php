@@ -247,7 +247,8 @@ function get_latest_version_of_mongodb()
 {
     global $goutte_client, $registry;
 
-    $crawler = $goutte_client->request('GET', 'http://www.mongodb.org/downloads');
+    // formerly http://www.mongodb.org/downloads
+    $crawler = $goutte_client->request('GET', 'http://dl.mongodb.org/dl/win32/');
 
     return $crawler->filter('a')->each( function ($node, $i) use ($registry) {
         if (preg_match("#win32-i386-(\d+\.\d+(\.\d+)*).zip$#", $node->getAttribute('href'), $matches)) {

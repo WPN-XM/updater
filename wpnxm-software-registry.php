@@ -502,4 +502,13 @@
       'url' => 'http://nodeload.github.com/preinheimer/xhprof/zip/master',
     ),
   ),
+  'phpext_zeromq' =>
+  array (
+    '3.2.0' => 'http://valokuva.org/%7Emikko/php-zmq-20130203.tgz',
+    'latest' =>
+    array (
+      'version' => '3.2.0',
+      'url' => 'http://valokuva.org/%7Emikko/php-zmq-20130203.tgz',
+    ),
+  ),
 );

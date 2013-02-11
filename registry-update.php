@@ -493,10 +493,25 @@ function write_registry_file(array $registry)
     $content .= var_export( $registry, true ) . ';';
 
     // remove trailing spaces
-    $content = trim($content);
+    $content = removeEOLSpaces($content);
 
     // write new registry
     file_put_contents( 'wpnxm-software-registry.php', $content );
+}
+
+/**
+ * Strips EOL spaces from the content.
+ * Note: PHP's var_export() adds EOL spaces after array keys, like "'key' => ".
+ *       I consider this a PHP bug. Anyway. Let's get rid of that.
+ */
+function removeEOLSpaces($content)
+{
+    $lines = explode("\n", $content);
+    foreach($lines as $idx => $line) {
+        $lines[$idx] = rtrim($line);
+    }
+    $content = implode("\n", $lines);
+    return $content;
 }
 
 /**

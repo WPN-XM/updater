@@ -2,7 +2,7 @@
    /**
     * WPN-XM Software Registry
     * ------------------------
-    * Last Update Thu, 07 Feb 2013 19:10:43 +0000.
+    * Last Update Mon, 11 Feb 2013 12:24:47 +0000.
     * Do not edit manually!
     */
 
@@ -138,10 +138,13 @@
     '2.0.8' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.0.8.zip',
     '2.2.1' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.2.1.zip',
     '2.2.3' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.2.3.zip',
+    '2.3.0' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.3.0.zip',
+    '2.3.1' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.3.1.zip',
+    '2.3.2' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.3.2.zip',
     'latest' =>
     array (
-      'version' => '2.2.3',
-      'url' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.2.3.zip',
+      'version' => '2.3.2',
+      'url' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.3.2.zip',
     ),
   ),
   'nginx' =>
@@ -294,8 +297,8 @@
   array (
     'name' => 'OpenSSL',
     'website' => 'http://slproweb.com/',
-    '1.0.1d' => 'http://slproweb.com/download/Win32OpenSSL_Light-1_0_1d.exe',
     '1.0.1c' => 'http://slproweb.com/download/Win32OpenSSL_Light-1_0_1c.exe',
+    '1.0.1d' => 'http://slproweb.com/download/Win32OpenSSL_Light-1_0_1d.exe',
     'latest' =>
     array (
       'version' => '1.0.1d',
@@ -418,6 +421,15 @@
       'url' => 'http://dev.freshsite.pl/php-extensions/xhprof/file/details/xhprof-0103-for-php-54-vc9-nts.html',
     ),
   ),
+  'phpext_zeromq' =>
+  array (
+    '3.2.0' => 'http://valokuva.org/%7Emikko/php-zmq-20130203.tgz',
+    'latest' =>
+    array (
+      'version' => '3.2.0',
+      'url' => 'http://valokuva.org/%7Emikko/php-zmq-20130203.tgz',
+    ),
+  ),
   'phpmemcachedadmin' =>
   array (
     'name' => 'phpMemcachedAdmin',
@@ -441,10 +453,11 @@
     '3.5.5' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.5/phpMyAdmin-3.5.5-english.zip',
     '3.5.6' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.6/phpMyAdmin-3.5.6-english.zip',
     '4.0.0-alpha2' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-alpha2/phpMyAdmin-4.0.0-alpha2-english.zip',
+    '4.0.0-beta1' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-beta1/phpMyAdmin-4.0.0-beta1-english.zip',
     'latest' =>
     array (
-      'version' => '4.0.0-alpha2',
-      'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-alpha2/phpMyAdmin-4.0.0-alpha2-english.zip',
+      'version' => '4.0.0-beta1',
+      'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-beta1/phpMyAdmin-4.0.0-beta1-english.zip',
     ),
   ),
   'rockmongo' =>
@@ -500,15 +513,6 @@
     array (
       'version' => '1.0',
       'url' => 'http://nodeload.github.com/preinheimer/xhprof/zip/master',
-    ),
-  ),
-  'phpext_zeromq' =>
-  array (
-    '3.2.0' => 'http://valokuva.org/%7Emikko/php-zmq-20130203.tgz',
-    'latest' =>
-    array (
-      'version' => '3.2.0',
-      'url' => 'http://valokuva.org/%7Emikko/php-zmq-20130203.tgz',
     ),
   ),
 );

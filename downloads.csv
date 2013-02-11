@@ -4,7 +4,7 @@ junction,http://wpn-xm.org/get.php?s=junction,junction.zip
 mariadb,http://wpn-xm.org/get.php?s=mariadb,mariadb.zip
 memadmin,http://wpn-xm.org/get.php?s=memadmin,memadmin.zip
 memcached,http://wpn-xm.org/get.php?s=memcached,memcached.zip
-mongodb,http://wpn-xm.org/get.php?s=mongodbv=2.0.8,mongodb.zip
+mongodb,http://wpn-xm.org/get.php?s=mongodb&v=2.0.8,mongodb.zip
 nginx,http://wpn-xm.org/get.php?s=nginx,nginx.zip
 openssl,http://wpn-xm.org/get.php?s=openssl,openssl.exe
 pear,http://wpn-xm.org/get.php?s=pear,go-pear.phar

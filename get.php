@@ -50,9 +50,9 @@ $s = filter_input(INPUT_GET, 's', FILTER_SANITIZE_STRING);
 $v = filter_input(INPUT_GET, 'v', FILTER_SANITIZE_STRING);
 
 // does the requested software exist in our registry?
-if (isset($s) && array_key_exists($s, $registry)) {
+if (!empty($s) && array_key_exists($s, $registry)) {
     // yes, and does the requested version of it exist?
-    if (isset($v) && array_key_exists($v, $registry[$s])) {
+    if (!empty($v) && array_key_exists($v, $registry[$s])) {
         // yes, return download url
         header("Location: " . $registry[$s][$v]); // e.g. $registry['nginx']['1.2.1'];
     } else {

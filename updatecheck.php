@@ -48,11 +48,13 @@ if (!is_array($registry)) {
 $s = filter_input(INPUT_GET, 's', FILTER_SANITIZE_STRING);
 // $_GET['v'] = your current version
 $v = filter_input(INPUT_GET, 'v', FILTER_SANITIZE_STRING);
+// fallback, if no version was set - this makes requests without "v" parameter possible
+$v = (!empty($v)) ? $v : '0.0.0';
 
 // does the requested software exist in our registry?
-if ( isset($s) && array_key_exists($s, $registry) ) {
-    // yes, and does the requested version of it exist?
-    if ( isset($v) && version_compare($v, $registry[$s]['latest']['version'], '<') ) {
+if (!empty($s) && array_key_exists($s, $registry) ) {
+    // compare versions
+    if (version_compare($v, $registry[$s]['latest']['version'], '<') ) {
 
        // prepare json data
        $data = array (

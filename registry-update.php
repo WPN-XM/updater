@@ -314,7 +314,7 @@ function get_latest_version_of_phpext_mongo()
             if (version_compare($version, $registry['phpext_mongo']['latest']['version'], '>=')) {
                 return array(
                     'version' => $version,
-                    'url' => 'https://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-'.$version.'.zip'
+                    'url' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-'.$version.'.zip'
                 );
             }
         }

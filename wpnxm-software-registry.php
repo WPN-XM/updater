@@ -363,14 +363,14 @@
   array (
     'name' => 'phpext_mongo',
     'website' => 'http://www.mongodb.org/display/DOCS/PHP+Language+Center/',
-    '1.3.2RC1' => 'https://github.com/downloads/mongodb/mongo-php-driver/php_mongo-1.3.2RC1.zip',
-    '1.3.2' => 'https://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.2.zip',
-    '1.3.3' => 'https://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.3.zip',
-    '1.3.4' => 'https://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.4.zip',
+    '1.3.2RC1' => 'http://github.com/downloads/mongodb/mongo-php-driver/php_mongo-1.3.2RC1.zip',
+    '1.3.2' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.2.zip',
+    '1.3.3' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.3.zip',
+    '1.3.4' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.4.zip',
     'latest' =>
     array (
       'version' => '1.3.4',
-      'url' => 'https://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.4.zip',
+      'url' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.4.zip',
     ),
   ),
   'phpext_varnish' =>

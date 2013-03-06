@@ -94,12 +94,14 @@ function is_available($url, $timeout = 30)
     // set cURL options
     $options = array(
         CURLOPT_RETURNTRANSFER => true,         // do not output to browser
+        CURLOPT_NOPROGRESS => true,
         CURLOPT_URL => $url,
         CURLOPT_NOBODY => true,                 // do HEAD request only
         CURLOPT_TIMEOUT => $timeout,
         CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_FORBID_REUSE => false,
         CURLOPT_SSL_VERIFYPEER => false,
-        CURLOPT_SSL_VERIFYHOST => false,
+        CURLOPT_SSL_VERIFYHOST => 2,
         CURLOPT_USERAGENT, 'WPN-XM Server Stack - Registry Status Tool - http://wpn-xm.org/',
     );
 

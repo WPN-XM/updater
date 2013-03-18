@@ -2,7 +2,7 @@
    /**
     * WPN-XM Software Registry
     * ------------------------
-    * Last Update Wed, 06 Mar 2013 17:51:18 +0000.
+    * Last Update Mon, 18 Mar 2013 18:36:21 +0000.
     * Do not edit manually!
     */
 
@@ -141,10 +141,11 @@
     '2.3.0' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.3.0.zip',
     '2.3.1' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.3.1.zip',
     '2.3.2' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.3.2.zip',
+    '2.4.0' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.4.0.zip',
     'latest' =>
     array (
-      'version' => '2.3.2',
-      'url' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.3.2.zip',
+      'version' => '2.4.0',
+      'url' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.4.0.zip',
     ),
   ),
   'nginx' =>
@@ -330,11 +331,12 @@
     '5.4.9' => 'http://windows.php.net/downloads/releases/archives/php-5.4.9-nts-Win32-VC9-x86.zip',
     '5.4.10' => 'http://windows.php.net/downloads/releases/archives/php-5.4.10-nts-Win32-VC9-x86.zip',
     '5.4.11' => 'http://windows.php.net/downloads/releases/archives/php-5.4.11-nts-Win32-VC9-x86.zip',
-    '5.4.12' => 'http://windows.php.net/downloads/releases/php-5.4.12-nts-Win32-VC9-x86.zip',
+    '5.4.12' => 'http://windows.php.net/downloads/releases/archives/php-5.4.12-nts-Win32-VC9-x86.zip',
+    '5.4.13' => 'http://windows.php.net/downloads/releases/php-5.4.13-nts-Win32-VC9-x86.zip',
     'latest' =>
     array (
-      'version' => '5.4.12',
-      'url' => 'http://windows.php.net/downloads/releases/php-5.4.12-nts-Win32-VC9-x86.zip',
+      'version' => '5.4.13',
+      'url' => 'http://windows.php.net/downloads/releases/php-5.4.13-nts-Win32-VC9-x86.zip',
     ),
   ),
   'phpext_apc' =>
@@ -370,10 +372,11 @@
     '1.3.2' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.2.zip',
     '1.3.3' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.3.zip',
     '1.3.4' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.4.zip',
+    '1.3.5' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.5.zip',
     'latest' =>
     array (
-      'version' => '1.3.4',
-      'url' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.4.zip',
+      'version' => '1.3.5',
+      'url' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.5.zip',
     ),
   ),
   'phpext_varnish' =>
@@ -458,10 +461,11 @@
     '3.5.6' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.6/phpMyAdmin-3.5.6-english.zip',
     '4.0.0-alpha2' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-alpha2/phpMyAdmin-4.0.0-alpha2-english.zip',
     '4.0.0-beta1' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-beta1/phpMyAdmin-4.0.0-beta1-english.zip',
+    '4.0.0-beta2' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-beta2/phpMyAdmin-4.0.0-beta2-english.zip',
     'latest' =>
     array (
-      'version' => '4.0.0-beta1',
-      'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-beta1/phpMyAdmin-4.0.0-beta1-english.zip',
+      'version' => '4.0.0-beta2',
+      'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-beta2/phpMyAdmin-4.0.0-beta2-english.zip',
     ),
   ),
   'rockmongo' =>

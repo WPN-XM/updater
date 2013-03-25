@@ -114,19 +114,41 @@ function get_latest_version_of_mariadb()
 {
     global $goutte_client, $registry;
 
-    $crawler = $goutte_client->request('GET', 'http://downloads.mariadb.org/MariaDB/+releases/');
+    $crawler = $goutte_client->request('GET', 'http://archive.mariadb.org/');
 
     return $crawler->filter('a')->each(function ($node, $i) use ($registry) {
-        if (preg_match("#(\d+\.\d+(\.\d+)*)$#", $node->nodeValue, $matches)) {
-            $version = $matches[0];
-            // skip v10 alpha, by setting version to null
-            $version = ($version >= '10.0.0') ? '5.5.28' : $version;
-            $filename = 'mariadb-'.$version.'-win32.zip'; // e.g. mariadb-5.5.25-win32.zip
-            $folder = ($version >= '5.5.28') ? 'win32-packages' : 'windows'; // from v5.5.28 the folder name is "win32-packages", not "windows"
+        if (preg_match("#mariadb-(\d+\.\d+(\.\d+)*)#", $node->nodeValue, $matches)) {
+            $version = $matches[1];
+
+            // skip all versions below v5.1.49, because this is the first one with a windows release folder
+            if(version_compare($version, '5.1.48') <= 0) {
+                $version = '0.0.0';
+            };
+
+            // skip all v10.0.0+ alpha versions
+            if(version_compare($version, '10.0.0') >= 0) {
+                $version = '0.0.0';
+            };
+
+            $filename = 'mariadb-'.$version.'-win32.zip';
+
+            //  *** WARNING ***
+            // The links are not consistent, because of folder name changes, see:
+            // - windows releases are available from v5.1.49
+            // - http://archive.mariadb.org/mariadb-5.1.49/kvm-zip-winxp-x86/
+            // - some versions are missing in their archive, anyway..
+            // - http://archive.mariadb.org/mariadb-5.2.6/win2008r2-vs2010-i386/mariadb-5.2.6-win32.zip
+            // - http://archive.mariadb.org/mariadb-5.5.27/windows/mariadb-5.5.27-win32.zip
+            // - http://archive.mariadb.org/mariadb-5.5.28/win32-packages/mariadb-5.5.28-win32.zip
+
+            if($version <= '5.1.49') { $folder = 'kvm-zip-winxp-x86'; $filename = 'mariadb-noinstall-'.$version.'-win32.zip'; }
+            elseif($version <= '5.2.6')  { $folder = 'win2008r2-vs2010-i386'; }
+            elseif($version <= '5.5.23') { $folder = 'win2008r2-vs2010-i386-packages'; }
+            elseif($version <= '5.5.27') { $folder = 'windows'; }
+            elseif($version >= '5.5.28') { $folder = 'win32-packages'; }
+
             if (version_compare($version, $registry['mariadb']['latest']['version'], '>=')) {
-                // old http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.27/windows/mariadb-5.5.27-win32.zip
-                // new http://mirror2.hs-esslingen.de/mariadb/mariadb-5.5.28/win32-packages/mariadb-5.5.28-win32.zip
-                return array('version' => $version, 'url' => 'http://mirror2.hs-esslingen.de/mariadb/mariadb-' . $version . '/' . $folder .'/' . $filename);
+                return array('version' => $version, 'url' => 'http://archive.mariadb.org/mariadb-' . $version . '/' . $folder .'/' . $filename);
             }
         }
     });

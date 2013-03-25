@@ -2,7 +2,7 @@
    /**
     * WPN-XM Software Registry
     * ------------------------
-    * Last Update Mon, 25 Mar 2013 13:30:30 +0000.
+    * Last Update Mon, 25 Mar 2013 13:33:46 +0000.
     * Do not edit manually!
     */
 
@@ -149,10 +149,11 @@
     '2.3.1' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.3.1.zip',
     '2.3.2' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.3.2.zip',
     '2.4.0' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.4.0.zip',
+    '2.4.1' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.4.1.zip',
     'latest' =>
     array (
-      'version' => '2.4.0',
-      'url' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.4.0.zip',
+      'version' => '2.4.1',
+      'url' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.4.1.zip',
     ),
   ),
   'nginx' =>
@@ -307,9 +308,9 @@
   array (
     'name' => 'OpenSSL',
     'website' => 'http://slproweb.com/',
-    '1.0.1d' => 'http://slproweb.com/download/Win32OpenSSL_Light-1_0_1d.exe',
     '1.0.1e' => 'http://slproweb.com/download/Win32OpenSSL_Light-1_0_1e.exe',
     '1.0.1c' => 'http://slproweb.com/download/Win32OpenSSL_Light-1_0_1c.exe',
+    '1.0.1d' => 'http://slproweb.com/download/Win32OpenSSL_Light-1_0_1d.exe',
     'latest' =>
     array (
       'version' => '1.0.1e',
@@ -417,11 +418,12 @@
     '2.1.4' => 'http://xdebug.org/files/php_xdebug-2.1.4-5.3-vc9-nts.dll',
     '2.2.0RC2' => 'http://xdebug.org/files/php_xdebug-2.2.0RC2-5.4-vc9-nts.dll',
     '2.2.0' => 'http://xdebug.org/files/php_xdebug-2.2.0RC2-5.4-vc9-nts.dll',
-    '2.2.1' => 'http://xdebug.org/files/php_xdebug-2.2.1-5.3-vc9-nts.dll',
+    '2.2.1' => 'http://xdebug.org/files/php_xdebug-2.2.1-5.4-vc9-nts.dll',
+    '2.2.2' => 'http://xdebug.org/files/php_xdebug-2.2.2-5.4-vc9-nts.dll',
     'latest' =>
     array (
-      'version' => '2.2.1',
-      'url' => 'http://xdebug.org/files/php_xdebug-2.2.1-5.4-vc9-nts.dll',
+      'version' => '2.2.2',
+      'url' => 'http://xdebug.org/files/php_xdebug-2.2.2-5.5-vc11-nts.dll',
     ),
   ),
   'phpext_xhprof' =>

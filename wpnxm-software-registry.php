@@ -2,7 +2,7 @@
    /**
     * WPN-XM Software Registry
     * ------------------------
-    * Last Update Mon, 25 Mar 2013 13:33:46 +0000.
+    * Last Update Sun, 31 Mar 2013 00:22:52 +0000.
     * Do not edit manually!
     */
 
@@ -298,10 +298,11 @@
     '1.3.12' => 'http://www.nginx.org/download/nginx-1.3.12.zip',
     '1.3.13' => 'http://www.nginx.org/download/nginx-1.3.13.zip',
     '1.3.14' => 'http://www.nginx.org/download/nginx-1.3.14.zip',
+    '1.3.15' => 'http://www.nginx.org/download/nginx-1.3.15.zip',
     'latest' =>
     array (
-      'version' => '1.3.14',
-      'url' => 'http://www.nginx.org/download/nginx-1.3.14.zip',
+      'version' => '1.3.15',
+      'url' => 'http://www.nginx.org/download/nginx-1.3.15.zip',
     ),
   ),
   'openssl' =>
@@ -381,10 +382,11 @@
     '1.3.3' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.3.zip',
     '1.3.4' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.4.zip',
     '1.3.5' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.5.zip',
+    '1.3.6' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.6.zip',
     'latest' =>
     array (
-      'version' => '1.3.5',
-      'url' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.5.zip',
+      'version' => '1.3.6',
+      'url' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.6.zip',
     ),
   ),
   'phpext_varnish' =>
@@ -471,10 +473,11 @@
     '4.0.0-alpha2' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-alpha2/phpMyAdmin-4.0.0-alpha2-english.zip',
     '4.0.0-beta1' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-beta1/phpMyAdmin-4.0.0-beta1-english.zip',
     '4.0.0-beta2' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-beta2/phpMyAdmin-4.0.0-beta2-english.zip',
+    '4.0.0-beta3' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-beta3/phpMyAdmin-4.0.0-beta3-english.zip',
     'latest' =>
     array (
-      'version' => '4.0.0-beta2',
-      'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-beta2/phpMyAdmin-4.0.0-beta2-english.zip',
+      'version' => '4.0.0-beta3',
+      'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-beta3/phpMyAdmin-4.0.0-beta3-english.zip',
     ),
   ),
   'rockmongo' =>

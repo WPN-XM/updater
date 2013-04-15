@@ -2,7 +2,7 @@
    /**
     * WPN-XM Software Registry
     * ------------------------
-    * Last Update Fri, 05 Apr 2013 21:01:56 +0000.
+    * Last Update Mon, 15 Apr 2013 08:44:46 +0000.
     * Do not edit manually!
     */
 
@@ -341,11 +341,12 @@
     '5.4.10' => 'http://windows.php.net/downloads/releases/archives/php-5.4.10-nts-Win32-VC9-x86.zip',
     '5.4.11' => 'http://windows.php.net/downloads/releases/archives/php-5.4.11-nts-Win32-VC9-x86.zip',
     '5.4.12' => 'http://windows.php.net/downloads/releases/archives/php-5.4.12-nts-Win32-VC9-x86.zip',
-    '5.4.13' => 'http://windows.php.net/downloads/releases/php-5.4.13-nts-Win32-VC9-x86.zip',
+    '5.4.13' => 'http://windows.php.net/downloads/releases/archives/php-5.4.13-nts-Win32-VC9-x86.zip',
+    '5.4.14' => 'http://windows.php.net/downloads/releases/php-5.4.14-nts-Win32-VC9-x86.zip',
     'latest' =>
     array (
-      'version' => '5.4.13',
-      'url' => 'http://windows.php.net/downloads/releases/php-5.4.13-nts-Win32-VC9-x86.zip',
+      'version' => '5.4.14',
+      'url' => 'http://windows.php.net/downloads/releases/php-5.4.14-nts-Win32-VC9-x86.zip',
     ),
   ),
   'phpext_apc' =>
@@ -383,10 +384,11 @@
     '1.3.4' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.4.zip',
     '1.3.5' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.5.zip',
     '1.3.6' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.6.zip',
+    '1.3.7' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.7.zip',
     'latest' =>
     array (
-      'version' => '1.3.6',
-      'url' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.6.zip',
+      'version' => '1.3.7',
+      'url' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.7.zip',
     ),
   ),
   'phpext_varnish' =>

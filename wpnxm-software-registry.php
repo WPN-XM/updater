@@ -2,7 +2,7 @@
    /**
     * WPN-XM Software Registry
     * ------------------------
-    * Last Update Mon, 15 Apr 2013 08:44:46 +0000.
+    * Last Update Fri, 26 Apr 2013 09:01:47 +0000.
     * Do not edit manually!
     */
 
@@ -16,10 +16,11 @@
     '3.6.1' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.6.1/adminer-3.6.1.php',
     '3.6.2' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.6.2/adminer-3.6.2.php',
     '3.6.3' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.6.3/adminer-3.6.3.php',
+    '3.6.4' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.6.4/adminer-3.6.4.php',
     'latest' =>
     array (
-      'version' => '3.6.3',
-      'url' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.6.3/adminer-3.6.3.php',
+      'version' => '3.6.4',
+      'url' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.6.4/adminer-3.6.4.php',
     ),
   ),
   'clansuite' =>
@@ -150,10 +151,12 @@
     '2.3.2' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.3.2.zip',
     '2.4.0' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.4.0.zip',
     '2.4.1' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.4.1.zip',
+    '2.4.2' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.4.2.zip',
+    '2.4.3' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.4.3.zip',
     'latest' =>
     array (
-      'version' => '2.4.1',
-      'url' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.4.1.zip',
+      'version' => '2.4.3',
+      'url' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.4.3.zip',
     ),
   ),
   'nginx' =>
@@ -299,10 +302,12 @@
     '1.3.13' => 'http://www.nginx.org/download/nginx-1.3.13.zip',
     '1.3.14' => 'http://www.nginx.org/download/nginx-1.3.14.zip',
     '1.3.15' => 'http://www.nginx.org/download/nginx-1.3.15.zip',
+    '1.3.16' => 'http://www.nginx.org/download/nginx-1.3.16.zip',
+    '1.4.0' => 'http://www.nginx.org/download/nginx-1.4.0.zip',
     'latest' =>
     array (
-      'version' => '1.3.15',
-      'url' => 'http://www.nginx.org/download/nginx-1.3.15.zip',
+      'version' => '1.4.0',
+      'url' => 'http://www.nginx.org/download/nginx-1.4.0.zip',
     ),
   ),
   'openssl' =>
@@ -385,10 +390,11 @@
     '1.3.5' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.5.zip',
     '1.3.6' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.6.zip',
     '1.3.7' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.7.zip',
+    '1.4.0' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.4.0.zip',
     'latest' =>
     array (
-      'version' => '1.3.7',
-      'url' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.7.zip',
+      'version' => '1.4.0',
+      'url' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.4.0.zip',
     ),
   ),
   'phpext_varnish' =>
@@ -473,10 +479,11 @@
     '3.5.5' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.5/phpMyAdmin-3.5.5-english.zip',
     '3.5.6' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.6/phpMyAdmin-3.5.6-english.zip',
     '4.0.0-rc1' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-rc1/phpMyAdmin-4.0.0-rc1-english.zip',
+    '4.0.0-rc3' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-rc3/phpMyAdmin-4.0.0-rc3-english.zip',
     'latest' =>
     array (
-      'version' => '4.0.0-rc1',
-      'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-rc1/phpMyAdmin-4.0.0-rc1-english.zip',
+      'version' => '4.0.0-rc3',
+      'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-rc3/phpMyAdmin-4.0.0-rc3-english.zip',
     ),
   ),
   'rockmongo' =>

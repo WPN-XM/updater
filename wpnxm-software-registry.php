@@ -390,11 +390,10 @@
     '1.3.5' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.5.zip',
     '1.3.6' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.6.zip',
     '1.3.7' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.7.zip',
-    '1.4.0' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.4.0.zip',
     'latest' =>
     array (
-      'version' => '1.4.0',
-      'url' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.4.0.zip',
+      'version' => '1.3.7',
+      'url' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.7.zip',
     ),
   ),
   'phpext_varnish' =>

@@ -570,7 +570,7 @@ if(isset($action) && $action === 'write-file') {
  * @param string New version.
  */
 function printUpdatedSign($old_version, $new_version) {
-    if($old_version < $new_version) {
+    if(version_compare($old_version, $new_version, '<') === true) {
         echo '<span style="color:green; font-size: 16px">&nbsp;&#x25B2;</span>';
     }
 }

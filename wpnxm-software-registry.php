@@ -2,7 +2,7 @@
    /**
     * WPN-XM Software Registry
     * ------------------------
-    * Last Update Mon, 29 Apr 2013 14:13:36 +0000.
+    * Last Update Fri, 03 May 2013 16:57:06 +0000.
     * Do not edit manually!
     */
 
@@ -477,13 +477,11 @@
     '3.5.4' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.4/phpMyAdmin-3.5.4-english.zip',
     '3.5.5' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.5/phpMyAdmin-3.5.5-english.zip',
     '3.5.6' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.6/phpMyAdmin-3.5.6-english.zip',
-    '4.0.0-rc1' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-rc1/phpMyAdmin-4.0.0-rc1-english.zip',
-    '4.0.0-rc3' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-rc3/phpMyAdmin-4.0.0-rc3-english.zip',
-    '4.0.0-rc4' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-rc4/phpMyAdmin-4.0.0-rc4-english.zip',
+    '4.0.0' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0/phpMyAdmin-4.0.0-english.zip',
     'latest' =>
     array (
-      'version' => '4.0.0-rc4',
-      'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-rc4/phpMyAdmin-4.0.0-rc4-english.zip',
+      'version' => '4.0.0',
+      'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0/phpMyAdmin-4.0.0-english.zip',
     ),
   ),
   'rockmongo' =>

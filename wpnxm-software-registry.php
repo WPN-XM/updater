@@ -2,7 +2,7 @@
    /**
     * WPN-XM Software Registry
     * ------------------------
-    * Last Update Fri, 03 May 2013 16:57:06 +0000.
+    * Last Update Fri, 17 May 2013 11:10:35 +0000.
     * Do not edit manually!
     */
 
@@ -304,10 +304,12 @@
     '1.3.15' => 'http://www.nginx.org/download/nginx-1.3.15.zip',
     '1.3.16' => 'http://www.nginx.org/download/nginx-1.3.16.zip',
     '1.4.0' => 'http://www.nginx.org/download/nginx-1.4.0.zip',
+    '1.4.1' => 'http://www.nginx.org/download/nginx-1.4.1.zip',
+    '1.5.0' => 'http://www.nginx.org/download/nginx-1.5.0.zip',
     'latest' =>
     array (
-      'version' => '1.4.0',
-      'url' => 'http://www.nginx.org/download/nginx-1.4.0.zip',
+      'version' => '1.5.0',
+      'url' => 'http://www.nginx.org/download/nginx-1.5.0.zip',
     ),
   ),
   'openssl' =>
@@ -347,11 +349,12 @@
     '5.4.11' => 'http://windows.php.net/downloads/releases/archives/php-5.4.11-nts-Win32-VC9-x86.zip',
     '5.4.12' => 'http://windows.php.net/downloads/releases/archives/php-5.4.12-nts-Win32-VC9-x86.zip',
     '5.4.13' => 'http://windows.php.net/downloads/releases/archives/php-5.4.13-nts-Win32-VC9-x86.zip',
-    '5.4.14' => 'http://windows.php.net/downloads/releases/php-5.4.14-nts-Win32-VC9-x86.zip',
+    '5.4.14' => 'http://windows.php.net/downloads/releases/archives/php-5.4.14-nts-Win32-VC9-x86.zip',
+    '5.4.15' => 'http://windows.php.net/downloads/releases/php-5.4.15-nts-Win32-VC9-x86.zip',
     'latest' =>
     array (
-      'version' => '5.4.14',
-      'url' => 'http://windows.php.net/downloads/releases/php-5.4.14-nts-Win32-VC9-x86.zip',
+      'version' => '5.4.15',
+      'url' => 'http://windows.php.net/downloads/releases/php-5.4.15-nts-Win32-VC9-x86.zip',
     ),
   ),
   'phpext_apc' =>
@@ -478,10 +481,11 @@
     '3.5.5' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.5/phpMyAdmin-3.5.5-english.zip',
     '3.5.6' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.6/phpMyAdmin-3.5.6-english.zip',
     '4.0.0' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0/phpMyAdmin-4.0.0-english.zip',
+    '4.0.1' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.1/phpMyAdmin-4.0.1-english.zip',
     'latest' =>
     array (
-      'version' => '4.0.0',
-      'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0/phpMyAdmin-4.0.0-english.zip',
+      'version' => '4.0.1',
+      'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.1/phpMyAdmin-4.0.1-english.zip',
     ),
   ),
   'rockmongo' =>

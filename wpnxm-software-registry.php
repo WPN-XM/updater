@@ -2,7 +2,7 @@
    /**
     * WPN-XM Software Registry
     * ------------------------
-    * Last Update Mon, 20 May 2013 14:44:34 +0000.
+    * Last Update Thu, 30 May 2013 08:47:49 +0000.
     * Do not edit manually!
     */
 
@@ -110,10 +110,11 @@
     '5.5.28' => 'http://archive.mariadb.org/mariadb-5.5.28/win32-packages/mariadb-5.5.28-win32.zip',
     '5.5.29' => 'http://archive.mariadb.org/mariadb-5.5.29/win32-packages/mariadb-5.5.29-win32.zip',
     '5.5.30' => 'http://archive.mariadb.org/mariadb-5.5.30/win32-packages/mariadb-5.5.30-win32.zip',
+    '5.5.31' => 'http://archive.mariadb.org/mariadb-5.5.31/win32-packages/mariadb-5.5.31-win32.zip',
     'latest' =>
     array (
-      'version' => '5.5.30',
-      'url' => 'http://archive.mariadb.org/mariadb-5.5.30/win32-packages/mariadb-5.5.30-win32.zip',
+      'version' => '5.5.31',
+      'url' => 'http://archive.mariadb.org/mariadb-5.5.31/win32-packages/mariadb-5.5.31-win32.zip',
     ),
   ),
   'memadmin' =>
@@ -154,10 +155,11 @@
     '2.4.1' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.4.1.zip',
     '2.4.2' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.4.2.zip',
     '2.4.3' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.4.3.zip',
+    '2.5.0' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.5.0.zip',
     'latest' =>
     array (
-      'version' => '2.4.3',
-      'url' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.4.3.zip',
+      'version' => '2.5.0',
+      'url' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.5.0.zip',
     ),
   ),
   'nginx' =>
@@ -433,10 +435,11 @@
     '2.2.0' => 'http://xdebug.org/files/php_xdebug-2.2.0RC2-5.4-vc9-nts.dll',
     '2.2.1' => 'http://xdebug.org/files/php_xdebug-2.2.1-5.4-vc9-nts.dll',
     '2.2.2' => 'http://xdebug.org/files/php_xdebug-2.2.2-5.4-vc9-nts.dll',
+    '2.2.3' => 'http://xdebug.org/files/php_xdebug-2.2.3-5.5-vc11-nts.dll',
     'latest' =>
     array (
-      'version' => '2.2.2',
-      'url' => 'http://xdebug.org/files/php_xdebug-2.2.2-5.5-vc11-nts.dll',
+      'version' => '2.2.3',
+      'url' => 'http://xdebug.org/files/php_xdebug-2.2.3-5.5-vc11-nts.dll',
     ),
   ),
   'phpext_xhprof' =>
@@ -483,10 +486,11 @@
     '3.5.6' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.6/phpMyAdmin-3.5.6-english.zip',
     '4.0.0' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0/phpMyAdmin-4.0.0-english.zip',
     '4.0.1' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.1/phpMyAdmin-4.0.1-english.zip',
+    '4.0.2' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.2/phpMyAdmin-4.0.2-english.zip',
     'latest' =>
     array (
-      'version' => '4.0.1',
-      'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.1/phpMyAdmin-4.0.1-english.zip',
+      'version' => '4.0.2',
+      'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.2/phpMyAdmin-4.0.2-english.zip',
     ),
   ),
   'rockmongo' =>

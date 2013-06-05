@@ -2,7 +2,7 @@
    /**
     * WPN-XM Software Registry
     * ------------------------
-    * Last Update Thu, 30 May 2013 08:47:49 +0000.
+    * Last Update Wed, 05 Jun 2013 11:09:38 +0000.
     * Do not edit manually!
     */
 
@@ -28,11 +28,11 @@
   array (
     'name' => 'Clansuite',
     'website' => 'http://clansuite.com/',
-    '0.2.1' => 'http://nodeload.github.com/Clansuite/Clansuite/zip/develop',
+    '0.2.1' => 'http://codeload.github.com/Clansuite/Clansuite/zip/develop',
     'latest' =>
     array (
       'version' => '0.2.1',
-      'url' => 'http://nodeload.github.com/Clansuite/Clansuite/zip/develop',
+      'url' => 'http://codeload.github.com/Clansuite/Clansuite/zip/develop',
     ),
   ),
   'composer' =>
@@ -121,12 +121,12 @@
   array (
     'name' => 'Memadmin',
     'website' => 'http://www.junopen.com/memadmin/',
-    '1.0.11' => 'http://nodeload.github.com/junstor/memadmin/zip/v1.0.11',
-    '1.0.12' => 'http://nodeload.github.com/junstor/memadmin/zip/v1.0.12',
+    '1.0.11' => 'http://codeload.github.com/junstor/memadmin/zip/v1.0.11',
+    '1.0.12' => 'http://codeload.github.com/junstor/memadmin/zip/v1.0.12',
     'latest' =>
     array (
       'version' => '1.0.12',
-      'url' => 'http://nodeload.github.com/junstor/memadmin/zip/v1.0.12',
+      'url' => 'http://codeload.github.com/junstor/memadmin/zip/v1.0.12',
     ),
   ),
   'memcached' =>
@@ -309,10 +309,11 @@
     '1.4.0' => 'http://www.nginx.org/download/nginx-1.4.0.zip',
     '1.4.1' => 'http://www.nginx.org/download/nginx-1.4.1.zip',
     '1.5.0' => 'http://www.nginx.org/download/nginx-1.5.0.zip',
+    '1.5.1' => 'http://www.nginx.org/download/nginx-1.5.1.zip',
     'latest' =>
     array (
-      'version' => '1.5.0',
-      'url' => 'http://www.nginx.org/download/nginx-1.5.0.zip',
+      'version' => '1.5.1',
+      'url' => 'http://www.nginx.org/download/nginx-1.5.1.zip',
     ),
   ),
   'openssl' =>
@@ -435,7 +436,7 @@
     '2.2.0' => 'http://xdebug.org/files/php_xdebug-2.2.0RC2-5.4-vc9-nts.dll',
     '2.2.1' => 'http://xdebug.org/files/php_xdebug-2.2.1-5.4-vc9-nts.dll',
     '2.2.2' => 'http://xdebug.org/files/php_xdebug-2.2.2-5.4-vc9-nts.dll',
-    '2.2.3' => 'http://xdebug.org/files/php_xdebug-2.2.3-5.5-vc11-nts.dll',
+    '2.2.3' => 'http://xdebug.org/files/php_xdebug-2.2.3-5.4-vc9-nts.dll',
     'latest' =>
     array (
       'version' => '2.2.3',
@@ -487,10 +488,11 @@
     '4.0.0' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0/phpMyAdmin-4.0.0-english.zip',
     '4.0.1' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.1/phpMyAdmin-4.0.1-english.zip',
     '4.0.2' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.2/phpMyAdmin-4.0.2-english.zip',
+    '4.0.3-rc1' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.3-rc1/phpMyAdmin-4.0.3-rc1-english.zip',
     'latest' =>
     array (
-      'version' => '4.0.2',
-      'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.2/phpMyAdmin-4.0.2-english.zip',
+      'version' => '4.0.3-rc1',
+      'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.3-rc1/phpMyAdmin-4.0.3-rc1-english.zip',
     ),
   ),
   'rockmongo' =>
@@ -541,11 +543,11 @@
   ),
   'xhprof' =>
   array (
-    '1.0' => 'http://nodeload.github.com/preinheimer/xhprof/zip/master',
+    '1.0' => 'http://codeload.github.com/preinheimer/xhprof/zip/master',
     'latest' =>
     array (
       'version' => '1.0',
-      'url' => 'http://nodeload.github.com/preinheimer/xhprof/zip/master',
+      'url' => 'http://codeload.github.com/preinheimer/xhprof/zip/master',
     ),
   ),
 );

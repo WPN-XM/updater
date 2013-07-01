@@ -2,7 +2,7 @@
    /**
     * WPN-XM Software Registry
     * ------------------------
-    * Last Update Thu, 20 Jun 2013 11:27:26 +0000.
+    * Last Update Mon, 01 Jul 2013 10:27:00 +0000.
     * Do not edit manually!
     */
 
@@ -18,10 +18,11 @@
     '3.6.3' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.6.3/adminer-3.6.3.php',
     '3.6.4' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.6.4/adminer-3.6.4.php',
     '3.7.0' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.7.0/adminer-3.7.0.php',
+    '3.7.1' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.7.1/adminer-3.7.1.php',
     'latest' =>
     array (
-      'version' => '3.7.0',
-      'url' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.7.0/adminer-3.7.0.php',
+      'version' => '3.7.1',
+      'url' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.7.1/adminer-3.7.1.php',
     ),
   ),
   'clansuite' =>
@@ -491,10 +492,11 @@
     '4.0.2' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.2/phpMyAdmin-4.0.2-english.zip',
     '4.0.3' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.3/phpMyAdmin-4.0.3-english.zip',
     '4.0.4' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.4/phpMyAdmin-4.0.4-english.zip',
+    '4.0.4.1' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.4.1/phpMyAdmin-4.0.4.1-english.zip',
     'latest' =>
     array (
-      'version' => '4.0.4',
-      'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.4/phpMyAdmin-4.0.4-english.zip',
+      'version' => '4.0.4.1',
+      'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.4.1/phpMyAdmin-4.0.4.1-english.zip',
     ),
   ),
   'rockmongo' =>

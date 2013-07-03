@@ -2,7 +2,7 @@
    /**
     * WPN-XM Software Registry
     * ------------------------
-    * Last Update Mon, 01 Jul 2013 10:27:00 +0000.
+    * Last Update Wed, 03 Jul 2013 16:51:08 +0000.
     * Do not edit manually!
     */
 
@@ -311,10 +311,11 @@
     '1.4.1' => 'http://www.nginx.org/download/nginx-1.4.1.zip',
     '1.5.0' => 'http://www.nginx.org/download/nginx-1.5.0.zip',
     '1.5.1' => 'http://www.nginx.org/download/nginx-1.5.1.zip',
+    '1.5.2' => 'http://www.nginx.org/download/nginx-1.5.2.zip',
     'latest' =>
     array (
-      'version' => '1.5.1',
-      'url' => 'http://www.nginx.org/download/nginx-1.5.1.zip',
+      'version' => '1.5.2',
+      'url' => 'http://www.nginx.org/download/nginx-1.5.2.zip',
     ),
   ),
   'openssl' =>
@@ -399,10 +400,12 @@
     '1.3.5' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.5.zip',
     '1.3.6' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.6.zip',
     '1.3.7' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.7.zip',
+    '1.4.0' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.4.0.zip',
+    '1.4.1' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.4.1.zip',
     'latest' =>
     array (
-      'version' => '1.3.7',
-      'url' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.7.zip',
+      'version' => '1.4.1',
+      'url' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.4.1.zip',
     ),
   ),
   'phpext_varnish' =>

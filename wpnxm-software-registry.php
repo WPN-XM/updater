@@ -2,7 +2,7 @@
    /**
     * WPN-XM Software Registry
     * ------------------------
-    * Last Update Mon, 08 Jul 2013 12:53:48 +0000.
+    * Last Update Mon, 08 Jul 2013 14:05:16 +0000.
     * Do not edit manually!
     */
 
@@ -501,6 +501,19 @@
     array (
       'version' => '4.0.4.1',
       'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.4.1/phpMyAdmin-4.0.4.1-english.zip',
+    ),
+  ),
+  'postgresql' =>
+  array (
+    '8.4.17' => 'http://get.enterprisedb.com/postgresql/postgresql-8.4.17-1-windows-binaries.zip',
+    '9.0.13' => 'http://get.enterprisedb.com/postgresql/postgresql-9.0.13-1-windows-binaries.zip',
+    '9.1.9' => 'http://get.enterprisedb.com/postgresql/postgresql-9.1.9-1-windows-binaries.zip',
+    '9.2.4' => 'http://get.enterprisedb.com/postgresql/postgresql-9.2.4-1-windows-binaries.zip',
+    '9.3.0-beta2' => 'http://get.enterprisedb.com/postgresql/postgresql-9.3.0-beta2-windows-binaries.zip',
+    'latest' =>
+    array (
+      'version' => '9.3.0-beta2',
+      'url' => 'http://get.enterprisedb.com/postgresql/postgresql-9.3.0-beta2-windows-binaries.zip',
     ),
   ),
   'rockmongo' =>

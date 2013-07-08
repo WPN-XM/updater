@@ -368,6 +368,43 @@ function get_latest_version_of_openssl()
 }
 
 /**
+ * PostGreSql
+ */
+function get_latest_version_of_postgresql()
+{
+    global $goutte_client, $registry;
+
+    $crawler = $goutte_client->request('GET', 'http://www.enterprisedb.com/products-services-training/pgbindownload');
+
+    return $crawler->filterXPath('//p/i')->each( function ($node, $i) use ($registry) {
+        //echo $node->nodeValue; // = Binaries from installer version 9.3.0 Beta2
+        $value = strtolower($node->nodeValue);
+
+        if (preg_match("#(\d+\.\d+(\.\d+)*)(?:(\s)(beta|b|rc|alpha|a|patch|pl|p)?(\d+))?#", $value, $matches)) {
+            //var_dump($matches);
+
+            if(isset($matches[4]) === true) { // if, we have " beta2" something after the version number
+                $version = str_replace(' ', '-', $matches[0]); // turn "9.3.0 beta2" into "9.3.0-beta2"
+                $download_version = $version;
+            } else {
+                $version = $matches[0]; // just 1.2.3
+                $download_version = $version . '-1'; // wtf? "-1" means not beta or what?
+            }
+
+            if (version_compare($version, $registry['postgresql']['latest']['version'], '>=')) {
+                return array(
+                    'version' => $version,
+                    // x86-64: http://get.enterprisedb.com/postgresql/postgresql-9.3.0-beta2-1-windows-x64-binaries.zip
+                    // x86-32: http://get.enterprisedb.com/postgresql/postgresql-9.3.0-beta2-1-windows-binaries.zip
+                    'url' => 'http://get.enterprisedb.com/postgresql/postgresql-'.$download_version.'-windows-binaries.zip'
+                );
+            }
+
+        }
+    });
+}
+
+/**
  * Removes all keys with value "null" from the array and returns the array.
  *
  * @param $array Array
@@ -539,22 +576,23 @@ function removeEOLSpaces($content)
 /**
  * Get Latest Versions and add them to the registry.
  */
-add('nginx', get_latest_version_of_nginx() );
-add('php', get_latest_version_of_php() );
-add('mariadb', get_latest_version_of_mariadb() );
-add('phpext_xdebug', get_latest_version_of_xdebug() );
-add('phpext_apc', get_latest_version_of_apc() );
-add('phpmyadmin', get_latest_version_of_phpmyadmin() );
-add('adminer', get_latest_version_of_adminer() );
-add('rockmongo', get_latest_version_of_rockmongo() );
-add('mongodb', get_latest_version_of_mongodb() );
-add('phpmemcachedadmin', get_latest_version_of_phpmemcachedadmin() );
-add('phpext_mongo' , get_latest_version_of_phpext_mongo());
-add('openssl' , get_latest_version_of_openssl());
+add('nginx',              get_latest_version_of_nginx() );
+add('php',                get_latest_version_of_php() );
+add('mariadb',            get_latest_version_of_mariadb() );
+add('phpext_xdebug',      get_latest_version_of_xdebug() );
+add('phpext_apc',         get_latest_version_of_apc() );
+add('phpmyadmin',         get_latest_version_of_phpmyadmin() );
+add('adminer',            get_latest_version_of_adminer() );
+add('rockmongo',          get_latest_version_of_rockmongo() );
+add('mongodb',            get_latest_version_of_mongodb() );
+add('phpmemcachedadmin',  get_latest_version_of_phpmemcachedadmin() );
+add('phpext_mongo',       get_latest_version_of_phpext_mongo());
+add('openssl',            get_latest_version_of_openssl());
+add('postgresql',         get_latest_version_of_postgresql());
 
 adjust_php_download_path();
 
-#var_dump($registry);
+/*var_dump($registry);*/
 
 // handle $_GET['action']
 // example call: registry-update.php?action=write-file
@@ -638,6 +676,11 @@ function printUpdatedSign($old_version, $new_version) {
 <tr>
     <td>openssl</td><td><?php echo $old_registry['openssl']['latest']['version'] ?></td><td><?php echo $registry['openssl']['latest']['version'];
     printUpdatedSign($old_registry['openssl']['latest']['version'],  $registry['openssl']['latest']['version']); ?>
+    </td>
+</tr>
+<tr>
+    <td>postgresql</td><td><?php echo $old_registry['postgresql']['latest']['version'] ?></td><td><?php echo $registry['postgresql']['latest']['version'];
+    printUpdatedSign($old_registry['postgresql']['latest']['version'],  $registry['postgresql']['latest']['version']); ?>
     </td>
 </tr>
 </table>

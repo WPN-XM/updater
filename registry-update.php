@@ -381,7 +381,6 @@ function get_latest_version_of_postgresql()
         $value = strtolower($node->nodeValue);
 
         if (preg_match("#(\d+\.\d+(\.\d+)*)(?:(\s)(beta|b|rc|alpha|a|patch|pl|p)?(\d+))?#", $value, $matches)) {
-            //var_dump($matches);
 
             if(isset($matches[4]) === true) { // if, we have " beta2" something after the version number
                 $version = str_replace(' ', '-', $matches[0]); // turn "9.3.0 beta2" into "9.3.0-beta2"

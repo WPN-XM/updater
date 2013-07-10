@@ -16,6 +16,7 @@ phpext_xdebug,http://wpn-xm.org/get.php?s=phpext_xdebug,phpext_xdebug.dll
 phpext_xhprof,http://wpn-xm.org/get.php?s=phpext_xhprof,phpext_xhprof.zip
 phpmemcachedadmin,http://wpn-xm.org/get.php?s=phpmemcachedadmin,phpmemcachedadmin.zip
 phpmyadmin,http://wpn-xm.org/get.php?s=phpmyadmin,phpmyadmin.zip
+postgresql,http://wpn-xm.org/get.php?s=postgresql,postgresql.zip
 rockmongo,http://wpn-xm.org/get.php?s=rockmongo,rockmongo.zip
 sendmail,http://wpn-xm.org/get.php?s=sendmail,sendmail.zip
 webgrind,http://wpn-xm.org/get.php?s=webgrind,webgrind.zip

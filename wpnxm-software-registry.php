@@ -2,7 +2,7 @@
    /**
     * WPN-XM Software Registry
     * ------------------------
-    * Last Update Sun, 31 Mar 2013 00:22:52 +0000.
+    * Last Update Mon, 08 Jul 2013 14:05:16 +0000.
     * Do not edit manually!
     */
 
@@ -16,10 +16,13 @@
     '3.6.1' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.6.1/adminer-3.6.1.php',
     '3.6.2' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.6.2/adminer-3.6.2.php',
     '3.6.3' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.6.3/adminer-3.6.3.php',
+    '3.6.4' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.6.4/adminer-3.6.4.php',
+    '3.7.0' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.7.0/adminer-3.7.0.php',
+    '3.7.1' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.7.1/adminer-3.7.1.php',
     'latest' =>
     array (
-      'version' => '3.6.3',
-      'url' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.6.3/adminer-3.6.3.php',
+      'version' => '3.7.1',
+      'url' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%203.7.1/adminer-3.7.1.php',
     ),
   ),
   'clansuite' =>
@@ -108,10 +111,11 @@
     '5.5.28' => 'http://archive.mariadb.org/mariadb-5.5.28/win32-packages/mariadb-5.5.28-win32.zip',
     '5.5.29' => 'http://archive.mariadb.org/mariadb-5.5.29/win32-packages/mariadb-5.5.29-win32.zip',
     '5.5.30' => 'http://archive.mariadb.org/mariadb-5.5.30/win32-packages/mariadb-5.5.30-win32.zip',
+    '5.5.31' => 'http://archive.mariadb.org/mariadb-5.5.31/win32-packages/mariadb-5.5.31-win32.zip',
     'latest' =>
     array (
-      'version' => '5.5.30',
-      'url' => 'http://archive.mariadb.org/mariadb-5.5.30/win32-packages/mariadb-5.5.30-win32.zip',
+      'version' => '5.5.31',
+      'url' => 'http://archive.mariadb.org/mariadb-5.5.31/win32-packages/mariadb-5.5.31-win32.zip',
     ),
   ),
   'memadmin' =>
@@ -150,10 +154,13 @@
     '2.3.2' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.3.2.zip',
     '2.4.0' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.4.0.zip',
     '2.4.1' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.4.1.zip',
+    '2.4.2' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.4.2.zip',
+    '2.4.3' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.4.3.zip',
+    '2.5.0' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.5.0.zip',
     'latest' =>
     array (
-      'version' => '2.4.1',
-      'url' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.4.1.zip',
+      'version' => '2.5.0',
+      'url' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.5.0.zip',
     ),
   ),
   'nginx' =>
@@ -299,10 +306,16 @@
     '1.3.13' => 'http://www.nginx.org/download/nginx-1.3.13.zip',
     '1.3.14' => 'http://www.nginx.org/download/nginx-1.3.14.zip',
     '1.3.15' => 'http://www.nginx.org/download/nginx-1.3.15.zip',
+    '1.3.16' => 'http://www.nginx.org/download/nginx-1.3.16.zip',
+    '1.4.0' => 'http://www.nginx.org/download/nginx-1.4.0.zip',
+    '1.4.1' => 'http://www.nginx.org/download/nginx-1.4.1.zip',
+    '1.5.0' => 'http://www.nginx.org/download/nginx-1.5.0.zip',
+    '1.5.1' => 'http://www.nginx.org/download/nginx-1.5.1.zip',
+    '1.5.2' => 'http://www.nginx.org/download/nginx-1.5.2.zip',
     'latest' =>
     array (
-      'version' => '1.3.15',
-      'url' => 'http://www.nginx.org/download/nginx-1.3.15.zip',
+      'version' => '1.5.2',
+      'url' => 'http://www.nginx.org/download/nginx-1.5.2.zip',
     ),
   ),
   'openssl' =>
@@ -341,11 +354,15 @@
     '5.4.10' => 'http://windows.php.net/downloads/releases/archives/php-5.4.10-nts-Win32-VC9-x86.zip',
     '5.4.11' => 'http://windows.php.net/downloads/releases/archives/php-5.4.11-nts-Win32-VC9-x86.zip',
     '5.4.12' => 'http://windows.php.net/downloads/releases/archives/php-5.4.12-nts-Win32-VC9-x86.zip',
-    '5.4.13' => 'http://windows.php.net/downloads/releases/php-5.4.13-nts-Win32-VC9-x86.zip',
+    '5.4.13' => 'http://windows.php.net/downloads/releases/archives/php-5.4.13-nts-Win32-VC9-x86.zip',
+    '5.4.14' => 'http://windows.php.net/downloads/releases/archives/php-5.4.14-nts-Win32-VC9-x86.zip',
+    '5.4.15' => 'http://windows.php.net/downloads/releases/archives/php-5.4.15-nts-Win32-VC9-x86.zip',
+    '5.4.16' => 'http://windows.php.net/downloads/releases/archives/php-5.4.16-nts-Win32-VC9-x86.zip',
+    '5.4.17' => 'http://windows.php.net/downloads/releases/php-5.4.17-nts-Win32-VC9-x86.zip',
     'latest' =>
     array (
-      'version' => '5.4.13',
-      'url' => 'http://windows.php.net/downloads/releases/php-5.4.13-nts-Win32-VC9-x86.zip',
+      'version' => '5.4.17',
+      'url' => 'http://windows.php.net/downloads/releases/php-5.4.17-nts-Win32-VC9-x86.zip',
     ),
   ),
   'phpext_apc' =>
@@ -383,10 +400,13 @@
     '1.3.4' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.4.zip',
     '1.3.5' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.5.zip',
     '1.3.6' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.6.zip',
+    '1.3.7' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.7.zip',
+    '1.4.0' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.4.0.zip',
+    '1.4.1' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.4.1.zip',
     'latest' =>
     array (
-      'version' => '1.3.6',
-      'url' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.6.zip',
+      'version' => '1.4.1',
+      'url' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.4.1.zip',
     ),
   ),
   'phpext_varnish' =>
@@ -422,10 +442,11 @@
     '2.2.0' => 'http://xdebug.org/files/php_xdebug-2.2.0RC2-5.4-vc9-nts.dll',
     '2.2.1' => 'http://xdebug.org/files/php_xdebug-2.2.1-5.4-vc9-nts.dll',
     '2.2.2' => 'http://xdebug.org/files/php_xdebug-2.2.2-5.4-vc9-nts.dll',
+    '2.2.3' => 'http://xdebug.org/files/php_xdebug-2.2.3-5.4-vc9-nts.dll',
     'latest' =>
     array (
-      'version' => '2.2.2',
-      'url' => 'http://xdebug.org/files/php_xdebug-2.2.2-5.5-vc11-nts.dll',
+      'version' => '2.2.3',
+      'url' => 'http://xdebug.org/files/php_xdebug-2.2.3-5.5-vc11-nts.dll',
     ),
   ),
   'phpext_xhprof' =>
@@ -470,14 +491,29 @@
     '3.5.4' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.4/phpMyAdmin-3.5.4-english.zip',
     '3.5.5' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.5/phpMyAdmin-3.5.5-english.zip',
     '3.5.6' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.6/phpMyAdmin-3.5.6-english.zip',
-    '4.0.0-alpha2' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-alpha2/phpMyAdmin-4.0.0-alpha2-english.zip',
-    '4.0.0-beta1' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-beta1/phpMyAdmin-4.0.0-beta1-english.zip',
-    '4.0.0-beta2' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-beta2/phpMyAdmin-4.0.0-beta2-english.zip',
-    '4.0.0-beta3' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-beta3/phpMyAdmin-4.0.0-beta3-english.zip',
+    '4.0.0' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0/phpMyAdmin-4.0.0-english.zip',
+    '4.0.1' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.1/phpMyAdmin-4.0.1-english.zip',
+    '4.0.2' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.2/phpMyAdmin-4.0.2-english.zip',
+    '4.0.3' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.3/phpMyAdmin-4.0.3-english.zip',
+    '4.0.4' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.4/phpMyAdmin-4.0.4-english.zip',
+    '4.0.4.1' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.4.1/phpMyAdmin-4.0.4.1-english.zip',
     'latest' =>
     array (
-      'version' => '4.0.0-beta3',
-      'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.0-beta3/phpMyAdmin-4.0.0-beta3-english.zip',
+      'version' => '4.0.4.1',
+      'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.4.1/phpMyAdmin-4.0.4.1-english.zip',
+    ),
+  ),
+  'postgresql' =>
+  array (
+    '8.4.17' => 'http://get.enterprisedb.com/postgresql/postgresql-8.4.17-1-windows-binaries.zip',
+    '9.0.13' => 'http://get.enterprisedb.com/postgresql/postgresql-9.0.13-1-windows-binaries.zip',
+    '9.1.9' => 'http://get.enterprisedb.com/postgresql/postgresql-9.1.9-1-windows-binaries.zip',
+    '9.2.4' => 'http://get.enterprisedb.com/postgresql/postgresql-9.2.4-1-windows-binaries.zip',
+    '9.3.0-beta2' => 'http://get.enterprisedb.com/postgresql/postgresql-9.3.0-beta2-windows-binaries.zip',
+    'latest' =>
+    array (
+      'version' => '9.3.0-beta2',
+      'url' => 'http://get.enterprisedb.com/postgresql/postgresql-9.3.0-beta2-windows-binaries.zip',
     ),
   ),
   'rockmongo' =>

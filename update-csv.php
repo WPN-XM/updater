@@ -28,11 +28,12 @@
     */
 
 /**
- * Generate Downloads
+ * Generate wpnxm-software-registry.csv - Downloads
  *
- * This scripts generates the file "downloads.csv".
+ * This scripts generates the file "wpnxm-software-registry.csv".
  * The file is used by the build task "download-components", see "build.xml".
- * The file must be copied to the main WPN-XM folder.
+ * The csv content is split up and the download urls are used on wget for fetching the downloads.
+ * The file must be copied to the main WPN-XM folder - this is done by fetching this repository as a git submodule.
  * Downloading these software components is required when building the All-In-One Installer.
  */
 
@@ -47,7 +48,7 @@ if (!extension_loaded('curl')) {
     exit('Error: PHP Extension cURL required.');
 }
 
-echo '<h2>Generating "downloads.csv".</h2>';
+echo '<h2>Generating "wpnxm-software-registry.csv".</h2>';
 
 /**
  * Array containg the downloads for the All In One Installation Wizard.
@@ -77,11 +78,12 @@ $list = array (
   20 => array ( 0 => 'webgrind', 1 => 'http://wpn-xm.org/get.php?s=webgrind', 2 => 'webgrind.zip', ),
   21 => array ( 0 => 'wpnxmscp', 1 => 'http://wpn-xm.org/get.php?s=wpnxmscp', 2 => 'wpnxmscp.zip', ),
   22 => array ( 0 => 'xhprof', 1 => 'http://wpn-xm.org/get.php?s=xhprof', 2 => 'xhprof.zip', ),
+  23 => array ( 0 => 'postgresql', 1 => 'http://wpn-xm.org/get.php?s=postgresql', 2 => 'postgresql.zip', ),
 );
 
 asort($list);
 
-$fp = fopen('downloads.csv', 'w');
+$fp = fopen('wpnxm-software-registry.csv', 'w');
 
 foreach($list as $fields) {
   fputcsv($fp, $fields);
@@ -89,4 +91,6 @@ foreach($list as $fields) {
 
 fclose($fp);
 
-echo 'Done. <br> <br> Now copy the file "downloads.csv" to the WPN-XM main project folder. <br> Then trigger new build.';
+echo 'Done. <br> <br> You might trigger a new build. <br> <br>
+      The target folder of this file is "WPN-XM/updater/" (main repo). <br>
+      The updater repo is automatically fetched to the main repo by pulling it as a git submodule.';

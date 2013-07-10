@@ -6,6 +6,6 @@
 <br>
 <a href="registry-update.php?action=write-file">Software Components Registry - Update</a>
 <br>
-<a href="update-csv.php">Update Software Components Registry - CSV File. This file is for Downloads of the All-In-One Installer.</a>
+<a href="update-csv.php">Software Components Registry - Update CSV file. <small>Downloads of the All-In-One Installer</small>.</a>
 <br>
-<a href="update-website.php">Update the Version Numbers on the website</a>
+<a href="update-website.php">Website - Update Version Numbers</a>

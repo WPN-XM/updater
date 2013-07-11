@@ -54,14 +54,14 @@ if (!extension_loaded('curl')) {
 // load software components registry
 $registry = include __DIR__ . '/wpnxm-software-registry.php';
 
-echo '<h2>WPN-XM Software Components Registry - Status - '. date(DATE_RFC822) .'</h2>';
-echo '<h3>Components ('.count($registry).')</h3>';
-echo '<table>';
+echo '<h4>WPN-XM Software Registry - Status<span class="pull-right">'. date(DATE_RFC822) .'</span></h4>';
+echo '<h4>Components ('.count($registry).')</h4>';
+echo '<table class="table table-condensed table-hover" style="font-size: 12px;">';
 echo '<tr><th>Software Component</th><th>Version</th><th>Download URL<br/>(local wpnxm-software-registry.php)</th><th>Forwarding URL<br/>(server wpnxm-software-registry.php)</th></tr>';
 
 foreach($registry as $software => $versions) {
 
-    echo '<tr><td><b>'. $software .'</b></td>';
+    echo '<tr><td style="padding: 2px 5px;"><b>'. $software .'</b></td>';
 
     foreach($versions as $version => $url) {
 
@@ -73,14 +73,14 @@ foreach($registry as $software => $versions) {
         if($version === 'latest') {
             echo '<td>' . $url['version'] . '</td>';
             $color = is_available($url['url']) === true ? 'color: green' : 'color: red';
-            echo '<td><a style="font-weight: bold; '.$color.';" href="'.$url['url'].'">'.$url['url'].'</a></td>';
+            echo '<td><a style="'.$color.';" href="'.$url['url'].'">'.$url['url'].'</a></td>';
         }
     }
 
     // Test forwarding links for all software components, e.g. http://wpn-xm.org/get.php?s=nginx
     $url = 'http://wpn-xm.org/get.php?s=' . $software;
     $color = is_available($url) === true ? 'color: green' : 'color: red';
-    echo '<td><a style="font-weight: bold; '.$color.';" href="'.$url.'">'.$url.'</a></td>';
+    echo '<td><a style="'.$color.';" href="'.$url.'">'.$url.'</a></td>';
 
     echo '</tr>';
 }

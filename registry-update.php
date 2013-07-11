@@ -613,10 +613,12 @@ function printUpdatedSign($old_version, $new_version) {
 }
 ?>
 
-<table border="1">
-<tr>
-    <th>Application</th><th>(Old) Latest Version</th><th>(New) Latest Version</th>
-</tr>
+<table class="table table-condensed table-hover">
+<thead>
+    <tr>
+        <th>Application</th><th>(Old) Latest Version</th><th>(New) Latest Version</th>
+    </tr>
+</thead>
 <tr>
     <td>nginx</td><td><?php echo $old_registry['nginx']['latest']['version'] ?></td><td><?php echo $registry['nginx']['latest']['version'];
     printUpdatedSign($old_registry['nginx']['latest']['version'], $registry['nginx']['latest']['version']); ?>
@@ -683,7 +685,3 @@ function printUpdatedSign($old_version, $new_version) {
     </td>
 </tr>
 </table>
-
-<a href="registry-update.php">Run Software Components Registry Update (dry-run)</a>
-<br>
-<a href="registry-update.php?action=write-file">Run Software Components Registry Update</a>

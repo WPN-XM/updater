@@ -102,6 +102,8 @@ function is_available($url, $timeout = 30)
         CURLOPT_FORBID_REUSE => false,
         CURLOPT_SSL_VERIFYPEER => false,
         CURLOPT_SSL_VERIFYHOST => 2,
+        CURLOPT_ENCODING => "",
+        CURLOPT_AUTOREFERER => true,
         CURLOPT_USERAGENT, 'WPN-XM Server Stack - Registry Status Tool - http://wpn-xm.org/',
     );
 

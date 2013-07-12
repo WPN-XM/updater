@@ -147,8 +147,8 @@ function getHTMLArray(array $registry)
  * - Main -
  */
 
-if(!is_file(__DIR__ . '/index.html')) {
-    exit('index.html not found.');
+if(!is_file(__DIR__ . '/website-wpn-xm.org/index.html')) {
+    exit('ERROR: The wpn-xm.org website index.html was not found.');
 }
 
 // load software components registry

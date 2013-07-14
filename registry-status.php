@@ -1,4 +1,4 @@
-<?php
+﻿<?php
    /**
     * WPИ-XM Server Stack
     * Jens-André Koch © 2010 - onwards
@@ -54,14 +54,14 @@ if (!extension_loaded('curl')) {
 // load software components registry
 $registry = include __DIR__ . '/wpnxm-software-registry.php';
 
-echo '<h4>WPN-XM Software Registry - Status<span class="pull-right">'. date(DATE_RFC822) .'</span></h4>';
-echo '<h4>Components ('.count($registry).')</h4>';
+echo '<h5>WPN-XM Software Registry - Status<span class="pull-right">'. date(DATE_RFC822) .'</span></h5>';
+echo '<h5>Components ('.count($registry).')</h5>';
 echo '<table class="table table-condensed table-hover" style="font-size: 12px;">';
 echo '<tr><th>Software Component</th><th>Version</th><th>Download URL<br/>(local wpnxm-software-registry.php)</th><th>Forwarding URL<br/>(server wpnxm-software-registry.php)</th></tr>';
 
 foreach($registry as $software => $versions) {
 
-    echo '<tr><td style="padding: 2px 5px;"><b>'. $software .'</b></td>';
+    echo '<tr><td style="padding: 1px 5px;"><b>'. $software .'</b></td>';
 
     foreach($versions as $version => $url) {
 
@@ -87,8 +87,19 @@ foreach($registry as $software => $versions) {
 
 echo '</table>';
 
+function get_httpcode($url) {
+    $headers = get_headers($url, 0);
+    // Return http status code
+    return substr($headers[0], 9, 3);
+  }
+  
 function is_available($url, $timeout = 30)
 {
+    // special handling for googlecode, because they don't like /HEAD requests via curl
+    if (false !== strpos($url, 'googlecode') or false !== strpos($url, 'phpmemcachedadmin')) {
+        return (bool) get_httpcode($url);
+    }
+    
     $ch = curl_init();
 
     // set cURL options
@@ -96,15 +107,15 @@ function is_available($url, $timeout = 30)
         CURLOPT_RETURNTRANSFER => true,         // do not output to browser
         CURLOPT_NOPROGRESS => true,
         CURLOPT_URL => $url,
-        CURLOPT_NOBODY => true,                 // do HEAD request only
+        CURLOPT_NOBODY => true,                 // do HEAD request only, exclude the body from output
         CURLOPT_TIMEOUT => $timeout,
         CURLOPT_FOLLOWLOCATION => true,
         CURLOPT_FORBID_REUSE => false,
         CURLOPT_SSL_VERIFYPEER => false,
         CURLOPT_SSL_VERIFYHOST => 2,
-        CURLOPT_ENCODING => "",
+        CURLOPT_ENCODING => '',
         CURLOPT_AUTOREFERER => true,
-        CURLOPT_USERAGENT, 'WPN-XM Server Stack - Registry Status Tool - http://wpn-xm.org/',
+        CURLOPT_USERAGENT, 'WPN-XM Server Stack - Registry Status Tool - http://wpn-xm.org/'
     );
 
     curl_setopt_array($ch, $options);

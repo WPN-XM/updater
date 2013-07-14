@@ -10,9 +10,9 @@
     <!-- Le styles -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
     <style>
-      body {
-        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-      }
+      body { padding-top: 60px; } /* 60px to make the container go all the way to the bottom of the topbar */      
+      .navbar .brand { font-size: 18px; }
+      .container { font-size: 12px; }
     </style>
     <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
 
@@ -55,18 +55,30 @@
     </div>
 
     <div id="ajax-container" class="container">
-
       <!-- This is where the precious Ajax Content goes... -->
-
     </div> <!-- /ajax-container -->
+    
+    <!-- The modal windows with Ajax Loading Indicator -->
+    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog">
+    	<div class="modal-header">
+    		<button type="button" class="close" data-dismiss="modal">×</button>
+    			<h3>Scanning URLs... Please wait...</h3>
+    	</div>
+    	<div class="modal-body">
+    		<p><img src='assets/img/ajax_spinner.gif' alt='Loading... Please wait.' /></p>
+    	</div>
+    	<div class="modal-footer">
+    		<button class="btn" data-dismiss="modal">Close</button>
+    	</div>
+    </div>
 
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="assets/js/jquery.js"></script>
-    <!-- <script src="assets/js/bootstrap-transition.js"></script>
-    <script src="assets/js/bootstrap-alert.js"></script>
     <script src="assets/js/bootstrap-modal.js"></script>
+    <!-- <script src="assets/js/bootstrap-transition.js"></script>
+    <script src="assets/js/bootstrap-alert.js"></script>    
     <script src="assets/js/bootstrap-dropdown.js"></script>
     <script src="assets/js/bootstrap-scrollspy.js"></script>
     <script src="assets/js/bootstrap-tab.js"></script>
@@ -77,20 +89,32 @@
     <script src="assets/js/bootstrap-carousel.js"></script>
     <script src="assets/js/bootstrap-typeahead.js"></script> -->
     <script type="text/javascript">
-      var ajax_spinner = "<img src='assets/img/ajax_spinner.gif' alt='Loading... Please wait.' />";
-
       $(document).ready(function() {
+          // init modal windows and hide it
+          $('#myModal').modal({show:false});
+          
+          // with a click on a link in the top navi, do the following
           $("#menu li a").click(function() {
-              $("#ajax-container").empty().append(ajax_spinner);
+              // empty the main content area
+              $("#ajax-container").empty();
+              // show the modal window with the ajax loading indicator
+              $('#myModal').modal('show');
 
+              // remove the active class from the old clicked nav link
               $("#menu li a").removeClass('active');
+              // add the active class to the clicked nav link
               $(this).addClass('active');
 
+              // ajax call to the PHP scripts
               $.ajax({
                   url: this.href,
                   cache: false
               }).done(function(html) {
-                  console.log(html);
+                  // debug output to console
+                  //console.log(html);
+                  // hide the modal
+                  $('#myModal').modal('hide');
+                  // finally display the content in the main content area
                   $("#ajax-container").empty().append(html);
               });
               return false; // stop the click from causing navigation

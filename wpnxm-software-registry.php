@@ -29,11 +29,11 @@
   array (
     'name' => 'Clansuite',
     'website' => 'http://clansuite.com/',
-    '0.2.1' => 'http://codeload.github.com/Clansuite/Clansuite/zip/develop',
+    '0.2.1' => 'https://codeload.github.com/Clansuite/Clansuite/zip/develop',
     'latest' =>
     array (
       'version' => '0.2.1',
-      'url' => 'http://codeload.github.com/Clansuite/Clansuite/zip/develop',
+      'url' => 'https://codeload.github.com/Clansuite/Clansuite/zip/develop',
     ),
   ),
   'composer' =>
@@ -122,12 +122,12 @@
   array (
     'name' => 'Memadmin',
     'website' => 'http://www.junopen.com/memadmin/',
-    '1.0.11' => 'http://codeload.github.com/junstor/memadmin/zip/v1.0.11',
-    '1.0.12' => 'http://codeload.github.com/junstor/memadmin/zip/v1.0.12',
+    '1.0.11' => 'https://codeload.github.com/junstor/memadmin/zip/v1.0.11',
+    '1.0.12' => 'https://codeload.github.com/junstor/memadmin/zip/v1.0.12',
     'latest' =>
     array (
       'version' => '1.0.12',
-      'url' => 'http://codeload.github.com/junstor/memadmin/zip/v1.0.12',
+      'url' => 'https://codeload.github.com/junstor/memadmin/zip/v1.0.12',
     ),
   ),
   'memcached' =>
@@ -564,11 +564,11 @@
   ),
   'xhprof' =>
   array (
-    '1.0' => 'http://codeload.github.com/preinheimer/xhprof/zip/master',
+    '1.0' => 'https://codeload.github.com/preinheimer/xhprof/zip/master',
     'latest' =>
     array (
       'version' => '1.0',
-      'url' => 'http://codeload.github.com/preinheimer/xhprof/zip/master',
+      'url' => 'https://codeload.github.com/preinheimer/xhprof/zip/master',
     ),
   ),
 );

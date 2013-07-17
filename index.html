@@ -100,9 +100,9 @@
               $('#myModal').modal('show');
 
               // remove the active class from the old clicked nav link
-              $("#menu li a").removeClass('active');
+              $("#menu li").removeClass('active');
               // add the active class to the clicked nav link
-              $(this).addClass('active');
+              $(this).parent('li').addClass('active');
 
               // ajax call to the PHP scripts
               $.ajax({

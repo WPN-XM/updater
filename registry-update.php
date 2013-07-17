@@ -608,8 +608,9 @@ if(isset($action) && $action === 'write-file') {
  */
 function printUpdatedSign($old_version, $new_version) {
     if(version_compare($old_version, $new_version, '<') === true) {
-        echo '<span style="color:green; font-size: 16px">&nbsp;&#x25B2;</span>';
+        return '<span class="label label-success">' . $new_version . '</span><span style="color:green; font-size: 16px">&nbsp;&#x25B2;</span>';
     }
+    return $new_version;
 }
 ?>
 
@@ -620,68 +621,69 @@ function printUpdatedSign($old_version, $new_version) {
     </tr>
 </thead>
 <tr>
-    <td>nginx</td><td><?php echo $old_registry['nginx']['latest']['version'] ?></td><td><?php echo $registry['nginx']['latest']['version'];
-    printUpdatedSign($old_registry['nginx']['latest']['version'], $registry['nginx']['latest']['version']); ?>
+    <td>nginx</td>
+    <td><?php echo $old_registry['nginx']['latest']['version'] ?></td>
+    <td><?php echo printUpdatedSign($old_registry['nginx']['latest']['version'], $registry['nginx']['latest']['version']); ?></td>
+</tr>
+<tr>
+    <td>php</td>
+    <td><?php echo $old_registry['php']['latest']['version'] ?></td>
+    <td><?php echo printUpdatedSign($old_registry['php']['latest']['version'], $registry['php']['latest']['version']); ?>
     </td>
 </tr>
 <tr>
-    <td>php</td><td><?php echo $old_registry['php']['latest']['version'] ?></td><td><?php echo $registry['php']['latest']['version'];
-    printUpdatedSign($old_registry['php']['latest']['version'], $registry['php']['latest']['version']); ?>
-    </td>
+    <td>mariadb</td>
+    <td><?php echo $old_registry['mariadb']['latest']['version'] ?></td>
+    <td><?php echo printUpdatedSign($old_registry['mariadb']['latest']['version'], $registry['mariadb']['latest']['version']); ?></td>
 </tr>
 <tr>
-    <td>mariadb</td><td><?php echo $old_registry['mariadb']['latest']['version'] ?></td><td><?php echo $registry['mariadb']['latest']['version'];
-    printUpdatedSign($old_registry['mariadb']['latest']['version'], $registry['mariadb']['latest']['version']); ?>
-    </td>
+    <td>xdebug</td>
+    <td><?php echo $old_registry['phpext_xdebug']['latest']['version'] ?></td>
+    <td><?php echo printUpdatedSign($old_registry['phpext_xdebug']['latest']['version'], $registry['phpext_xdebug']['latest']['version']); ?></td>
 </tr>
 <tr>
-    <td>xdebug</td><td><?php echo $old_registry['phpext_xdebug']['latest']['version'] ?></td><td><?php echo $registry['phpext_xdebug']['latest']['version'];
-    printUpdatedSign($old_registry['phpext_xdebug']['latest']['version'], $registry['phpext_xdebug']['latest']['version']); ?>
-    </td>
+    <td>apc</td>
+    <td><?php echo $old_registry['phpext_apc']['latest']['version'] ?></td>
+    <td><?php echo printUpdatedSign($old_registry['phpext_apc']['latest']['version'], $registry['phpext_apc']['latest']['version']); ?></td>
 </tr>
 <tr>
-    <td>apc</td><td><?php echo $old_registry['phpext_apc']['latest']['version'] ?></td><td><?php echo $registry['phpext_apc']['latest']['version'];
-    printUpdatedSign($old_registry['phpext_apc']['latest']['version'], $registry['phpext_apc']['latest']['version']); ?>
-    </td>
+    <td>phpmyadmin</td>
+    <td><?php echo $old_registry['phpmyadmin']['latest']['version'] ?></td>
+    <td><?php echo printUpdatedSign($old_registry['phpmyadmin']['latest']['version'], $registry['phpmyadmin']['latest']['version']); ?></td>
 </tr>
 <tr>
-    <td>phpmyadmin</td><td><?php echo $old_registry['phpmyadmin']['latest']['version'] ?></td><td><?php echo $registry['phpmyadmin']['latest']['version'];
-    printUpdatedSign($old_registry['phpmyadmin']['latest']['version'], $registry['phpmyadmin']['latest']['version']); ?>
-    </td>
+    <td>adminer</td>
+    <td><?php echo $old_registry['adminer']['latest']['version'] ?></td>
+    <td><?php echo printUpdatedSign($old_registry['adminer']['latest']['version'],  $registry['adminer']['latest']['version']); ?></td>
 </tr>
 <tr>
-    <td>adminer</td><td><?php echo $old_registry['adminer']['latest']['version'] ?></td><td><?php echo $registry['adminer']['latest']['version'];
-    printUpdatedSign($old_registry['adminer']['latest']['version'],  $registry['adminer']['latest']['version']); ?>
-    </td>
+    <td>rockmongo</td>
+    <td><?php echo $old_registry['rockmongo']['latest']['version'] ?></td>
+    <td><?php echo printUpdatedSign($old_registry['rockmongo']['latest']['version'],  $registry['rockmongo']['latest']['version']); ?></td>
 </tr>
 <tr>
-    <td>rockmongo</td><td><?php echo $old_registry['rockmongo']['latest']['version'] ?></td><td><?php echo $registry['rockmongo']['latest']['version'];
-    printUpdatedSign($old_registry['rockmongo']['latest']['version'],  $registry['rockmongo']['latest']['version']); ?>
-    </td>
+    <td>mongodb</td>
+    <td><?php echo $old_registry['mongodb']['latest']['version'] ?></td>
+    <td><?php echo printUpdatedSign($old_registry['mongodb']['latest']['version'],  $registry['mongodb']['latest']['version']); ?></td>
 </tr>
 <tr>
-    <td>mongodb</td><td><?php echo $old_registry['mongodb']['latest']['version'] ?></td><td><?php echo $registry['mongodb']['latest']['version'];
-    printUpdatedSign($old_registry['mongodb']['latest']['version'],  $registry['mongodb']['latest']['version']); ?>
-    </td>
+    <td>phpext_mongo</td>
+    <td><?php echo $old_registry['phpext_mongo']['latest']['version'] ?></td>
+    <td><?php echo printUpdatedSign($old_registry['phpext_mongo']['latest']['version'],  $registry['phpext_mongo']['latest']['version']); ?></td>
 </tr>
 <tr>
-    <td>phpext_mongo</td><td><?php echo $old_registry['phpext_mongo']['latest']['version'] ?></td><td><?php echo $registry['phpext_mongo']['latest']['version'];
-    printUpdatedSign($old_registry['phpext_mongo']['latest']['version'],  $registry['phpext_mongo']['latest']['version']); ?>
-    </td>
+    <td>phpmemcachedadmin</td>
+    <td><?php echo $old_registry['phpmemcachedadmin']['latest']['version'] ?></td>
+    <td><?php echo printUpdatedSign($old_registry['phpmemcachedadmin']['latest']['version'],  $registry['phpmemcachedadmin']['latest']['version']); ?></td>
 </tr>
 <tr>
-    <td>phpmemcachedadmin</td><td><?php echo $old_registry['phpmemcachedadmin']['latest']['version'] ?></td><td><?php echo $registry['phpmemcachedadmin']['latest']['version'];
-    printUpdatedSign($old_registry['phpmemcachedadmin']['latest']['version'],  $registry['phpmemcachedadmin']['latest']['version']); ?>
-    </td>
+    <td>openssl</td>
+    <td><?php echo $old_registry['openssl']['latest']['version'] ?></td>
+    <td><?php echo printUpdatedSign($old_registry['openssl']['latest']['version'],  $registry['openssl']['latest']['version']); ?></td>
 </tr>
 <tr>
-    <td>openssl</td><td><?php echo $old_registry['openssl']['latest']['version'] ?></td><td><?php echo $registry['openssl']['latest']['version'];
-    printUpdatedSign($old_registry['openssl']['latest']['version'],  $registry['openssl']['latest']['version']); ?>
-    </td>
-</tr>
-<tr>
-    <td>postgresql</td><td><?php echo $old_registry['postgresql']['latest']['version'] ?></td><td><?php echo $registry['postgresql']['latest']['version'];
-    printUpdatedSign($old_registry['postgresql']['latest']['version'],  $registry['postgresql']['latest']['version']); ?>
-    </td>
+    <td>postgresql</td>
+    <td><?php echo $old_registry['postgresql']['latest']['version'] ?></td>
+    <td><?php echo printUpdatedSign($old_registry['postgresql']['latest']['version'],  $registry['postgresql']['latest']['version']); ?></td>
 </tr>
 </table>

@@ -2,7 +2,7 @@
    /**
     * WPN-XM Software Registry
     * ------------------------
-    * Last Update Mon, 08 Jul 2013 14:05:16 +0000.
+    * Last Update Fri, 19 Jul 2013 21:34:55 +0000.
     * Do not edit manually!
     */
 
@@ -112,10 +112,11 @@
     '5.5.29' => 'http://archive.mariadb.org/mariadb-5.5.29/win32-packages/mariadb-5.5.29-win32.zip',
     '5.5.30' => 'http://archive.mariadb.org/mariadb-5.5.30/win32-packages/mariadb-5.5.30-win32.zip',
     '5.5.31' => 'http://archive.mariadb.org/mariadb-5.5.31/win32-packages/mariadb-5.5.31-win32.zip',
+    '5.5.32' => 'http://archive.mariadb.org/mariadb-5.5.32/win32-packages/mariadb-5.5.32-win32.zip',
     'latest' =>
     array (
-      'version' => '5.5.31',
-      'url' => 'http://archive.mariadb.org/mariadb-5.5.31/win32-packages/mariadb-5.5.31-win32.zip',
+      'version' => '5.5.32',
+      'url' => 'http://archive.mariadb.org/mariadb-5.5.32/win32-packages/mariadb-5.5.32-win32.zip',
     ),
   ),
   'memadmin' =>
@@ -157,10 +158,11 @@
     '2.4.2' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.4.2.zip',
     '2.4.3' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.4.3.zip',
     '2.5.0' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.5.0.zip',
+    '2.5.1' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.5.1.zip',
     'latest' =>
     array (
-      'version' => '2.5.0',
-      'url' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.5.0.zip',
+      'version' => '2.5.1',
+      'url' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-2.5.1.zip',
     ),
   ),
   'nginx' =>

@@ -68,11 +68,11 @@ $goutte_client->setHeader('User-Agent', 'WPN-XM Server Stack - Registry Update T
 $guzzle = $goutte_client->getClient();
 $guzzle->setSslVerification(false);
 
-// a how to scrape one liner :)
+// the "how to scrape" one liner :)
 // printf("%s (%s)\n</br>", $node->text(), $node->attr('href'));
 
 /**
- * NGINX
+ * NGINX - Version Crawler
  */
 function get_latest_version_of_nginx()
 {
@@ -90,7 +90,7 @@ function get_latest_version_of_nginx()
 }
 
 /**
- * PHP
+ * PHP - Version Crawler
  */
 function get_latest_version_of_php()
 {
@@ -108,7 +108,7 @@ function get_latest_version_of_php()
 }
 
 /**
- * MariaDB
+ * MariaDB - Version Crawler
  */
 function get_latest_version_of_mariadb()
 {
@@ -155,7 +155,7 @@ function get_latest_version_of_mariadb()
 }
 
 /**
- * XDebug - PHP Extension
+ * XDebug (PHP Extension) - Version Crawler
  */
 function get_latest_version_of_xdebug()
 {
@@ -176,7 +176,7 @@ function get_latest_version_of_xdebug()
 }
 
 /**
- * APC - PHP Extension
+ * APC (PHP Extension) - Version Crawler
  */
 function get_latest_version_of_apc()
 {
@@ -198,7 +198,7 @@ function get_latest_version_of_apc()
 }
 
 /**
- * phpMyAdmin
+ * phpMyAdmin - Version Crawler
  */
 function get_latest_version_of_phpmyadmin()
 {
@@ -220,7 +220,7 @@ function get_latest_version_of_phpmyadmin()
 }
 
 /**
- * Adminer
+ * Adminer - Version Crawler
  */
 function get_latest_version_of_adminer()
 {
@@ -240,7 +240,7 @@ function get_latest_version_of_adminer()
 }
 
 /**
- * RockMongo - MongoDB Administration Webinterface
+ * RockMongo (MongoDB Administration Webinterface) - Version Crawler
  */
 function get_latest_version_of_rockmongo()
 {
@@ -263,7 +263,7 @@ function get_latest_version_of_rockmongo()
 }
 
 /**
- * MongoDb
+ * MongoDb - Version Crawler
  */
 function get_latest_version_of_mongodb()
 {
@@ -286,7 +286,7 @@ function get_latest_version_of_mongodb()
 }
 
 /**
- * phpMemcachedAdmin
+ * phpMemcachedAdmin - Version Crawler
  */
 function get_latest_version_of_phpmemcachedadmin()
 {
@@ -311,7 +311,7 @@ function get_latest_version_of_phpmemcachedadmin()
 
 
 /**
- * phpext_mongodb - PHP Extension for MongoDB
+ * phpext_mongodb (PHP Extension) - Version Crawler
  */
 function get_latest_version_of_phpext_mongo()
 {
@@ -344,7 +344,7 @@ function get_latest_version_of_phpext_mongo()
 }
 
 /**
- * OpenSSL
+ * OpenSSL - Version Crawler
  */
 function get_latest_version_of_openssl()
 {
@@ -368,7 +368,7 @@ function get_latest_version_of_openssl()
 }
 
 /**
- * PostGreSql
+ * PostGreSql - Version Crawler
  */
 function get_latest_version_of_postgresql()
 {

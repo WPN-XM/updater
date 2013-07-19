@@ -69,7 +69,7 @@ $guzzle = $goutte_client->getClient();
 $guzzle->setSslVerification(false);
 
 // a how to scrape one liner :)
-// printf("%s (%s)\n</br>", $node->nodeValue, $node->getAttribute('href'));
+// printf("%s (%s)\n</br>", $node->text(), $node->attr('href'));
 
 /**
  * NGINX
@@ -81,9 +81,9 @@ function get_latest_version_of_nginx()
     $crawler = $goutte_client->request('GET', 'http://www.nginx.org/download/');
 
     return $crawler->filter('a')->each(function ($node, $i) use ($registry) {
-        if (preg_match("#(\d+\.\d+(\.\d+)*)(.zip)$#i", $node->nodeValue, $matches)) {
+        if (preg_match("#(\d+\.\d+(\.\d+)*)(.zip)$#i", $node->text(), $matches)) {
             if (version_compare($matches[1], $registry['nginx']['latest']['version'], '>=')) {
-                return array('version' => $matches[1], 'url' => 'http://www.nginx.org/download/' . $node->nodeValue);
+                return array('version' => $matches[1], 'url' => 'http://www.nginx.org/download/' . $node->text());
             }
         }
     });
@@ -99,9 +99,9 @@ function get_latest_version_of_php()
     $crawler = $goutte_client->request('GET', 'http://windows.php.net/downloads/releases/');
 
     return $crawler->filter('a')->each(function ($node, $i) use ($registry) {
-        if (preg_match("#php-+(\d+\.\d+(\.\d+)*)-nts-Win32-VC9-x86.zip$#", $node->nodeValue, $matches)) {
+        if (preg_match("#php-+(\d+\.\d+(\.\d+)*)-nts-Win32-VC9-x86.zip$#", $node->text(), $matches)) {
             if (version_compare($matches[1], $registry['php']['latest']['version'], '>=')) {
-                return array('version' => $matches[1], 'url' => 'http://windows.php.net/downloads/releases/' . $node->nodeValue);
+                return array('version' => $matches[1], 'url' => 'http://windows.php.net/downloads/releases/' . $node->text());
             }
         }
     });
@@ -117,7 +117,7 @@ function get_latest_version_of_mariadb()
     $crawler = $goutte_client->request('GET', 'http://archive.mariadb.org/');
 
     return $crawler->filter('a')->each(function ($node, $i) use ($registry) {
-        if (preg_match("#mariadb-(\d+\.\d+(\.\d+)*)#", $node->nodeValue, $matches)) {
+        if (preg_match("#mariadb-(\d+\.\d+(\.\d+)*)#", $node->text(), $matches)) {
             $version = $matches[1];
 
             // skip all versions below v5.1.49, because this is the first one with a windows release folder
@@ -164,12 +164,12 @@ function get_latest_version_of_xdebug()
     $crawler = $goutte_client->request('GET', 'http://xdebug.org/files/');
 
     return $crawler->filter('a')->each(function ($node, $i) use ($registry) {
-        if (preg_match("#((\d+\.)?(\d+\.)?(\d+\.)?(\*|\d+))([^\s]+nts(\.(?i)(dll))$)#i", $node->nodeValue, $matches)) {
+        if (preg_match("#((\d+\.)?(\d+\.)?(\d+\.)?(\*|\d+))([^\s]+nts(\.(?i)(dll))$)#i", $node->text(), $matches)) {
             $version = $matches[1];
             if (version_compare($version, $registry['phpext_xdebug']['latest']['version'], '>=')) {
                 return array(
                     'version' => $version,
-                    'url' => 'http://xdebug.org/files/' . $node->nodeValue);
+                    'url' => 'http://xdebug.org/files/' . $node->text());
             }
         }
     });
@@ -185,7 +185,7 @@ function get_latest_version_of_apc()
     $crawler = $goutte_client->request('GET', 'http://windows.php.net/downloads/pecl/releases/apc/');
 
     return $crawler->filter('a')->each(function ($node, $i) use ($registry) {
-        if (preg_match("#(\d+\.\d+(\.\d+)*)$#", $node->nodeValue, $matches)) {
+        if (preg_match("#(\d+\.\d+(\.\d+)*)$#", $node->text(), $matches)) {
             $version = $matches[1];
             if (version_compare($version, $registry['phpext_apc']['latest']['version'], '>=')) {
                 return array(
@@ -207,7 +207,7 @@ function get_latest_version_of_phpmyadmin()
     $crawler = $goutte_client->request('GET', 'http://www.phpmyadmin.net/home_page/downloads.php');
 
     return $crawler->filter('a')->each(function ($node, $i) use ($registry) {
-        if (preg_match("#(\d+\.\d+(\.\d+)*)(?:[._-]?(beta|b|rc|alpha|a|patch|pl|p)?(\d+)(?:[.-]?(\d+))?)?([.-]?dev)?#i", $node->nodeValue, $matches)) {
+        if (preg_match("#(\d+\.\d+(\.\d+)*)(?:[._-]?(beta|b|rc|alpha|a|patch|pl|p)?(\d+)(?:[.-]?(\d+))?)?([.-]?dev)?#i", $node->text(), $matches)) {
             $version = $matches[0];
             if (version_compare($version, $registry['phpmyadmin']['latest']['version'], '>=')) {
                 return array(
@@ -229,7 +229,7 @@ function get_latest_version_of_adminer()
     $crawler = $goutte_client->request('GET', 'http://www.adminer.org/#download');
 
     return $crawler->filter('a')->each(function ($node, $i) use ($registry) {
-        if (preg_match("#(\d+\.\d+(\.\d+)*)#", $node->nodeValue, $matches)) {
+        if (preg_match("#(\d+\.\d+(\.\d+)*)#", $node->text(), $matches)) {
             $version = $matches[0];
             return array(
                 'version' => $version,
@@ -273,7 +273,7 @@ function get_latest_version_of_mongodb()
     $crawler = $goutte_client->request('GET', 'http://dl.mongodb.org/dl/win32/');
 
     return $crawler->filter('a')->each( function ($node, $i) use ($registry) {
-        if (preg_match("#win32-i386-(\d+\.\d+(\.\d+)*).zip$#", $node->getAttribute('href'), $matches)) {
+        if (preg_match("#win32-i386-(\d+\.\d+(\.\d+)*).zip$#", $node->attr('href'), $matches)) {
             $version = $matches[1];
             if (version_compare($version, $registry['mongodb']['latest']['version'], '>=')) {
                 return array(
@@ -296,7 +296,7 @@ function get_latest_version_of_phpmemcachedadmin()
 
     return $crawler->filter('a')->each( function ($node, $i) use ($registry) {
         // phpMemcachedAdmin-1.2.2-r262.zip
-        if (preg_match("#(\d+\.\d+(\.\d+)*)(?:[._-]?(r)?(\d+))?#", $node->getAttribute('href'), $matches)) {
+        if (preg_match("#(\d+\.\d+(\.\d+)*)(?:[._-]?(r)?(\d+))?#", $node->attr('href'), $matches)) {
             $version_long = $matches[0]; // 1.2.3-r123
             $version = $matches[1]; // 1.2.3
             if (version_compare($version, $registry['phpmemcachedadmin']['latest']['version'], '>=')) {
@@ -331,7 +331,7 @@ function get_latest_version_of_phpext_mongo()
 
     return $crawler->filter('a')->each( function ($node, $i) use ($registry) {
         // mongo-1.3.4.tgz
-        if (preg_match("#mongo-(\d+\.\d+(\.\d+)*)(?:[._-]?(rc)?(\d+))?#i", $node->getAttribute('href'), $matches)) {
+        if (preg_match("#mongo-(\d+\.\d+(\.\d+)*)(?:[._-]?(rc)?(\d+))?#i", $node->attr('href'), $matches)) {
             $version = $matches[1]; // 1.2.3
             if (version_compare($version, $registry['phpext_mongo']['latest']['version'], '>=')) {
                 return array(
@@ -354,7 +354,7 @@ function get_latest_version_of_openssl()
 
     return $crawler->filter('a')->each( function ($node, $i) use ($registry) {
         // http://slproweb.com/download/Win32OpenSSL_Light-1_0_1d.exe
-        if (preg_match("#Win32OpenSSL_Light-(\d+\_\d+\_\d+[a-z]).exe$#", $node->getAttribute('href'), $matches)) {
+        if (preg_match("#Win32OpenSSL_Light-(\d+\_\d+\_\d+[a-z]).exe$#", $node->attr('href'), $matches)) {
             // turn 1_0_1d to 1.0.1d - still not SemVer but anyway
             $version = str_replace('_', '.', $matches[1]);
             if (version_compare($version, $registry['openssl']['latest']['version'], '>=')) {
@@ -377,8 +377,8 @@ function get_latest_version_of_postgresql()
     $crawler = $goutte_client->request('GET', 'http://www.enterprisedb.com/products-services-training/pgbindownload');
 
     return $crawler->filterXPath('//p/i')->each( function ($node, $i) use ($registry) {
-        //echo $node->nodeValue; // = Binaries from installer version 9.3.0 Beta2
-        $value = strtolower($node->nodeValue);
+        //echo $node->text(); // = Binaries from installer version 9.3.0 Beta2
+        $value = strtolower($node->text());
 
         if (preg_match("#(\d+\.\d+(\.\d+)*)(?:(\s)(beta|b|rc|alpha|a|patch|pl|p)?(\d+))?#", $value, $matches)) {
 

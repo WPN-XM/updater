@@ -2,7 +2,7 @@
    /**
     * WPN-XM Software Registry
     * ------------------------
-    * Last Update Wed, 24 Jul 2013 15:00:13 +0000.
+    * Last Update Sat, 03 Aug 2013 15:48:58 +0000.
     * Do not edit manually!
     */
 
@@ -314,10 +314,11 @@
     '1.5.0' => 'http://www.nginx.org/download/nginx-1.5.0.zip',
     '1.5.1' => 'http://www.nginx.org/download/nginx-1.5.1.zip',
     '1.5.2' => 'http://www.nginx.org/download/nginx-1.5.2.zip',
+    '1.5.3' => 'http://www.nginx.org/download/nginx-1.5.3.zip',
     'latest' =>
     array (
-      'version' => '1.5.2',
-      'url' => 'http://www.nginx.org/download/nginx-1.5.2.zip',
+      'version' => '1.5.3',
+      'url' => 'http://www.nginx.org/download/nginx-1.5.3.zip',
     ),
   ),
   'openssl' =>
@@ -500,10 +501,12 @@
     '4.0.3' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.3/phpMyAdmin-4.0.3-english.zip',
     '4.0.4' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.4/phpMyAdmin-4.0.4-english.zip',
     '4.0.4.1' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.4.1/phpMyAdmin-4.0.4.1-english.zip',
+    '4.0.4.2' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.4.2/phpMyAdmin-4.0.4.2-english.zip',
+    '4.0.5-rc2' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.5-rc2/phpMyAdmin-4.0.5-rc2-english.zip',
     'latest' =>
     array (
-      'version' => '4.0.4.1',
-      'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.4.1/phpMyAdmin-4.0.4.1-english.zip',
+      'version' => '4.0.5-rc2',
+      'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.5-rc2/phpMyAdmin-4.0.5-rc2-english.zip',
     ),
   ),
   'postgresql' =>

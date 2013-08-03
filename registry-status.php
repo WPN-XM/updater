@@ -1,4 +1,4 @@
-﻿<?php
+<?php
    /**
     * WPИ-XM Server Stack
     * Jens-André Koch © 2010 - onwards
@@ -30,17 +30,17 @@
 /**
  * Registry Status
  *
- * This scripts performs a check for broken download links.
+ * This scripts performs a check for broken download links in the software registry.
  *
- * We check for each software component of the registry
+ * For each software component we check:
  * a) the download link for the latest version
- *    This link comes directly from the local registry.
+ *      This link comes directly from the local registry.
  * b) the forwarding downloading link
- *    This link is a get request to the server and uses the registry on the server.
- *    Forwarding links are used in the innosetup scripts of the web installation wizards.
+ *      This link is a get request to the server and uses the registry on the server.
+ *      Forwarding links are used in the innosetup scripts of the web installation wizards.
  */
 
-set_time_limit(60*3);
+set_time_limit(180); // 60*3
 
 date_default_timezone_set('UTC');
 

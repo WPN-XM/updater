@@ -2,7 +2,7 @@
    /**
     * WPN-XM Software Registry
     * ------------------------
-    * Last Update Thu, 15 Aug 2013 08:25:53 +0000.
+    * Last Update Tue, 20 Aug 2013 14:50:48 +0000.
     * Do not edit manually!
     */
 
@@ -408,10 +408,11 @@
     '1.4.0' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.4.0.zip',
     '1.4.1' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.4.1.zip',
     '1.4.2' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.4.2.zip',
+    '1.4.3' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.4.3.zip',
     'latest' =>
     array (
-      'version' => '1.4.2',
-      'url' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.4.2.zip',
+      'version' => '1.4.3',
+      'url' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.4.3.zip',
     ),
   ),
   'phpext_varnish' =>

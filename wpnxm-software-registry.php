@@ -2,7 +2,7 @@
    /**
     * WPN-XM Software Registry
     * ------------------------
-    * Last Update Tue, 20 Aug 2013 14:50:48 +0000.
+    * Last Update Thu, 22 Aug 2013 12:05:59 +0000.
     * Do not edit manually!
     */
 
@@ -362,11 +362,12 @@
     '5.4.15' => 'http://windows.php.net/downloads/releases/archives/php-5.4.15-nts-Win32-VC9-x86.zip',
     '5.4.16' => 'http://windows.php.net/downloads/releases/archives/php-5.4.16-nts-Win32-VC9-x86.zip',
     '5.4.17' => 'http://windows.php.net/downloads/releases/archives/php-5.4.17-nts-Win32-VC9-x86.zip',
-    '5.4.18' => 'http://windows.php.net/downloads/releases/php-5.4.18-nts-Win32-VC9-x86.zip',
+    '5.4.18' => 'http://windows.php.net/downloads/releases/archives/php-5.4.18-nts-Win32-VC9-x86.zip',
+    '5.4.19' => 'http://windows.php.net/downloads/releases/php-5.4.19-nts-Win32-VC9-x86.zip',
     'latest' =>
     array (
-      'version' => '5.4.18',
-      'url' => 'http://windows.php.net/downloads/releases/php-5.4.18-nts-Win32-VC9-x86.zip',
+      'version' => '5.4.19',
+      'url' => 'http://windows.php.net/downloads/releases/php-5.4.19-nts-Win32-VC9-x86.zip',
     ),
   ),
   'phpext_apc' =>
@@ -519,10 +520,11 @@
     '9.1.9' => 'http://get.enterprisedb.com/postgresql/postgresql-9.1.9-1-windows-binaries.zip',
     '9.2.4' => 'http://get.enterprisedb.com/postgresql/postgresql-9.2.4-1-windows-binaries.zip',
     '9.3.0-beta2' => 'http://get.enterprisedb.com/postgresql/postgresql-9.3.0-beta2-windows-binaries.zip',
+    '9.3.0' => 'http://get.enterprisedb.com/postgresql/postgresql-9.3.0-1-windows-binaries.zip',
     'latest' =>
     array (
-      'version' => '9.3.0-beta2',
-      'url' => 'http://get.enterprisedb.com/postgresql/postgresql-9.3.0-beta2-windows-binaries.zip',
+      'version' => '9.3.0',
+      'url' => 'http://get.enterprisedb.com/postgresql/postgresql-9.3.0-1-windows-binaries.zip',
     ),
   ),
   'rockmongo' =>

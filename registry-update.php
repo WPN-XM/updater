@@ -141,6 +141,9 @@ function get_latest_version_of_mariadb()
             // - http://archive.mariadb.org/mariadb-5.5.27/windows/mariadb-5.5.27-win32.zip
             // - http://archive.mariadb.org/mariadb-5.5.28/win32-packages/mariadb-5.5.28-win32.zip
 
+            // Download Mirror
+            // http://mirrors.n-ix.net/mariadb/mariadb-5.5.32/win32-packages/mariadb-5.5.32-win32.zip
+
             if($version <= '5.1.49') { $folder = 'kvm-zip-winxp-x86'; $filename = 'mariadb-noinstall-'.$version.'-win32.zip'; }
             elseif($version <= '5.2.6')  { $folder = 'win2008r2-vs2010-i386'; }
             elseif($version <= '5.5.23') { $folder = 'win2008r2-vs2010-i386-packages'; }
@@ -148,7 +151,8 @@ function get_latest_version_of_mariadb()
             elseif($version >= '5.5.28') { $folder = 'win32-packages'; }
 
             if (version_compare($version, $registry['mariadb']['latest']['version'], '>=')) {
-                return array('version' => $version, 'url' => 'http://archive.mariadb.org/mariadb-' . $version . '/' . $folder .'/' . $filename);
+                // "http://archive.mariadb.org/mariadb-"; "http://mirrors.n-ix.net/mariadb/mariadb-"
+                return array('version' => $version, 'url' => 'http://mirrors.n-ix.net/mariadb/mariadb-' . $version . '/' . $folder .'/' . $filename);
             }
         }
     });

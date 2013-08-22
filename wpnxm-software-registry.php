@@ -2,7 +2,7 @@
    /**
     * WPN-XM Software Registry
     * ------------------------
-    * Last Update Thu, 22 Aug 2013 15:09:40 +0000.
+    * Last Update Thu, 22 Aug 2013 17:56:07 +0000.
     * Do not edit manually!
     */
 
@@ -112,11 +112,11 @@
     '5.5.29' => 'http://archive.mariadb.org/mariadb-5.5.29/win32-packages/mariadb-5.5.29-win32.zip',
     '5.5.30' => 'http://archive.mariadb.org/mariadb-5.5.30/win32-packages/mariadb-5.5.30-win32.zip',
     '5.5.31' => 'http://archive.mariadb.org/mariadb-5.5.31/win32-packages/mariadb-5.5.31-win32.zip',
-    '5.5.32' => 'http://archive.mariadb.org/mariadb-5.5.32/win32-packages/mariadb-5.5.32-win32.zip',
+    '5.5.32' => 'http://mirrors.n-ix.net/mariadb/mariadb-5.5.32/win32-packages/mariadb-5.5.32-win32.zip',
     'latest' =>
     array (
       'version' => '5.5.32',
-      'url' => 'http://archive.mariadb.org/mariadb-5.5.32/win32-packages/mariadb-5.5.32-win32.zip',
+      'url' => 'http://mirrors.n-ix.net/mariadb/mariadb-5.5.32/win32-packages/mariadb-5.5.32-win32.zip',
     ),
   ),
   'memadmin' =>

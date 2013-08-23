@@ -387,6 +387,8 @@
   ),
   'phpext_memcache' =>
   array (
+    'name' => 'phpext_memcache',
+    'website' => 'http://php.net/manual/en/book.memcache.php/',
     '2.2.6' => 'http://downloads.php.net/pierre/php_memcache-2.2.6-5.3-vc9-x86.zip',
     '2.2.7' => 'http://windows.php.net/downloads/pecl/releases/memcache/2.2.7/php_memcache-2.2.7-5.4-nts-vc9-x86.zip',
     'latest' =>
@@ -418,6 +420,8 @@
   ),
   'phpext_varnish' =>
   array (
+    'name' => 'phpext_varnish',
+    'website' => 'http://xcache.lighttpd.net/',
     '1.0' => 'http://windows.php.net/downloads/pecl/releases/varnish/1.0.0/php_varnish-1.0.0-5.4-nts-vc9-x86.zip',
     'latest' =>
     array (
@@ -469,6 +473,8 @@
   ),
   'phpext_zeromq' =>
   array (
+    'name' => 'phpext_zeromq',
+    'website' => 'https://github.com/mkoppanen/php-zmq',
     '3.2.0' => 'http://valokuva.org/%7Emikko/php-zmq-20130203.tgz',
     'latest' =>
     array (
@@ -515,6 +521,8 @@
   ),
   'postgresql' =>
   array (
+    'name' => 'PostgreSQL',
+    'website' => 'http://www.postgresql.org/',
     '8.4.17' => 'http://get.enterprisedb.com/postgresql/postgresql-8.4.17-1-windows-binaries.zip',
     '9.0.13' => 'http://get.enterprisedb.com/postgresql/postgresql-9.0.13-1-windows-binaries.zip',
     '9.1.9' => 'http://get.enterprisedb.com/postgresql/postgresql-9.1.9-1-windows-binaries.zip',
@@ -575,6 +583,8 @@
   ),
   'xhprof' =>
   array (
+    'name' => 'XhProf',
+    'website' => 'http://php.net/manual/de/book.xhprof.php',
     '1.0' => 'https://codeload.github.com/preinheimer/xhprof/zip/master',
     'latest' =>
     array (

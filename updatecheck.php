@@ -65,6 +65,7 @@ if (!empty($s) && $s === 'all') {
     }
 
     // send response as json message
+    header('Content-Type: application/json');
     echo json_encode($data);
     exit(0);
 }
@@ -89,6 +90,7 @@ if (!empty($s) && array_key_exists($s, $registry) ) {
 
     }
     // send response as json message
+    header('Content-Type: application/json');
     echo json_encode($data);
 } else {
     echo 'Request Error. Specify parameters "s" and "v".';

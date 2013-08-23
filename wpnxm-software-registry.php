@@ -431,6 +431,8 @@
   ),
   'phpext_xcache' =>
   array (
+    'name' => 'phpext_xcache',
+    'website' => 'http://xcache.lighttpd.net/',
     '2.0.1' => 'http://dev.freshsite.pl/nc/php-accelerators/xcache/download/xcache-201-for-php-54-vc9-nts.html',
     'latest' =>
     array (

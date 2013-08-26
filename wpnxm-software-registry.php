@@ -2,7 +2,7 @@
    /**
     * WPN-XM Software Registry
     * ------------------------
-    * Last Update Mon, 26 Aug 2013 10:35:48 +0000.
+    * Last Update Mon, 26 Aug 2013 14:50:44 +0000.
     * Do not edit manually!
     */
 
@@ -566,10 +566,10 @@
     'name' => 'Microsoft Visual C++ 2010 x86 Redistributable Setup',
     'website' => 'http://microsoft.com/',
     '10.0' => 'http://download.microsoft.com/download/5/B/C/5BC5DBB3-652D-4DCE-B14A-475AB85EEF6E/vcredist_x86.exe',
-    'latest' => 
+    'latest' =>
     array (
-        'version' => '10.0',
-        'url' => 'http://download.microsoft.com/download/5/B/C/5BC5DBB3-652D-4DCE-B14A-475AB85EEF6E/vcredist_x86.exe',
+      'version' => '10.0',
+      'url' => 'http://download.microsoft.com/download/5/B/C/5BC5DBB3-652D-4DCE-B14A-475AB85EEF6E/vcredist_x86.exe',
     ),
   ),
   'webgrind' =>

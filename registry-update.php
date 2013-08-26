@@ -168,7 +168,9 @@ function get_latest_version_of_xdebug()
     $crawler = $goutte_client->request('GET', 'http://xdebug.org/files/');
 
     return $crawler->filter('a')->each(function ($node, $i) use ($registry) {
-        if (preg_match("#((\d+\.)?(\d+\.)?(\d+\.)?(\*|\d+))([^\s]+nts(\.(?i)(dll))$)#i", $node->text(), $matches)) {
+        # regexp for all version: "#((\d+\.)?(\d+\.)?(\d+\.)?(\*|\d+))([^\s]+nts(\.(?i)(dll))$)#i"
+        # we are fetching all xdebug versions for php 5.4
+        if (preg_match("#php_xdebug-(\d+\.\d+(\.\d+)*)-5.4-vc9-nts.dll#", $node->text(), $matches)) {
             $version = $matches[1];
             if (version_compare($version, $registry['phpext_xdebug']['latest']['version'], '>=')) {
                 return array(

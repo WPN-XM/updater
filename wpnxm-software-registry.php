@@ -460,7 +460,7 @@
     'latest' =>
     array (
       'version' => '2.2.3',
-      'url' => 'http://xdebug.org/files/php_xdebug-2.2.3-5.5-vc11-nts.dll',
+      'url' => 'http://xdebug.org/files/php_xdebug-2.2.3-5.4-vc9-nts.dll',
     ),
   ),
   'phpext_xhprof' =>

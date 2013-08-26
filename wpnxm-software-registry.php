@@ -599,11 +599,11 @@
   array (
     'name' => 'XhProf',
     'website' => 'http://php.net/manual/de/book.xhprof.php',
-    '1.0' => 'https://codeload.github.com/preinheimer/xhprof/zip/master',
+    '0.10.6' => 'http://windows.php.net/downloads/pecl/releases/xhprof/0.10.6/php_xhprof-0.10.6-5.4-nts-vc9-x86.zip',
     'latest' =>
     array (
-      'version' => '1.0',
-      'url' => 'https://codeload.github.com/preinheimer/xhprof/zip/master',
+      'version' => '0.10.6',
+      'url' => 'http://windows.php.net/downloads/pecl/releases/xhprof/0.10.6/php_xhprof-0.10.6-5.4-nts-vc9-x86.zip',
     ),
   ),
 );

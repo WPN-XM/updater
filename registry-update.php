@@ -419,6 +419,26 @@ function get_latest_version_of_postgresql()
 }
 
 /**
+ * xhProf - Version Crawler
+ */
+function get_latest_version_of_xhprof()
+{
+    global $goutte_client, $registry;
+
+    $crawler = $goutte_client->request('GET', 'http://windows.php.net/downloads/pecl/releases/xhprof/');
+
+    return $crawler->filter('a')->each(function ($node, $i) use ($registry) {
+        if (preg_match("#(\d+\.\d+(\.\d+)*)#", $node->text(), $matches)) {
+            $version = $matches[0];
+            return array(
+                'version' => $version,
+                'url' => 'http://windows.php.net/downloads/pecl/releases/xhprof/'.$version.'/php_xhprof-'.$version.'-5.4-nts-vc9-x86.zip'
+            );
+        }
+    });
+}
+
+/**
  * Removes all keys with value "null" from the array and returns the array.
  *
  * @param $array Array
@@ -603,6 +623,7 @@ add('phpmemcachedadmin',  get_latest_version_of_phpmemcachedadmin() );
 add('phpext_mongo',       get_latest_version_of_phpext_mongo());
 add('openssl',            get_latest_version_of_openssl());
 add('postgresql',         get_latest_version_of_postgresql());
+add('xhprof',             get_latest_version_of_xhprof());
 
 adjust_php_download_path();
 
@@ -700,5 +721,10 @@ function printUpdatedSign($old_version, $new_version) {
     <td>postgresql</td>
     <td><?php echo $old_registry['postgresql']['latest']['version'] ?></td>
     <td><?php echo printUpdatedSign($old_registry['postgresql']['latest']['version'],  $registry['postgresql']['latest']['version']); ?></td>
+</tr>
+<tr>
+    <td>xhprof</td>
+    <td><?php echo $old_registry['xhprof']['latest']['version'] ?></td>
+    <td><?php echo printUpdatedSign($old_registry['xhprof']['latest']['version'],  $registry['xhprof']['latest']['version']); ?></td>
 </tr>
 </table>

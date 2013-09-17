@@ -2,7 +2,7 @@
    /**
     * WPN-XM Software Registry
     * ------------------------
-    * Last Update Wed, 11 Sep 2013 13:47:42 +0000.
+    * Last Update Tue, 17 Sep 2013 19:59:13 +0000.
     * Do not edit manually!
     */
 
@@ -113,10 +113,11 @@
     '5.5.30' => 'http://archive.mariadb.org/mariadb-5.5.30/win32-packages/mariadb-5.5.30-win32.zip',
     '5.5.31' => 'http://archive.mariadb.org/mariadb-5.5.31/win32-packages/mariadb-5.5.31-win32.zip',
     '5.5.32' => 'http://mirrors.n-ix.net/mariadb/mariadb-5.5.32/win32-packages/mariadb-5.5.32-win32.zip',
+    '5.5.33' => 'http://mirrors.n-ix.net/mariadb/mariadb-5.5.33/win32-packages/mariadb-5.5.33-win32.zip',
     'latest' =>
     array (
-      'version' => '5.5.32',
-      'url' => 'http://mirrors.n-ix.net/mariadb/mariadb-5.5.32/win32-packages/mariadb-5.5.32-win32.zip',
+      'version' => '5.5.33',
+      'url' => 'http://mirrors.n-ix.net/mariadb/mariadb-5.5.33/win32-packages/mariadb-5.5.33-win32.zip',
     ),
   ),
   'memadmin' =>
@@ -317,10 +318,11 @@
     '1.5.2' => 'http://www.nginx.org/download/nginx-1.5.2.zip',
     '1.5.3' => 'http://www.nginx.org/download/nginx-1.5.3.zip',
     '1.5.4' => 'http://www.nginx.org/download/nginx-1.5.4.zip',
+    '1.5.5' => 'http://www.nginx.org/download/nginx-1.5.5.zip',
     'latest' =>
     array (
-      'version' => '1.5.4',
-      'url' => 'http://www.nginx.org/download/nginx-1.5.4.zip',
+      'version' => '1.5.5',
+      'url' => 'http://www.nginx.org/download/nginx-1.5.5.zip',
     ),
   ),
   'openssl' =>
@@ -528,6 +530,7 @@
   'postgresql' =>
   array (
     'name' => 'PostgreSQL',
+    '' => NULL,
     'website' => 'http://www.postgresql.org/',
     '8.4.17' => 'http://get.enterprisedb.com/postgresql/postgresql-8.4.17-1-windows-binaries.zip',
     '9.0.13' => 'http://get.enterprisedb.com/postgresql/postgresql-9.0.13-1-windows-binaries.zip',
@@ -535,11 +538,7 @@
     '9.2.4' => 'http://get.enterprisedb.com/postgresql/postgresql-9.2.4-1-windows-binaries.zip',
     '9.3.0-beta2' => 'http://get.enterprisedb.com/postgresql/postgresql-9.3.0-beta2-windows-binaries.zip',
     '9.3.0' => 'http://get.enterprisedb.com/postgresql/postgresql-9.3.0-rc1-windows-binaries.zip',
-    'latest' =>
-    array (
-      'version' => '9.3.0',
-      'url' => 'http://get.enterprisedb.com/postgresql/postgresql-9.3.0-rc1-windows-binaries.zip',
-    ),
+    'latest' => NULL,
   ),
   'rockmongo' =>
   array (

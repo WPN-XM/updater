@@ -386,7 +386,10 @@ function get_latest_version_of_postgresql()
         //echo $node->text(); // = "Binaries from installer version 9.3.0 Beta2" or "Binaries from installer version 9.3.0 Release Candidate 1"
         $value = strtolower($node->text());
 
-        if (preg_match("#(\d+\.\d+(\.\d+)*)(?:[ ])(release candidate|beta|b|rc|alpha|a|patch|pl|p)(?:[ ])(\d+)?#i", $value, $matches)) {
+        #var_dump($value);
+
+        if (preg_match("#(\d+\.\d+(\.\d+)*)#i", $value, $matches)) {
+        //if (preg_match("#(\d+\.\d+(\.\d+)*)(?:[ ])(release candidate|beta|b|rc|alpha|a|patch|pl|p))(?:[ ])(\d+)#i", $value, $matches)) {
 
             #var_dump($matches);
 

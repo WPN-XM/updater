@@ -552,7 +552,7 @@ function adjust_php_download_path()
 function write_registry_file(array $registry)
 {
     // backup current registry
-    rename( 'wpnxm-software-registry.php', 'wpnxm-software-registry' . date("d-m-y-H-i-s") . '.php' );
+    rename( 'wpnxm-software-registry.php', 'wpnxm-software-registry-backup-' . date("d-m-y-H-i-s") . '.php' );
 
     // file header
     $content = "<?php\n";

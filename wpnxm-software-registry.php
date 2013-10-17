@@ -2,7 +2,7 @@
    /**
     * WPN-XM Software Registry
     * ------------------------
-    * Last Update Tue, 15 Oct 2013 11:25:35 +0000.
+    * Last Update Thu, 17 Oct 2013 22:40:02 +0000.
     * Do not edit manually!
     */
 
@@ -369,11 +369,12 @@
     '5.4.17' => 'http://windows.php.net/downloads/releases/archives/php-5.4.17-nts-Win32-VC9-x86.zip',
     '5.4.18' => 'http://windows.php.net/downloads/releases/archives/php-5.4.18-nts-Win32-VC9-x86.zip',
     '5.4.19' => 'http://windows.php.net/downloads/releases/archives/php-5.4.19-nts-Win32-VC9-x86.zip',
-    '5.4.20' => 'http://windows.php.net/downloads/releases/php-5.4.20-nts-Win32-VC9-x86.zip',
+    '5.4.20' => 'http://windows.php.net/downloads/releases/archives/php-5.4.20-nts-Win32-VC9-x86.zip',
+    '5.4.21' => 'http://windows.php.net/downloads/releases/php-5.4.21-nts-Win32-VC9-x86.zip',
     'latest' =>
     array (
-      'version' => '5.4.20',
-      'url' => 'http://windows.php.net/downloads/releases/php-5.4.20-nts-Win32-VC9-x86.zip',
+      'version' => '5.4.21',
+      'url' => 'http://windows.php.net/downloads/releases/php-5.4.21-nts-Win32-VC9-x86.zip',
     ),
   ),
   'phpext_apc' =>
@@ -527,10 +528,11 @@
     '4.0.7-rc1' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.7-rc1/phpMyAdmin-4.0.7-rc1-english.zip',
     '4.0.8' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.8/phpMyAdmin-4.0.8-english.zip',
     '4.1.0-alpha2' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.1.0-alpha2/phpMyAdmin-4.1.0-alpha2-english.zip',
+    '4.1.0-beta1' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.1.0-beta1/phpMyAdmin-4.1.0-beta1-english.zip',
     'latest' =>
     array (
-      'version' => '4.1.0-alpha2',
-      'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.1.0-alpha2/phpMyAdmin-4.1.0-alpha2-english.zip',
+      'version' => '4.1.0-beta1',
+      'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.1.0-beta1/phpMyAdmin-4.1.0-beta1-english.zip',
     ),
   ),
   'postgresql' =>

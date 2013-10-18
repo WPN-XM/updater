@@ -8,6 +8,7 @@ mongodb,http://wpn-xm.org/get.php?s=mongodb&v=2.0.8,mongodb.zip
 nginx,http://wpn-xm.org/get.php?s=nginx,nginx.zip
 openssl,http://wpn-xm.org/get.php?s=openssl,openssl.exe
 pear,http://wpn-xm.org/get.php?s=pear,go-pear.phar
+perl,http://wpn-xm.org/get.php?s=perl,perl.zip
 php,http://wpn-xm.org/get.php?s=php,php.zip
 phpext_apc,http://wpn-xm.org/get.php?s=phpext_apc,phpext_apc.zip
 phpext_memcache,http://wpn-xm.org/get.php?s=phpext_memcache,phpext_memcache.zip

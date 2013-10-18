@@ -374,6 +374,29 @@ function get_latest_version_of_openssl()
 }
 
 /**
+ * perl (strawberry perl)
+ */
+function get_latest_version_of_perl()
+{
+    global $goutte_client, $registry;
+
+    $crawler = $goutte_client->request('GET', 'http://strawberryperl.com/releases.html');
+
+    return $crawler->filter('a')->each( function ($node, $i) use ($registry) {
+        // perl-5.4.1.1-32bit.zip
+        if (preg_match("#(\d+\.\d+(\.\d+)*)-32bit?#", $node->attr('href'), $matches)) {
+            $version = $matches[1]; // 5.4.1.1
+            if (version_compare($version, $registry['perl']['latest']['version'], '>=')) {
+                return array(
+                    'version' => $version,
+                    'url' => 'http://strawberryperl.com/download/'.$version.'/strawberry-perl-'.$version.'-32bit.zip'
+                );
+            }
+        }
+     });
+}
+
+/**
  * PostGreSql - Version Crawler
  */
 function get_latest_version_of_postgresql()
@@ -615,6 +638,7 @@ function removeEOLSpaces($content)
 /**
  * Get Latest Versions and add them to the registry.
  */
+
 add('nginx',              get_latest_version_of_nginx() );
 add('php',                get_latest_version_of_php() );
 add('mariadb',            get_latest_version_of_mariadb() );
@@ -629,6 +653,7 @@ add('phpext_mongo',       get_latest_version_of_phpext_mongo());
 add('openssl',            get_latest_version_of_openssl());
 add('postgresql',         get_latest_version_of_postgresql());
 add('xhprof',             get_latest_version_of_xhprof());
+add('perl',               get_latest_version_of_perl());
 
 adjust_php_download_path();
 
@@ -731,5 +756,10 @@ function printUpdatedSign($old_version, $new_version) {
     <td>xhprof</td>
     <td><?php echo $old_registry['xhprof']['latest']['version'] ?></td>
     <td><?php echo printUpdatedSign($old_registry['xhprof']['latest']['version'],  $registry['xhprof']['latest']['version']); ?></td>
+</tr>
+<tr>
+    <td>perl</td><td><?php echo $old_registry['perl']['latest']['version'] ?></td><td><?php echo $registry['perl']['latest']['version'];
+    printUpdatedSign($old_registry['perl']['latest']['version'], $registry['perl']['latest']['version']); ?>
+    </td>
 </tr>
 </table>

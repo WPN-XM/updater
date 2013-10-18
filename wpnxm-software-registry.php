@@ -2,7 +2,7 @@
    /**
     * WPN-XM Software Registry
     * ------------------------
-    * Last Update Fri, 18 Oct 2013 13:36:07 +0000.
+    * Last Update Fri, 18 Oct 2013 13:50:56 +0000.
     * Do not edit manually!
     */
 
@@ -331,9 +331,9 @@
   array (
     'name' => 'OpenSSL',
     'website' => 'http://slproweb.com/',
-    '1.0.1e' => 'http://slproweb.com/download/Win32OpenSSL_Light-1_0_1e.exe',
     '1.0.1c' => 'http://slproweb.com/download/Win32OpenSSL_Light-1_0_1c.exe',
     '1.0.1d' => 'http://slproweb.com/download/Win32OpenSSL_Light-1_0_1d.exe',
+    '1.0.1e' => 'http://slproweb.com/download/Win32OpenSSL_Light-1_0_1e.exe',
     'latest' =>
     array (
       'version' => '1.0.1e',
@@ -349,6 +349,24 @@
     array (
       'version' => '1.0',
       'url' => 'http://pear.php.net/go-pear.phar',
+    ),
+  ),
+  'perl' =>
+  array (
+    '5.14.2.1' => 'http://strawberryperl.com/download/5.14.2.1/strawberry-perl-5.14.2.1-32bit.zip',
+    '5.14.3.1' => 'http://strawberryperl.com/download/5.14.3.1/strawberry-perl-5.14.3.1-32bit.zip',
+    '5.14.4.1' => 'http://strawberryperl.com/download/5.14.4.1/strawberry-perl-5.14.4.1-32bit.zip',
+    '5.16.0.1' => 'http://strawberryperl.com/download/5.16.0.1/strawberry-perl-5.16.0.1-32bit.zip',
+    '5.16.1.1' => 'http://strawberryperl.com/download/5.16.1.1/strawberry-perl-5.16.1.1-32bit.zip',
+    '5.16.2.1' => 'http://strawberryperl.com/download/5.16.2.1/strawberry-perl-5.16.2.1-32bit.zip',
+    '5.16.2.2' => 'http://strawberryperl.com/download/5.16.2.2/strawberry-perl-5.16.2.2-32bit.zip',
+    '5.16.3.1' => 'http://strawberryperl.com/download/5.16.3.1/strawberry-perl-5.16.3.1-32bit.zip',
+    '5.18.0.1' => 'http://strawberryperl.com/download/5.18.0.1/strawberry-perl-5.18.0.1-32bit.zip',
+    '5.18.1.1' => 'http://strawberryperl.com/download/5.18.1.1/strawberry-perl-5.18.1.1-32bit.zip',
+    'latest' =>
+    array (
+      'version' => '5.18.1.1',
+      'url' => 'http://strawberryperl.com/download/5.18.1.1/strawberry-perl-5.18.1.1-32bit.zip',
     ),
   ),
   'php' =>

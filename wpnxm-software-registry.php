@@ -412,7 +412,7 @@
   ),
   'phpext_memcache' =>
   array (
-    'name' => 'phpext_memcache',
+    'name' => 'PHP Extension Memcache',
     'website' => 'http://php.net/manual/en/book.memcache.php/',
     '2.2.6' => 'http://downloads.php.net/pierre/php_memcache-2.2.6-5.3-vc9-x86.zip',
     '2.2.7' => 'http://windows.php.net/downloads/pecl/releases/memcache/2.2.7/php_memcache-2.2.7-5.4-nts-vc9-x86.zip',
@@ -425,7 +425,7 @@
   ),
   'phpext_mongo' =>
   array (
-    'name' => 'phpext_mongo',
+    'name' => 'PHP Extension Mongo',
     'website' => 'http://www.mongodb.org/display/DOCS/PHP+Language+Center/',
     '1.3.2RC1' => 'http://github.com/downloads/mongodb/mongo-php-driver/php_mongo-1.3.2RC1.zip',
     '1.3.2' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.3.2.zip',
@@ -447,8 +447,13 @@
   ),
   'phpext_varnish' =>
   array (
+<<<<<<< .mine
+    'name' => 'PHP Extension Varnish',
+
+=======
     'name' => 'phpext_varnish',
     'website' => 'http://xcache.lighttpd.net/',
+>>>>>>> .theirs
     '1.0' => 'http://windows.php.net/downloads/pecl/releases/varnish/1.0.0/php_varnish-1.0.0-5.4-nts-vc9-x86.zip',
     '1.1.0' => 'http://windows.php.net/downloads/pecl/releases/varnish/1.1.0/php_varnish-1.1.0-5.4-nts-vc9-x86.zip',
     '1.1.1' => 'http://windows.php.net/downloads/pecl/releases/varnish/1.1.1/php_varnish-1.1.1-5.4-nts-vc9-x86.zip',
@@ -460,7 +465,7 @@
   ),
   'phpext_xcache' =>
   array (
-    'name' => 'phpext_xcache',
+    'name' => 'PHP Extension XCache',
     'website' => 'http://xcache.lighttpd.net/',
     '2.0.1' => 'http://dev.freshsite.pl/nc/php-accelerators/xcache/download/xcache-201-for-php-54-vc9-nts.html',
     'latest' =>
@@ -504,8 +509,13 @@
   ),
   'phpext_zeromq' =>
   array (
+<<<<<<< .mine
+    'name' => 'PHP Extension ZeroMQ',
+
+=======
     'name' => 'phpext_zeromq',
     'website' => 'https://github.com/mkoppanen/php-zmq',
+>>>>>>> .theirs
     '3.2.0' => 'http://valokuva.org/%7Emikko/php-zmq-20130203.tgz',
     'latest' =>
     array (
@@ -633,9 +643,15 @@
   ),
   'xhprof' =>
   array (
+<<<<<<< .mine
+    'name' => 'XHGUI for XHProf PHP Extension',
+    '1.0' => 'http://nodeload.github.com/preinheimer/xhprof/zip/master',
+
+=======
     'name' => 'XhProf',
     'website' => 'http://php.net/manual/de/book.xhprof.php',
     '0.10.6' => 'http://windows.php.net/downloads/pecl/releases/xhprof/0.10.6/php_xhprof-0.10.6-5.4-nts-vc9-x86.zip',
+>>>>>>> .theirs
     'latest' =>
     array (
       'version' => '0.10.6',

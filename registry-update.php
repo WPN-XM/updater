@@ -215,10 +215,32 @@ function get_latest_version_of_phpext_memcache()
     return $crawler->filter('a')->each(function ($node, $i) use ($registry) {
         if (preg_match("#(\d+\.\d+(\.\d+)*)$#", $node->text(), $matches)) {
             $version = $matches[1];
-            if (version_compare($version, $registry['phpext_apc']['latest']['version'], '>=')) {
+            if (version_compare($version, $registry['phpext_memcache']['latest']['version'], '>=')) {
                 return array(
                     'version' => $version,
                     'url' => 'http://windows.php.net/downloads/pecl/releases/memcache/'.$version.'/php_memcache-'.$version.'-5.4-nts-vc9-x86.zip'
+                );
+            }
+        }
+    });
+}
+
+/**
+ * Varnish (PHP Extension) - Version Crawler
+ */
+function get_latest_version_of_phpext_varnish()
+{
+    global $goutte_client, $registry;
+
+    $crawler = $goutte_client->request('GET', 'http://windows.php.net/downloads/pecl/releases/varnish/');
+
+    return $crawler->filter('a')->each(function ($node, $i) use ($registry) {
+        if (preg_match("#(\d+\.\d+(\.\d+)*)$#", $node->text(), $matches)) {
+            $version = $matches[1];
+            if (version_compare($version, $registry['phpext_varnish']['latest']['version'], '>=')) {
+                return array(
+                    'version' => $version,
+                    'url' => 'http://windows.php.net/downloads/pecl/releases/varnish/'.$version.'/php_varnish-'.$version.'-5.4-nts-vc9-x86.zip'
                 );
             }
         }
@@ -667,6 +689,7 @@ add('mariadb',            get_latest_version_of_mariadb() );
 add('phpext_xdebug',      get_latest_version_of_xdebug() );
 add('phpext_apc',         get_latest_version_of_phpext_apc() );
 add('phpext_memcache',    get_latest_version_of_phpext_memcache() );
+add('phpext_varnish',     get_latest_version_of_phpext_varnish() );
 add('phpmyadmin',         get_latest_version_of_phpmyadmin() );
 add('adminer',            get_latest_version_of_adminer() );
 add('rockmongo',          get_latest_version_of_rockmongo() );
@@ -766,6 +789,11 @@ function printUpdatedSign($old_version, $new_version) {
     <td><?php echo printUpdatedSign($old_registry['phpext_memcache']['latest']['version'],  $registry['phpext_memcache']['latest']['version']); ?></td>
 </tr>
 <tr>
+    <td>phpext_varnish</td>
+    <td><?php echo $old_registry['phpext_varnish']['latest']['version'] ?></td>
+    <td><?php echo printUpdatedSign($old_registry['phpext_varnish']['latest']['version'],  $registry['phpext_varnish']['latest']['version']); ?></td>
+</tr>
+<tr>
     <td>phpmemcachedadmin</td>
     <td><?php echo $old_registry['phpmemcachedadmin']['latest']['version'] ?></td>
     <td><?php echo printUpdatedSign($old_registry['phpmemcachedadmin']['latest']['version'],  $registry['phpmemcachedadmin']['latest']['version']); ?></td>
@@ -786,8 +814,8 @@ function printUpdatedSign($old_version, $new_version) {
     <td><?php echo printUpdatedSign($old_registry['xhprof']['latest']['version'],  $registry['xhprof']['latest']['version']); ?></td>
 </tr>
 <tr>
-    <td>perl</td><td><?php echo $old_registry['perl']['latest']['version'] ?></td><td><?php echo $registry['perl']['latest']['version'];
-    printUpdatedSign($old_registry['perl']['latest']['version'], $registry['perl']['latest']['version']); ?>
-    </td>
+    <td>perl</td>
+    <td><?php echo $old_registry['perl']['latest']['version'] ?></td>
+    <td><?php echo printUpdatedSign($old_registry['perl']['latest']['version'], $registry['perl']['latest']['version']); ?></td>
 </tr>
 </table>

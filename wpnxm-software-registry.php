@@ -2,7 +2,7 @@
    /**
     * WPN-XM Software Registry
     * ------------------------
-    * Last Update Fri, 18 Oct 2013 13:50:56 +0000.
+    * Last Update Thu, 24 Oct 2013 22:34:47 +0000.
     * Do not edit manually!
     */
 
@@ -331,9 +331,9 @@
   array (
     'name' => 'OpenSSL',
     'website' => 'http://slproweb.com/',
+    '1.0.1e' => 'http://slproweb.com/download/Win32OpenSSL_Light-1_0_1e.exe',
     '1.0.1c' => 'http://slproweb.com/download/Win32OpenSSL_Light-1_0_1c.exe',
     '1.0.1d' => 'http://slproweb.com/download/Win32OpenSSL_Light-1_0_1d.exe',
-    '1.0.1e' => 'http://slproweb.com/download/Win32OpenSSL_Light-1_0_1e.exe',
     'latest' =>
     array (
       'version' => '1.0.1e',
@@ -407,7 +407,7 @@
     'latest' =>
     array (
       'version' => '3.1.13',
-      'url' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.14/php_apc-3.1.13-5.4-nts-vc9-x86.zip',
+      'url' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.13/php_apc-3.1.13-5.4-nts-vc9-x86.zip',
     ),
   ),
   'phpext_memcache' =>
@@ -416,10 +416,11 @@
     'website' => 'http://php.net/manual/en/book.memcache.php/',
     '2.2.6' => 'http://downloads.php.net/pierre/php_memcache-2.2.6-5.3-vc9-x86.zip',
     '2.2.7' => 'http://windows.php.net/downloads/pecl/releases/memcache/2.2.7/php_memcache-2.2.7-5.4-nts-vc9-x86.zip',
+    '3.0.8' => 'http://windows.php.net/downloads/pecl/releases/memcache/3.0.8/php_memcache-3.0.8-5.4-nts-vc9-x86.zip',
     'latest' =>
     array (
-      'version' => '2.2.7',
-      'url' => 'http://windows.php.net/downloads/pecl/releases/memcache/2.2.7/php_memcache-2.2.7-5.4-nts-vc9-x86.zip',
+      'version' => '3.0.8',
+      'url' => 'http://windows.php.net/downloads/pecl/releases/memcache/3.0.8/php_memcache-3.0.8-5.4-nts-vc9-x86.zip',
     ),
   ),
   'phpext_mongo' =>
@@ -449,10 +450,12 @@
     'name' => 'phpext_varnish',
     'website' => 'http://xcache.lighttpd.net/',
     '1.0' => 'http://windows.php.net/downloads/pecl/releases/varnish/1.0.0/php_varnish-1.0.0-5.4-nts-vc9-x86.zip',
+    '1.1.0' => 'http://windows.php.net/downloads/pecl/releases/varnish/1.1.0/php_varnish-1.1.0-5.4-nts-vc9-x86.zip',
+    '1.1.1' => 'http://windows.php.net/downloads/pecl/releases/varnish/1.1.1/php_varnish-1.1.1-5.4-nts-vc9-x86.zip',
     'latest' =>
     array (
-      'version' => '1.0',
-      'url' => 'http://windows.php.net/downloads/pecl/releases/varnish/1.0.0/php_varnish-1.0.0-5.4-nts-vc9-x86.zip',
+      'version' => '1.1.1',
+      'url' => 'http://windows.php.net/downloads/pecl/releases/varnish/1.1.1/php_varnish-1.1.1-5.4-nts-vc9-x86.zip',
     ),
   ),
   'phpext_xcache' =>

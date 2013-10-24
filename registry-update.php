@@ -184,7 +184,7 @@ function get_latest_version_of_xdebug()
 /**
  * APC (PHP Extension) - Version Crawler
  */
-function get_latest_version_of_apc()
+function get_latest_version_of_phpext_apc()
 {
     global $goutte_client, $registry;
 
@@ -197,6 +197,28 @@ function get_latest_version_of_apc()
                 return array(
                     'version' => $version,
                     'url' => 'http://windows.php.net/downloads/pecl/releases/apc/'.$version.'/php_apc-'.$version.'-5.4-nts-vc9-x86.zip'
+                );
+            }
+        }
+    });
+}
+
+/**
+ * Memcache (PHP Extension) - Version Crawler
+ */
+function get_latest_version_of_phpext_memcache()
+{
+    global $goutte_client, $registry;
+
+    $crawler = $goutte_client->request('GET', 'http://windows.php.net/downloads/pecl/releases/memcache/');
+
+    return $crawler->filter('a')->each(function ($node, $i) use ($registry) {
+        if (preg_match("#(\d+\.\d+(\.\d+)*)$#", $node->text(), $matches)) {
+            $version = $matches[1];
+            if (version_compare($version, $registry['phpext_apc']['latest']['version'], '>=')) {
+                return array(
+                    'version' => $version,
+                    'url' => 'http://windows.php.net/downloads/pecl/releases/memcache/'.$version.'/php_memcache-'.$version.'-5.4-nts-vc9-x86.zip'
                 );
             }
         }
@@ -643,7 +665,8 @@ add('nginx',              get_latest_version_of_nginx() );
 add('php',                get_latest_version_of_php() );
 add('mariadb',            get_latest_version_of_mariadb() );
 add('phpext_xdebug',      get_latest_version_of_xdebug() );
-add('phpext_apc',         get_latest_version_of_apc() );
+add('phpext_apc',         get_latest_version_of_phpext_apc() );
+add('phpext_memcache',    get_latest_version_of_phpext_memcache() );
 add('phpmyadmin',         get_latest_version_of_phpmyadmin() );
 add('adminer',            get_latest_version_of_adminer() );
 add('rockmongo',          get_latest_version_of_rockmongo() );
@@ -708,7 +731,7 @@ function printUpdatedSign($old_version, $new_version) {
     <td><?php echo printUpdatedSign($old_registry['phpext_xdebug']['latest']['version'], $registry['phpext_xdebug']['latest']['version']); ?></td>
 </tr>
 <tr>
-    <td>apc</td>
+    <td>phpext_apc</td>
     <td><?php echo $old_registry['phpext_apc']['latest']['version'] ?></td>
     <td><?php echo printUpdatedSign($old_registry['phpext_apc']['latest']['version'], $registry['phpext_apc']['latest']['version']); ?></td>
 </tr>
@@ -736,6 +759,11 @@ function printUpdatedSign($old_version, $new_version) {
     <td>phpext_mongo</td>
     <td><?php echo $old_registry['phpext_mongo']['latest']['version'] ?></td>
     <td><?php echo printUpdatedSign($old_registry['phpext_mongo']['latest']['version'],  $registry['phpext_mongo']['latest']['version']); ?></td>
+</tr>
+<tr>
+    <td>phpext_memcache</td>
+    <td><?php echo $old_registry['phpext_memcache']['latest']['version'] ?></td>
+    <td><?php echo printUpdatedSign($old_registry['phpext_memcache']['latest']['version'],  $registry['phpext_memcache']['latest']['version']); ?></td>
 </tr>
 <tr>
     <td>phpmemcachedadmin</td>

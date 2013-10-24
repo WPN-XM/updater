@@ -404,11 +404,10 @@
     '3.1.11' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.11/php_apc-3.1.11-5.4-nts-vc9-x86.zip',
     '3.1.12' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.12/php_apc-3.1.12-5.4-nts-vc9-x86.zip',
     '3.1.13' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.13/php_apc-3.1.13-5.4-nts-vc9-x86.zip',
-    '3.1.14' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.14/php_apc-3.1.14-5.4-nts-vc9-x86.zip',
     'latest' =>
     array (
-      'version' => '3.1.14',
-      'url' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.14/php_apc-3.1.14-5.4-nts-vc9-x86.zip',
+      'version' => '3.1.13',
+      'url' => 'http://windows.php.net/downloads/pecl/releases/apc/3.1.14/php_apc-3.1.13-5.4-nts-vc9-x86.zip',
     ),
   ),
   'phpext_memcache' =>

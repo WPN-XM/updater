@@ -48,6 +48,9 @@ if (!extension_loaded('curl')) {
     exit('Error: PHP Extension cURL required.');
 }
 
+// load software components registry
+$registry = include __DIR__ . '/wpnxm-software-registry.php';
+
 echo '<h2>Generating "wpnxm-software-registry.csv".</h2>';
 
 /**
@@ -81,6 +84,36 @@ $list = array (
   23 => array ( 0 => 'postgresql', 1 => 'http://wpn-xm.org/get.php?s=postgresql', 2 => 'postgresql.zip', ),
   24 => array ( 0 => 'perl', 1 => 'http://wpn-xm.org/get.php?s=perl', 2 => 'perl.zip', ),
 );
+
+function getVersion($component, $link)
+{
+    global $registry;
+
+    $version = '';
+
+    parse_str($link, $result);
+
+    // if the download URL contains "&v=x.y.z", then its a static version number
+    if(isset($result['v']) === true) {
+        $version = $result['v'];
+    } else {
+      // if "&v=" is not set, then the "latest version" is taken from the registry
+        $version = $registry[$component]['latest']['version'];
+    }
+
+    return $version;
+}
+
+/**
+ * Identify the version number of each component in the list,
+ * then append the version number to the original array.
+ */
+foreach($list as $i => $component)
+{
+   $list[$i][3] = getVersion($component[0], $component[1]);
+}
+
+//var_dump($list);
 
 asort($list);
 

@@ -353,6 +353,8 @@
   ),
   'perl' =>
   array (
+    'name' => 'Strawberry Perl',
+    'website' => 'http://strawberryperl.com/',
     '5.14.2.1' => 'http://strawberryperl.com/download/5.14.2.1/strawberry-perl-5.14.2.1-32bit.zip',
     '5.14.3.1' => 'http://strawberryperl.com/download/5.14.3.1/strawberry-perl-5.14.3.1-32bit.zip',
     '5.14.4.1' => 'http://strawberryperl.com/download/5.14.4.1/strawberry-perl-5.14.4.1-32bit.zip',
@@ -447,13 +449,8 @@
   ),
   'phpext_varnish' =>
   array (
-<<<<<<< .mine
     'name' => 'PHP Extension Varnish',
-
-=======
-    'name' => 'phpext_varnish',
     'website' => 'http://xcache.lighttpd.net/',
->>>>>>> .theirs
     '1.0' => 'http://windows.php.net/downloads/pecl/releases/varnish/1.0.0/php_varnish-1.0.0-5.4-nts-vc9-x86.zip',
     '1.1.0' => 'http://windows.php.net/downloads/pecl/releases/varnish/1.1.0/php_varnish-1.1.0-5.4-nts-vc9-x86.zip',
     '1.1.1' => 'http://windows.php.net/downloads/pecl/releases/varnish/1.1.1/php_varnish-1.1.1-5.4-nts-vc9-x86.zip',
@@ -498,24 +495,20 @@
   ),
   'phpext_xhprof' =>
   array (
-    'name' => 'XHProf',
+    'name' => 'PHP Extension XHProf',
     'website' => 'https://github.com/facebook/xhprof/',
     '0.10.3' => 'http://dev.freshsite.pl/php-extensions/xhprof/file/details/xhprof-0103-for-php-54-vc9-nts.html',
+    '0.10.6' => 'http://windows.php.net/downloads/pecl/releases/xhprof/0.10.6/php_xhprof-0.10.6-5.4-nts-vc9-x86.zip',
     'latest' =>
     array (
-      'version' => '0.10.3',
-      'url' => 'http://dev.freshsite.pl/php-extensions/xhprof/file/details/xhprof-0103-for-php-54-vc9-nts.html',
+      'version' => '0.10.6',
+      'url' => 'http://windows.php.net/downloads/pecl/releases/xhprof/0.10.6/php_xhprof-0.10.6-5.4-nts-vc9-x86.zip',
     ),
   ),
   'phpext_zeromq' =>
   array (
-<<<<<<< .mine
     'name' => 'PHP Extension ZeroMQ',
-
-=======
-    'name' => 'phpext_zeromq',
     'website' => 'https://github.com/mkoppanen/php-zmq',
->>>>>>> .theirs
     '3.2.0' => 'http://valokuva.org/%7Emikko/php-zmq-20130203.tgz',
     'latest' =>
     array (
@@ -643,19 +636,13 @@
   ),
   'xhprof' =>
   array (
-<<<<<<< .mine
-    'name' => 'XHGUI for XHProf PHP Extension',
-    '1.0' => 'http://nodeload.github.com/preinheimer/xhprof/zip/master',
-
-=======
-    'name' => 'XhProf',
+    'name' => 'XHGUI for PHP Extension XHProf',
     'website' => 'http://php.net/manual/de/book.xhprof.php',
-    '0.10.6' => 'http://windows.php.net/downloads/pecl/releases/xhprof/0.10.6/php_xhprof-0.10.6-5.4-nts-vc9-x86.zip',
->>>>>>> .theirs
+    '1.0' => 'https://nodeload.github.com/preinheimer/xhprof/zip/master',
     'latest' =>
     array (
-      'version' => '0.10.6',
-      'url' => 'http://windows.php.net/downloads/pecl/releases/xhprof/0.10.6/php_xhprof-0.10.6-5.4-nts-vc9-x86.zip',
+      'version' => '1.0',
+      'url' => 'https://nodeload.github.com/preinheimer/xhprof/zip/master',
     ),
   ),
 );

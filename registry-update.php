@@ -465,7 +465,7 @@ function get_latest_version_of_postgresql()
                 $pre_release_version = $matches[4];
                 if($matches[3] === 'release candidate') {
                     $download_version = $version . '-rc' . $pre_release_version;
-                } 
+                }
             } /*elseif(isset($matches[4]) === true) { // if we have " beta2" something after the version number
                 $version = str_replace(' ', '-', $matches[0]); // turn "9.3.0 beta2" into "9.3.0-beta2"
                 $download_version = $version;
@@ -491,9 +491,9 @@ function get_latest_version_of_postgresql()
 }
 
 /**
- * xhProf - Version Crawler
+ * PHP Extension xhProf - Version Crawler
  */
-function get_latest_version_of_xhprof()
+function get_latest_version_of_phpext_xhprof()
 {
     global $goutte_client, $registry;
 
@@ -698,7 +698,7 @@ add('phpmemcachedadmin',  get_latest_version_of_phpmemcachedadmin() );
 add('phpext_mongo',       get_latest_version_of_phpext_mongo());
 add('openssl',            get_latest_version_of_openssl());
 add('postgresql',         get_latest_version_of_postgresql());
-add('xhprof',             get_latest_version_of_xhprof());
+add('phpext_xhprof',      get_latest_version_of_phpext_xhprof());
 add('perl',               get_latest_version_of_perl());
 
 adjust_php_download_path();
@@ -809,9 +809,9 @@ function printUpdatedSign($old_version, $new_version) {
     <td><?php echo printUpdatedSign($old_registry['postgresql']['latest']['version'],  $registry['postgresql']['latest']['version']); ?></td>
 </tr>
 <tr>
-    <td>xhprof</td>
-    <td><?php echo $old_registry['xhprof']['latest']['version'] ?></td>
-    <td><?php echo printUpdatedSign($old_registry['xhprof']['latest']['version'],  $registry['xhprof']['latest']['version']); ?></td>
+    <td>phpext_xhprof</td>
+    <td><?php echo $old_registry['phpext_xhprof']['latest']['version'] ?></td>
+    <td><?php echo printUpdatedSign($old_registry['phpext_xhprof']['latest']['version'],  $registry['phpext_xhprof']['latest']['version']); ?></td>
 </tr>
 <tr>
     <td>perl</td>

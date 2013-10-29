@@ -27,6 +27,8 @@
     +----------------------------------------------------------------------------------+
     */
 
+$start = microtime(true);
+
 set_time_limit(60*3);
 
 date_default_timezone_set('UTC');
@@ -41,7 +43,6 @@ if (!extension_loaded('curl')) {
 require_once __DIR__ . '/vendor/goutte.phar';
 
 use Goutte\Client as GoutteClient;
-use Guzzle\Http\Client as GuzzleClient;
 use Guzzle\Common\Exception\MultiTransferException;
 
 // load software components registry
@@ -352,3 +353,4 @@ if(isset($action) && $action === 'write-file') {
 </thead>
 <?php echo $tableHtml; ?>
 </table>
+<?php echo 'Used a total of ' . round((microtime(true) - $start), 2) . ' seconds' . PHP_EOL;

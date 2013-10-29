@@ -40,6 +40,8 @@
  *      Forwarding links are used in the innosetup scripts of the web installation wizards.
  */
 
+$start = microtime(true);
+
 set_time_limit(180); // 60*3
 
 date_default_timezone_set('UTC');
@@ -86,20 +88,21 @@ foreach($registry as $software => $versions) {
 }
 
 echo '</table>';
+echo 'Used a total of ' . round((microtime(true) - $start), 2) . ' seconds' . PHP_EOL;
 
 function get_httpcode($url) {
     $headers = get_headers($url, 0);
     // Return http status code
     return substr($headers[0], 9, 3);
   }
-  
+
 function is_available($url, $timeout = 30)
 {
     // special handling for googlecode, because they don't like /HEAD requests via curl
     if (false !== strpos($url, 'googlecode') or false !== strpos($url, 'phpmemcachedadmin')) {
         return (bool) get_httpcode($url);
     }
-    
+
     $ch = curl_init();
 
     // set cURL options

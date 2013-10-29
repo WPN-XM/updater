@@ -27,16 +27,6 @@
     +----------------------------------------------------------------------------------+
     */
 
-/*
- * ----------------------------------------------------------------------------
- * "THE BEER-WARE LICENSE" (Revision 42):
- * <daniel.winterfeldt@gmail.com>
- * wrote this file. As long as you retain this notice you
- * can do whatever you want with this stuff. If we meet some day, and you think
- * this stuff is worth it, you can buy me a beer in return Daniel Winterfeldt
- * ----------------------------------------------------------------------------
- */
-
 set_time_limit(60*3);
 
 date_default_timezone_set('UTC');
@@ -50,7 +40,9 @@ if (!extension_loaded('curl')) {
 
 require_once __DIR__ . '/vendor/goutte.phar';
 
-use Goutte\Client;
+use Goutte\Client as GoutteClient;
+use Guzzle\Http\Client as GuzzleClient;
+use Guzzle\Common\Exception\MultiTransferException;
 
 // load software components registry
 $registry = include __DIR__ . '/wpnxm-software-registry.php';
@@ -63,452 +55,13 @@ if (!is_array($registry)) {
     header("HTTP/1.0 404 Not Found");
 }
 
-$goutte_client = new Client();
-$goutte_client->setHeader('User-Agent', 'WPN-XM Server Stack - Registry Update Tool - http://wpn-xm.org/');
-$guzzle = $goutte_client->getClient();
-$guzzle->setSslVerification(false);
-
-// the "how to scrape" one liner :)
-// printf("%s (%s)\n</br>", $node->text(), $node->attr('href'));
-
-/**
- * NGINX - Version Crawler
- */
-function get_latest_version_of_nginx()
-{
-    global $goutte_client, $registry;
-
-    $crawler = $goutte_client->request('GET', 'http://www.nginx.org/download/');
-
-    return $crawler->filter('a')->each(function ($node, $i) use ($registry) {
-        if (preg_match("#(\d+\.\d+(\.\d+)*)(.zip)$#i", $node->text(), $matches)) {
-            if (version_compare($matches[1], $registry['nginx']['latest']['version'], '>=')) {
-                return array('version' => $matches[1], 'url' => 'http://www.nginx.org/download/' . $node->text());
-            }
-        }
-    });
-}
-
-/**
- * PHP - Version Crawler
- */
-function get_latest_version_of_php()
-{
-    global $goutte_client, $registry;
-
-    $crawler = $goutte_client->request('GET', 'http://windows.php.net/downloads/releases/');
-
-    return $crawler->filter('a')->each(function ($node, $i) use ($registry) {
-        if (preg_match("#php-+(\d+\.\d+(\.\d+)*)-nts-Win32-VC9-x86.zip$#", $node->text(), $matches)) {
-            if (version_compare($matches[1], $registry['php']['latest']['version'], '>=')) {
-                return array('version' => $matches[1], 'url' => 'http://windows.php.net/downloads/releases/' . $node->text());
-            }
-        }
-    });
-}
-
-/**
- * MariaDB - Version Crawler
- */
-function get_latest_version_of_mariadb()
-{
-    global $goutte_client, $registry;
-
-    $crawler = $goutte_client->request('GET', 'http://archive.mariadb.org/');
-
-    return $crawler->filter('a')->each(function ($node, $i) use ($registry) {
-        if (preg_match("#mariadb-(\d+\.\d+(\.\d+)*)#", $node->text(), $matches)) {
-            $version = $matches[1];
-
-            // skip all versions below v5.1.49, because this is the first one with a windows release folder
-            if(version_compare($version, '5.1.48') <= 0) {
-                $version = '0.0.0';
-            };
-
-            // skip all v10.0.0+ alpha versions
-            if(version_compare($version, '10.0.0') >= 0) {
-                $version = '0.0.0';
-            };
-
-            $filename = 'mariadb-'.$version.'-win32.zip';
-
-            //  *** WARNING ***
-            // The links are not consistent, because of folder name changes, see:
-            // - windows releases are available from v5.1.49
-            // - http://archive.mariadb.org/mariadb-5.1.49/kvm-zip-winxp-x86/
-            // - some versions are missing in their archive, anyway..
-            // - http://archive.mariadb.org/mariadb-5.2.6/win2008r2-vs2010-i386/mariadb-5.2.6-win32.zip
-            // - http://archive.mariadb.org/mariadb-5.5.27/windows/mariadb-5.5.27-win32.zip
-            // - http://archive.mariadb.org/mariadb-5.5.28/win32-packages/mariadb-5.5.28-win32.zip
-
-            // Download Mirror
-            // http://mirrors.n-ix.net/mariadb/mariadb-5.5.32/win32-packages/mariadb-5.5.32-win32.zip
-
-            if($version <= '5.1.49') { $folder = 'kvm-zip-winxp-x86'; $filename = 'mariadb-noinstall-'.$version.'-win32.zip'; }
-            elseif($version <= '5.2.6')  { $folder = 'win2008r2-vs2010-i386'; }
-            elseif($version <= '5.5.23') { $folder = 'win2008r2-vs2010-i386-packages'; }
-            elseif($version <= '5.5.27') { $folder = 'windows'; }
-            elseif($version >= '5.5.28') { $folder = 'win32-packages'; }
-
-            if (version_compare($version, $registry['mariadb']['latest']['version'], '>=')) {
-                // "http://archive.mariadb.org/mariadb-"; "http://mirrors.n-ix.net/mariadb/mariadb-"
-                return array('version' => $version, 'url' => 'http://mirrors.n-ix.net/mariadb/mariadb-' . $version . '/' . $folder .'/' . $filename);
-            }
-        }
-    });
-}
-
-/**
- * XDebug (PHP Extension) - Version Crawler
- */
-function get_latest_version_of_xdebug()
-{
-    global $goutte_client, $registry;
-
-    $crawler = $goutte_client->request('GET', 'http://xdebug.org/files/');
-
-    return $crawler->filter('a')->each(function ($node, $i) use ($registry) {
-        # regexp for all version: "#((\d+\.)?(\d+\.)?(\d+\.)?(\*|\d+))([^\s]+nts(\.(?i)(dll))$)#i"
-        # we are fetching all xdebug versions for php 5.4
-        if (preg_match("#php_xdebug-(\d+\.\d+(\.\d+)*)-5.4-vc9-nts.dll#", $node->text(), $matches)) {
-            $version = $matches[1];
-            if (version_compare($version, $registry['phpext_xdebug']['latest']['version'], '>=')) {
-                return array(
-                    'version' => $version,
-                    'url' => 'http://xdebug.org/files/' . $node->text());
-            }
-        }
-    });
-}
-
-/**
- * APC (PHP Extension) - Version Crawler
- */
-function get_latest_version_of_phpext_apc()
-{
-    global $goutte_client, $registry;
-
-    $crawler = $goutte_client->request('GET', 'http://windows.php.net/downloads/pecl/releases/apc/');
-
-    return $crawler->filter('a')->each(function ($node, $i) use ($registry) {
-        if (preg_match("#(\d+\.\d+(\.\d+)*)$#", $node->text(), $matches)) {
-            $version = $matches[1];
-            if (version_compare($version, $registry['phpext_apc']['latest']['version'], '>=')) {
-                return array(
-                    'version' => $version,
-                    'url' => 'http://windows.php.net/downloads/pecl/releases/apc/'.$version.'/php_apc-'.$version.'-5.4-nts-vc9-x86.zip'
-                );
-            }
-        }
-    });
-}
-
-/**
- * Memcache (PHP Extension) - Version Crawler
- */
-function get_latest_version_of_phpext_memcache()
-{
-    global $goutte_client, $registry;
-
-    $crawler = $goutte_client->request('GET', 'http://windows.php.net/downloads/pecl/releases/memcache/');
-
-    return $crawler->filter('a')->each(function ($node, $i) use ($registry) {
-        if (preg_match("#(\d+\.\d+(\.\d+)*)$#", $node->text(), $matches)) {
-            $version = $matches[1];
-            if (version_compare($version, $registry['phpext_memcache']['latest']['version'], '>=')) {
-                return array(
-                    'version' => $version,
-                    'url' => 'http://windows.php.net/downloads/pecl/releases/memcache/'.$version.'/php_memcache-'.$version.'-5.4-nts-vc9-x86.zip'
-                );
-            }
-        }
-    });
-}
-
-/**
- * Varnish (PHP Extension) - Version Crawler
- */
-function get_latest_version_of_phpext_varnish()
-{
-    global $goutte_client, $registry;
-
-    $crawler = $goutte_client->request('GET', 'http://windows.php.net/downloads/pecl/releases/varnish/');
-
-    return $crawler->filter('a')->each(function ($node, $i) use ($registry) {
-        if (preg_match("#(\d+\.\d+(\.\d+)*)$#", $node->text(), $matches)) {
-            $version = $matches[1];
-            if (version_compare($version, $registry['phpext_varnish']['latest']['version'], '>=')) {
-                return array(
-                    'version' => $version,
-                    'url' => 'http://windows.php.net/downloads/pecl/releases/varnish/'.$version.'/php_varnish-'.$version.'-5.4-nts-vc9-x86.zip'
-                );
-            }
-        }
-    });
-}
-
-/**
- * phpMyAdmin - Version Crawler
- */
-function get_latest_version_of_phpmyadmin()
-{
-    global $goutte_client, $registry;
-
-    $crawler = $goutte_client->request('GET', 'http://www.phpmyadmin.net/home_page/downloads.php');
-
-    return $crawler->filter('a')->each(function ($node, $i) use ($registry) {
-        if (preg_match("#(\d+\.\d+(\.\d+)*)(?:[._-]?(beta|b|rc|alpha|a|patch|pl|p)?(\d+)(?:[.-]?(\d+))?)?([.-]?dev)?#i", $node->text(), $matches)) {
-            $version = $matches[0];
-            if (version_compare($version, $registry['phpmyadmin']['latest']['version'], '>=')) {
-                return array(
-                    'version' => $version,
-                    'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/'.$version.'/phpMyAdmin-'.$version.'-english.zip'
-                );
-            }
-        }
-    });
-}
-
-/**
- * Adminer - Version Crawler
- */
-function get_latest_version_of_adminer()
-{
-    global $goutte_client, $registry;
-
-    $crawler = $goutte_client->request('GET', 'http://www.adminer.org/#download');
-
-    return $crawler->filter('a')->each(function ($node, $i) use ($registry) {
-        if (preg_match("#(\d+\.\d+(\.\d+)*)#", $node->text(), $matches)) {
-            $version = $matches[0];
-            return array(
-                'version' => $version,
-                'url' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%20'.$version.'/adminer-'.$version.'.php'
-            );
-        }
-    });
-}
-
-/**
- * RockMongo (MongoDB Administration Webinterface) - Version Crawler
- */
-function get_latest_version_of_rockmongo()
-{
-    global $goutte_client, $registry;
-
-    $crawler = $goutte_client->request('GET', 'http://rockmongo.com/downloads');
-
-    // span tag contains "RockMongo v1.1.5"
-    $text = $crawler->filterXPath('//ul/li/a/span')->text();
-
-    if (preg_match("#(\d+\.\d+(\.\d+)*)#", $text, $matches)) {
-        $version = $matches[0];
-        if (version_compare($version, $registry['rockmongo']['latest']['version'], '>=')) {
-            return array(
-                'version' => $version,
-                'url' => 'http://rockmongo.com/release/rockmongo-'.$version.'.zip'
-            );
-        }
-    }
-}
-
-/**
- * MongoDb - Version Crawler
- */
-function get_latest_version_of_mongodb()
-{
-    global $goutte_client, $registry;
-
-    // formerly http://www.mongodb.org/downloads
-    $crawler = $goutte_client->request('GET', 'http://dl.mongodb.org/dl/win32/');
-
-    return $crawler->filter('a')->each( function ($node, $i) use ($registry) {
-        if (preg_match("#win32-i386-(\d+\.\d+(\.\d+)*).zip$#", $node->attr('href'), $matches)) {
-            $version = $matches[1];
-            if (version_compare($version, $registry['mongodb']['latest']['version'], '>=')) {
-                return array(
-                    'version' => $version,
-                    'url' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-'.$version.'.zip'
-                );
-            }
-        }
-     });
-}
-
-/**
- * phpMemcachedAdmin - Version Crawler
- */
-function get_latest_version_of_phpmemcachedadmin()
-{
-    global $goutte_client, $registry;
-
-    $crawler = $goutte_client->request('GET', 'http://code.google.com/p/phpmemcacheadmin/downloads/list');
-
-    return $crawler->filter('a')->each( function ($node, $i) use ($registry) {
-        // phpMemcachedAdmin-1.2.2-r262.zip
-        if (preg_match("#(\d+\.\d+(\.\d+)*)(?:[._-]?(r)?(\d+))?#", $node->attr('href'), $matches)) {
-            $version_long = $matches[0]; // 1.2.3-r123
-            $version = $matches[1]; // 1.2.3
-            if (version_compare($version, $registry['phpmemcachedadmin']['latest']['version'], '>=')) {
-                return array(
-                    'version' => $version,
-                    'url' => 'http://phpmemcacheadmin.googlecode.com/files/phpMemcachedAdmin-'.$version_long.'.zip'
-                );
-            }
-        }
-     });
-}
-
-
-/**
- * phpext_mongodb (PHP Extension) - Version Crawler
- */
-function get_latest_version_of_phpext_mongo()
-{
-    global $goutte_client, $registry;
-
-    /**
-     * WARNING
-     * The windows builds got no version listing, because Github stopped their downloads service.
-     * Old Listing URL: https://github.com/mongodb/mongo-php-driver/downloads
-     *
-     * Downloads are now on AS3.
-     * We scrape the PECL site for version numbers (mongo-1.3.4.tgz)
-     * and expect a matching windows build on AS3  (mongo-1.3.4.zip).
-     */
-
-    $crawler = $goutte_client->request('GET', 'http://pecl.php.net/package/mongo');
-
-    return $crawler->filter('a')->each( function ($node, $i) use ($registry) {
-        // mongo-1.3.4.tgz
-        if (preg_match("#mongo-(\d+\.\d+(\.\d+)*)(?:[._-]?(rc)?(\d+))?#i", $node->attr('href'), $matches)) {
-            $version = $matches[1]; // 1.2.3
-            if (version_compare($version, $registry['phpext_mongo']['latest']['version'], '>=')) {
-                return array(
-                    'version' => $version,
-                    'url' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-'.$version.'.zip'
-                );
-            }
-        }
-     });
-}
-
-/**
- * OpenSSL - Version Crawler
- */
-function get_latest_version_of_openssl()
-{
-    global $goutte_client, $registry;
-
-    $crawler = $goutte_client->request('GET', 'http://slproweb.com/products/Win32OpenSSL.html');
-
-    return $crawler->filter('a')->each( function ($node, $i) use ($registry) {
-        // http://slproweb.com/download/Win32OpenSSL_Light-1_0_1d.exe
-        if (preg_match("#Win32OpenSSL_Light-(\d+\_\d+\_\d+[a-z]).exe$#", $node->attr('href'), $matches)) {
-            // turn 1_0_1d to 1.0.1d - still not SemVer but anyway
-            $version = str_replace('_', '.', $matches[1]);
-            if (version_compare($version, $registry['openssl']['latest']['version'], '>=')) {
-                return array(
-                    'version' => $version,
-                    'url' => 'http://slproweb.com/download/Win32OpenSSL_Light-'.$matches[1].'.exe'
-                );
-            }
-        }
-     });
-}
-
-/**
- * perl (strawberry perl)
- */
-function get_latest_version_of_perl()
-{
-    global $goutte_client, $registry;
-
-    $crawler = $goutte_client->request('GET', 'http://strawberryperl.com/releases.html');
-
-    return $crawler->filter('a')->each( function ($node, $i) use ($registry) {
-        // perl-5.4.1.1-32bit.zip
-        if (preg_match("#(\d+\.\d+(\.\d+)*)-32bit?#", $node->attr('href'), $matches)) {
-            $version = $matches[1]; // 5.4.1.1
-            if (version_compare($version, $registry['perl']['latest']['version'], '>=')) {
-                return array(
-                    'version' => $version,
-                    'url' => 'http://strawberryperl.com/download/'.$version.'/strawberry-perl-'.$version.'-32bit.zip'
-                );
-            }
-        }
-     });
-}
-
-/**
- * PostGreSql - Version Crawler
- */
-function get_latest_version_of_postgresql()
-{
-    global $goutte_client, $registry;
-
-    $crawler = $goutte_client->request('GET', 'http://www.enterprisedb.com/products-services-training/pgbindownload');
-
-    return $crawler->filterXPath('//p/i')->each( function ($node, $i) use ($registry) {
-        //echo $node->text(); // = "Binaries from installer version 9.3.0 Beta2" or "Binaries from installer version 9.3.0 Release Candidate 1"
-        $value = strtolower($node->text());
-
-        #var_dump($value);
-
-        if (preg_match("#(\d+\.\d+(\.\d+)*)#i", $value, $matches)) {
-        //if (preg_match("#(\d+\.\d+(\.\d+)*)(?:[ ])(release candidate|beta|b|rc|alpha|a|patch|pl|p))(?:[ ])(\d+)#i", $value, $matches)) {
-
-            #var_dump($matches);
-
-            if(isset($matches[3]) === true) { // if we have "release candidate" or "beta"
-                $version = $matches[1];
-                $pre_release_version = $matches[4];
-                if($matches[3] === 'release candidate') {
-                    $download_version = $version . '-rc' . $pre_release_version;
-                }
-            } /*elseif(isset($matches[4]) === true) { // if we have " beta2" something after the version number
-                $version = str_replace(' ', '-', $matches[0]); // turn "9.3.0 beta2" into "9.3.0-beta2"
-                $download_version = $version;
-            }*/ else {
-                $version = $matches[0]; // just 1.2.3
-                $download_version = $version . '-1'; // wtf? "-1" means "not beta", or what?
-            }
-
-            #var_dump($download_version);
-            #var_dump($version);
-
-            if (version_compare($version, $registry['postgresql']['latest']['version'], '>=')) {
-                return array(
-                    'version' => $version,
-                    // x86-64: http://get.enterprisedb.com/postgresql/postgresql-9.3.0-beta2-1-windows-x64-binaries.zip
-                    // x86-32: http://get.enterprisedb.com/postgresql/postgresql-9.3.0-beta2-1-windows-binaries.zip
-                    'url' => 'http://get.enterprisedb.com/postgresql/postgresql-'.$download_version.'-windows-binaries.zip'
-                );
-            }
-
-        }
-    });
-}
-
-/**
- * PHP Extension xhProf - Version Crawler
- */
-function get_latest_version_of_phpext_xhprof()
-{
-    global $goutte_client, $registry;
-
-    $crawler = $goutte_client->request('GET', 'http://windows.php.net/downloads/pecl/releases/xhprof/');
-
-    return $crawler->filter('a')->each(function ($node, $i) use ($registry) {
-        if (preg_match("#(\d+\.\d+(\.\d+)*)#", $node->text(), $matches)) {
-            $version = $matches[0];
-            return array(
-                'version' => $version,
-                'url' => 'http://windows.php.net/downloads/pecl/releases/xhprof/'.$version.'/php_xhprof-'.$version.'-5.4-nts-vc9-x86.zip'
-            );
-        }
-    });
-}
+// init Goutte and set header for all requests
+$goutteClient = new GoutteClient();
+$goutteClient->setHeader('User-Agent', 'WPN-XM Server Stack - Software Registry Update Tool - http://wpn-xm.org/');
+
+// fetch Guzzle out of Goutte and deactivate SSL Verification
+$guzzleClient = $goutteClient->getClient();
+$guzzleClient->setSslVerification(false);
 
 /**
  * Removes all keys with value "null" from the array and returns the array.
@@ -547,12 +100,12 @@ function array_remove_duplicates(array $array)
 function add($name, array $array)
 {
     global $registry;
-
+    
     // cleanup array
     $array = array_unset_null_values($array);
 
     $array = array_remove_duplicates($array);
-
+    
     if(isset($array['url']) and isset($array['version'])) {
         // the array contains only one element
 
@@ -606,7 +159,6 @@ function adjust_php_download_path()
         // insert at old array position, overwriting the old url
         $registry['php'][$version] = $new_url;
     }
-
 }
 
 /**
@@ -680,26 +232,105 @@ function removeEOLSpaces($content)
 }
 
 /**
+ * The function prints an update symbol if old_version is lower than new_version.
+ *
+ * @param string Old version.
+ * @param string New version.
+ */
+function printUpdatedSign($old_version, $new_version)
+{
+    if (version_compare($old_version, $new_version, '<') === true) {
+        $html = '<span class="label label-success">';
+        $html .= $new_version;
+        $html .= '</span><span style="color:green; font-size: 16px">&nbsp;&#x25B2;</span>';
+        return $html;
+    }
+    return $new_version;
+}
+
+function renderTableRow($component)
+{
+    global $old_registry, $registry;
+    
+    $html = '<tr>';
+    $html .= '<td>' . $component . '</td>';
+    $html .= '<td>' .  $old_registry[$component]['latest']['version'] . '</td>';
+    $html .= '<td>' .  printUpdatedSign($old_registry[$component]['latest']['version'], $registry[$component]['latest']['version']) . '</td>';
+    $html .= '</tr>';
+    
+    return $html;
+}
+
+/******************************************************************************/
+
+/**
  * Get Latest Versions and add them to the registry.
  */
+$crawlers = glob(__DIR__ . '\crawlers\*.php');
+include __DIR__ . '\VersionCrawler.php';
 
-add('nginx',              get_latest_version_of_nginx() );
-add('php',                get_latest_version_of_php() );
-add('mariadb',            get_latest_version_of_mariadb() );
-add('phpext_xdebug',      get_latest_version_of_xdebug() );
-add('phpext_apc',         get_latest_version_of_phpext_apc() );
-add('phpext_memcache',    get_latest_version_of_phpext_memcache() );
-add('phpext_varnish',     get_latest_version_of_phpext_varnish() );
-add('phpmyadmin',         get_latest_version_of_phpmyadmin() );
-add('adminer',            get_latest_version_of_adminer() );
-add('rockmongo',          get_latest_version_of_rockmongo() );
-add('mongodb',            get_latest_version_of_mongodb() );
-add('phpmemcachedadmin',  get_latest_version_of_phpmemcachedadmin() );
-add('phpext_mongo',       get_latest_version_of_phpext_mongo());
-add('openssl',            get_latest_version_of_openssl());
-add('postgresql',         get_latest_version_of_postgresql());
-add('phpext_xhprof',      get_latest_version_of_phpext_xhprof());
-add('perl',               get_latest_version_of_perl());
+foreach($crawlers as $i => $crawlerFile)
+{
+    // load and instantiate Version Crawlers
+    include $crawlerFile;
+    $file = strtolower(pathinfo($crawlerFile, PATHINFO_FILENAME));
+    $namespace = 'WPNXM\Updater\Crawler\\';
+    $classname = $namespace . ucfirst($file);
+    $crawler = new $classname;
+
+    // store crawler object under its filename in the crawlers array
+    $crawlers[$i] = $crawler;
+    
+    // set only the component relevant subset of the software registry
+    $crawlers[$i]->setRegistry( array($file => $registry[$file]) );
+
+    // fetch URL from Version Crawler Object and prepare array with all URLs to crawl
+    $URLs[] = $guzzleClient->get( $crawler->getURL() );
+}
+
+#var_dump($crawlers);
+
+// launch several URL requests in parallel.
+// response time will be the time of the longest request.
+try {
+    $responses = $guzzleClient->send($URLs);
+} catch (MultiTransferException $e) {
+
+    echo "The following exceptions were encountered:\n";
+    foreach ($e as $exception) {
+        echo $exception->getMessage() . "\n";
+    }
+
+    echo "The following requests failed:\n";
+    foreach ($e->getFailedRequests() as $request) {
+        echo $request . "\n\n";
+    }
+
+    echo "The following requests succeeded:\n";
+    foreach ($e->getSuccessfulRequests() as $request) {
+        echo $request . "\n\n";
+    }
+}
+//var_dump($responses);
+
+$tableHtml = '';
+
+// iterate through responses and insert them in the crawler objects
+foreach($responses as $i => $response) {
+    
+    // set the response to the version crawler object
+    $crawlers[$i]->addContent( $response->getBody(), $response->getContentType() );
+    
+    $component = $crawlers[$i]->getName();        
+    $latestVersion = $crawlers[$i]->crawlVersion();
+    
+    // add new version number to the registry
+    add($component, $latestVersion); 
+    
+    // render a table row for comparing old and new version numbers
+    $tableHtml .= renderTableRow($component);
+}
+#var_dump($crawlers);
 
 adjust_php_download_path();
 
@@ -711,19 +342,6 @@ $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 if(isset($action) && $action === 'write-file') {
     write_registry_file($registry);
 }
-
-/**
- * The function prints an update symbol if old_version is lower than new_version.
- *
- * @param string Old version.
- * @param string New version.
- */
-function printUpdatedSign($old_version, $new_version) {
-    if(version_compare($old_version, $new_version, '<') === true) {
-        return '<span class="label label-success">' . $new_version . '</span><span style="color:green; font-size: 16px">&nbsp;&#x25B2;</span>';
-    }
-    return $new_version;
-}
 ?>
 
 <table class="table table-condensed table-hover">
@@ -732,90 +350,5 @@ function printUpdatedSign($old_version, $new_version) {
         <th>Application</th><th>(Old) Latest Version</th><th>(New) Latest Version</th>
     </tr>
 </thead>
-<tr>
-    <td>nginx</td>
-    <td><?php echo $old_registry['nginx']['latest']['version'] ?></td>
-    <td><?php echo printUpdatedSign($old_registry['nginx']['latest']['version'], $registry['nginx']['latest']['version']); ?></td>
-</tr>
-<tr>
-    <td>php</td>
-    <td><?php echo $old_registry['php']['latest']['version'] ?></td>
-    <td><?php echo printUpdatedSign($old_registry['php']['latest']['version'], $registry['php']['latest']['version']); ?>
-    </td>
-</tr>
-<tr>
-    <td>mariadb</td>
-    <td><?php echo $old_registry['mariadb']['latest']['version'] ?></td>
-    <td><?php echo printUpdatedSign($old_registry['mariadb']['latest']['version'], $registry['mariadb']['latest']['version']); ?></td>
-</tr>
-<tr>
-    <td>xdebug</td>
-    <td><?php echo $old_registry['phpext_xdebug']['latest']['version'] ?></td>
-    <td><?php echo printUpdatedSign($old_registry['phpext_xdebug']['latest']['version'], $registry['phpext_xdebug']['latest']['version']); ?></td>
-</tr>
-<tr>
-    <td>phpext_apc</td>
-    <td><?php echo $old_registry['phpext_apc']['latest']['version'] ?></td>
-    <td><?php echo printUpdatedSign($old_registry['phpext_apc']['latest']['version'], $registry['phpext_apc']['latest']['version']); ?></td>
-</tr>
-<tr>
-    <td>phpmyadmin</td>
-    <td><?php echo $old_registry['phpmyadmin']['latest']['version'] ?></td>
-    <td><?php echo printUpdatedSign($old_registry['phpmyadmin']['latest']['version'], $registry['phpmyadmin']['latest']['version']); ?></td>
-</tr>
-<tr>
-    <td>adminer</td>
-    <td><?php echo $old_registry['adminer']['latest']['version'] ?></td>
-    <td><?php echo printUpdatedSign($old_registry['adminer']['latest']['version'],  $registry['adminer']['latest']['version']); ?></td>
-</tr>
-<tr>
-    <td>rockmongo</td>
-    <td><?php echo $old_registry['rockmongo']['latest']['version'] ?></td>
-    <td><?php echo printUpdatedSign($old_registry['rockmongo']['latest']['version'],  $registry['rockmongo']['latest']['version']); ?></td>
-</tr>
-<tr>
-    <td>mongodb</td>
-    <td><?php echo $old_registry['mongodb']['latest']['version'] ?></td>
-    <td><?php echo printUpdatedSign($old_registry['mongodb']['latest']['version'],  $registry['mongodb']['latest']['version']); ?></td>
-</tr>
-<tr>
-    <td>phpext_mongo</td>
-    <td><?php echo $old_registry['phpext_mongo']['latest']['version'] ?></td>
-    <td><?php echo printUpdatedSign($old_registry['phpext_mongo']['latest']['version'],  $registry['phpext_mongo']['latest']['version']); ?></td>
-</tr>
-<tr>
-    <td>phpext_memcache</td>
-    <td><?php echo $old_registry['phpext_memcache']['latest']['version'] ?></td>
-    <td><?php echo printUpdatedSign($old_registry['phpext_memcache']['latest']['version'],  $registry['phpext_memcache']['latest']['version']); ?></td>
-</tr>
-<tr>
-    <td>phpext_varnish</td>
-    <td><?php echo $old_registry['phpext_varnish']['latest']['version'] ?></td>
-    <td><?php echo printUpdatedSign($old_registry['phpext_varnish']['latest']['version'],  $registry['phpext_varnish']['latest']['version']); ?></td>
-</tr>
-<tr>
-    <td>phpmemcachedadmin</td>
-    <td><?php echo $old_registry['phpmemcachedadmin']['latest']['version'] ?></td>
-    <td><?php echo printUpdatedSign($old_registry['phpmemcachedadmin']['latest']['version'],  $registry['phpmemcachedadmin']['latest']['version']); ?></td>
-</tr>
-<tr>
-    <td>openssl</td>
-    <td><?php echo $old_registry['openssl']['latest']['version'] ?></td>
-    <td><?php echo printUpdatedSign($old_registry['openssl']['latest']['version'],  $registry['openssl']['latest']['version']); ?></td>
-</tr>
-<tr>
-    <td>postgresql</td>
-    <td><?php echo $old_registry['postgresql']['latest']['version'] ?></td>
-    <td><?php echo printUpdatedSign($old_registry['postgresql']['latest']['version'],  $registry['postgresql']['latest']['version']); ?></td>
-</tr>
-<tr>
-    <td>phpext_xhprof</td>
-    <td><?php echo $old_registry['phpext_xhprof']['latest']['version'] ?></td>
-    <td><?php echo printUpdatedSign($old_registry['phpext_xhprof']['latest']['version'],  $registry['phpext_xhprof']['latest']['version']); ?></td>
-</tr>
-<tr>
-    <td>perl</td>
-    <td><?php echo $old_registry['perl']['latest']['version'] ?></td>
-    <td><?php echo printUpdatedSign($old_registry['perl']['latest']['version'], $registry['perl']['latest']['version']); ?></td>
-</tr>
+<?php echo $tableHtml; ?>
 </table>

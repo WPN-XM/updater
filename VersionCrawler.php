@@ -40,6 +40,8 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
 
     /**
      * Set the request URL for the version crawler.
+     *
+     * @return string The request URL.
      */
     public function getURL()
     {
@@ -53,13 +55,17 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
     {
         $this->registry = $registry;
     }
-    
+
+    /**
+     * Get component name from namespaced (child-)classname.
+     *
+     * @return string Name of Component (lowercased).
+     */
     public function getName()
     {
-        // get component name from namespaced classname
-        $classname = strtolower(get_called_class());
-        $name = substr($classname, strrpos($classname, '\\')+1);
-        return $name;
+        //
+        $classname = get_called_class();
+        return strtolower(substr($classname, strrpos($classname, '\\')+1));
     }
 
     /**
@@ -67,7 +73,7 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
      *
      * The "how to scrape" one liner :)
      * printf("%s (%s)\n</br>", $node->text(), $node->attr('href'));
-     * 
+     *
      * See API of \Symfony\Component\DomCrawler\Crawler for more.
      *
      * @return array Array with keys 'version' and 'url'.

@@ -33,13 +33,13 @@ namespace WPNXM\Updater\Crawler;
  * NGINX - Version Crawler
  */
 class Nginx extends VersionCrawler
-{    
+{
     public $url = 'http://nginx.org/download/';
 
     public function crawlVersion()
     {
-        return $this->filter('a')->each(function ($node, $i) {           
-            if (preg_match("#(\d+\.\d+(\.\d+)*)(.zip)$#i", $node->text(), $matches)) {                
+        return $this->filter('a')->each(function ($node, $i) {
+            if (preg_match("#(\d+\.\d+(\.\d+)*)(.zip)$#i", $node->text(), $matches)) {
                 if (version_compare($matches[1], $this->registry['nginx']['latest']['version'], '>=')) {
                     return array(
                         'version' => $matches[1],
@@ -50,4 +50,3 @@ class Nginx extends VersionCrawler
         });
     }
 }
-?>

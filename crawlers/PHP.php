@@ -32,7 +32,7 @@ namespace WPNXM\Updater\Crawler;
 /**
  * Php - Version Crawler
  */
-class Php extends VersionCrawler
+class PHP extends VersionCrawler
 {
     public $url = 'http://windows.php.net/downloads/releases/';
 
@@ -50,4 +50,3 @@ class Php extends VersionCrawler
         });
     }
 }
-?>

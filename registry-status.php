@@ -61,18 +61,18 @@ echo '<h5>Components ('.count($registry).')</h5>';
 echo '<table class="table table-condensed table-hover" style="font-size: 12px;">';
 echo '<tr><th>Software Component</th><th>Version</th><th>Download URL<br/>(local wpnxm-software-registry.php)</th><th>Forwarding URL<br/>(server wpnxm-software-registry.php)</th></tr>';
 
-foreach($registry as $software => $versions) {
+foreach ($registry as $software => $versions) {
 
     echo '<tr><td style="padding: 1px 5px;"><b>'. $software .'</b></td>';
 
-    foreach($versions as $version => $url) {
+    foreach ($versions as $version => $url) {
 
         // test every link
         #echo 'Testing Version "' . $version . '" ' . $url;
         #echo is_available($url, 30);
 
         // Test link of latest version
-        if($version === 'latest') {
+        if ($version === 'latest') {
             echo '<td>' . $url['version'] . '</td>';
             $color = is_available($url['url']) === true ? 'color: green' : 'color: red';
             echo '<td><a style="'.$color.';" href="'.$url['url'].'">'.$url['url'].'</a></td>';
@@ -90,7 +90,8 @@ foreach($registry as $software => $versions) {
 echo '</table>';
 echo 'Used a total of ' . round((microtime(true) - $start), 2) . ' seconds' . PHP_EOL;
 
-function get_httpcode($url) {
+function get_httpcode($url)
+{
     $headers = get_headers($url, 0);
     // Return http status code
     return substr($headers[0], 9, 3);

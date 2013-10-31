@@ -33,7 +33,7 @@
  * The script provides a json response to a update-check request
  * for individual or all components of the WPN-XM Server Stack.
  *
- * Example request: 
+ * Example request:
  * 1) updatecheck.php?s=nginx&v=1.2.1
  * 2) updatecheck.php?s=all
  */
@@ -58,7 +58,7 @@ if (!empty($s) && $s === 'all') {
 
     // reduce the registry (drop all version numbers and their URLs, but keep name/website/latestversion)
     $data = array();
-    foreach($registry as $software => $details) {
+    foreach ($registry as $software => $details) {
         $data[$software]['name'] = isset($details['name']) ? $details['name'] : '';
         $data[$software]['website'] =  isset($details['website']) ? $details['website'] : '';
         $data[$software]['latest'] = $details['latest'];

@@ -65,6 +65,7 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
     {
         //
         $classname = get_called_class();
+
         return strtolower(substr($classname, strrpos($classname, '\\')+1));
     }
 
@@ -78,6 +79,5 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
      *
      * @return array Array with keys 'version' and 'url'.
      */
-    abstract function crawlVersion();
+    abstract public function crawlVersion();
 }
-?>

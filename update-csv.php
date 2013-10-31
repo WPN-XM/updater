@@ -94,7 +94,7 @@ function getVersion($component, $link)
     parse_str($link, $result);
 
     // if the download URL contains "&v=x.y.z", then its a static version number
-    if(isset($result['v']) === true) {
+    if (isset($result['v']) === true) {
         $version = $result['v'];
     } else {
       // if "&v=" is not set, then the "latest version" is taken from the registry
@@ -108,8 +108,7 @@ function getVersion($component, $link)
  * Identify the version number of each component in the list,
  * then append the version number to the original array.
  */
-foreach($list as $i => $component)
-{
+foreach ($list as $i => $component) {
    $list[$i][3] = getVersion($component[0], $component[1]);
 }
 
@@ -119,7 +118,7 @@ asort($list);
 
 $fp = fopen('wpnxm-software-registry.csv', 'w');
 
-foreach($list as $fields) {
+foreach ($list as $fields) {
   fputcsv($fp, $fields);
 }
 

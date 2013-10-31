@@ -41,6 +41,7 @@ class Adminer extends VersionCrawler
         return $this->filter('a')->each(function($node, $i) {
             if (preg_match("#(\d+\.\d+(\.\d+)*)#", $node->text(), $matches)) {
                 $version = $matches[0];
+
                 return array(
                     'version' => $version,
                     'url' => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%20'.$version.'/adminer-'.$version.'.php'
@@ -49,4 +50,3 @@ class Adminer extends VersionCrawler
         });
     }
 }
-?>

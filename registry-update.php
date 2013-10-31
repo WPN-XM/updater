@@ -101,13 +101,13 @@ function array_remove_duplicates(array $array)
 function add($name, array $array)
 {
     global $registry;
-    
+
     // cleanup array
     $array = array_unset_null_values($array);
 
     $array = array_remove_duplicates($array);
-    
-    if(isset($array['url']) and isset($array['version'])) {
+
+    if (isset($array['url']) and isset($array['version'])) {
         // the array contains only one element
 
         // create [latest] sub-array
@@ -132,7 +132,7 @@ function add($name, array $array)
     }
 
     // added remaining array items (if any) as pure [version] => [url] relationships
-    if(false === empty($array)) {
+    if (false === empty($array)) {
         foreach ($array as $new_version_entry) {
             $registry[$name][ $new_version_entry['version'] ] = $new_version_entry['url'];
         }
@@ -150,7 +150,7 @@ function adjust_php_download_path()
 {
     global $registry;
 
-    foreach($registry['php'] as $version => $url) {
+    foreach ($registry['php'] as $version => $url) {
         // do not modify array key "latest"
         if( $version === 'latest') continue;
         // do not modify array key with latest version number - it must point to "/releases".
@@ -189,7 +189,7 @@ function write_registry_file(array $registry)
 
     // sort registry (version numbers in lower-to-higher order)
     // maintain "name" and "website" keys on top, then versions, then "latest" key on bottom.
-    foreach($registry as $component => $array) {
+    foreach ($registry as $component => $array) {
         uksort($array, 'version_compare');
 
         // move 'latest' to the bottom of the arary
@@ -198,7 +198,7 @@ function write_registry_file(array $registry)
         $array['latest'] = $value;
 
         // move 'name' to the top of the array
-        if(array_key_exists('name', $array) === true) {
+        if (array_key_exists('name', $array) === true) {
             $temp = array('name' => $array['name']);
             unset($array['name']);
             $array = $temp + $array;
@@ -225,10 +225,11 @@ function write_registry_file(array $registry)
 function removeEOLSpaces($content)
 {
     $lines = explode("\n", $content);
-    foreach($lines as $idx => $line) {
+    foreach ($lines as $idx => $line) {
         $lines[$idx] = rtrim($line);
     }
     $content = implode("\n", $lines);
+
     return $content;
 }
 
@@ -244,21 +245,23 @@ function printUpdatedSign($old_version, $new_version)
         $html = '<span class="label label-success">';
         $html .= $new_version;
         $html .= '</span><span style="color:green; font-size: 16px">&nbsp;&#x25B2;</span>';
+
         return $html;
     }
+
     return $new_version;
 }
 
 function renderTableRow($component)
 {
     global $old_registry, $registry;
-    
+
     $html = '<tr>';
     $html .= '<td>' . $component . '</td>';
     $html .= '<td>' .  $old_registry[$component]['latest']['version'] . '</td>';
     $html .= '<td>' .  printUpdatedSign($old_registry[$component]['latest']['version'], $registry[$component]['latest']['version']) . '</td>';
     $html .= '</tr>';
-    
+
     return $html;
 }
 
@@ -270,8 +273,7 @@ function renderTableRow($component)
 $crawlers = glob(__DIR__ . '\crawlers\*.php');
 include __DIR__ . '\VersionCrawler.php';
 
-foreach($crawlers as $i => $crawlerFile)
-{
+foreach ($crawlers as $i => $crawlerFile) {
     // load and instantiate Version Crawlers
     include $crawlerFile;
     $file = strtolower(pathinfo($crawlerFile, PATHINFO_FILENAME));
@@ -281,7 +283,7 @@ foreach($crawlers as $i => $crawlerFile)
 
     // store crawler object under its filename in the crawlers array
     $crawlers[$i] = $crawler;
-    
+
     // set only the component relevant subset of the software registry
     $crawlers[$i]->setRegistry( array($file => $registry[$file]) );
 
@@ -317,17 +319,17 @@ try {
 $tableHtml = '';
 
 // iterate through responses and insert them in the crawler objects
-foreach($responses as $i => $response) {
-    
+foreach ($responses as $i => $response) {
+
     // set the response to the version crawler object
     $crawlers[$i]->addContent( $response->getBody(), $response->getContentType() );
-    
-    $component = $crawlers[$i]->getName();        
+
+    $component = $crawlers[$i]->getName();
     $latestVersion = $crawlers[$i]->crawlVersion();
-    
+
     // add new version number to the registry
-    add($component, $latestVersion); 
-    
+    add($component, $latestVersion);
+
     // render a table row for comparing old and new version numbers
     $tableHtml .= renderTableRow($component);
 }
@@ -340,7 +342,7 @@ adjust_php_download_path();
 // handle $_GET['action']
 // example call: registry-update.php?action=write-file
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
-if(isset($action) && $action === 'write-file') {
+if (isset($action) && $action === 'write-file') {
     write_registry_file($registry);
 }
 ?>

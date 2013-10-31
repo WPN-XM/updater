@@ -51,4 +51,3 @@ class phpext_apc extends VersionCrawler
         });
     }
 }
-?>

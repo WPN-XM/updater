@@ -32,7 +32,7 @@ namespace WPNXM\Updater\Crawler;
 /**
  * MongoDb - Version Crawler
  */
-class MongoDB extends VersionCrawler 
+class mongodb extends VersionCrawler
 {
     // formerly http://www.mongodb.org/downloads
     public $url = 'http://dl.mongodb.org/dl/win32/';
@@ -52,4 +52,3 @@ class MongoDB extends VersionCrawler
         });
     }
 }
-?>

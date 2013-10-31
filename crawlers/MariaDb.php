@@ -32,7 +32,7 @@ namespace WPNXM\Updater\Crawler;
 /**
  * MariaDB - Version Crawler
  */
-class MariaDB extends VersionCrawler
+class MariaDb extends VersionCrawler
 {
     public $url = 'http://archive.mariadb.org/';
 
@@ -43,12 +43,12 @@ class MariaDB extends VersionCrawler
                 $version = $matches[1];
 
                 // skip all versions below v5.1.49, because this is the first one with a windows release folder
-                if(version_compare($version, '5.1.48') <= 0) {
+                if (version_compare($version, '5.1.48') <= 0) {
                     $version = '0.0.0';
                 };
 
                 // skip all v10.0.0+ alpha versions
-                if(version_compare($version, '10.0.0') >= 0) {
+                if (version_compare($version, '10.0.0') >= 0) {
                     $version = '0.0.0';
                 };
 
@@ -66,11 +66,18 @@ class MariaDB extends VersionCrawler
                 // Download Mirror
                 // http://mirrors.n-ix.net/mariadb/mariadb-5.5.32/win32-packages/mariadb-5.5.32-win32.zip
 
-                if($version <= '5.1.49') { $folder = 'kvm-zip-winxp-x86'; $filename = 'mariadb-noinstall-'.$version.'-win32.zip'; }
-                elseif($version <= '5.2.6')  { $folder = 'win2008r2-vs2010-i386'; }
-                elseif($version <= '5.5.23') { $folder = 'win2008r2-vs2010-i386-packages'; }
-                elseif($version <= '5.5.27') { $folder = 'windows'; }
-                elseif($version >= '5.5.28') { $folder = 'win32-packages'; }
+                if ($version <= '5.1.49') {
+                    $folder = 'kvm-zip-winxp-x86';
+                    $filename = 'mariadb-noinstall-'.$version.'-win32.zip';
+                } elseif ($version <= '5.2.6') {
+                    $folder = 'win2008r2-vs2010-i386';
+                } elseif ($version <= '5.5.23') {
+                    $folder = 'win2008r2-vs2010-i386-packages';
+                } elseif ($version <= '5.5.27') {
+                    $folder = 'windows';
+                } elseif ($version >= '5.5.28') {
+                    $folder = 'win32-packages';
+                }
 
                 if (version_compare($version, $this->registry['mariadb']['latest']['version'], '>=')) {
                     // "http://archive.mariadb.org/mariadb-"; "http://mirrors.n-ix.net/mariadb/mariadb-"
@@ -83,4 +90,3 @@ class MariaDB extends VersionCrawler
         });
     }
 }
-?>

@@ -32,7 +32,7 @@ namespace WPNXM\Updater\Crawler;
 /**
  * XDebug (PHP Extension) - Version Crawler
  */
-class Phpext_xdebug extends VersionCrawler
+class phpext_xdebug extends VersionCrawler
 {
     public $url = 'http://xdebug.org/files/';
 
@@ -52,4 +52,3 @@ class Phpext_xdebug extends VersionCrawler
         });
     }
 }
-?>

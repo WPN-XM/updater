@@ -32,7 +32,7 @@ namespace WPNXM\Updater\Crawler;
 /**
  * RockMongo (MongoDB Administration Webinterface) - Version Crawler
  */
-class Rockmongo extends VersionCrawler
+class rockmongo extends VersionCrawler
 {
     public $url = 'http://rockmongo.com/downloads';
 
@@ -52,4 +52,3 @@ class Rockmongo extends VersionCrawler
         }
     }
 }
-?>

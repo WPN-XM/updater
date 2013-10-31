@@ -51,4 +51,3 @@ class phpext_memcache extends VersionCrawler
         });
     }
 }
-?>

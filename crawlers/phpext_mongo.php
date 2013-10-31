@@ -32,7 +32,7 @@ namespace WPNXM\Updater\Crawler;
 /**
  * phpext_mongo (PHP Extension for MongoDB) - Version Crawler
  */
-class Phpext_mongo extends VersionCrawler
+class phpext_mongo extends VersionCrawler
 {
     /**
      * WARNING
@@ -43,7 +43,7 @@ class Phpext_mongo extends VersionCrawler
      * We scrape the PECL site for version numbers (mongo-1.3.4.tgz)
      * and expect a matching windows build on AS3  (mongo-1.3.4.zip).
      */
-    
+
     public $url = 'http://pecl.php.net/package/mongo';
 
     public function crawlVersion()
@@ -62,4 +62,3 @@ class Phpext_mongo extends VersionCrawler
         });
     }
 }
-?>

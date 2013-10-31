@@ -32,22 +32,22 @@ namespace WPNXM\Updater\Crawler;
 /**
  * PostGreSql - Version Crawler
  */
-class Postgresql extends VersionCrawler
+class postgresql extends VersionCrawler
 {
     public $url = 'http://www.enterprisedb.com/products-services-training/pgbindownload';
 
     public function crawlVersion()
     {
         return $this->filterXPath('//p/i')->each(function ($node, $i) {
-            
+
             //echo $node->text(); // = "Binaries from installer version 9.3.0 Beta2" or "Binaries from installer version 9.3.0 Release Candidate 1"
-            
+
             $value = strtolower($node->text());
 
             #var_dump($value);
 
             if (preg_match("#(\d+\.\d+(\.\d+)*)#i", $value, $matches)) {
-                
+
                 //if (preg_match("#(\d+\.\d+(\.\d+)*)(?:[ ])(release candidate|beta|b|rc|alpha|a|patch|pl|p))(?:[ ])(\d+)#i", $value, $matches)) {
                 #var_dump($matches);
 
@@ -57,7 +57,7 @@ class Postgresql extends VersionCrawler
                     if ($matches[3] === 'release candidate') {
                         $download_version = $version . '-rc' . $pre_release_version;
                     }
-                } /* elseif(isset($matches[4]) === true) { // if we have " beta2" something after the version number
+                } /* elseif (isset($matches[4]) === true) { // if we have " beta2" something after the version number
                   $version = str_replace(' ', '-', $matches[0]); // turn "9.3.0 beta2" into "9.3.0-beta2"
                   $download_version = $version;
                   } */ else {
@@ -81,5 +81,3 @@ class Postgresql extends VersionCrawler
     }
 
 }
-
-?>

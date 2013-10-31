@@ -32,15 +32,15 @@ namespace WPNXM\Updater\Crawler;
 /**
  * phpMemcachedAdmin - Version Crawler
  */
-class Phpmemcachedadmin extends VersionCrawler
+class phpmemcachedadmin extends VersionCrawler
 {
     /**
-     * WARNING 
+     * WARNING
      * The project name is phpmemcache[]admin
      * while  file name is phpmemcached[d]admin.
-     * 
+     *
      * In WPN-XM the name is "phpmemcachedadmin" with D.
-     * 
+     *
      * @var string
      */
     public $url = 'http://code.google.com/p/phpmemcacheadmin/downloads/list';
@@ -62,4 +62,3 @@ class Phpmemcachedadmin extends VersionCrawler
         });
     }
 }
-?>

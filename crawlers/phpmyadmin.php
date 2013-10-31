@@ -32,7 +32,7 @@ namespace WPNXM\Updater\Crawler;
 /**
  * phpMyAdmin - Version Crawler
  */
-class Phpmyadmin extends VersionCrawler
+class phpmyadmin extends VersionCrawler
 {
     public $url = 'http://www.phpmyadmin.net/home_page/downloads.php';
 
@@ -51,4 +51,3 @@ class Phpmyadmin extends VersionCrawler
     });
     }
 }
-?>

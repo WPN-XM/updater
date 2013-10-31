@@ -32,7 +32,7 @@ namespace WPNXM\Updater\Crawler;
 /**
  * OpenSSL - Version Crawler
  */
-class Openssl extends VersionCrawler
+class openssl extends VersionCrawler
 {
     public $url = 'http://slproweb.com/products/Win32OpenSSL.html';
 
@@ -53,4 +53,3 @@ class Openssl extends VersionCrawler
         });
     }
 }
-?>

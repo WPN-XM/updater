@@ -41,6 +41,7 @@ class phpext_xhprof extends VersionCrawler
         return $this->filter('a')->each(function ($node, $i) {
             if (preg_match("#(\d+\.\d+(\.\d+)*)#", $node->text(), $matches)) {
                 $version = $matches[0];
+
                 return array(
                     'version' => $version,
                     'url' => 'http://windows.php.net/downloads/pecl/releases/xhprof/'.$version.'/php_xhprof-'.$version.'-5.4-nts-vc9-x86.zip'
@@ -49,4 +50,3 @@ class phpext_xhprof extends VersionCrawler
         });
     }
 }
-?>

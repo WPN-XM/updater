@@ -2,7 +2,7 @@
    /**
     * WPN-XM Software Registry
     * ------------------------
-    * Last Update Mon, 28 Oct 2013 23:34:30 +0000.
+    * Last Update Wed, 06 Nov 2013 16:42:15 +0000.
     * Do not edit manually!
     */
 
@@ -320,11 +320,11 @@
     '1.5.3' => 'http://www.nginx.org/download/nginx-1.5.3.zip',
     '1.5.4' => 'http://www.nginx.org/download/nginx-1.5.4.zip',
     '1.5.5' => 'http://www.nginx.org/download/nginx-1.5.5.zip',
-    '1.5.6' => 'http://www.nginx.org/download/nginx-1.5.6.zip',
+    '1.5.6' => 'http://nginx.org/download/nginx-1.5.6.zip',
     'latest' =>
     array (
       'version' => '1.5.6',
-      'url' => 'http://www.nginx.org/download/nginx-1.5.6.zip',
+      'url' => 'http://nginx.org/download/nginx-1.5.6.zip',
     ),
   ),
   'openssl' =>
@@ -441,10 +441,11 @@
     '1.4.2' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.4.2.zip',
     '1.4.3' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.4.3.zip',
     '1.4.4' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.4.4.zip',
+    '1.4.5' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.4.5.zip',
     'latest' =>
     array (
-      'version' => '1.4.4',
-      'url' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.4.4.zip',
+      'version' => '1.4.5',
+      'url' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-1.4.5.zip',
     ),
   ),
   'phpext_varnish' =>
@@ -553,10 +554,11 @@
     '4.0.8' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.8/phpMyAdmin-4.0.8-english.zip',
     '4.1.0-alpha2' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.1.0-alpha2/phpMyAdmin-4.1.0-alpha2-english.zip',
     '4.1.0-beta1' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.1.0-beta1/phpMyAdmin-4.1.0-beta1-english.zip',
+    '4.1.0-beta2' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.1.0-beta2/phpMyAdmin-4.1.0-beta2-english.zip',
     'latest' =>
     array (
-      'version' => '4.1.0-beta1',
-      'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.1.0-beta1/phpMyAdmin-4.1.0-beta1-english.zip',
+      'version' => '4.1.0-beta2',
+      'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.1.0-beta2/phpMyAdmin-4.1.0-beta2-english.zip',
     ),
   ),
   'postgresql' =>

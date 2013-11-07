@@ -46,7 +46,7 @@ use Goutte\Client as GoutteClient;
 use Guzzle\Common\Exception\MultiTransferException;
 
 // load software components registry
-$registry = include __DIR__ . '/registry/wpnxm-software-registry.php';
+$registry = include __DIR__ . '\registry\wpnxm-software-registry.php';
 
 // clone old registry for comparing latest versions (see html section below)
 $old_registry = $registry;

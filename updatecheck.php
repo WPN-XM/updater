@@ -39,7 +39,7 @@
  */
 
 // load software components registry
-$registry = include __DIR__ . DIRECTORY_SEPARATOR . 'wpnxm-software-registry.php';
+$registry = include __DIR__ . '/registry/wpnxm-software-registry.php';
 
 // ensure registry array is available
 if (!is_array($registry)) {

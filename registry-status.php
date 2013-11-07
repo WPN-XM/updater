@@ -54,7 +54,7 @@ if (!extension_loaded('curl')) {
 }
 
 // load software components registry
-$registry = include __DIR__ . '/wpnxm-software-registry.php';
+$registry = include __DIR__ . '/registry/wpnxm-software-registry.php';
 
 echo '<h5>WPN-XM Software Registry - Status<span class="pull-right">'. date(DATE_RFC822) .'</span></h5>';
 echo '<h5>Components ('.count($registry).')</h5>';

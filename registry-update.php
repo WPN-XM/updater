@@ -46,7 +46,7 @@ use Goutte\Client as GoutteClient;
 use Guzzle\Common\Exception\MultiTransferException;
 
 // load software components registry
-$registry = include __DIR__ . '/wpnxm-software-registry.php';
+$registry = include __DIR__ . '/registry/wpnxm-software-registry.php';
 
 // clone old registry for comparing latest versions (see html section below)
 $old_registry = $registry;
@@ -172,7 +172,7 @@ function adjust_php_download_path()
 function write_registry_file(array $registry)
 {
     // backup current registry
-    rename( 'wpnxm-software-registry.php', 'wpnxm-software-registry-backup-' . date("d-m-y-H-i-s") . '.php' );
+    rename( __DIR__ . '/registry/wpnxm-software-registry.php', __DIR__ . '/registry/wpnxm-software-registry-backup-' . date("d-m-y-H-i-s") . '.php' );
 
     // file header
     $content = "<?php\n";
@@ -214,7 +214,7 @@ function write_registry_file(array $registry)
     $content = removeEOLSpaces($content);
 
     // write new registry
-    file_put_contents( 'wpnxm-software-registry.php', $content );
+    file_put_contents(__DIR__ . '/registry/wpnxm-software-registry.php', $content );
 }
 
 /**
@@ -271,7 +271,7 @@ function renderTableRow($component)
  * Get Latest Versions and add them to the registry.
  */
 $crawlers = glob(__DIR__ . '\crawlers\*.php');
-include __DIR__ . '\VersionCrawler.php';
+include __DIR__ . '/VersionCrawler.php';
 
 foreach ($crawlers as $i => $crawlerFile) {
     // load and instantiate Version Crawlers

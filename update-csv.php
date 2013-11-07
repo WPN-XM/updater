@@ -52,7 +52,7 @@ if (!extension_loaded('curl')) {
 }
 
 // load software components registry
-$registry = include __DIR__ . '/wpnxm-software-registry.php';
+$registry = include __DIR__ . '/registry/wpnxm-software-registry.php';
 
 echo '<h2>Generating Software Registry Files...</h2>';
 
@@ -184,7 +184,7 @@ function writeRegistryFile($file, $registry)
  * then write the registry file for the installer.
  */
 foreach($lists as $installer => $components) {
-    $file = 'wpnxm-software-registry-' . $installer . '.csv';
+    $file = __DIR__ . '/registry/wpnxm-software-registry-' . $installer . '.csv';
 
     foreach ($components as $i => $component) {
         $components[$i][3] = getVersion($component[0], $component[1]);

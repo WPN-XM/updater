@@ -193,6 +193,4 @@ foreach($lists as $installer => $components) {
     writeRegistryFile($file, $components);
 }
 
-echo 'Done. <br> <br> You might trigger a new build. <br> <br>
-      The target folder of this file is "WPN-XM/updater/" (main repo). <br>
-      The updater repo is automatically fetched to the main repo by pulling it as a git submodule.';
+echo 'Done. <br> <br> You might commit the registries and then trigger a new build.';

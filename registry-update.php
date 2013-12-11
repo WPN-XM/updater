@@ -172,7 +172,7 @@ function adjust_php_download_path()
 function write_registry_file(array $registry)
 {
     // backup current registry
-    rename( __DIR__ . '/registry/wpnxm-software-registry.php', __DIR__ . '/registry/wpnxm-software-registry-backup-' . date("d-m-y-H-i-s") . '.php' );
+    rename( __DIR__ . '/registry/wpnxm-software-registry.php', __DIR__ . '/registry/wpnxm-software-registry-backup-' . date("dmy-His") . '.php' );
 
     // file header
     $content = "<?php\n";

@@ -37,6 +37,17 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
 {
     public $url;
     public $registry;
+    public $guzzle;
+
+    /**
+     * The variable controls, if this version crawler object gets
+     * a complete registry (for dependency analysis) or only the
+     * "self-named" subset (for new version greater then old version).
+     *
+     * @var boolean
+     */
+    public $needsOnlyRegistrySubset = true;
+    public $needsGuzzle = true;
 
     /**
      * Set the request URL for the version crawler.
@@ -49,11 +60,26 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
     }
 
     /**
+     * Set Guzzle to the crawler object, for doing further requests.
+     *
+     * @param GuzzleClient $guzzle
+     */
+    public function setGuzzle($guzzle)
+    {
+        $this->guzzle = $guzzle;
+    }
+
+    /**
      * Set Software Registry (for version_compare).
      */
-    public function setRegistry($registry)
+    public function setRegistry($registry, $component = null)
     {
-        $this->registry = $registry;
+        // set only the component relevant subset of the software registry
+        if($this->needsOnlyRegistrySubset === true && isset($registry[$component]) === true) {
+            $this->registry = array($component => $registry[$component]);
+        } else {
+            $this->registry = $registry;
+        }
     }
 
     /**
@@ -67,6 +93,18 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
         $classname = get_called_class();
 
         return strtolower(substr($classname, strrpos($classname, '\\')+1));
+    }
+
+    /**
+     * Checks, if URL exists via header evaluation.
+     *
+     * @return bool Returns true, if URL exists, otherwise false.
+     */
+    public function fileExistsOnServer($url)
+    {
+        $headers = get_headers($url);
+        if($headers[0] === 'HTTP/1.1 200 OK') { return true; }
+        return false;
     }
 
     /**

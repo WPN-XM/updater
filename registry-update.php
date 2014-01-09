@@ -274,6 +274,7 @@ $crawlers = glob(__DIR__ . '\crawlers\*.php');
 include __DIR__ . '/VersionCrawler.php';
 
 foreach ($crawlers as $i => $crawlerFile) {
+
     // load and instantiate Version Crawlers
     include $crawlerFile;
     $file = strtolower(pathinfo($crawlerFile, PATHINFO_FILENAME));
@@ -281,11 +282,22 @@ foreach ($crawlers as $i => $crawlerFile) {
     $classname = $namespace . ucfirst($file);
     $crawler = new $classname;
 
+    /* modifiy crawler object */
+
+    // ask crawler, if full registry or "component/self" subset is needed
+    // use-case: full registry for phpext_xcache, depends on php version number
+    if($crawler->needsOnlyRegistrySubset === true) {
+        $crawler->setRegistry($registry, $file);
+    } else {
+        $crawler->setRegistry($registry);
+    }
+
+    if($crawler->needsGuzzle === true) {
+        $crawler->setGuzzle($guzzleClient);
+    }
+
     // store crawler object under its filename in the crawlers array
     $crawlers[$i] = $crawler;
-
-    // set only the component relevant subset of the software registry
-    $crawlers[$i]->setRegistry( array($file => $registry[$file]) );
 
     // fetch URL from Version Crawler Object and prepare array with all URLs to crawl
     $URLs[] = $guzzleClient->get( $crawler->getURL() );

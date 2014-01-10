@@ -362,7 +362,7 @@ if (isset($action) && $action === 'write-file') {
 <table class="table table-condensed table-hover">
 <thead>
     <tr>
-        <th>Application</th><th>(Old) Latest Version</th><th>(New) Latest Version</th>
+        <th>Software Components (<?php echo $i; ?>)</th><th>(Old) Latest Version</th><th>(New) Latest Version</th>
     </tr>
 </thead>
 <?php echo $tableHtml; ?>

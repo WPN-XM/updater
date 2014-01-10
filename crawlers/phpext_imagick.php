@@ -40,7 +40,7 @@ class phpext_imagick extends VersionCrawler
     {
         return $this->filter('a')->each(function ($node, $i) {
             // http://windows.php.net/downloads/pecl/releases/imagick/3.2.0b2/php_imagick-3.2.0b2-5.3-ts-vc9-x86.zip
-            if (preg_match("#(\d+\.\d+(\.\d+)*)(?(b|rc)?(\d+))#", $node->text(), $matches)) {
+            if (preg_match("#(\d+\.\d+(\.\d+)*)(?:(b|rc)?(\d+))#", $node->text(), $matches)) {
                 $version = $matches[0];
 
                 $url = 'http://windows.php.net/downloads/pecl/releases/imagick/'.$version.'/php_imagick-'.$version.'-5.4-nts-vc9-x86.zip';

@@ -39,14 +39,18 @@ class Imagick extends VersionCrawler
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node, $i) {
-            // http://www.imagemagick.org/download/binaries/ImageMagick-6.8.8-1-Q16-x86-windows.zip
-            if (preg_match("#(\d+\.\d+(\.\d+)*)-1-Q16-x86-windows.zip$#", $node->attr('href'), $matches)) {
-                $version = $matches[1];
-                if (version_compare($version, $this->registry['imagick']['latest']['version'], '>=')) {
-                    return array(
-                        'version' => $version,
-                        'url' => 'http://www.imagemagick.org/download/binaries/ImageMagick-'.$version.'-1-Q16-x86-windows.zip',
-                    );
+            if($node->text() === 'download') {
+                // http://www.imagemagick.org/download/binaries/ImageMagick-6.8.8-1-Q16-x86-windows.zip
+                // Version is "6.8.8-1", where "-1" might indicate an pre-release version, but i think its not semver.
+                // They also adhere to a standard, where archived versions are postfixed with "-10", e.g. "6.8.8-10".
+                if (preg_match("#(\d+\.\d+(\.\d+)*-\d+)-Q16-x86-windows.zip$#", $node->attr('href'), $matches)) {
+                    $version = $matches[1];
+                    if (version_compare($version, $this->registry['imagick']['latest']['version'], '>=')) {
+                        return array(
+                            'version' => $version,
+                            'url' => 'http://www.imagemagick.org/download/binaries/ImageMagick-'.$version.'-1-Q16-x86-windows.zip',
+                        );
+                    }
                 }
             }
         });

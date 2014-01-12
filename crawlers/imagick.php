@@ -32,18 +32,16 @@ namespace WPNXM\Updater\Crawler;
 /**
  * ImageMagick - Version Crawler
  */
-class imagick extends VersionCrawler
+class Imagick extends VersionCrawler
 {
-    // also http://www.imagemagick.org/script/binary-releases.php#windows
-    public $url = 'ftp://ftp.imagemagick.org/pub/ImageMagick/binaries/';
+    public $url = 'http://www.imagemagick.org/script/binary-releases.php';
 
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node, $i) {
             // http://www.imagemagick.org/download/binaries/ImageMagick-6.8.8-1-Q16-x86-windows.zip
-            if (preg_match("#(\d+\.\d+(\.\d+)*)#", $node->text(), $matches)) {
-                $version = $matches[0];
-
+            if (preg_match("#(\d+\.\d+(\.\d+)*)-1-Q16-x86-windows.zip$#", $node->attr('href'), $matches)) {
+                $version = $matches[1];
                 if (version_compare($version, $this->registry['imagick']['latest']['version'], '>=')) {
                     return array(
                         'version' => $version,

@@ -118,4 +118,16 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
      * @return array Array with keys 'version' and 'url'.
      */
     abstract public function crawlVersion();
+
+    /**
+     * Overload this method in a crawler object,
+     * to perform registry changes, after a new version is detected.
+     * This is just a pass-through.
+     *
+     * @return array The Registry.
+     */
+    public function modifiyRegistry($registry)
+    {
+        return $registry;
+    }
 }

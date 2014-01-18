@@ -40,7 +40,7 @@ class Imagick extends VersionCrawler
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node, $i) {
-                // http://www.imagemagick.org/download/binaries/ImageMagick-6.8.8-1-Q16-x86-windows.zip
+                // http://www.imagemagick.org/download/binaries/ImageMagick-6.8.8-1-Q16-x64-windows.zip
                 // Version is "6.8.8-1", where "-1" might indicate an pre-release version, but i think its not semver.
                 // They also adhere to a standard, where archived versions are postfixed with "-10", e.g. "6.8.8-10".
                 if (preg_match("#(\d+\.\d+(\.\d+)*-\d+)-Q16-x64-windows.zip$#", $node->attr('href'), $matches)) {
@@ -48,7 +48,7 @@ class Imagick extends VersionCrawler
                     if (version_compare($version, $this->registry['imagick']['latest']['version'], '>=')) {
                         return array(
                             'version' => $version,
-                            'url' => 'http://www.imagemagick.org/download/binaries/ImageMagick-'.$version.'-Q16-x86-windows.zip',
+                            'url' => 'http://www.imagemagick.org/download/binaries/ImageMagick-'.$version.'-Q16-x64-windows.zip',
                         );
                     }
                 }

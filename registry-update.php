@@ -120,7 +120,7 @@ function add($name, array $array)
         unset($array);
     } else {
         // sort by version number, from low to high
-        asort($array);
+        asort($array, SORT_NUMERIC);
 
         // add the last array item of multiple elements (the one with the highest version number)
 

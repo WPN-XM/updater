@@ -85,36 +85,66 @@
   <script src="assets/js/bootstrap-typeahead.js"></script> -->
   <script type="text/javascript">
     $(document).ready(function() {
-      // init modal windows and hide it
-      $('#myModal').modal({show:false});
 
-      // with a click on a link in the top navi, do the following
-      $("#menu li a").click(function() {
-        // empty the main content area
-        $("#ajax-container").empty();
-        // show the modal window with the ajax loading indicator
-        $('#myModal').modal('show');
+        // init modal window and hide it
+        $('#myModal').modal({show:false});
 
-        // remove the active class from the old clicked nav link
-        $("#menu li").removeClass('active');
-        // add the active class to the clicked nav link
-        $(this).parent('li').addClass('active');
+        // with a click on a link in the top navi, do the following
+        $("#menu li a").click(function(event) {
 
-        // ajax call to the PHP scripts
-        $.ajax({
-            url: this.href,
-            cache: false
-        }).done(function(html) {
-            // debug output to console
-            //console.log(html);
-            // hide the modal
-            $('#myModal').modal('hide');
-            // finally display the content in the main content area
-            $("#ajax-container").empty().append(html);
+          event.preventDefault(); // stop the click from causing navigation
+
+          href = $(this).attr('href'); // get click target href
+
+          // test, if script available with a timeout request
+          // if the timeout is not reached, do the "non-timeout" call
+          $.ajax({
+            url: "index.php",
+            type: "HEAD",
+            timeout: 500, // set timeout to 0,5 sec
+            cache: false,
+            statusCode: {
+                200: function (response) {
+                    doGetRequest(href);
+                },
+                400: function (response) {
+                    alert('Request Timeout! Ensure Server & PHP are up!');
+                },
+                0: function (response) {
+                    alert('Request Timeout! Ensure Server & PHP are up!');
+                }
+            }
+          });
+
+          return false; // stop the click from causing navigation
         });
-        return false; // stop the click from causing navigation
-        });
-    });
-  </script>
-</body>
+
+        function doGetRequest(href) {
+          // empty the main content area
+          $("#ajax-container").empty();
+          // show the modal window with the ajax loading indicator
+          $('#myModal').modal('show');
+
+          // remove the active class from the old clicked nav link
+          $("#menu li").removeClass('active');
+          // add the active class to the clicked nav link
+          $(this).parent('li').addClass('active');
+
+          // ajax call to the PHP scripts
+          $.ajax({
+              url: href,
+              cache: false,
+              timeout: 99999
+          }).done(function(html) {
+              // debug output to console
+              //console.log(html);
+              // hide the modal
+              $('#myModal').modal('hide');
+              // finally display the content in the main content area
+              $("#ajax-container").empty().append(html);
+          });
+        }
+      });
+    </script>
+  </body>
 </html>

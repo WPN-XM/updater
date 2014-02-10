@@ -56,6 +56,23 @@ if (!extension_loaded('curl')) {
 // load software components registry
 $registry = include __DIR__ . '\registry\wpnxm-software-registry.php';
 
+// build array with URLs to crawl
+$urls = array();
+foreach ($registry as $software => $versions) {
+    foreach ($versions as $version => $url) {
+        if ($version === 'latest') {
+            $urls[] = $url['url'];
+        }
+    }
+    $urls[] = 'http://wpn-xm.org/get.php?s=' . $software;
+}
+
+// crawl URLs in parallel
+$responses = getCurlMultiResponses($urls);
+
+// build lookup array: url => true (http status code 200)
+$urlStatus = array_combine($urls, $responses);
+
 echo '<h5>WPN-XM Software Registry - Status<span class="pull-right">'. date(DATE_RFC822) .'</span></h5>';
 echo '<h5>Components ('.count($registry).')</h5>';
 echo '<table class="table table-condensed table-hover" style="font-size: 12px;">';
@@ -88,29 +105,46 @@ foreach ($registry as $software => $versions) {
 }
 
 echo '</table>';
-echo 'Used a total of ' . round((microtime(true) - $start), 2) . ' seconds' . PHP_EOL;
+echo 'Used a total of ' . round((microtime(true) - $start), 2) . ' seconds for crawling ('.count($urls).') URLs' . PHP_EOL;
 
+/**
+ * Returns the HTTP Status Code
+ */
 function get_httpcode($url)
 {
     $headers = get_headers($url, 0);
-    // Return http status code
+
     return substr($headers[0], 9, 3);
-  }
+}
 
 function is_available($url, $timeout = 30)
 {
+    global $urlStatus;
+
     // special handling for googlecode, because they don't like /HEAD requests via curl
     if (false !== strpos($url, 'googlecode') or false !== strpos($url, 'phpmemcachedadmin')) {
         return (bool) get_httpcode($url);
     }
 
-    $ch = curl_init();
+    return $urlStatus[$url];
+}
+
+/**
+ * Returns cURL responses for multiple target URLs
+ *
+ * @param array $targetUrls Array of target URLs for cURL
+ * @return array cURL Responses
+ */
+function getCurlMultiResponses(array $targetUrls, $timeout = 30)
+{
+    // get number of urls
+    $count = count($targetUrls);
 
     // set cURL options
     $options = array(
         CURLOPT_RETURNTRANSFER => true,         // do not output to browser
         CURLOPT_NOPROGRESS => true,
-        CURLOPT_URL => $url,
+        //CURLOPT_URL => $url,
         CURLOPT_NOBODY => true,                 // do HEAD request only, exclude the body from output
         CURLOPT_TIMEOUT => $timeout,
         CURLOPT_FOLLOWLOCATION => true,
@@ -122,10 +156,40 @@ function is_available($url, $timeout = 30)
         CURLOPT_USERAGENT, 'WPN-XM Server Stack - Registry Status Tool - http://wpn-xm.org/'
     );
 
-    curl_setopt_array($ch, $options);
-    curl_exec($ch);
-    $retval = curl_getinfo($ch, CURLINFO_HTTP_CODE) == 200; // check if HTTP OK
-    curl_close($ch);
+    // initialize multiple cURL handler
+    $mh = curl_multi_init();
 
-    return $retval;
+    for($i = 0; $i < $count; $i++) {
+      // create multiple cURL handles
+      $ch[$i] = curl_init($targetUrls[$i]);
+      // set cURL options for each handle
+      curl_setopt_array($ch[$i], $options);
+      // Add the handles to the curl_multi handle
+      curl_multi_add_handle($mh, $ch[$i]);
+    }
+
+    // Execute Multi curl
+    $running = null;
+    do {
+      curl_multi_exec($mh, $running);
+    } while ($running > 0);
+
+    // Response Handling
+    $responses = array();
+
+    // Remove the handles and return the response
+    for($i = 0; $i < $count; $i++) {
+      curl_multi_remove_handle($mh, $ch[$i]);
+
+      // Response: Content
+      //$responses[$i] = curl_multi_getcontent($ch[$i]);
+
+      // Response: HTTP Status Code
+      $responses[$i]  = curl_getinfo($ch[$i], CURLINFO_HTTP_CODE) == 200; // check if HTTP OK
+    }
+
+    // Close multiple cURL handler
+    curl_multi_close($mh);
+
+    return $responses;
 }

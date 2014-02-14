@@ -162,7 +162,7 @@ function getVersion($component, $link)
     return $version;
 }
 
-function writeRegistryFile($file, $registry)
+function writeRegistryFileCsv($file, $registry)
 {
     //var_dump($registry);
 
@@ -179,18 +179,29 @@ function writeRegistryFile($file, $registry)
     echo 'Created ' . $file . '<br>';
 }
 
+function writeRegistryFileJson($file, $registry)
+{
+    asort($registry);
+
+    file_put_contents($file, json_encode($registry));
+
+    echo 'Created ' . $file . '<br>';
+}
+
 /**
  * Iterate all installer arrays and identify the version numbers for all components
  * then write the registry file for the installer.
  */
 foreach($lists as $installer => $components) {
-    $file = __DIR__ . '\registry\wpnxm-software-registry-' . $installer . '.csv';
+    $file = __DIR__ . '\registry\wpnxm-software-registry-' . $installer;
 
     foreach ($components as $i => $component) {
         $components[$i][3] = getVersion($component[0], $component[1]);
     }
 
-    writeRegistryFile($file, $components);
+    //writeRegistryFileCsv($file . '.csv', $components);
+
+    writeRegistryFileJson($file . '.json', $components);
 }
 
 echo 'Done. <br> <br> You might commit the registries and then trigger a new build.';

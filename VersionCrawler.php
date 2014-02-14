@@ -66,7 +66,9 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
      */
     public function setGuzzle($guzzle)
     {
-        $this->guzzle = $guzzle;
+        if($this->needsGuzzle === true) {
+            $this->guzzle = $guzzle;
+        }
     }
 
     /**

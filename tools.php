@@ -6,456 +6,471 @@ use Guzzle\Common\Exception\MultiTransferException;
 
 class RegistryUpdater
 {
-	public $guzzleClient;
-	public $crawlers = array();
-	public $urls = array();
-	public $responses = array();
+    public $guzzleClient;
+    public $crawlers = array();
+    public $urls = array();
+    public $responses = array();
 
-	public $registry = array();
+    public $registry = array();
     public $old_registry = array();
 
     public function __construct($registry)
     {
-    	$this->registry = $registry;
-    	$this->old_registry = $registry;
+        $this->registry = $registry;
+        $this->old_registry = $registry;
     }
 
-	public function setupCrawler()
-	{
-		// init Goutte and set header for all requests
-		$goutteClient = new GoutteClient();
-		$goutteClient->setHeader('User-Agent', 'WPN-XM Server Stack - Software Registry Update Tool - http://wpn-xm.org/');
+    public function setupCrawler()
+    {
+        // init Goutte and set header for all requests
+        $goutteClient = new GoutteClient();
+        $goutteClient->setHeader('User-Agent', 'WPN-XM Server Stack - Software Registry Update Tool - http://wpn-xm.org/');
 
-		// fetch Guzzle out of Goutte and deactivate SSL Verification
-		$this->guzzleClient = $goutteClient->getClient();
-		$this->guzzleClient->setSslVerification(false);
-	}
+        // fetch Guzzle out of Goutte and deactivate SSL Verification
+        $this->guzzleClient = $goutteClient->getClient();
+        $this->guzzleClient->setSslVerification(false);
+    }
 
-	public function getUrlsToCrawl()
-	{
-		// get version crawlers
-		$crawlers = glob(__DIR__ . '\crawlers\*.php');
-		include __DIR__ . '/VersionCrawler.php';
+    public function getUrlsToCrawl()
+    {
+        // get version crawlers
+        $crawlers = glob(__DIR__ . '\crawlers\*.php');
+        include __DIR__ . '/VersionCrawler.php';
 
-		foreach ($crawlers as $i => $file) {
+        foreach ($crawlers as $i => $file) {
 
-		    // instantiate version crawler
-		    include $file;
-			$component = strtolower(pathinfo($file, PATHINFO_FILENAME));
-		    $classname = 'WPNXM\Updater\Crawler\\' . ucfirst($component);
-		    $crawler = new $classname;
+            // instantiate version crawler
+            include $file;
+            $component = strtolower(pathinfo($file, PATHINFO_FILENAME));
+            $classname = 'WPNXM\Updater\Crawler\\' . ucfirst($component);
+            $crawler = new $classname;
 
-		    /* set registry and crawling client to version crawler */
+            /* set registry and crawling client to version crawler */
             $crawler->setRegistry($this->registry, $component);
             $crawler->setGuzzle($this->guzzleClient);
 
-		    // store the crawler object in the crawlers array
-		    $this->crawlers[$i] = $crawler;
+            // store the crawler object in the crawlers array
+            $this->crawlers[$i] = $crawler;
 
-		    // fetch URL from Version Crawler Object and prepare array with all URLs to crawl
-		    $this->urls[] = $this->guzzleClient->get( $crawler->getURL() );
-		}
+            // fetch URL from Version Crawler Object and prepare array with all URLs to crawl
+            $this->urls[] = $this->guzzleClient->get( $crawler->getURL() );
+        }
 
-		return $i;
-	}
+        return $i;
+    }
 
-	public function crawl()
-	{
-		// launch several URL requests in parallel.
-		// response time will be the time of the longest request.
-		try {
-		    $this->responses = $this->guzzleClient->send($this->urls);
-		} catch (MultiTransferException $e) {
+    public function crawl()
+    {
+        // launch several URL requests in parallel.
+        // response time will be the time of the longest request.
+        try {
+            $this->responses = $this->guzzleClient->send($this->urls);
+        } catch (MultiTransferException $e) {
 
-		    echo "The following exceptions were encountered:\n";
-		    foreach ($e as $exception) {
-		        echo $exception->getMessage() . "\n";
-		    }
+            echo "The following exceptions were encountered:\n";
+            foreach ($e as $exception) {
+                echo $exception->getMessage() . "\n";
+            }
 
-		    echo "The following requests failed:\n";
-		    foreach ($e->getFailedRequests() as $request) {
-		        echo $request . "\n\n";
-		    }
+            echo "The following requests failed:\n";
+            foreach ($e->getFailedRequests() as $request) {
+                echo $request . "\n\n";
+            }
 
-		    echo "The following requests succeeded:\n";
-		    foreach ($e->getSuccessfulRequests() as $request) {
-		        echo $request . "\n\n";
-		    }
-		}
-		//var_dump($responses);
-	}
+            echo "The following requests succeeded:\n";
+            foreach ($e->getSuccessfulRequests() as $request) {
+                echo $request . "\n\n";
+            }
+        }
+        //var_dump($responses);
+    }
 
-	public function evaluateResponses()
-	{
-	    $html = '';
+    public function evaluateResponses()
+    {
+        $html = '';
 
-	    // iterate through responses and insert them in the crawler objects
-	    foreach ($this->responses as $i => $response) {
+        // iterate through responses and insert them in the crawler objects
+        foreach ($this->responses as $i => $response) {
 
-	        // set the response to the version crawler object
-	        $this->crawlers[$i]->addContent( $response->getBody(), $response->getContentType() );
+            // set the response to the version crawler object
+            $this->crawlers[$i]->addContent( $response->getBody(), $response->getContentType() );
 
-	        $component = $this->crawlers[$i]->getName();
-	        $latestVersion = $this->crawlers[$i]->crawlVersion();
+            $component = $this->crawlers[$i]->getName();
+            $latestVersion = $this->crawlers[$i]->crawlVersion();
 
-	        $this->registry = Registry::addNewVersion($component, $latestVersion, $this->old_registry);
+            $this->registry = Registry::addNewVersion($component, $latestVersion, $this->old_registry);
 
-	        // the registry might need changes, e.g. URLs rewrites to consider an /archives folder (PHP), etc.
-	        $this->registry = $this->crawlers[$i]->modifiyRegistry($this->registry);
+            // the registry might need changes, e.g. URLs rewrites to consider an /archives folder (PHP), etc.
+            $this->registry = $this->crawlers[$i]->modifiyRegistry($this->registry);
 
-	        // write temporary component registry, for later registry insertion
-	        $old_version = $this->old_registry[$component]['latest']['version'];
-	        $new_version = $this->registry[$component]['latest']['version'];
-	        if (version_compare($old_version, $new_version, '<') === true) {
-	            Registry::writeRegistrySubset($component, $this->registry[$component]);
-	        }
+            // write temporary component registry, for later registry insertion
+            $old_version = $this->old_registry[$component]['latest']['version'];
+            $new_version = $this->registry[$component]['latest']['version'];
+            if (version_compare($old_version, $new_version, '<') === true) {
+                Registry::writeRegistrySubset($component, $this->registry[$component]);
+            }
 
-	        // render a table row for comparing old and new version numbers
-	        $html .= Viewhelper::renderTableRow($component, $this->old_registry, $this->registry);
-	    }
+            // render a table row for comparing old and new version numbers
+            $html .= Viewhelper::renderTableRow($component, $this->old_registry, $this->registry);
+        }
 
-	    return $html;
-	}
+        return $html;
+    }
 
-	public function setRegistry($registry) {
-		$this->registry = $registry;
-	}
+    public function setRegistry($registry) {
+        $this->registry = $registry;
+    }
 }
 
 class Viewhelper
 {
-	/**
-	 * The function prints an update symbol if old_version is lower than new_version.
-	 *
-	 * @param string Old version.
-	 * @param string New version.
-	 */
-	public static function printUpdatedSign($old_version, $new_version)
-	{
-	    if (version_compare($old_version, $new_version, '<') === true) {
-	        $html = '<span class="label label-success">';
-	        $html .= $new_version;
-	        $html .= '</span><span style="color:green; font-size: 16px">&nbsp;&#x25B2;&nbsp;</span>';
+    /**
+     * The function prints an update symbol if old_version is lower than new_version.
+     *
+     * @param string Old version.
+     * @param string New version.
+     */
+    public static function printUpdatedSign($old_version, $new_version)
+    {
+        if (version_compare($old_version, $new_version, '<') === true) {
+            $html = '<span class="label label-success">';
+            $html .= $new_version;
+            $html .= '</span><span style="color:green; font-size: 16px">&nbsp;&#x25B2;&nbsp;</span>';
 
-	        $html .= '<a class="btn btn-mini btn-primaray" href="/">Commit & Push</a>';
+            $html .= '<a class="btn btn-mini btn-primaray" href="/">Commit & Push</a>';
 
-	        return $html;
-	    }
-	}
+            return $html;
+        }
+    }
 
-	public static function renderTableRow($component, $old_registry, $registry)
-	{
-	    $html = '<tr>';
-	    $html .= '<td>' . $component . '</td>';
-	    $html .= '<td>' .  $old_registry[$component]['latest']['version'] . '</td>';
-	    $html .= '<td>' .  self::printUpdatedSign($old_registry[$component]['latest']['version'], $registry[$component]['latest']['version']) . '</td>';
-	    $html .= '</tr>';
+    public static function renderTableRow($component, $old_registry, $registry)
+    {
+        $html = '<tr>';
+        $html .= '<td>' . $component . '</td>';
+        $html .= '<td>' .  $old_registry[$component]['latest']['version'] . '</td>';
+        $html .= '<td>' .  self::printUpdatedSign($old_registry[$component]['latest']['version'], $registry[$component]['latest']['version']) . '</td>';
+        $html .= '</tr>';
 
-	    return $html;
-	}
+        return $html;
+    }
 }
 
 class Registry
 {
-	/**
-	 * Writes the registry array to a php file for (re-)inclusion.
-	 * e.g.
-	 *  $registry = include 'registry.php';
-	 *
-	 * @param $registry The registry array.
-	 */
-	function writeRegistry(array $registry)
-	{
-	    // backup current registry
-	    rename(__DIR__ . '/registry/wpnxm-software-registry.php', __DIR__ . '/registry/wpnxm-software-registry-backup-' . date("dmy-His") . '.php');
+    /**
+     * Writes the registry array to a php file for (re-)inclusion.
+     * e.g.
+     *  $registry = include 'registry.php';
+     *
+     * @param $registry The registry array.
+     */
+    function writeRegistry(array $registry)
+    {
+        // backup current registry
+        rename(__DIR__ . '/registry/wpnxm-software-registry.php', __DIR__ . '/registry/wpnxm-software-registry-backup-' . date("dmy-His") . '.php');
 
-	    // registry file header
-	    $content = "<?php\n";
-	    $content .= "   /**\n";
-	    $content .= "    * WPN-XM Software Registry\n";
-	    $content .= "    * ------------------------\n";
-	    $content .= "    * Last Update " . date(DATE_RFC2822) . ".\n";
-	    $content .= "    * Do not edit manually!\n";
-	    $content .= "    */\n";
-	    $content .= "\n return ";
+        // registry file header
+        $content = "<?php\n";
+        $content .= "   /**\n";
+        $content .= "    * WPN-XM Software Registry\n";
+        $content .= "    * ------------------------\n";
+        $content .= "    * Last Update " . date(DATE_RFC2822) . ".\n";
+        $content .= "    * Do not edit manually!\n";
+        $content .= "    */\n";
+        $content .= "\n return ";
 
-	    // formatting
-	    $registry = Registry::sort($registry);
-	    $content  = Registry::prettyPrint($registry);
+        // formatting
+        $registry = Registry::sort($registry);
+        $content  = Registry::prettyPrint($registry);
 
-	    // write new registry
-	    return (bool) file_put_contents(__DIR__ . '/registry/wpnxm-software-registry.php', $content);
-	}
+        // write new registry
+        return (bool) file_put_contents(__DIR__ . '/registry/wpnxm-software-registry.php', $content);
+    }
 
-	/**
-	 * Adds array data to the main software component array.
-	 *
-	 * @param $name Name of Software Component
-	 * @param $latestVersion Registry subset of the software component, which should be added to the main array.
-	 */
-	public static function addNewVersion($name, array $latestVersion, array $registry)
-	{
-		$latestVersion = ArrayTool::clean($latestVersion);
+    /**
+     * Adds array data to the main software component array.
+     *
+     * @param $name Name of Software Component
+     * @param $latestVersion Registry subset of the software component, which should be added to the main array.
+     */
+    public static function addNewVersion($name, array $latestVersion, array $registry)
+    {
+        $latestVersion = ArrayTool::clean($latestVersion);
 
-	    if (isset($latestVersion['url']) and isset($latestVersion['version'])) {
-	        // the array contains only one element
+        if (isset($latestVersion['url']) and isset($latestVersion['version'])) {
+            // the array contains only one element
 
-	        // create [latest] sub-array
-	        $registry[$name]['latest']['url'] = $latestVersion['url'];
-	        $registry[$name]['latest']['version'] = $latestVersion['version'];
+            // create [latest] sub-array
+            $registry[$name]['latest']['url'] = $latestVersion['url'];
+            $registry[$name]['latest']['version'] = $latestVersion['version'];
 
-	        // create [version] => [url] relationship
-	        $registry[$name][ $latestVersion['version'] ] =$latestVersion['url'];
+            // create [version] => [url] relationship
+            $registry[$name][ $latestVersion['version'] ] =$latestVersion['url'];
 
-	        unset($latestVersion);
-	    } else {
-	        // sort by version number, from low to high
-	        asort($latestVersion, SORT_NUMERIC);
+            unset($latestVersion);
+        } else {
+            // sort by version number, from low to high
+            asort($latestVersion, SORT_NUMERIC);
 
-	        // add the last array item of multiple elements (the one with the highest version number)
+            // add the last array item of multiple elements (the one with the highest version number)
 
-	        // insert the last array item as [latest][version] => [url]
-	        $registry[$name]['latest'] = array_pop($latestVersion);
+            // insert the last array item as [latest][version] => [url]
+            $registry[$name]['latest'] = array_pop($latestVersion);
 
-	        // insert the last array item also as a pure [version] => [url] relationship
-	        $registry[$name][ $registry[$name]['latest']['version'] ] = $registry[$name]['latest']['url'];
-	    }
+            // insert the last array item also as a pure [version] => [url] relationship
+            $registry[$name][ $registry[$name]['latest']['version'] ] = $registry[$name]['latest']['url'];
+        }
 
-	    // added remaining array items (if any) as pure [version] => [url] relationships
-	    if (false === empty($latestVersion)) {
-	        foreach ($latestVersion as $new_version_entry) {
-	            $registry[$name][ $new_version_entry['version'] ] = $new_version_entry['url'];
-	        }
-	    }
+        // added remaining array items (if any) as pure [version] => [url] relationships
+        if (false === empty($latestVersion)) {
+            foreach ($latestVersion as $new_version_entry) {
+                $registry[$name][ $new_version_entry['version'] ] = $new_version_entry['url'];
+            }
+        }
 
-	    asort($registry[$name]);
+        asort($registry[$name]);
 
-	    return $registry;
-	}
+        return $registry;
+    }
 
-	public static function clearOldScans()
-	{
-	    $scans = glob(__DIR__ . '\scans\*.php');
-	    foreach($scans as $file) {
-	        unlink($file);
-	    }
-	}
+    public static function clearOldScans()
+    {
+        $scans = glob(__DIR__ . '\scans\*.php');
+        foreach($scans as $file) {
+            unlink($file);
+        }
+    }
 
-	public static function writeRegistrySubset($component, $registry)
-	{
-	    // pretty print the array
-	    $content = var_export( $registry, true ) . ';';
+    public static function writeRegistrySubset($component, $registry)
+    {
+        // pretty print the array
+        $content = var_export( $registry, true ) . ';';
 
-	    $content = ArrayTool::removeTrailingSpaces($content);
+        $content = ArrayTool::removeTrailingSpaces($content);
 
-	    file_put_contents(__DIR__ . '/scans/latest-version-' . $component . '.php', $content);
-	}
+        file_put_contents(__DIR__ . '/scans/latest-version-' . $component . '.php', $content);
+    }
 
-	public static function addLatestVersionScansIntoRegistry(array $registry)
-	{
-	    $scans = glob(__DIR__ . '\scans\*.php');
-	    foreach($scans as $i => $file) {
-	        $subset =  include $file;
-	        $registry = array_merge($registry, $subset);
-	    }
+    public static function addLatestVersionScansIntoRegistry(array $registry)
+    {
+        $scans = glob(__DIR__ . '\scans\*.php');
+        foreach($scans as $i => $file) {
+            $subset =  include $file;
+            $registry = array_merge($registry, $subset);
+        }
 
-	    return $registry;
-	}
+        return $registry;
+    }
 
-	public static function load()
-	{
-		// load software components registry
-		$registry = include __DIR__ . '\registry\wpnxm-software-registry.php';
+    public static function load()
+    {
+        // load software components registry
+        $registry = include __DIR__ . '\registry\wpnxm-software-registry.php';
 
-		// ensure registry array is available
-		if (!is_array($registry)) {
-		    header("HTTP/1.0 404 Not Found");
-		}
+        // ensure registry array is available
+        if (!is_array($registry)) {
+            header("HTTP/1.0 404 Not Found");
+        }
 
-		return $registry;
-	}
+        return $registry;
+    }
 
 
     public static function sort(array $registry)
     {
-    	// sort registry (software components in alphabetical order)
-	    ksort($registry);
+        // sort registry (software components in alphabetical order)
+        ksort($registry);
 
-	    // sort registry (version numbers in lower-to-higher order)
-	    // maintain "name" and "website" keys on top, then versions, then "latest" key on bottom.
-	    foreach ($registry as $component => $array) {
-	        uksort($array, 'version_compare');
+        // sort registry (version numbers in lower-to-higher order)
+        // maintain "name" and "website" keys on top, then versions, then "latest" key on bottom.
+        foreach ($registry as $component => $array) {
+            uksort($array, 'version_compare');
 
-	        // move 'latest' to the bottom of the arary
-	        $value = $array['latest'];
-	        unset($array['latest']);
-	        $array['latest'] = $value;
+            // move 'latest' to the bottom of the arary
+            $value = $array['latest'];
+            unset($array['latest']);
+            $array['latest'] = $value;
 
-	        // move 'name' to the top of the array
-	        if (array_key_exists('name', $array) === true) {
-	            $temp = array('name' => $array['name']);
-	            unset($array['name']);
-	            $array = $temp + $array;
-	        }
+            // move 'name' to the top of the array
+            if (array_key_exists('name', $array) === true) {
+                $temp = array('name' => $array['name']);
+                unset($array['name']);
+                $array = $temp + $array;
+            }
 
-	        $registry[$component] = $array;
-	     }
+            $registry[$component] = $array;
+         }
 
-    	return $registry;
+        return $registry;
     }
 
     public function prettyPrint(array $registry)
     {
-		$content = var_export( $registry, true ) . ';';
+        $content = var_export( $registry, true ) . ';';
 
-		return ArrayTool::removeTrailingSpaces($content);
+        return ArrayTool::removeTrailingSpaces($content);
     }
 }
 
 class ArrayTool
 {
-	public static function clean(array $array)
-	{
-		$array = self::unsetNullValues($array);
-    	$array = self::removeDuplicates($array);
+    public static function clean(array $array)
+    {
+        $array = self::unsetNullValues($array);
+        $array = self::removeDuplicates($array);
 
-    	return $array;
-	}
-	/**
-	 * Removes all keys with value "null" from the array and returns the array.
-	 *
-	 * @param $array Array
-	 * @return $array
-	 */
-	public static function unsetNullValues(array $array)
-	{
-	    foreach ($array as $key => $value) {
-	        if ($value === null) {
-	            unset($array[$key]);
-	        }
-	    }
+        return $array;
+    }
+    /**
+     * Removes all keys with value "null" from the array and returns the array.
+     *
+     * @param $array Array
+     * @return $array
+     */
+    public static function unsetNullValues(array $array)
+    {
+        foreach ($array as $key => $value) {
+            if ($value === null) {
+                unset($array[$key]);
+            }
+        }
 
-	    return $array;
-	}
+        return $array;
+    }
 
-	/**
-	 * Removes duplicates from the array.
-	 *
-	 * @param $array Array
-	 * @return $array
-	 */
-	public static function removeDuplicates(array $array)
-	{
-	    return array_map("unserialize", array_unique(array_map("serialize", $array)));
-	}
+    /**
+     * Removes duplicates from the array.
+     *
+     * @param $array Array
+     * @return $array
+     */
+    public static function removeDuplicates(array $array)
+    {
+        return array_map("unserialize", array_unique(array_map("serialize", $array)));
+    }
 
-	/**
-	 * Strips EOL spaces from the content.
-	 * Note: PHP's var_export() adds EOL spaces after array keys, like "'key' => ".
-	 *       I consider this a PHP bug. Anyway. Let's get rid of that.
-	 */
-	public static function removeTrailingSpaces($content)
-	{
-	    $lines = explode("\n", $content);
-	    foreach ($lines as $idx => $line) {
-	        $lines[$idx] = rtrim($line);
-	    }
-	    $content = implode("\n", $lines);
+    /**
+     * Strips EOL spaces from the content.
+     * Note: PHP's var_export() adds EOL spaces after array keys, like "'key' => ".
+     *       I consider this a PHP bug. Anyway. Let's get rid of that.
+     */
+    public static function removeTrailingSpaces($content)
+    {
+        $lines = explode("\n", $content);
+        foreach ($lines as $idx => $line) {
+            $lines[$idx] = rtrim($line);
+        }
+        $content = implode("\n", $lines);
 
-	    return $content;
-	}
+        return $content;
+    }
 }
 
 class StatusRequest
 {
-	public static function getUrlsToCrawl($registry)
-	{
-		// build array with URLs to crawl
-		$urls = array();
-		foreach ($registry as $software => $versions) {
-		    foreach ($versions as $version => $url) {
-		        if ($version === 'latest') {
-		            $urls[] = $url['url'];
-		        }
-		    }
-		    $urls[] = 'http://wpn-xm.org/get.php?s=' . $software;
-		}
+    public static function getUrlsToCrawl($registry)
+    {
+        // build array with URLs to crawl
+        $urls = array();
+        foreach ($registry as $software => $versions) {
+            foreach ($versions as $version => $url) {
+                if ($version === 'latest') {
+                    $urls[] = $url['url'];
+                }
+            }
+            $urls[] = 'http://wpn-xm.org/get.php?s=' . $software;
+        }
 
-		return $urls;
-	}
+        return $urls;
+    }
 
-	/**
-	 * Returns the HTTP Status Code
-	 */
-	public static function getHttpStatusCode($url)
-	{
-	    $headers = get_headers($url, 0);
+    /**
+     * Returns the HTTP Status Code
+     */
+    public static function getHttpStatusCode($url)
+    {
+        $headers = get_headers($url, 0);
 
-	    return substr($headers[0], 9, 3);
-	}
+        return substr($headers[0], 9, 3);
+    }
 
-	/**
-	 * Returns cURL responses (http status code) for multiple target URLs (CurlMultiResponses).
-	 *
-	 * @param array $targetUrls Array of target URLs for cURL
-	 * @return array cURL Responses
-	 */
-	public static function getHttpStatusCodesInParallel(array $targetUrls, $timeout = 30)
-	{
-	    // get number of urls
-	    $count = count($targetUrls);
+    /**
+     * Returns cURL responses (http status code) for multiple target URLs (CurlMultiResponses).
+     *
+     * @param array $targetUrls Array of target URLs for cURL
+     * @return array cURL Responses
+     */
+    public static function getHttpStatusCodesInParallel(array $targetUrls, $timeout = 30)
+    {
+        // get number of urls
+        $count = count($targetUrls);
 
-	    // set cURL options
-	    $options = array(
-	        CURLOPT_RETURNTRANSFER => true,         // do not output to browser
-	        CURLOPT_NOPROGRESS => true,
-	        //CURLOPT_URL => $url,
-	        CURLOPT_NOBODY => true,                 // do HEAD request only, exclude the body from output
-	        CURLOPT_TIMEOUT => $timeout,
-	        CURLOPT_FOLLOWLOCATION => true,
-	        CURLOPT_FORBID_REUSE => false,
-	        CURLOPT_SSL_VERIFYPEER => false,
-	        CURLOPT_SSL_VERIFYHOST => 2,
-	        CURLOPT_ENCODING => '',
-	        CURLOPT_AUTOREFERER => true,
-	        CURLOPT_USERAGENT, 'WPN-XM Server Stack - Registry Status Tool - http://wpn-xm.org/'
-	    );
+        // set cURL options
+        $options = array(
+            CURLOPT_RETURNTRANSFER => true,         // do not output to browser
+            CURLOPT_NOPROGRESS => true,
+            //CURLOPT_URL => $url,
+            CURLOPT_NOBODY => true,                 // do HEAD request only, exclude the body from output
+            CURLOPT_TIMEOUT => $timeout,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_FORBID_REUSE => false,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_SSL_VERIFYHOST => 2,
+            CURLOPT_ENCODING => '',
+            CURLOPT_AUTOREFERER => true,
+            CURLOPT_USERAGENT, 'WPN-XM Server Stack - Registry Status Tool - http://wpn-xm.org/'
+        );
 
-	    // initialize multiple cURL handler
-	    $mh = curl_multi_init();
+        // initialize multiple cURL handler
+        $mh = curl_multi_init();
 
-	    for($i = 0; $i < $count; $i++) {
-	      // create multiple cURL handles
-	      $ch[$i] = curl_init($targetUrls[$i]);
-	      // set cURL options for each handle
-	      curl_setopt_array($ch[$i], $options);
-	      // Add the handles to the curl_multi handle
-	      curl_multi_add_handle($mh, $ch[$i]);
-	    }
+        for($i = 0; $i < $count; $i++) {
+          // create multiple cURL handles
+          $ch[$i] = curl_init($targetUrls[$i]);
+          // set cURL options for each handle
+          curl_setopt_array($ch[$i], $options);
+          // Add the handles to the curl_multi handle
+          curl_multi_add_handle($mh, $ch[$i]);
+        }
 
-	    // Execute Multi curl
-	    $running = null;
-	    do {
-	      curl_multi_exec($mh, $running);
-	    } while ($running > 0);
+        // Execute Multi curl
+        $running = null;
+        do {
+          curl_multi_exec($mh, $running);
+        } while ($running > 0);
 
-	    // Response Handling
-	    $responses = array();
+        // Response Handling
+        $responses = array();
 
-	    // Remove the handles and return the response
-	    for($i = 0; $i < $count; $i++) {
-	      curl_multi_remove_handle($mh, $ch[$i]);
+        // Remove the handles and return the response
+        for($i = 0; $i < $count; $i++) {
+          curl_multi_remove_handle($mh, $ch[$i]);
 
-	      // Response: Content
-	      //$responses[$i] = curl_multi_getcontent($ch[$i]);
+          // Response: Content
+          //$responses[$i] = curl_multi_getcontent($ch[$i]);
 
-	      // Response: HTTP Status Code
-	      $responses[$i]  = curl_getinfo($ch[$i], CURLINFO_HTTP_CODE) == 200; // check if HTTP OK
-	    }
+          // Response: HTTP Status Code
+          $responses[$i]  = curl_getinfo($ch[$i], CURLINFO_HTTP_CODE) == 200; // check if HTTP OK
+        }
 
-	    // Close multiple cURL handler
-	    curl_multi_close($mh);
+        // Close multiple cURL handler
+        curl_multi_close($mh);
 
-	    return $responses;
+        return $responses;
+    }
+}
+
+class Git
+{
+    function commit($message)
+    {
+        $output = shell_exec('git commit -m "' . $mesage . '" ', $stdout, $status);
+        //var_dump($stdout, $status, $output);
+    }
+
+    function push()
+    {
+        $output = shell_exec('git push', $stdout, $status);
+        //var_dump($stdout, $status, $output);
     }
 }

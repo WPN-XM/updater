@@ -51,6 +51,7 @@ if (isset($action) && $action === 'write-file') {
     Registry::writeRegistry(
         Registry::addLatestVersionScansIntoRegistry($registry)
     );
+    echo 'Registry updated';
 } else {
     Registry::clearOldScans();
     $updater = new RegistryUpdater($registry);
@@ -58,7 +59,6 @@ if (isset($action) && $action === 'write-file') {
     $numberOfComponents = $updater->getUrlsToCrawl();
     $updater->crawl();
     $tableHtml = $updater->evaluateResponses();
-}
 
 /******************************************************************************/
 ?>
@@ -66,9 +66,10 @@ if (isset($action) && $action === 'write-file') {
 <table class="table table-condensed table-hover">
 <thead>
     <tr>
-        <th>Software Components (<?php echo $numberOfComponents; ?>)</th><th>(Old) Latest Version</th><th>(New) Latest Version</th>
+        <th>Software Components (<?php echo $numberOfComponents ?>)</th><th>(Old) Latest Version</th><th>(New) Latest Version</th>
     </tr>
 </thead>
 <?php echo $tableHtml; ?>
 </table>
 Used a total of <?php echo round((microtime(true) - $start), 2); ?> seconds
+<?php } ?>

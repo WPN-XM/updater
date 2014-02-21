@@ -82,7 +82,6 @@ class RegistryUpdater
 		        echo $request . "\n\n";
 		    }
 		}
-		//var_dump($responses);
 	}
 
 	public function evaluateResponses()
@@ -164,7 +163,7 @@ class Registry
 	 *
 	 * @param $registry The registry array.
 	 */
-	function writeRegistry(array $registry)
+	public static function writeRegistry(array $registry)
 	{
 	    // backup current registry
 	    rename(__DIR__ . '/registry/wpnxm-software-registry.php', __DIR__ . '/registry/wpnxm-software-registry-backup-' . date("dmy-His") . '.php');
@@ -181,7 +180,7 @@ class Registry
 
 	    // formatting
 	    $registry = Registry::sort($registry);
-	    $content  = Registry::prettyPrint($registry);
+	    $content  .= Registry::prettyPrint($registry);
 
 	    // write new registry
 	    return (bool) file_put_contents(__DIR__ . '/registry/wpnxm-software-registry.php', $content);
@@ -243,20 +242,21 @@ class Registry
 
 	public static function writeRegistrySubset($component, $registry)
 	{
-	    // pretty print the array
-	    $content = var_export( $registry, true ) . ';';
-
-	    $content = ArrayTool::removeTrailingSpaces($content);
+	    // write a return array for "array to var" inclusion
+	    $content = "<?php\nreturn " . self::prettyPrint($registry);
 
 	    file_put_contents(__DIR__ . '/scans/latest-version-' . $component . '.php', $content);
 	}
 
 	public static function addLatestVersionScansIntoRegistry(array $registry)
-	{
+	{        
 	    $scans = glob(__DIR__ . '\scans\*.php');
-	    foreach($scans as $i => $file) {
-	        $subset =  include $file;
-	        $registry = array_merge($registry, $subset);
+        
+	    foreach($scans as $i => $file) {            
+	        $subset = include $file;
+            preg_match('/latest-version-(.*).php/', $file, $matches);
+            $component = $matches[1];
+	        $registry[$component] = $subset;
 	    }
 
 	    return $registry;
@@ -278,9 +278,9 @@ class Registry
 
     public static function sort(array $registry)
     {
-    	// sort registry (software components in alphabetical order)
+      	// sort registry (software components in alphabetical order)
 	    ksort($registry);
-
+        
 	    // sort registry (version numbers in lower-to-higher order)
 	    // maintain "name" and "website" keys on top, then versions, then "latest" key on bottom.
 	    foreach ($registry as $component => $array) {
@@ -304,7 +304,7 @@ class Registry
     	return $registry;
     }
 
-    public function prettyPrint(array $registry)
+    public static function prettyPrint(array $registry)
     {
 		$content = var_export( $registry, true ) . ';';
 

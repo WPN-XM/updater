@@ -48,10 +48,13 @@ $registry  = Registry::load();
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 
 if (isset($action) && $action === 'write-file') {
-    Registry::writeRegistry(
-        Registry::addLatestVersionScansIntoRegistry($registry)
-    );
-    echo 'Registry updated';
+    $registry = Registry::addLatestVersionScansIntoRegistry($registry);
+    if(is_array($registry) === true) {
+        Registry::writeRegistry($registry);
+        echo 'The registry was updated.';
+    } else {
+        echo 'The registry is up to date.';
+    }
 } else {
     Registry::clearOldScans();
     $updater = new RegistryUpdater($registry);

@@ -252,6 +252,11 @@ class Registry
     {
         $scans = glob(__DIR__ . '\scans\*.php');
 
+        // nothing to do, return early
+        if(count($scans) === 0) {
+            return false;
+        }
+
         foreach($scans as $i => $file) {
             $subset = include $file;
             preg_match('/latest-version-(.*).php/', $file, $matches);

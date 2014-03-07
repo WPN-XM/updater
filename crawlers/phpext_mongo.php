@@ -38,6 +38,7 @@ class phpext_mongo extends VersionCrawler
      * WARNING
      * The windows builds got no version listing, because Github stopped their downloads service.
      * Old Listing URL: https://github.com/mongodb/mongo-php-driver/downloads
+     * S3 Listing:      https://s3.amazonaws.com/drivers.mongodb.org/php/index.html
      *
      * Downloads are now on AS3.
      * We scrape the PECL site for version numbers (mongo-1.3.4.tgz)
@@ -49,8 +50,8 @@ class phpext_mongo extends VersionCrawler
     public function crawlVersion()
     {
         return $this->filter('a')->each( function ($node, $i) {
-            // mongo-1.3.4.tgz
-            if (preg_match("#mongo-(\d+\.\d+(\.\d+)*)(?:[._-]?(rc)?(\d+))?#i", $node->attr('href'), $matches)) {
+            // /package/mongo/1.4.5/windows
+            if (preg_match("#mongo/(\d+\.\d+(\.\d+)*)(?:[._-]?(rc)?(\d+))/windows?#i", $node->attr('href'), $matches)) {
                 $version = $matches[1]; // 1.2.3
                 if (version_compare($version, $this->registry['phpext_mongo']['latest']['version'], '>=')) {
                     return array(

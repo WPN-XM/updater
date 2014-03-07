@@ -40,6 +40,7 @@ class mongodb extends VersionCrawler
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node, $i) {
+            // no RC versions!
             if (preg_match("#win32-i386-(\d+\.\d+(\.\d+)*).zip$#", $node->attr('href'), $matches)) {
                 $version = $matches[1];
                 if (version_compare($version, $this->registry['mongodb']['latest']['version'], '>=')) {

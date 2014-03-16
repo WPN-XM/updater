@@ -39,13 +39,14 @@ class phpext_mongo extends VersionCrawler
      * The windows builds got no version listing, because Github stopped their downloads service.
      * Old Listing URL: https://github.com/mongodb/mongo-php-driver/downloads
      * S3 Listing:      https://s3.amazonaws.com/drivers.mongodb.org/php/index.html
+     * PECL:            http://pecl.php.net/package/mongo
      *
      * Downloads are now on AS3.
      * We scrape the PECL site for version numbers (mongo-1.3.4.tgz)
      * and expect a matching windows build on AS3  (mongo-1.3.4.zip).
      */
 
-    public $url = 'http://pecl.php.net/package/mongo';
+    public $url = 'https://s3.amazonaws.com/drivers.mongodb.org/php/index.html';
 
     public function crawlVersion()
     {

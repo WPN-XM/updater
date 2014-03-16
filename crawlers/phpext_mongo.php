@@ -42,8 +42,6 @@ class phpext_mongo extends VersionCrawler
      * PECL:            http://pecl.php.net/package/mongo
      *
      * Downloads are now on AS3.
-     * We scrape the PECL site for version numbers (mongo-1.3.4.tgz)
-     * and expect a matching windows build on AS3  (mongo-1.3.4.zip).
      */
 
     public $url = 'https://s3.amazonaws.com/drivers.mongodb.org/php/index.html';

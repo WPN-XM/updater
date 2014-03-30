@@ -227,7 +227,7 @@ class Registry
             }
         }
 
-        asort($registry[$name]);
+        array_multisort(array_keys($registry[$name]), SORT_NATURAL, $registry[$name]);
 
         return $registry;
     }

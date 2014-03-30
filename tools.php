@@ -399,19 +399,20 @@ class StatusRequest
         return substr($headers[0], 9, 3);
     }
 
-    /**
+    /*
      * Returns cURL responses (http status code) for multiple target URLs (CurlMultiResponses).
      *
      * @param array $targetUrls Array of target URLs for cURL
      * @return array cURL Responses
      */
-    public static function getHttpStatusCodesInParallel(array $targetUrls, $timeout = 30)
+    public static function getHttpStatusCodesInParallel(array $targetUrls, $timeout = 15)
     {
         // get number of urls
         $count = count($targetUrls);
 
         // set cURL options
         $options = array(
+            CURLOPT_HEADER => true,
             CURLOPT_RETURNTRANSFER => true,         // do not output to browser
             CURLOPT_NOPROGRESS => true,
             //CURLOPT_URL => $url,
@@ -421,7 +422,8 @@ class StatusRequest
             CURLOPT_FORBID_REUSE => false,
             CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_SSL_VERIFYHOST => 2,
-            CURLOPT_ENCODING => '',
+            CURLOPT_SSLVERSION => 3,
+            CURLOPT_ENCODING => '',                 // !important
             CURLOPT_AUTOREFERER => true,
             CURLOPT_USERAGENT, 'WPN-XM Server Stack - Registry Status Tool - http://wpn-xm.org/'
         );
@@ -453,6 +455,9 @@ class StatusRequest
 
           // Response: Content
           //$responses[$i] = curl_multi_getcontent($ch[$i]);
+
+          //echo $targetUrls[$i];
+          //var_dump($responses[$i]);
 
           // Response: HTTP Status Code
           $responses[$i]  = curl_getinfo($ch[$i], CURLINFO_HTTP_CODE) == 200; // check if HTTP OK

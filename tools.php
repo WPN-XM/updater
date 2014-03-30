@@ -196,7 +196,7 @@ class Registry
     {
         $latestVersion = ArrayTool::clean($latestVersion);
 
-        if (isset($latestVersion['url']) and isset($latestVersion['version'])) {
+        if (isset($latestVersion['url']) === true and isset($latestVersion['version']) === true) {
             // the array contains only one element
 
             // create [latest] sub-array
@@ -209,7 +209,7 @@ class Registry
             unset($latestVersion);
         } else {
             // sort by version number, from low to high
-            asort($latestVersion, SORT_NUMERIC);
+            asort($latestVersion);
 
             // add the last array item of multiple elements (the one with the highest version number)
 

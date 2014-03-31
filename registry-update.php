@@ -28,11 +28,8 @@
     */
 
 $start = microtime(true);
-
 set_time_limit(180); // 60*3
-
 date_default_timezone_set('UTC');
-
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 
@@ -69,10 +66,11 @@ if (isset($action) && $action === 'write-file') {
 <table class="table table-condensed table-hover">
 <thead>
     <tr>
-        <th>Software Components (<?php echo $numberOfComponents ?>)</th><th>(Old) Latest Version</th><th>(New) Latest Version</th>
+        <th>Software Components (<?=$numberOfComponents?>)</th><th>(Old) Latest Version</th><th>(New) Latest Version</th>
     </tr>
 </thead>
 <?php echo $tableHtml; ?>
 </table>
-Used a total of <?php echo round((microtime(true) - $start), 2); ?> seconds
+Used a total of <?=round((microtime(true) - $start), 2)?> seconds for crawling <?=$numberOfComponents?> URLs.
+
 <?php } ?>

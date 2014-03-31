@@ -62,27 +62,6 @@ $responses = StatusRequest::getHttpStatusCodesInParallel($urls);
 // build a lookup array: url => http status code 200
 $urlsHttpStatus = array_combine($urls, $responses);
 
-echo '<h5>WPN-XM Software Registry - Status<span class="pull-right">'. date(DATE_RFC822) .'</span></h5>';
-echo '<h5>Components ('.count($registry).')</h5>';
-echo '<table class="table table-condensed table-hover" style="font-size: 12px;">';
-echo '<tr><th>Software Component</th><th>Version</th><th>Download URL<br/>(local wpnxm-software-registry.php)</th>';
-echo '<th>Forwarding URL<br/>(server wpnxm-software-registry.php)</th></tr>';
-
-foreach ($registry as $software => $versions) {
-    echo '<tr><td style="padding: 1px 5px;"><b>'. $software .'</b></td>';
-    foreach ($versions as $version => $url) {
-        // test only the link of the latest version and not every url
-        if ($version === 'latest') {
-            echo '<td>' . $url['version'] . '</td>' . renderTd($url['url']);
-        }
-    }
-    // test forwarding links
-    echo renderTd('http://wpn-xm.org/get.php?s=' . $software);
-    echo '</tr>';
-}
-echo '</table>';
-echo 'Used a total of ' . round((microtime(true) - $start), 2) . ' seconds for crawling ('.count($urls).') URLs' . PHP_EOL;
-
 function renderTd($url)
 {
     $color = isAvailable($url) === true ? 'green' : 'red';
@@ -98,3 +77,29 @@ function isAvailable($url)
     }
     return $urlsHttpStatus[$url];
 }
+
+/******************************************************************************/
+?>
+
+<h5>WPN-XM Software Registry - Status<span class="pull-right"><?=date(DATE_RFC822)?></span></h5>
+<h5>Components (<?=count($registry)?>)</h5>
+<table class="table table-condensed table-hover" style="font-size: 12px;">
+<tr><th>Software Component</th><th>Version</th><th>Download URL<br/>(local wpnxm-software-registry.php)</th>
+<th>Forwarding URL<br/>(server wpnxm-software-registry.php)</th></tr>
+
+<?php
+foreach ($registry as $software => $versions) {
+    echo '<tr><td style="padding: 1px 5px;"><b>'. $software .'</b></td>';
+    foreach ($versions as $version => $url) {
+        // test only the link of the latest version and not every url
+        if ($version === 'latest') {
+            echo '<td>' . $url['version'] . '</td>' . renderTd($url['url']);
+        }
+    }
+    // test forwarding links
+    echo renderTd('http://wpn-xm.org/get.php?s=' . $software);
+    echo '</tr>';
+}
+?>
+</table>
+Used a total of <?=round((microtime(true) - $start), 2)?> seconds for crawling <?=count($urls)?> URLs.

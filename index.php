@@ -60,7 +60,7 @@
               <li class="active"><a href="registry-status.php">Status</a></li>
               <li><a href="registry-update.php">Scan</a></li>
               <li><a href="registry-update.php?action=write-file">Update</a></li>
-              <li><a href="update-csv.php">Update CSV</a></li>
+              <li><a href="update-installer-registries.php">Update Installer Registries</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

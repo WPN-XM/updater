@@ -87,8 +87,8 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
+        </div>
+      </div>
     </div><!-- /.modal -->
 
     <!-- javascript -->
@@ -128,18 +128,17 @@
             }
           });
 
-          return false; // stop the click from causing navigation
+          return false; // stop clicking from causing navigation
         });
 
         function doGetRequest(href) {
-          // empty the main content area
+
+          // reset target, show modal dlg
           $("#ajax-container").empty();
-          // show the modal window with the ajax loading indicator
           $('#myModal').modal('show');
 
-          // remove the active class from the old clicked nav link
+          // set new active element on top nav
           $("#menu li").removeClass('active');
-          // add the active class to the clicked nav link
           $(this).parent('li').addClass('active');
 
           // ajax call to the PHP scripts
@@ -148,11 +147,8 @@
               cache: false,
               timeout: 99999
           }).done(function(html) {
-              // debug output to console
-              //console.log(html);
-              // hide the modal
+              // hide modal, insert content on target
               $('#myModal').modal('hide');
-              // finally display the content in the main content area
               $("#ajax-container").empty().append(html);
           });
         }

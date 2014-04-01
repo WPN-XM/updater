@@ -75,21 +75,32 @@ $lists['bigpack-w32'] = array (
   7  => array ( 0 => 'nginx', 1 => 'http://wpn-xm.org/get.php?s=nginx', 2 => 'nginx.zip', ),
   8  => array ( 0 => 'openssl', 1 => 'http://wpn-xm.org/get.php?s=openssl', 2 => 'openssl.exe', ),
   9  => array ( 0 => 'pear', 1 => 'http://wpn-xm.org/get.php?s=pear', 2 => 'go-pear.phar', ), // ! phar file
-  10 => array ( 0 => 'php', 1 => 'http://wpn-xm.org/get.php?s=php', 2 => 'php.zip', ),
-  11 => array ( 0 => 'phpext_apc', 1 => 'http://wpn-xm.org/get.php?s=phpext_apc', 2 => 'phpext_apc.zip', ),
-  12 => array ( 0 => 'phpext_memcache', 1 => 'http://wpn-xm.org/get.php?s=phpext_memcache', 2 => 'phpext_memcache.zip', ), // without D
-  13 => array ( 0 => 'phpext_mongo', 1 => 'http://wpn-xm.org/get.php?s=phpext_mongo', 2 => 'phpext_mongo.zip', ),
-  14 => array ( 0 => 'phpext_xdebug', 1 => 'http://wpn-xm.org/get.php?s=phpext_xdebug', 2 => 'phpext_xdebug.dll', ), // ! dll file
-  15 => array ( 0 => 'phpext_xhprof', 1 => 'http://wpn-xm.org/get.php?s=phpext_xhprof', 2 => 'phpext_xhprof.zip', ),
-  16 => array ( 0 => 'phpmemcachedadmin', 1 => 'http://wpn-xm.org/get.php?s=phpmemcachedadmin', 2 => 'phpmemcachedadmin.zip', ),
-  17 => array ( 0 => 'phpmyadmin', 1 => 'http://wpn-xm.org/get.php?s=phpmyadmin', 2 => 'phpmyadmin.zip', ),
-  18 => array ( 0 => 'rockmongo', 1 => 'http://wpn-xm.org/get.php?s=rockmongo', 2 => 'rockmongo.zip', ),
-  19 => array ( 0 => 'sendmail', 1 => 'http://wpn-xm.org/get.php?s=sendmail', 2 => 'sendmail.zip', ),
-  20 => array ( 0 => 'webgrind', 1 => 'http://wpn-xm.org/get.php?s=webgrind', 2 => 'webgrind.zip', ),
-  21 => array ( 0 => 'wpnxmscp', 1 => 'http://wpn-xm.org/get.php?s=wpnxmscp', 2 => 'wpnxmscp.zip', ),
-  22 => array ( 0 => 'xhprof', 1 => 'http://wpn-xm.org/get.php?s=xhprof', 2 => 'xhprof.zip', ),
-  23 => array ( 0 => 'postgresql', 1 => 'http://wpn-xm.org/get.php?s=postgresql', 2 => 'postgresql.zip', ),
-  24 => array ( 0 => 'perl', 1 => 'http://wpn-xm.org/get.php?s=perl', 2 => 'perl.zip', ),
+  10 => array ( 0 => 'perl', 1 => 'http://wpn-xm.org/get.php?s=perl', 2 => 'perl.zip', ),
+  11 => array ( 0 => 'php', 1 => 'http://wpn-xm.org/get.php?s=php', 2 => 'php.zip', ),
+  12 => array ( 0 => 'phpext_amqp', 1 => 'http://wpn-xm.org/get.php?s=phpext_amqp', 2 => 'phpext_amqp.zip', ),
+  13 => array ( 0 => 'phpext_apc', 1 => 'http://wpn-xm.org/get.php?s=phpext_apc', 2 => 'phpext_apc.zip', ),
+  14 => array ( 0 => 'phpext_imagick', 1 => 'http://wpn-xm.org/get.php?s=phpext_imagick', 2 => 'phpext_imagick.zip', ),
+  15 => array ( 0 => 'phpext_mailparse', 1 => 'http://wpn-xm.org/get.php?s=phpext_mailparse', 2 => 'phpext_mailparse.zip', ),
+  16 => array ( 0 => 'phpext_memcache', 1 => 'http://wpn-xm.org/get.php?s=phpext_memcache', 2 => 'phpext_memcache.zip', ), // without D
+  17 => array ( 0 => 'phpext_mongo', 1 => 'http://wpn-xm.org/get.php?s=phpext_mongo', 2 => 'phpext_mongo.zip', ),
+  18 => array ( 0 => 'phpext_msgpack', 1 => 'http://wpn-xm.org/get.php?s=phpext_msgpack', 2 => 'phpext_msgpack.zip', ),
+  19 => array ( 0 => 'phpext_rar', 1 => 'http://wpn-xm.org/get.php?s=phpext_rar', 2 => 'phpext_rar.zip', ),
+  20 => array ( 0 => 'phpext_trader', 1 => 'http://wpn-xm.org/get.php?s=phpext_trader', 2 => 'phpext_trader.zip', ),
+  21 => array ( 0 => 'phpext_varnish', 1 => 'http://wpn-xm.org/get.php?s=phpext_varnish', 2 => 'phpext_varnish.zip', ),
+  22 => array ( 0 => 'phpext_wincache', 1 => 'http://wpn-xm.org/get.php?s=phpext_wincache', 2 => 'phpext_wincache.zip', ),
+  23 => array ( 0 => 'phpext_xcache', 1 => 'http://wpn-xm.org/get.php?s=phpext_xcache', 2 => 'phpext_xcache.zip', ),
+  24 => array ( 0 => 'phpext_xdebug', 1 => 'http://wpn-xm.org/get.php?s=phpext_xdebug', 2 => 'phpext_xdebug.dll', ), // ! dll file
+  25 => array ( 0 => 'phpext_xhprof', 1 => 'http://wpn-xm.org/get.php?s=phpext_xhprof', 2 => 'phpext_xhprof.zip', ),
+  26 => array ( 0 => 'phpext_zmq', 1 => 'http://wpn-xm.org/get.php?s=phpext_zmq', 2 => 'phpext_zmq.zip', ),
+  27 => array ( 0 => 'phpmemcachedadmin', 1 => 'http://wpn-xm.org/get.php?s=phpmemcachedadmin', 2 => 'phpmemcachedadmin.zip', ),
+  28 => array ( 0 => 'phpmyadmin', 1 => 'http://wpn-xm.org/get.php?s=phpmyadmin', 2 => 'phpmyadmin.zip', ),
+  29 => array ( 0 => 'postgresql', 1 => 'http://wpn-xm.org/get.php?s=postgresql', 2 => 'postgresql.zip', ),
+  30 => array ( 0 => 'redis', 1 => 'http://wpn-xm.org/get.php?s=redis', 2 => 'redis.zip', ),
+  31 => array ( 0 => 'rockmongo', 1 => 'http://wpn-xm.org/get.php?s=rockmongo', 2 => 'rockmongo.zip', ),
+  32 => array ( 0 => 'sendmail', 1 => 'http://wpn-xm.org/get.php?s=sendmail', 2 => 'sendmail.zip', ),
+  33 => array ( 0 => 'webgrind', 1 => 'http://wpn-xm.org/get.php?s=webgrind', 2 => 'webgrind.zip', ),
+  34 => array ( 0 => 'wpnxmscp', 1 => 'http://wpn-xm.org/get.php?s=wpnxmscp', 2 => 'wpnxmscp.zip', ),
+  35 => array ( 0 => 'xhprof', 1 => 'http://wpn-xm.org/get.php?s=xhprof', 2 => 'xhprof.zip', ),
 );
 
 /**
@@ -108,18 +119,30 @@ $lists['allinone-w32'] = array (
   8  => array ( 0 => 'openssl', 1 => 'http://wpn-xm.org/get.php?s=openssl', 2 => 'openssl.exe', ),
   9  => array ( 0 => 'pear', 1 => 'http://wpn-xm.org/get.php?s=pear', 2 => 'go-pear.phar', ), // ! phar file
   10 => array ( 0 => 'php', 1 => 'http://wpn-xm.org/get.php?s=php', 2 => 'php.zip', ),
-  11 => array ( 0 => 'phpext_apc', 1 => 'http://wpn-xm.org/get.php?s=phpext_apc', 2 => 'phpext_apc.zip', ),
-  12 => array ( 0 => 'phpext_memcache', 1 => 'http://wpn-xm.org/get.php?s=phpext_memcache', 2 => 'phpext_memcache.zip', ), // without D
-  13 => array ( 0 => 'phpext_mongo', 1 => 'http://wpn-xm.org/get.php?s=phpext_mongo', 2 => 'phpext_mongo.zip', ),
-  14 => array ( 0 => 'phpext_xdebug', 1 => 'http://wpn-xm.org/get.php?s=phpext_xdebug', 2 => 'phpext_xdebug.dll', ), // ! dll file
-  15 => array ( 0 => 'phpext_xhprof', 1 => 'http://wpn-xm.org/get.php?s=phpext_xhprof', 2 => 'phpext_xhprof.zip', ),
-  16 => array ( 0 => 'phpmemcachedadmin', 1 => 'http://wpn-xm.org/get.php?s=phpmemcachedadmin', 2 => 'phpmemcachedadmin.zip', ),
-  17 => array ( 0 => 'phpmyadmin', 1 => 'http://wpn-xm.org/get.php?s=phpmyadmin', 2 => 'phpmyadmin.zip', ),
-  18 => array ( 0 => 'rockmongo', 1 => 'http://wpn-xm.org/get.php?s=rockmongo', 2 => 'rockmongo.zip', ),
-  19 => array ( 0 => 'sendmail', 1 => 'http://wpn-xm.org/get.php?s=sendmail', 2 => 'sendmail.zip', ),
-  20 => array ( 0 => 'webgrind', 1 => 'http://wpn-xm.org/get.php?s=webgrind', 2 => 'webgrind.zip', ),
-  21 => array ( 0 => 'wpnxmscp', 1 => 'http://wpn-xm.org/get.php?s=wpnxmscp', 2 => 'wpnxmscp.zip', ),
-  22 => array ( 0 => 'xhprof', 1 => 'http://wpn-xm.org/get.php?s=xhprof', 2 => 'xhprof.zip', ),
+  11 => array ( 0 => 'phpext_amqp', 1 => 'http://wpn-xm.org/get.php?s=phpext_amqp', 2 => 'phpext_amqp.zip', ),
+  12 => array ( 0 => 'phpext_apc', 1 => 'http://wpn-xm.org/get.php?s=phpext_apc', 2 => 'phpext_apc.zip', ),
+  13 => array ( 0 => 'phpext_imagick', 1 => 'http://wpn-xm.org/get.php?s=phpext_imagick', 2 => 'phpext_imagick.zip', ),
+  14 => array ( 0 => 'phpext_mailparse', 1 => 'http://wpn-xm.org/get.php?s=phpext_mailparse', 2 => 'phpext_mailparse.zip', ),
+  15 => array ( 0 => 'phpext_memcache', 1 => 'http://wpn-xm.org/get.php?s=phpext_memcache', 2 => 'phpext_memcache.zip', ), // without D
+  16 => array ( 0 => 'phpext_mongo', 1 => 'http://wpn-xm.org/get.php?s=phpext_mongo', 2 => 'phpext_mongo.zip', ),
+  17 => array ( 0 => 'phpext_msgpack', 1 => 'http://wpn-xm.org/get.php?s=phpext_msgpack', 2 => 'phpext_msgpack.zip', ),
+  18 => array ( 0 => 'phpext_rar', 1 => 'http://wpn-xm.org/get.php?s=phpext_rar', 2 => 'phpext_rar.zip', ),
+  19 => array ( 0 => 'phpext_trader', 1 => 'http://wpn-xm.org/get.php?s=phpext_trader', 2 => 'phpext_trader.zip', ),
+  20 => array ( 0 => 'phpext_varnish', 1 => 'http://wpn-xm.org/get.php?s=phpext_varnish', 2 => 'phpext_varnish.zip', ),
+  21 => array ( 0 => 'phpext_wincache', 1 => 'http://wpn-xm.org/get.php?s=phpext_wincache', 2 => 'phpext_wincache.zip', ),
+  22 => array ( 0 => 'phpext_xcache', 1 => 'http://wpn-xm.org/get.php?s=phpext_xcache', 2 => 'phpext_xcache.zip', ),
+  23 => array ( 0 => 'phpext_xdebug', 1 => 'http://wpn-xm.org/get.php?s=phpext_xdebug', 2 => 'phpext_xdebug.dll', ), // ! dll file
+  24 => array ( 0 => 'phpext_xhprof', 1 => 'http://wpn-xm.org/get.php?s=phpext_xhprof', 2 => 'phpext_xhprof.zip', ),
+  25 => array ( 0 => 'phpext_zmq', 1 => 'http://wpn-xm.org/get.php?s=phpext_zmq', 2 => 'phpext_zmq.zip', ),
+  26 => array ( 0 => 'phpmemcachedadmin', 1 => 'http://wpn-xm.org/get.php?s=phpmemcachedadmin', 2 => 'phpmemcachedadmin.zip', ),
+  27 => array ( 0 => 'phpmyadmin', 1 => 'http://wpn-xm.org/get.php?s=phpmyadmin', 2 => 'phpmyadmin.zip', ),
+  28 => array ( 0 => 'redis', 1 => 'http://wpn-xm.org/get.php?s=redis', 2 => 'redis.zip', ),
+  29 => array ( 0 => 'rockmongo', 1 => 'http://wpn-xm.org/get.php?s=rockmongo', 2 => 'rockmongo.zip', ),
+  30 => array ( 0 => 'sendmail', 1 => 'http://wpn-xm.org/get.php?s=sendmail', 2 => 'sendmail.zip', ),
+  // vcredist_x86.exe (do not delete this comment, its for easier comparison with the .iss file)
+  31 => array ( 0 => 'webgrind', 1 => 'http://wpn-xm.org/get.php?s=webgrind', 2 => 'webgrind.zip', ),
+  32 => array ( 0 => 'wpnxmscp', 1 => 'http://wpn-xm.org/get.php?s=wpnxmscp', 2 => 'wpnxmscp.zip', ),
+  33 => array ( 0 => 'xhprof', 1 => 'http://wpn-xm.org/get.php?s=xhprof', 2 => 'xhprof.zip', ),
 );
 
 /**
@@ -137,8 +160,8 @@ $lists['lite-w32'] = array (
 );
 
 /**
- * This allows fixed, static version numbers for a given component
- * by parsing the given URL string for a fixed, static version number
+ * Returns the version number for a given component
+ * The URL string is parsed and if "v" was specified, the version is returned,
  * or using the latest version from the registry.
  *
  * @return string Version Number
@@ -164,8 +187,6 @@ function getVersion($component, $link)
 
 function writeRegistryFileCsv($file, $registry)
 {
-    //var_dump($registry);
-
     asort($registry);
 
     $fp = fopen($file, 'w');
@@ -176,7 +197,7 @@ function writeRegistryFileCsv($file, $registry)
 
     fclose($fp);
 
-    echo 'Created ' . $file . '<br>';
+    echo 'Created ' . $file . '<br />';
 }
 
 function writeRegistryFileJson($file, $registry)
@@ -185,7 +206,7 @@ function writeRegistryFileJson($file, $registry)
 
     file_put_contents($file, json_encode($registry));
 
-    echo 'Created ' . $file . '<br>';
+    echo 'Created ' . $file . '<br />';
 }
 
 /**
@@ -199,7 +220,8 @@ foreach($lists as $installer => $components) {
         $components[$i][3] = getVersion($component[0], $component[1]);
     }
 
-    //writeRegistryFileCsv($file . '.csv', $components);
+    // @deprecated
+    writeRegistryFileCsv($file . '.csv', $components);
 
     writeRegistryFileJson($file . '.json', $components);
 }

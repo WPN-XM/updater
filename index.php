@@ -10,7 +10,7 @@
 
     <!-- Le styles -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <style>
       body { padding-top: 60px; } /* 60px to make the container go all the way to the bottom of the topbar */
       .navbar { border-top: 4px solid #D73D3D; }
@@ -60,7 +60,7 @@
               <li class="active"><a href="registry-status.php">Status</a></li>
               <li><a href="registry-update.php">Scan</a></li>
               <li><a href="registry-update.php?action=write-file">Update</a></li>
-              <li><a href="update-csv.php">Update CSV</a></li>
+              <li><a href="update-installer-registries.php">Update Installer Registries</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -85,22 +85,10 @@
     	</div>
     </div>
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- javascript -->
+
     <script src="assets/js/jquery.js"></script>
-    <script src="assets/js/bootstrap-modal.js"></script>
-    <!-- <script src="assets/js/bootstrap-transition.js"></script>
-    <script src="assets/js/bootstrap-alert.js"></script>
-    <script src="assets/js/bootstrap-dropdown.js"></script>
-    <script src="assets/js/bootstrap-scrollspy.js"></script>
-    <script src="assets/js/bootstrap-tab.js"></script>
-    <script src="assets/js/bootstrap-tooltip.js"></script>
-    <script src="assets/js/bootstrap-popover.js"></script>
-    <script src="assets/js/bootstrap-button.js"></script>
-    <script src="assets/js/bootstrap-collapse.js"></script>
-    <script src="assets/js/bootstrap-carousel.js"></script>
-    <script src="assets/js/bootstrap-typeahead.js"></script> -->
+    <script src="assets/js/bootstrap.min.js"></script>
     <script type="text/javascript">
       $(document).ready(function() {
 

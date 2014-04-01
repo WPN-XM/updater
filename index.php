@@ -3,10 +3,11 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>WPN-XM Software Registry - Update Tool</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="WPN-XM Software Registry Update Tool" />
-    <meta name="author" content="Jens-Andre Koch" />
+    <meta name="author" content="Jens-André Koch" />
 
     <!-- Le styles -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
@@ -46,24 +47,25 @@
 
   <body>
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#">WPN-XM Software Registry - Update Tool</a>
-          <div class="nav-collapse collapse">
-            <ul id="menu" class="nav">
+          <a class="navbar-brand" href="#">WPN-XM Software Registry - Update Tool</a>
+        </div>
+         <div class="nav-collapse">
+            <ul id="menu" class="nav navbar-nav">
               <li class="active"><a href="registry-status.php">Status</a></li>
               <li><a href="registry-update.php">Scan</a></li>
               <li><a href="registry-update.php?action=write-file">Update</a></li>
               <li><a href="update-installer-registries.php">Update Installer Registries</a></li>
             </ul>
           </div><!--/.nav-collapse -->
-        </div>
       </div>
     </div>
 
@@ -72,18 +74,22 @@
     </div> <!-- /ajax-container -->
 
     <!-- The modal windows with Ajax Loading Indicator -->
-    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog">
-    	<div class="modal-header">
-    		<button type="button" class="close" data-dismiss="modal">×</button>
-    			<h3>Scanning URLs... Please wait...</h3>
-    	</div>
-    	<div class="modal-body center">
-    		<p><img src='assets/img/ajax_spinner.gif' alt="Loading... Please wait." /></p>
-    	</div>
-    	<div class="modal-footer">
-    		<button class="btn" data-dismiss="modal">Close</button>
-    	</div>
-    </div>
+    <div id="myModal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3>Scanning URLs... Please wait...</h3>
+          </div>
+          <div class="modal-body center">
+            <p><img src='assets/img/ajax_spinner.gif' alt="Loading... Please wait." /></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
     <!-- javascript -->
 

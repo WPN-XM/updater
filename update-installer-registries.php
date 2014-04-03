@@ -247,25 +247,25 @@ function jsonPrettyPrintCompact($json) {
 
         $char = substr($json, $i, 1);
 
-        if($char == '}' || $char == ']') {
+        if($char === '}' || $char === ']') {
             $cnt--;
             if($i+1 === $len) { // newline before last ]
                 $out .= $nl;
             } else {
                 $out .= str_pad('', ($tab * $cnt * $k), $space);
             }
-        } else if($char == '{' || $char == '[') {
+        } else if($char === '{' || $char === '[') {
             $cnt++;
             if($cnt > 1) { $out .= $nl; } // no newline on first line
         }
 
         $out .= $char;
 
-        if($char == ',' || $char == '{' || $char == '[') {
+        if($char === ',' || $char === '{' || $char === '[') {
             /*$out .= str_pad('', ($tab * $cnt * $k), $space);*/
             if($cnt >= 1) { $out .= $space; }
         }
-        if($char == ':' && '\\' != substr($json, $i+1, 1)) {
+        if($char === ':' && '\\' !== substr($json, $i+1, 1)) {
             $out .= ' ';
         }
     }
@@ -273,7 +273,8 @@ function jsonPrettyPrintCompact($json) {
 }
 
 /**
- * JSON Table Format, like an ASCII table
+ * JSON Table Format
+ * Like "tab separated value" (TSV) format, BUT with spaces :)
  * Aligns values correctly underneath each other.
  * jakoch: my tackling of this indention problem is ugly, but it works.
  */
@@ -296,7 +297,7 @@ function jsonPrettyPrintTableFormat($json)
 
     // calculate the number of missing spaces
     $numberOfSpacesToAdd = function($longest_line_length, $line_length) {
-      return ($longest_line_length - $line_length) + 1; // were the magic happens
+      return ($longest_line_length - $line_length) + 2; // were the magic happens
     };
 
     // append certain number of spaces to string
@@ -320,7 +321,7 @@ function jsonPrettyPrintTableFormat($json)
     for($i = 1; $i <= $elements; $i++) {
         for($j = 0; $j < $num_keys; $j++) {
           $key_length = $array[$i]['lengths'][$j];
-          if(isset($longest[$j]) && $longest[$j] >= $key_length) {
+          if(isset($longest[$j]) === true && $longest[$j] >= $key_length) {
                continue;
           }
           $longest[$j] = $key_length;
@@ -343,10 +344,9 @@ function jsonPrettyPrintTableFormat($json)
         }
     }
 
-    // re-combine the lines, to get the full string
+    // build output string from array
     $lines = '';
-    foreach($array as $idx => $values)
-    {
+    foreach($array as $idx => $values) {
        foreach($values['lines'] as $key => $value) {
           $lines .= $value;
        }
@@ -358,11 +358,15 @@ function jsonPrettyPrintTableFormat($json)
     // cleanups
     $lines = str_replace(',,', ',', $lines);
     $lines = str_replace('],', "],\n", $lines);
+
+    // this could probably be one
+    // preg_replace('/^([ ][ ]+)[/', '', $lines);
     $lines = str_replace('     [', '[', $lines);
     $lines = str_replace('    [', '[', $lines);
     $lines = str_replace('   [', '[', $lines);
     $lines = str_replace('  [', '[', $lines);
     $lines = str_replace(' [', '[', $lines);
+
     $lines = "[\n" . trim($lines) . "\n]";
 
     return $lines;

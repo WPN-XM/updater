@@ -58,12 +58,15 @@
           </button>
           <a class="navbar-brand" href="#">WPN-XM Software Registry - Update Tool</a>
         </div>
-         <div class="nav-collapse">
+          <div class="nav-collapse">
             <ul id="menu" class="nav navbar-nav">
               <li class="active"><a href="registry-status.php">Status</a></li>
-              <li><a href="registry-update.php">Scan</a></li>
-              <li><a href="registry-update.php?action=write-file">Update</a></li>
-              <li><a href="update-installer-registries.php">Update Installer Registries</a></li>
+              <li><a href="registry-update.php?action=scan">Scan</a></li>
+              <li><a href="registry-update.php?action=update">Update</a></li>
+              <li><a data-toggle="modal" data-target="#myModal" data-remote="registry-update.php?action=add">Add</a></li>
+              <li><a class="navbar-brand" href="#">Installation Wizards</a></li>
+              <li><a href="update-installer-registries.php">Update Wizard Registries</a></li>
+              <li><a id="addComponentModal">Compose Wizard Registry</a></li>
             </ul>
           </div><!--/.nav-collapse -->
       </div>
@@ -74,7 +77,8 @@
     </div> <!-- /ajax-container -->
 
     <!-- The modal windows with Ajax Loading Indicator -->
-    <div id="myModal" class="modal fade">
+    <div id="myModal" class="modal fade bootstrap-dialog type-primary size-normal in"
+         tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -100,13 +104,40 @@
 
         // init modal window and hide it
         $('#myModal').modal({show:false});
-
+return;
         // with a click on a link in the top navi, do the following
         $("#menu li a").click(function(event) {
 
-          event.preventDefault(); // stop the click from causing navigation
-
           href = $(this).attr('href'); // get click target href
+
+          // href contain add, show dialog
+          if(href.indexOf('add') > -1)) {
+            var $textAndPic = $('<div></div>');
+            $textAndPic.append('Who\'s this? <br />');
+            $textAndPic.append('<img src="./images/pig.ico" />');
+
+            $("#myModal").show({
+                title: 'Guess who that is',
+                message: $textAndPic,
+                buttons: [{
+                    label: 'Acky',
+                    action: function(dialogRef){
+                        dialogRef.close();
+                    }
+                }, {
+                    label: 'Robert',
+                    action: function(dialogRef){
+                        dialogRef.close();
+                    }
+                }]
+            }).modal('show');
+
+
+            return true;
+          }
+
+          // else href contains scan or update
+          event.preventDefault(); // stop the click from causing navigation
 
           // test, if script available with a timeout request
           // if the timeout is not reached, do the "non-timeout" call

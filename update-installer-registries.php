@@ -203,8 +203,13 @@ function writeRegistryFileCsv($file, $registry)
 function writeRegistryFileJson($file, $registry)
 {
     asort($registry);
+    $json = json_encode($registry);
 
-    file_put_contents($file, json_encode($registry));
+    // pretty print the json
+    $json_pretty = jsonPrettyPrintCompact($json);
+    $json_table = jsonPrettyPrintTableFormat($json_pretty);
+
+    file_put_contents($file, $json_table);
 
     echo 'Created ' . $file . '<br />';
 }
@@ -224,6 +229,143 @@ foreach($lists as $installer => $components) {
     writeRegistryFileCsv($file . '.csv', $components);
 
     writeRegistryFileJson($file . '.json', $components);
+}
+
+/**
+ * Returns compacted, pretty printed JSON data.
+ * Yes, there is JSON_PRETTY_PRINT, but its odd at printing compact.
+ *
+ * @param string $json The unpretty JSON encoded string.
+ * @param string $indent The indentation string
+ * @return string Pretty printed JSON.
+ */
+function jsonPrettyPrintCompact($json) {
+    $out = ''; $nl = "\n"; $cnt = 0; $tab = 1; $len = strlen($json); $space = ' ';
+    $k = strlen($space) ? strlen($space) : 1;
+
+    for ($i=0; $i<=$len; $i++) {
+
+        $char = substr($json, $i, 1);
+
+        if($char == '}' || $char == ']') {
+            $cnt--;
+            if($i+1 === $len) { // newline before last ]
+                $out .= $nl;
+            } else {
+                $out .= str_pad('', ($tab * $cnt * $k), $space);
+            }
+        } else if($char == '{' || $char == '[') {
+            $cnt++;
+            if($cnt > 1) { $out .= $nl; } // no newline on first line
+        }
+
+        $out .= $char;
+
+        if($char == ',' || $char == '{' || $char == '[') {
+            /*$out .= str_pad('', ($tab * $cnt * $k), $space);*/
+            if($cnt >= 1) { $out .= $space; }
+        }
+        if($char == ':' && '\\' != substr($json, $i+1, 1)) {
+            $out .= ' ';
+        }
+    }
+    return $out;
+}
+
+/**
+ * JSON Table Format, like an ASCII table
+ * Aligns values correctly underneath each other.
+ * jakoch: my tackling of this indention problem is ugly, but it works.
+ */
+function jsonPrettyPrintTableFormat($json)
+{
+    $lines = explode("\n", $json);
+
+    // array for lines and lengths
+    $array = array();
+
+    // count lengths and set to array
+    foreach($lines as $line) {
+      $line = trim($line);
+
+      $commas = explode(", ", $line);
+      $keyLengths = array_map('strlen', array_values($commas));
+
+      $array[] = array('lines' => $commas, 'lengths' => $keyLengths);
+    }
+
+    // calculate the number of missing spaces
+    $numberOfSpacesToAdd = function($longest_line_length, $line_length) {
+      return ($longest_line_length - $line_length) + 1; // were the magic happens
+    };
+
+    // append certain number of spaces to string
+    $appendSpaces = function($num, $string) {
+      for($i = 0; $i <= $num; $i++) {
+        $string .= ' ';
+      }
+      return $string;
+    };
+
+    // chop of first and last element of the array: the brackets [,]
+    $first_element = $array[0]; unset($array[0]);
+    $last_nr = count($array);
+    $last_element = $array[$last_nr]; unset($array[$last_nr]);
+
+    // walk through multi-dim array and comapare key lengths
+    // return array with longest key length back
+    $elements = $last_nr-1;
+    $num_keys = count($array[1]['lines']);
+    $longest = array();
+    for($i = 1; $i <= $elements; $i++) {
+        for($j = 0; $j < $num_keys; $j++) {
+          $key_length = $array[$i]['lengths'][$j];
+          if(isset($longest[$j]) && $longest[$j] >= $key_length) {
+               continue;
+          }
+          $longest[$j] = $key_length;
+        }
+    }
+
+    // appends the missing number of spaces to the elements
+    // to align them correctly underneath each other
+    for($i = 1; $i <= $elements; $i++) {
+        for($j = 0; $j < $num_keys; $j++) {
+          // append spaces to the element
+          $newElement = $appendSpaces(
+              $numberOfSpacesToAdd($longest[$j], $array[$i]['lengths'][$j]),
+              $array[$i]['lines'][$j]
+          );
+
+          // reinsert the element
+          $array[$i]['lines'][$j] = $newElement;
+          //$array[$i]['lengths'][$j] = $longest[$j];
+        }
+    }
+
+    // re-combine the lines, to get the full string
+    $lines = '';
+    foreach($array as $idx => $values)
+    {
+       foreach($values['lines'] as $key => $value) {
+          $lines .= $value;
+       }
+    }
+
+    // reinsert commas
+    $lines = str_replace('"  ', '", ', $lines);
+
+    // cleanups
+    $lines = str_replace(',,', ',', $lines);
+    $lines = str_replace('],', "],\n", $lines);
+    $lines = str_replace('     [', '[', $lines);
+    $lines = str_replace('    [', '[', $lines);
+    $lines = str_replace('   [', '[', $lines);
+    $lines = str_replace('  [', '[', $lines);
+    $lines = str_replace(' [', '[', $lines);
+    $lines = "[\n" . trim($lines) . "\n]";
+
+    return $lines;
 }
 
 echo 'Done. <br> <br> You might commit the registries and then trigger a new build.';

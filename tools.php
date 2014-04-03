@@ -132,11 +132,11 @@ class Viewhelper
     public static function printUpdatedSign($old_version, $new_version)
     {
         if (version_compare($old_version, $new_version, '<') === true) {
-            $html = '<span class="label label-success">';
+            $html = '<span class="badge alert-success">';
             $html .= $new_version;
             $html .= '</span><span style="color:green; font-size: 16px">&nbsp;&#x25B2;&nbsp;</span>';
 
-            $html .= '<a class="btn btn-mini btn-primaray" href="/">Commit & Push</a>';
+            $html .= '<a class="btn btn-default btn-xs" href="/">Commit & Push</a>';
 
             return $html;
         }

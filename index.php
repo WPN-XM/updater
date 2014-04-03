@@ -108,36 +108,9 @@ return;
         // with a click on a link in the top navi, do the following
         $("#menu li a").click(function(event) {
 
-          href = $(this).attr('href'); // get click target href
-
-          // href contain add, show dialog
-          if(href.indexOf('add') > -1)) {
-            var $textAndPic = $('<div></div>');
-            $textAndPic.append('Who\'s this? <br />');
-            $textAndPic.append('<img src="./images/pig.ico" />');
-
-            $("#myModal").show({
-                title: 'Guess who that is',
-                message: $textAndPic,
-                buttons: [{
-                    label: 'Acky',
-                    action: function(dialogRef){
-                        dialogRef.close();
-                    }
-                }, {
-                    label: 'Robert',
-                    action: function(dialogRef){
-                        dialogRef.close();
-                    }
-                }]
-            }).modal('show');
-
-
-            return true;
-          }
-
-          // else href contains scan or update
           event.preventDefault(); // stop the click from causing navigation
+
+          href = $(this).attr('href'); // get click target href
 
           // test, if script available with a timeout request
           // if the timeout is not reached, do the "non-timeout" call

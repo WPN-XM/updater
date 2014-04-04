@@ -97,20 +97,29 @@
 
     <!-- javascript -->
 
-    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script type="text/javascript">
       $(document).ready(function() {
 
         // init modal window and hide it
         $('#myModal').modal({show:false});
-return;
+
         // with a click on a link in the top navi, do the following
         $("#menu li a").click(function(event) {
 
           event.preventDefault(); // stop the click from causing navigation
 
           href = $(this).attr('href'); // get click target href
+          alert(href);
+
+          // href contain add, show dialog
+          /*if(href.indexOf('add') > -1)) {
+           console.log(href);
+            $("#myModal").modal('show');
+            return true;
+          }*/
+          console.log(href);
 
           // test, if script available with a timeout request
           // if the timeout is not reached, do the "non-timeout" call

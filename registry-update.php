@@ -110,7 +110,7 @@ if (isset($action) && $action === 'add') {
                         <div class="form-group">
                           <label class="col-md-4 control-label" for="url">Download URL</label>
                           <div class="col-md-8">
-                          <input id="url" name="url" placeholder="http://downloads.company.com/app.zip" class="form-control input-md" type="text">
+                          <input id="url" name="url" placeholder="http://downloads.company.com/app-x86-1.2.3.zip" class="form-control input-md" type="text">
                           </div>
                         </div>
 

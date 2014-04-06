@@ -289,8 +289,13 @@ class Registry
         // sort registry (version numbers in lower-to-higher order)
         // maintain "name" and "website" keys on top, then versions, then "latest" key on bottom.
         foreach ($registry as $component => $array) {
-            asort($array);
-            //uksort($array, 'version_compare');
+           // sort by version number
+           // but version_compare does not seem to work on x.y.z{alpha} version numbers
+           if($component === 'openssl') { 
+               uksort($versions, 'strnatcmp');
+           } else {
+               uksort($versions, 'version_compare');
+           }
 
             // move 'latest' to the bottom of the arary
             $value = $array['latest'];

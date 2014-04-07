@@ -167,9 +167,17 @@ if (isset($action) && $action === 'insert') {
     $newRegistry = Registry::addLatestVersionScansIntoRegistry($registry, $component);
 
     // check result and send response
-    $response_ok = '<div class="alert alert-success">Successfully added to registry.</div>';
-    $response_fail = '<div class="alert alert-danger">Component was not added to registry.</div>';
+    $js = '<script type="text/javascript" charset="utf-8">
+            $(document).ready(function() {
+                $(\'#myModal button[type="submit"]\').hide();
+            });
+           </script>';
+
+    $response_ok = '<div class="alert alert-success">Successfully added to registry.</div>' . $js;
+    $response_fail = '<div class="alert alert-danger">Component was not added to registry.</div>' . $js;
     $response = (isset($newRegistry[$component]) === true) ? $response_ok : $response_fail;
     echo $response;
 
 } // end action "insert"
+
+

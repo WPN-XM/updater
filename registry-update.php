@@ -88,7 +88,7 @@ if (isset($action) && $action === 'add') {
 
             </div>
             <div class="modal-body">
-                <form class="form-horizontal">
+                <form class="form-horizontal" action="registry-update.php?action=insert" method="post">
                     <fieldset>
                         <!-- Text input-->
                         <div class="form-group">
@@ -126,8 +126,50 @@ if (isset($action) && $action === 'add') {
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Add</button>
+                <button type="submit" class="btn btn-primary">Add</button>
             </div>
+
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+   // bind submit action
+   $('#myModal button[type="submit"]').bind('click', function(event) {
+       var form = $("#myModal .modal-body form");
+
+       $.ajax({
+         type: form.attr('method'),
+         url: form.attr('action'),
+         data: form.serializeArray(),
+
+         cache: false,
+         success: function(response, status) {
+           $('#myModal .modal-body').html(response);
+         }
+       });
+
+       event.preventDefault();
+  });
+});
+</script>
 
     <?php
 } // end action "add"
+
+if (isset($action) && $action === 'insert') {
+
+    $component = filter_input(INPUT_POST, 'software', FILTER_SANITIZE_STRING);
+    $url = filter_input(INPUT_POST, 'url', FILTER_SANITIZE_STRING);
+    $version = filter_input(INPUT_POST, 'version', FILTER_SANITIZE_STRING);
+    $website = filter_input(INPUT_POST, 'website', FILTER_SANITIZE_STRING);
+
+    // compose new array, write a new registry scan, insert scan into registry
+    $array = Registry::getArrayForNewComponent($component, $url, $version, $website);
+    Registry::writeRegistrySubset($component, $array);
+    $newRegistry = Registry::addLatestVersionScansIntoRegistry($registry, $component);
+
+    // check result and send response
+    $response_ok = '<div class="alert alert-success">Successfully added to registry.</div>';
+    $response_fail = '<div class="alert alert-danger">Component was not added to registry.</div>';
+    $response = (isset($newRegistry[$component]) === true) ? $response_ok : $response_fail;
+    echo $response;
+
+} // end action "insert"

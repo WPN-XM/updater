@@ -291,10 +291,10 @@ class Registry
         foreach ($registry as $component => $array) {
            // sort by version number
            // but version_compare does not seem to work on x.y.z{alpha} version numbers
-           if($component === 'openssl') { 
-               uksort($versions, 'strnatcmp');
+           if($component === 'openssl') {
+               uksort($array, 'strnatcmp');
            } else {
-               uksort($versions, 'version_compare');
+               uksort($array, 'version_compare');
            }
 
             // move 'latest' to the bottom of the arary

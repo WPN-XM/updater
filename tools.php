@@ -97,7 +97,7 @@ class RegistryUpdater
             $component = $this->crawlers[$i]->getName();
             $latestVersion = $this->crawlers[$i]->crawlVersion();
 
-            $this->registry = Registry::addNewVersion($component, $latestVersion, $this->old_registry);
+            $this->registry = Registry::addLatestVersionToRegistry($component, $latestVersion, $this->old_registry);
 
             // the registry might need changes, e.g. URLs rewrites to consider an /archives folder (PHP), etc.
             $this->registry = $this->crawlers[$i]->modifiyRegistry($this->registry);
@@ -186,13 +186,26 @@ class Registry
         return (bool) file_put_contents(__DIR__ . '/registry/wpnxm-software-registry.php', $content);
     }
 
+    public static function getArrayForNewComponent($component, $url, $version, $website)
+    {
+        return array(
+            'name' => $component,
+            'website' => $website,
+            $version => $url,
+            'latest' => array(
+                'version' => $version,
+                'url' => $url
+            )
+        );
+    }
+
     /**
-     * Adds array data to the main software component array.
+     * Add latest version scan of component to the main software component array.
      *
      * @param $name Name of Software Component
      * @param $latestVersion Registry subset of the software component, which should be added to the main array.
      */
-    public static function addNewVersion($name, array $latestVersion, array $registry)
+    public static function addLatestVersionToRegistry($name, array $latestVersion, array $registry)
     {
         $latestVersion = ArrayTool::clean($latestVersion);
 
@@ -248,7 +261,7 @@ class Registry
         file_put_contents(__DIR__ . '/scans/latest-version-' . $component . '.php', $content);
     }
 
-    public static function addLatestVersionScansIntoRegistry(array $registry)
+    public static function addLatestVersionScansIntoRegistry(array $registry, $forComponent = '')
     {
         $scans = glob(__DIR__ . '\scans\*.php');
 
@@ -261,6 +274,13 @@ class Registry
             $subset = include $file;
             preg_match('/latest-version-(.*).php/', $file, $matches);
             $component = $matches[1];
+
+            // add the registry subset only for a specific component
+            if(isset($forComponent) && ($forComponent === $component)) {
+                 $registry[$component] = $subset;
+                 break;
+            }
+
             $registry[$component] = $subset;
         }
 

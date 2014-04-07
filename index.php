@@ -63,7 +63,7 @@
               <li class="active"><a href="registry-status.php">Status</a></li>
               <li><a href="registry-update.php?action=scan">Scan</a></li>
               <li><a href="registry-update.php?action=update">Update</a></li>
-              <li><a data-toggle="modal" data-target="#myModal" data-remote="registry-update.php?action=add">Add</a></li>
+              <li><a data-toggle="modal" data-target="#myModal" data-remote="registry-update.php?action=add" href="registry-update.php?action=add">Add</a></li>
               <li><a class="navbar-brand" href="#">Installation Wizards</a></li>
               <li><a href="update-installer-registries.php">Update Wizard Registries</a></li>
               <li><a id="addComponentModal">Compose Wizard Registry</a></li>
@@ -108,18 +108,17 @@
         // with a click on a link in the top navi, do the following
         $("#menu li a").click(function(event) {
 
-          event.preventDefault(); // stop the click from causing navigation
-
           href = $(this).attr('href'); // get click target href
-          alert(href);
 
           // href contain add, show dialog
-          /*if(href.indexOf('add') > -1)) {
-           console.log(href);
-            $("#myModal").modal('show');
-            return true;
-          }*/
-          console.log(href);
+          if(href.toLowerCase().indexOf('add') >= 0) {
+            $.get(href, function(response) {
+              $("#myModal .modal-content").html(response);
+            });
+            return;
+          }
+
+          event.preventDefault(); // stop the click from causing navigation
 
           // test, if script available with a timeout request
           // if the timeout is not reached, do the "non-timeout" call

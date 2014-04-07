@@ -165,6 +165,7 @@ if (isset($action) && $action === 'insert') {
     $array = Registry::getArrayForNewComponent($component, $url, $version, $website);
     Registry::writeRegistrySubset($component, $array);
     $newRegistry = Registry::addLatestVersionScansIntoRegistry($registry, $component);
+    $result = Registry::writeRegistry($newRegistry);
 
     // check result and send response
     $js = '<script type="text/javascript" charset="utf-8">

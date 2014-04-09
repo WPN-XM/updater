@@ -31,10 +31,14 @@ class RegistryUpdater
         $this->guzzleClient->setSslVerification(false);
     }
 
-    public function getUrlsToCrawl()
+    public function getUrlsToCrawl($single_component = '')
     {
-        // get version crawlers
-        $crawlers = glob(__DIR__ . '\crawlers\*.php');
+        if(isset($single_component) === true) {
+            $crawlers = glob(__DIR__ . '\crawlers\\' . $single_component . '*.php');
+        } else {
+            $crawlers = glob(__DIR__ . '\crawlers\*.php');
+        }
+
         include __DIR__ . '/VersionCrawler.php';
 
         foreach ($crawlers as $i => $file) {
@@ -49,7 +53,7 @@ class RegistryUpdater
             $crawler->setRegistry($this->registry, $component);
             $crawler->setGuzzle($this->guzzleClient);
 
-            // store the crawler object in the crawlers array
+            // store crawler object in crawlers array
             $this->crawlers[$i] = $crawler;
 
             // fetch URL from Version Crawler Object and prepare array with all URLs to crawl
@@ -59,10 +63,12 @@ class RegistryUpdater
         return $i;
     }
 
+    /**
+     * Crawl launches several URL requests in parallel.
+     * The response time will be the time of the longest request.
+     */
     public function crawl()
     {
-        // launch several URL requests in parallel.
-        // response time will be the time of the longest request.
         try {
             $this->responses = $this->guzzleClient->send($this->urls);
         } catch (MultiTransferException $e) {
@@ -99,18 +105,25 @@ class RegistryUpdater
 
             $this->registry = Registry::addLatestVersionToRegistry($component, $latestVersion, $this->old_registry);
 
-            // the registry might need changes, e.g. URLs rewrites to consider an /archives folder (PHP), etc.
+            /**
+             * After Insert Event - to apply further changes to the registry.
+             *
+             * For instance, rewriting old URLs to take file movements into account,
+             * like PHP moving old versions into "/archives" folder.
+             */
             $this->registry = $this->crawlers[$i]->modifiyRegistry($this->registry);
 
             // write temporary component registry, for later registry insertion
             $old_version = $this->old_registry[$component]['latest']['version'];
             $new_version = $this->registry[$component]['latest']['version'];
-            if (version_compare($old_version, $new_version, '<') === true) {
+
+            // strcmp is used for openssl version numbers, e.g. "1.0.1e" :)
+            if (version_compare($old_version, $new_version, '<') === 1 || strcmp($old_version, $new_version) < 0) {
                 Registry::writeRegistrySubset($component, $this->registry[$component]);
             }
 
-            // render a table row for comparing old and new version numbers
-            $html .= Viewhelper::renderTableRow($component, $this->old_registry, $this->registry);
+            // render a table row for version comparison
+            $html .= Viewhelper::renderTableRow($component, $old_version, $new_version);
         }
 
         return $html;
@@ -131,7 +144,7 @@ class Viewhelper
      */
     public static function printUpdatedSign($old_version, $new_version)
     {
-        if (version_compare($old_version, $new_version, '<') === true) {
+        if (version_compare($old_version, $new_version, '<') === true || (strcmp($old_version, $new_version) < 0)) {
             $html = '<span class="badge alert-success">';
             $html .= $new_version;
             $html .= '</span><span style="color:green; font-size: 16px">&nbsp;&#x25B2;&nbsp;</span>';
@@ -142,12 +155,12 @@ class Viewhelper
         }
     }
 
-    public static function renderTableRow($component, $old_registry, $registry)
+    public static function renderTableRow($component, $old_version, $new_version)
     {
         $html = '<tr>';
         $html .= '<td>' . $component . '</td>';
-        $html .= '<td>' .  $old_registry[$component]['latest']['version'] . '</td>';
-        $html .= '<td>' .  self::printUpdatedSign($old_registry[$component]['latest']['version'], $registry[$component]['latest']['version']) . '</td>';
+        $html .= '<td>' .  $old_version . '</td>';
+        $html .= '<td>' .  self::printUpdatedSign($old_version, $new_version) . '</td>';
         $html .= '</tr>';
 
         return $html;

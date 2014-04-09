@@ -41,7 +41,7 @@ require __DIR__ . '/tools.php';
 
 $registry  = Registry::load();
 
-// handle $_GET['action'], e.g. registry-update.php?action=write-file
+// handle $_GET['action'], e.g. registry-update.php?action=scan
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 
 // insert version scans into registry
@@ -60,7 +60,18 @@ if (isset($action) && $action === 'scan') {
     Registry::clearOldScans();
     $updater = new RegistryUpdater($registry);
     $updater->setupCrawler();
-    $numberOfComponents = $updater->getUrlsToCrawl();
+
+    // handle $_GET['component'], for single component scans, e.g. registry-update.php?action=scan&component=openssl
+    $component = filter_input(INPUT_GET, 'component', FILTER_SANITIZE_STRING);
+
+    if(isset($component) === true) {
+      // run single crawler
+      $numberOfComponents = $updater->getUrlsToCrawl($component);
+    } else {
+      // run all crawlers
+      $numberOfComponents = $updater->getUrlsToCrawl();
+    }
+
     $updater->crawl();
     $tableHtml = $updater->evaluateResponses();
 
@@ -181,4 +192,11 @@ if (isset($action) && $action === 'insert') {
 
 } // end action "insert"
 
+if (isset($action) && $action === 'versionmatrix') {
+    include 'matrix.php';
+} // end action "build"
+
+if (isset($action) && $action === 'build') {
+    include 'matrix.php';
+} // end action "build"
 

@@ -41,7 +41,7 @@ class openssl extends VersionCrawler
         return $this->filter('a')->each( function ($node, $i) {
             // http://slproweb.com/download/Win32OpenSSL_Light-1_0_1d.exe
             if (preg_match("#Win32OpenSSL_Light-(\d+\_\d+\_\d+[a-z]).exe$#", $node->attr('href'), $matches)) {
-                // turn 1_0_1d to 1.0.1d - still not SemVer but anyway
+                // the version match contains underscores: so turn "1_0_1d" into "1.0.1d", that's still not SemVer but anyway
                 $version = str_replace('_', '.', $matches[1]);
                 if (version_compare($version, $this->registry['openssl']['latest']['version'], '>=')) {
                     return array(

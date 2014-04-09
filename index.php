@@ -64,9 +64,10 @@
               <li><a href="registry-update.php?action=scan">Scan</a></li>
               <li><a href="registry-update.php?action=update">Update</a></li>
               <li><a data-toggle="modal" data-target="#myModal" data-remote="registry-update.php?action=add" href="registry-update.php?action=add">Add</a></li>
-              <li><a class="navbar-brand" href="#">Installation Wizards</a></li>
-              <li><a href="update-installer-registries.php">Update Wizard Registries</a></li>
-              <li><a id="addComponentModal">Compose Wizard Registry</a></li>
+              <li><a class="navbar-brand" href="#">Installation Wizard Registries</a></li>
+              <li><a href="registry-update.php?action=versionmatrix">Show</a></li>
+              <li><a href="update-installer-registries.php">Update</a></li>
+              <li><a href="registry-update.php?action=build">Build</a></li>
             </ul>
           </div><!--/.nav-collapse -->
       </div>

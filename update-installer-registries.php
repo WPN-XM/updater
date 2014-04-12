@@ -83,7 +83,7 @@ $lists['bigpack-w32'] = array (
   15 => array ( 0 => 'php', 1 => 'http://wpn-xm.org/get.php?s=php', 2 => 'php.zip', ),
   16 => array ( 0 => 'phpext_amqp', 1 => 'http://wpn-xm.org/get.php?s=phpext_amqp', 2 => 'phpext_amqp.zip', ),
   17 => array ( 0 => 'phpext_apc', 1 => 'http://wpn-xm.org/get.php?s=phpext_apc', 2 => 'phpext_apc.zip', ),
-  18 => array ( 0 => 'phpext_imagick', 1 => 'http://wpn-xm.org/get.php?s=phpext_imagick', 2 => 'phpext_imagick.zip', ),  19
+  18 => array ( 0 => 'phpext_imagick', 1 => 'http://wpn-xm.org/get.php?s=phpext_imagick', 2 => 'phpext_imagick.zip', ),
   19 => array ( 0 => 'phpext_mailparse', 1 => 'http://wpn-xm.org/get.php?s=phpext_mailparse', 2 => 'phpext_mailparse.zip', ),
   20 => array ( 0 => 'phpext_memcache', 1 => 'http://wpn-xm.org/get.php?s=phpext_memcache', 2 => 'phpext_memcache.zip', ), // without D
   21 => array ( 0 => 'phpext_mongo', 1 => 'http://wpn-xm.org/get.php?s=phpext_mongo', 2 => 'phpext_mongo.zip', ),

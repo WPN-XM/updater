@@ -176,8 +176,6 @@ function getVersion($component, $link)
 {
     global $registry;
 
-    $version = '';
-
     parse_str($link, $result);
 
     // if the download URL contains "&v=x.y.z", then its a static version number
@@ -315,9 +313,9 @@ function jsonPrettyPrintTableFormat($json)
     };
 
     // chop of first and last element of the array: the brackets [,]
-    $first_element = $array[0]; unset($array[0]);
+    unset($array[0]);
     $last_nr = count($array);
-    $last_element = $array[$last_nr]; unset($array[$last_nr]);
+    unset($array[$last_nr]);
 
     // walk through multi-dim array and comapare key lengths
     // return array with longest key length back

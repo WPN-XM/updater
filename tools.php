@@ -40,6 +40,8 @@ class RegistryUpdater
         }
 
         include __DIR__ . '/VersionCrawler.php';
+        
+        $i = count($crawlers);
 
         foreach ($crawlers as $i => $file) {
 
@@ -469,6 +471,8 @@ class StatusRequest
 
         // initialize multiple cURL handler
         $mh = curl_multi_init();
+        
+        $ch = array(); // cUrl handles storage
 
         for($i = 0; $i < $count; $i++) {
           // create multiple cURL handles

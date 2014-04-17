@@ -44,7 +44,7 @@ class postgresql extends VersionCrawler
 
             if (preg_match("#(\d+\.\d+(\.\d+)*)#i", $value, $matches)) {
          
-                $download_versions = '9.3.0-beta2-1';
+                $download_version = '9.3.0-beta2-1';
                 
                 if (isset($matches[3]) === true) { // if we have "release candidate" or "beta"
                     $version = $matches[1];

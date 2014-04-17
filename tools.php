@@ -5,7 +5,7 @@ use Goutte\Client as GoutteClient;
 use Guzzle\Common\Exception\MultiTransferException;
 
 class RegistryUpdater
-{
+{    
     public $guzzleClient;
     public $crawlers = array();
     public $urls = array();
@@ -399,6 +399,7 @@ class ArrayTool
      * Strips EOL spaces from the content.
      * Note: PHP's var_export() adds EOL spaces after array keys, like "'key' => ".
      *       I consider this a PHP bug. Anyway. Let's get rid of that.
+     * @param string $content
      */
     public static function removeTrailingSpaces($content)
     {

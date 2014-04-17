@@ -240,7 +240,6 @@ foreach($lists as $installer => $components) {
  * Yes, there is JSON_PRETTY_PRINT, but its odd at printing compact.
  *
  * @param string $json The unpretty JSON encoded string.
- * @param string $indent The indentation string
  * @return string Pretty printed JSON.
  */
 function jsonPrettyPrintCompact($json) {
@@ -281,6 +280,7 @@ function jsonPrettyPrintCompact($json) {
  * Like "tab separated value" (TSV) format, BUT with spaces :)
  * Aligns values correctly underneath each other.
  * jakoch: my tackling of this indention problem is ugly, but it works.
+ * @param string $json
  */
 function jsonPrettyPrintTableFormat($json)
 {

@@ -48,7 +48,7 @@ class phpext_mongo extends VersionCrawler
 
     public function crawlVersion()
     {
-        return $this->filter('a')->each( function ($node, $i) {
+        return $this->filter('a')->each( function ($node) {
             // /package/mongo/1.4.5/windows
             if (preg_match("#mongo/(\d+\.\d+(\.\d+)*)(?:[._-]?(rc)?(\d+))/windows?#i", $node->attr('href'), $matches)) {
                 $version = $matches[1]; // 1.2.3

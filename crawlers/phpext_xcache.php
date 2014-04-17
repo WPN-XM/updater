@@ -42,7 +42,7 @@ class phpext_xcache extends VersionCrawler
 
     public function crawlVersion()
     {
-        return $this->filter('a')->each(function ($node, $i) {
+        return $this->filter('a')->each(function ($node) {
 
             // there are "rc" versions, but we don't take them into account
             if (preg_match("#(\d+\.\d+(\.\d+)*)#i", $node->text(), $matches))
@@ -68,7 +68,7 @@ class phpext_xcache extends VersionCrawler
                     //$this->addHTMLContent($response->getBody());
 
                     //$nodes = $this->filter('a');
-                            /*->reduce( function ($node, $i) {
+                            /*->reduce( function ($node) {
                         if(!\strstr($node->text, 'php-5.4')) {
                             return false;
                         }

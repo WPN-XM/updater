@@ -38,7 +38,7 @@ class phpmyadmin extends VersionCrawler
 
     public function crawlVersion()
     {
-        return $this->filter('a')->each(function ($node, $i) {
+        return $this->filter('a')->each(function ($node) {
         if (preg_match("#(\d+\.\d+(\.\d+)*)(?:[._-]?(beta|b|rc|alpha|a|patch|pl|p)?(\d+)(?:[.-]?(\d+))?)?([.-]?dev)?#i", $node->text(), $matches)) {
             $version = $matches[0];
             if (version_compare($version, $this->registry['phpmyadmin']['latest']['version'], '>=')) {

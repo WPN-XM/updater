@@ -38,7 +38,7 @@ class phpext_imagick extends VersionCrawler
 
     public function crawlVersion()
     {
-        return $this->filter('a')->each(function ($node, $i) {
+        return $this->filter('a')->each(function ($node) {
             // http://windows.php.net/downloads/pecl/releases/imagick/3.2.0b2/php_imagick-3.2.0b2-5.3-ts-vc9-x86.zip
             if (preg_match("#(\d+\.\d+(\.\d+)*)(?:(b|rc)?(\d+))#", $node->text(), $matches)) {
                 $version = $matches[0];

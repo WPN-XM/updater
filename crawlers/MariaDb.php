@@ -38,7 +38,7 @@ class MariaDb extends VersionCrawler
 
     public function crawlVersion()
     {
-        return $this->filter('a')->each(function ($node, $i) {
+        return $this->filter('a')->each(function ($node) {
             if (preg_match("#mariadb-(\d+\.\d+(\.\d+)*)#", $node->text(), $matches)) {
                 $version = $matches[1];
 
@@ -67,7 +67,7 @@ class MariaDb extends VersionCrawler
                 // http://mirrors.n-ix.net/mariadb/mariadb-5.5.32/win32-packages/mariadb-5.5.32-win32.zip
 
                 $folder = 'win32-packages'; // 5.5.28 and above
-                
+
                 if ($version <= '5.1.49') {
                     $folder = 'kvm-zip-winxp-x86';
                     $filename = 'mariadb-noinstall-'.$version.'-win32.zip';

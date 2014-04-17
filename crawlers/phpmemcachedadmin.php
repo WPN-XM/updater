@@ -47,7 +47,7 @@ class phpmemcachedadmin extends VersionCrawler
 
     public function crawlVersion()
     {
-        return $this->filter('a')->each( function ($node, $i) {
+        return $this->filter('a')->each( function ($node) {
             // phpMemcachedAdmin-1.2.2-r262.zip
             if (preg_match("#(\d+\.\d+(\.\d+)*)(?:[._-]?(r)?(\d+))?#", $node->attr('href'), $matches)) {
                 $version_long = $matches[0]; // 1.2.3-r123

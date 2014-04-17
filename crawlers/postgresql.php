@@ -38,14 +38,14 @@ class postgresql extends VersionCrawler
 
     public function crawlVersion()
     {
-        return $this->filterXPath('//p/i')->each(function ($node, $i) {
+        return $this->filterXPath('//p/i')->each(function ($node) {
 
             $value = strtolower($node->text());
 
             if (preg_match("#(\d+\.\d+(\.\d+)*)#i", $value, $matches)) {
-         
+
                 $download_version = '9.3.0-beta2-1';
-                
+
                 if (isset($matches[3]) === true) { // if we have "release candidate" or "beta"
                     $version = $matches[1];
                     $pre_release_version = $matches[4];
@@ -56,7 +56,7 @@ class postgresql extends VersionCrawler
                     $version = $matches[0]; // just 1.2.3
                     $download_version = $version . '-1'; // wtf? "-1" means "not beta", or what?
                 }
-                
+
                 if (version_compare($version, $this->registry['postgresql']['latest']['version'], '>=')) {
                     return array(
                         'version' => $version,

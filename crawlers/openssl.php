@@ -38,7 +38,7 @@ class openssl extends VersionCrawler
 
     public function crawlVersion()
     {
-        return $this->filter('a')->each( function ($node, $i) {
+        return $this->filter('a')->each( function ($node) {
             // http://slproweb.com/download/Win32OpenSSL_Light-1_0_1d.exe
             if (preg_match("#Win32OpenSSL_Light-(\d+\_\d+\_\d+[a-z]).exe$#", $node->attr('href'), $matches)) {
                 // the version match contains underscores: so turn "1_0_1d" into "1.0.1d", that's still not SemVer but anyway

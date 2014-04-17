@@ -38,7 +38,7 @@ class phpext_xdebug extends VersionCrawler
 
     public function crawlVersion()
     {
-        return $this->filter('a')->each(function ($node, $i) {
+        return $this->filter('a')->each(function ($node) {
             # regexp for all version: "#((\d+\.)?(\d+\.)?(\d+\.)?(\*|\d+))([^\s]+nts(\.(?i)(dll))$)#i"
             # we are fetching all xdebug versions for php 5.4
             if (preg_match("#php_xdebug-(\d+\.\d+(\.\d+)*)-5.4-vc9-nts.dll#", $node->text(), $matches)) {

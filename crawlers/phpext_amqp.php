@@ -40,7 +40,7 @@ class phpext_amqp extends VersionCrawler
 
     public function crawlVersion()
     {
-        return $this->filter('a')->each(function ($node, $i) {
+        return $this->filter('a')->each(function ($node) {
             if (preg_match("#(\d+\.\d+(\.\d+)*)$#", $node->text(), $matches)) {
                 $version = $matches[1];
 

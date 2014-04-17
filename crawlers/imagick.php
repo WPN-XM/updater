@@ -39,7 +39,7 @@ class Imagick extends VersionCrawler
 
     public function crawlVersion()
     {
-        return $this->filter('a')->each(function ($node, $i) {
+        return $this->filter('a')->each(function ($node) {
                 // http://www.imagemagick.org/download/binaries/ImageMagick-6.8.8-1-Q16-x86-windows.zip
                 // Version is "6.8.8-1", where "-1" might indicate an pre-release version, but i think its not semver.
                 // They also adhere to a standard, where archived versions are postfixed with "-10", e.g. "6.8.8-10".

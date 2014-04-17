@@ -16,7 +16,7 @@ class Node extends VersionCrawler
 
     public function crawlVersion()
     {
-        return $this->filter('a')->each(function ($node, $i) {
+        return $this->filter('a')->each(function ($node) {
         	// http://nodejs.org/dist/v0.11.9/
             if (preg_match("#v(\d+\.\d+(\.\d+)*)/$#i", $node->text(), $matches)) {
                 if (version_compare($matches[1], $this->registry['node']['latest']['version'], '>=')) {

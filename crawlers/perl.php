@@ -38,7 +38,7 @@ class perl extends VersionCrawler
 
     public function crawlVersion()
     {
-        return $this->filter('a')->each( function ($node, $i) {
+        return $this->filter('a')->each( function ($node) {
             // perl-5.4.1.1-32bit.zip
             if (preg_match("#(\d+\.\d+(\.\d+)*)-32bit?#", $node->attr('href'), $matches)) {
                 $version = $matches[1]; // 5.4.1.1

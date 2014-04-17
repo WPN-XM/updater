@@ -38,7 +38,7 @@ class PHP extends VersionCrawler
 
     public function crawlVersion()
     {
-        return $this->filter('a')->each(function ($node, $i) {
+        return $this->filter('a')->each(function ($node) {
             if (preg_match("#php-+(\d+\.\d+(\.\d+)*)-nts-Win32-VC9-x86.zip$#", $node->text(), $matches)) {
                 if (version_compare($matches[1], $this->registry['php']['latest']['version'], '>=')) {
                     return array(

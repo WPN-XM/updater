@@ -2,3 +2,6 @@ updater [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/WPN-XM/updater
 =======
 
 Update Tool for the Software Components Registry of the WPN-XM Server Stack.
+
+
+![Automation](http://imgs.xkcd.com/comics/automation.png)

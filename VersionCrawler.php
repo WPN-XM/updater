@@ -86,12 +86,12 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
 
     /**
      * Get component name from namespaced (child-)classname.
+     * This is the registry key = component shorthand.
      *
      * @return string Name of Component (lowercased).
      */
     public function getName()
     {
-        //
         $classname = get_called_class();
 
         return strtolower(substr($classname, strrpos($classname, '\\')+1));

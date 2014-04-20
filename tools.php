@@ -5,7 +5,7 @@ use Goutte\Client as GoutteClient;
 use Guzzle\Common\Exception\MultiTransferException;
 
 class RegistryUpdater
-{    
+{
     public $guzzleClient;
     public $crawlers = array();
     public $urls = array();
@@ -40,7 +40,7 @@ class RegistryUpdater
         }
 
         include __DIR__ . '/VersionCrawler.php';
-        
+
         $i = count($crawlers);
 
         foreach ($crawlers as $i => $file) {
@@ -161,8 +161,8 @@ class Viewhelper
     {
         $html = '<tr>';
         $html .= '<td>' . $component . '</td>';
-        $html .= '<td>' .  $old_version . '</td>';
-        $html .= '<td>' .  self::printUpdatedSign($old_version, $new_version) . '</td>';
+        $html .= '<td>' . $old_version . '</td>';
+        $html .= '<td>' . self::printUpdatedSign($old_version, $new_version) . '</td>';
         $html .= '</tr>';
 
         return $html;
@@ -268,6 +268,10 @@ class Registry
         }
     }
 
+    /**
+     * @param $component Component Registry Shorthand (e.g. "phpext_xdebug", not "xdebug").
+     * @param $registry The registry.
+     */
     public static function writeRegistrySubset($component, $registry)
     {
         // write a return array for "array to var" inclusion
@@ -472,7 +476,7 @@ class StatusRequest
 
         // initialize multiple cURL handler
         $mh = curl_multi_init();
-        
+
         $ch = array(); // cUrl handles storage
 
         for($i = 0; $i < $count; $i++) {

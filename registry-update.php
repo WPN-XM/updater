@@ -111,6 +111,14 @@ if (isset($action) && $action === 'add') {
 
                         <!-- Text input-->
                         <div class="form-group">
+                          <label class="col-md-4 control-label" for="shorthand">Registry Shorthand</label>
+                          <div class="col-md-5">
+                          <input id="shorthand" name="shorthand" placeholder="Shorthand (phpext_xdebug)" class="form-control input-md" type="text">
+                          </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
                           <label class="col-md-4 control-label" for="website">Website URL</label>
                           <div class="col-md-5">
                           <input id="website" name="website" placeholder="http://company.com/" class="form-control input-md" type="text">
@@ -167,14 +175,15 @@ $(document).ready(function() {
 
 if (isset($action) && $action === 'insert') {
 
-    $component = filter_input(INPUT_POST, 'software', FILTER_SANITIZE_STRING);
-    $url = filter_input(INPUT_POST, 'url', FILTER_SANITIZE_STRING);
-    $version = filter_input(INPUT_POST, 'version', FILTER_SANITIZE_STRING);
-    $website = filter_input(INPUT_POST, 'website', FILTER_SANITIZE_STRING);
+    $component  = filter_input(INPUT_POST, 'software', FILTER_SANITIZE_STRING);
+    $shorthand  = filter_input(INPUT_POST, 'shorthand', FILTER_SANITIZE_STRING);
+    $url        = filter_input(INPUT_POST, 'url', FILTER_SANITIZE_STRING);
+    $version    = filter_input(INPUT_POST, 'version', FILTER_SANITIZE_STRING);
+    $website    = filter_input(INPUT_POST, 'website', FILTER_SANITIZE_STRING);
 
     // compose new array, write a new registry scan, insert scan into registry
     $array = Registry::getArrayForNewComponent($component, $url, $version, $website);
-    Registry::writeRegistrySubset($component, $array);
+    Registry::writeRegistrySubset($shorthand, $array);
     $newRegistry = Registry::addLatestVersionScansIntoRegistry($registry, $component);
     if($newRegistry !== false) {
         $result = Registry::writeRegistry($newRegistry);
@@ -187,10 +196,11 @@ if (isset($action) && $action === 'insert') {
             });
            </script>';
 
-    $response_ok = '<div class="alert alert-success">Successfully added to registry.</div>' . $js;
-    $response_fail = '<div class="alert alert-danger">Component was not added to registry.</div>' . $js;
+    $response_ok = '<div class="alert alert-success">Successfully added to registry.</div>';
+    $response_fail = '<div class="alert alert-danger">Component was not added to registry.</div>';
     $response = (isset($newRegistry[$component]) === true) ? $response_ok : $response_fail;
-    echo $response;
+
+    echo $response . $js;
 
 } // end action "insert"
 

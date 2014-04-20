@@ -337,21 +337,28 @@ class Registry
            }
 
             // move 'latest' to the bottom of the arary
-            $value = $array['latest'];
-            unset($array['latest']);
-            $array['latest'] = $value;
+            self::move_to_bottom($array, 'latest');
 
-            // move 'name' to the top of the array
-            if (array_key_exists('name', $array) === true) {
-                $temp = array('name' => $array['name']);
-                unset($array['name']);
-                $array = $temp + $array;
-            }
+            // move 'name' and 'website' to the top of the array
+            self::move_to_top($array, 'name');
+            self::move_to_top($array, 'website');
 
             $registry[$component] = $array;
          }
 
         return $registry;
+    }
+
+    private static function move_to_top(&$array, $key) {
+        $temp = array($key => $array[$key]);
+        unset($array[$key]);
+        $array = $temp + $array;
+    }
+
+    private static function move_to_bottom(&$array, $key) {
+        $value = $array[$key];
+        unset($array[$key]);
+        $array[$key] = $value;
     }
 
     public static function prettyPrint(array $registry)

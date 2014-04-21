@@ -349,12 +349,18 @@ class Registry
         return $registry;
     }
 
+    /**
+     * @param string $key
+     */
     private static function move_to_top(&$array, $key) {
         $temp = array($key => $array[$key]);
         unset($array[$key]);
         $array = $temp + $array;
     }
 
+    /**
+     * @param string $key
+     */
     private static function move_to_bottom(&$array, $key) {
         $value = $array[$key];
         unset($array[$key]);

@@ -152,7 +152,7 @@ class Viewhelper
             $html .= '</span><span style="color:green; font-size: 16px">&nbsp;&#x25B2;&nbsp;</span>';
 
             $html .= '<a class="btn btn-default btn-xs" href=';
-            $html .= '"/registry-update.php?action=update-component&component=' . $component . '"';
+            $html .= '"registry-update.php?action=update-component&component=' . $component . '"';
             $html .= '>Commit & Push</a>';
 
             return $html;

@@ -144,14 +144,16 @@ class Viewhelper
      * @param string Old version.
      * @param string New version.
      */
-    public static function printUpdatedSign($old_version, $new_version)
+    public static function printUpdatedSign($old_version, $new_version, $component)
     {
         if (version_compare($old_version, $new_version, '<') === true || (strcmp($old_version, $new_version) < 0)) {
             $html = '<span class="badge alert-success">';
             $html .= $new_version;
             $html .= '</span><span style="color:green; font-size: 16px">&nbsp;&#x25B2;&nbsp;</span>';
 
-            $html .= '<a class="btn btn-default btn-xs" href="/">Commit & Push</a>';
+            $html .= '<a class="btn btn-default btn-xs" href=';
+            $html .= '"/registry-update.php?action=update-component&component=' . $component . '"';
+            $html .= '>Commit & Push</a>';
 
             return $html;
         }
@@ -162,7 +164,7 @@ class Viewhelper
         $html = '<tr>';
         $html .= '<td>' . $component . '</td>';
         $html .= '<td>' . $old_version . '</td>';
-        $html .= '<td>' . self::printUpdatedSign($old_version, $new_version) . '</td>';
+        $html .= '<td>' . self::printUpdatedSign($old_version, $new_version, $component) . '</td>';
         $html .= '</tr>';
 
         return $html;

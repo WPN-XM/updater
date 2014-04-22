@@ -55,6 +55,20 @@ if (isset($action) && $action === 'update') {
     }
 } // end action "update"
 
+// insert a single component version scans into the registry
+// - git commit with a standardized commit message
+// - git push
+if (isset($action) && $action === 'update-component') {
+    $component = filter_input(INPUT_GET, 'component', FILTER_SANITIZE_STRING);    
+    $registry = Registry::addLatestVersionScansIntoRegistry($registry, $component);
+    if(is_array($registry) === true) {
+        Registry::writeRegistry($registry);
+        echo 'The registry was updated. Component "' . $component .'" inserted.';
+    } else {
+        echo 'The registry is up to date.';
+    }    
+} // end action "update-component"
+
 // scan for new versions
 if (isset($action) && $action === 'scan') {
     Registry::clearOldScans();

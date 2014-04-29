@@ -342,8 +342,8 @@ class Registry
             self::move_to_bottom($array, 'latest');
 
             // move 'name' and 'website' to the top of the array
-            self::move_to_top($array, 'name');
             self::move_to_top($array, 'website');
+            self::move_to_top($array, 'name');
 
             $registry[$component] = $array;
          }

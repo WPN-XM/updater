@@ -353,18 +353,22 @@ class Registry
      * @param string $key
      */
     private static function move_to_top(&$array, $key) {
-        $temp = array($key => $array[$key]);
-        unset($array[$key]);
-        $array = $temp + $array;
+        if(isset($array[$key]) === true) {
+            $temp = array($key => $array[$key]);
+            unset($array[$key]);
+            $array = $temp + $array;
+        }
     }
 
     /**
      * @param string $key
      */
     private static function move_to_bottom(&$array, $key) {
-        $value = $array[$key];
-        unset($array[$key]);
-        $array[$key] = $value;
+        if(isset($array[$key]) === true) {
+            $value = $array[$key];
+            unset($array[$key]);
+            $array[$key] = $value;
+        }
     }
 
     public static function prettyPrint(array $registry)

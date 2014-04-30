@@ -166,10 +166,12 @@ $lists['lite-w32'] = array (
 );
 
 /**
- * Returns the version number for a given component
+ * Returns the version number for a given component.
  * The URL string is parsed and if "v" was specified, the version is returned,
  * or using the latest version from the registry.
  *
+ * @param string $component
+ * @param string $link
  * @return string Version Number
  */
 function getVersion($component, $link)
@@ -189,6 +191,10 @@ function getVersion($component, $link)
     return $version;
 }
 
+/**
+ * @param string $file
+ * @param array $registry
+ */
 function writeRegistryFileCsv($file, $registry)
 {
     asort($registry);
@@ -204,6 +210,10 @@ function writeRegistryFileCsv($file, $registry)
     echo 'Created ' . $file . '<br />';
 }
 
+/**
+ * @param string $file
+ * @param array $registry
+ */
 function writeRegistryFileJson($file, $registry)
 {
     asort($registry);
@@ -286,16 +296,13 @@ function jsonPrettyPrintTableFormat($json)
 {
     $lines = explode("\n", $json);
 
-    // array for lines and lengths
     $array = array();
 
     // count lengths and set to array
     foreach($lines as $line) {
       $line = trim($line);
-
       $commas = explode(", ", $line);
       $keyLengths = array_map('strlen', array_values($commas));
-
       $array[] = array('lines' => $commas, 'lengths' => $keyLengths);
     }
 

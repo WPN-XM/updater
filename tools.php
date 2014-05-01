@@ -402,13 +402,12 @@ class Registry
     {
         // switch to the git submodule "registry"
         chdir(__DIR__ . '/registry');
-        echo 'Switched Dir :' . getcwd() . PHP_EOL;
 
         echo 'Pull possible changes' . PHP_EOL;
         echo exec('git pull');
 
         //echo PHP_EOL . 'Staging current changes' . PHP_EOL;
-        // exec('git add .; git add -u .');
+        //exec('git add .; git add -u .');
 
         echo PHP_EOL . 'Commit current changes "' . $commitMessage . '"' . PHP_EOL;
         echo exec('git commit -m "'. $commitMessage .'" -- wpnxm-software-registry.php');

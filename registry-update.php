@@ -59,14 +59,17 @@ if (isset($action) && $action === 'update') {
 // - git commit with a standardized commit message
 // - git push
 if (isset($action) && $action === 'update-component') {
-    $component = filter_input(INPUT_GET, 'component', FILTER_SANITIZE_STRING);    
+    $component = filter_input(INPUT_GET, 'component', FILTER_SANITIZE_STRING);
     $registry = Registry::addLatestVersionScansIntoRegistry($registry, $component);
     if(is_array($registry) === true) {
         Registry::writeRegistry($registry);
         echo 'The registry was updated. Component "' . $component .'" inserted.';
+
+        $commitMessage = 'updated software registry - ' . $registry[$component]['name'] . ' v' . $registry[$component]['latest']['version'];
+        Registry::gitCommitAndPush($commitMessage);
     } else {
         echo 'The registry is up to date.';
-    }    
+    }
 } // end action "update-component"
 
 // scan for new versions

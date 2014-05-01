@@ -352,9 +352,12 @@ class Registry
     }
 
     /**
+     * This works on the array and moves the key to the top.
+     *
+     * @param array $array
      * @param string $key
      */
-    private static function move_to_top(&$array, $key) {
+    private static function move_to_top(array &$array, $key) {
         if(isset($array[$key]) === true) {
             $temp = array($key => $array[$key]);
             unset($array[$key]);
@@ -363,9 +366,12 @@ class Registry
     }
 
     /**
+     * This works on the array and moves the key to the bottom.
+     *
+     * @param array $array
      * @param string $key
      */
-    private static function move_to_bottom(&$array, $key) {
+    private static function move_to_bottom(array &$array, $key) {
         if(isset($array[$key]) === true) {
             $value = $array[$key];
             unset($array[$key]);
@@ -373,11 +379,43 @@ class Registry
         }
     }
 
+    /**
+     * Pretty prints the registry.
+     *
+     * @param array $registry
+     * @return array
+     */
     public static function prettyPrint(array $registry)
     {
         $content = var_export( $registry, true ) . ';';
 
         return ArrayTool::removeTrailingSpaces($content);
+    }
+
+    /**
+     * Git commits and pushes the latest changes to the
+     * wpnxm software registry with specified commit message.
+     *
+     * @param string $commitMessage Optional Commit Message
+     */
+    public static function gitCommitAndPush($commitMessage = '')
+    {
+        // switch to the git submodule "registry"
+        chdir(__DIR__ . '/registry');
+        echo 'Switched Dir :' . getcwd() . PHP_EOL;
+
+        echo 'Pull possible changes' . PHP_EOL;
+        echo exec('git pull');
+
+        //echo PHP_EOL . 'Staging current changes' . PHP_EOL;
+        // exec('git add .; git add -u .');
+
+        echo PHP_EOL . 'Commit current changes "' . $commitMessage . '"' . PHP_EOL;
+        echo exec('git commit -m "'. $commitMessage .'" -- wpnxm-software-registry.php');
+
+        echo PHP_EOL . 'You might push now.' . PHP_EOL;
+        //echo PHP_EOL . 'Push commit to remote server' . PHP_EOL;
+        //echo exec('git push');
     }
 }
 

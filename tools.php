@@ -296,14 +296,12 @@ class Registry
             preg_match('/latest-version-(.*).php/', $file, $matches);
             $component = $matches[1];
             
-            sprintf('Adding Scan/Subset for "%s"', $component);
+            printf('Adding Scan/Subset for "%s"' . PHP_EOL, $component);
 
             // add the registry subset only for a specific component
-            if (isset($forComponent)) {
-                if ($forComponent === $component) {
-                    $registry[$component] = $subset;
-                    return $registry;
-                }
+            if (isset($forComponent) && ($forComponent === $component)) {
+                $registry[$component] = $subset;
+                return $registry;
             } else {
                 $registry[$component] = $subset;
             }
@@ -419,6 +417,9 @@ class Registry
         echo PHP_EOL . 'You might push now.' . PHP_EOL;
         //echo PHP_EOL . 'Push commit to remote server' . PHP_EOL;
         //echo exec('git push');
+        
+        //echo '<a href="#" class="btn btn-lg btn-primary">'
+        //   . '<span class="glyphicon glyphicon-save"></span> Git Push</a>';
     }
 }
 

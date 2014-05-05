@@ -55,9 +55,9 @@ if (isset($action) && $action === 'update') {
     }
 } // end action "update"
 
-// insert a single component version scans into the registry
+// inserts a single component version scan into the registry
 // - git commit with a standardized commit message
-// - git push
+// - show a git push button or reminder
 if (isset($action) && $action === 'update-component') {
     $component = filter_input(INPUT_GET, 'component', FILTER_SANITIZE_STRING);
     $registry = Registry::addLatestVersionScansIntoRegistry($registry, $component);

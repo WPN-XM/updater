@@ -295,14 +295,18 @@ class Registry
             $subset = include $file;
             preg_match('/latest-version-(.*).php/', $file, $matches);
             $component = $matches[1];
+            
+            sprintf('Adding Scan/Subset for "%s"', $component);
 
             // add the registry subset only for a specific component
-            if(isset($forComponent) && ($forComponent === $component)) {
-                 $registry[$component] = $subset;
-                 break;
+            if (isset($forComponent)) {
+                if ($forComponent === $component) {
+                    $registry[$component] = $subset;
+                    return $registry;
+                }
+            } else {
+                $registry[$component] = $subset;
             }
-
-            $registry[$component] = $subset;
         }
 
         return $registry;

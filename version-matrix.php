@@ -1,18 +1,41 @@
 <?php 
-// WPNXM Software Registry
+// WPN-XM Software Registry
 $registry  = include __DIR__ . '\registry\wpnxm-software-registry.php';
 
-// Installation Wizard Registries
+/**
+ * Installation Wizard Registries
+ * - fetch the registry files
+ * - split filenames to get version constraints (e.g. version, lite, php5.4, php5.4, w32, w64)
+ * - restructure the arrays for better iteration
+ */
 $wizardFiles = glob(__DIR__ . '\registry\*.json');
 $wizardRegistries = array();
 foreach($wizardFiles as $file) {
 	$name = str_replace('wpnxm-software-registry-', '', basename($file, '.json'));
-    //$version = explode("-", $name)[1];
-	$wizardRegistries[$name] = fixArraySoftwareAsKey(json_decode(file_get_contents($file), true));
+    $parts = explode("-", $name);
+    $registries[$name]['constraints'] = array(
+        'installer'  => $parts[0],
+        'version'    => $parts[1],
+        'phpversion' => issetArrayKeyOrDefault($parts, 2),
+        'bitsize'    => issetArrayKeyOrDefault($parts, 3),
+    );
+    var_dump($parts, $registries);
+    
+    $registryContent = issetOrDefault(json_decode(file_get_contents($file), true), array());
+	$wizardRegistries[$name] = fixArraySoftwareAsKey($registryContent);
 }
 
+function issetOrDefault($var, $defaultValue = null)
+{
+    return (isset($var) === true) ? $var : $defaultValue;
+}
 
-function fixArraySoftwareAsKey($array) {
+function issetArrayKeyOrDefault(array $array, $key, $defaultValue = null)
+{
+    return (isset($array[$key]) === true) ? $array[$key] : $defaultValue;
+}
+
+function fixArraySoftwareAsKey(array $array) {
 	$out = array();
 	foreach($array as $key => $values) {
 		$software = $values[0];
@@ -22,7 +45,7 @@ function fixArraySoftwareAsKey($array) {
 	return $out;
 }
 
-function renderTableHeader($wizardRegistries)
+function renderTableHeader(array $wizardRegistries)
 {
 	$header = '';
     $i = 0;
@@ -46,7 +69,7 @@ function renderTableHeader($wizardRegistries)
 	return $header;
 }
 
-function renderTableCells($wizardRegistries, $software)
+function renderTableCells(array $wizardRegistries, $software)
 {
 	$cells = '';
 	foreach($wizardRegistries as $wizardName => $wizardRegistry) { 

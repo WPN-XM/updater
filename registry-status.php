@@ -41,11 +41,8 @@
  */
 
 $start = microtime(true);
-
 set_time_limit(180); // 60*3
-
 date_default_timezone_set('UTC');
-
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 

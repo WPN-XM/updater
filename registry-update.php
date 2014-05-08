@@ -77,17 +77,10 @@ if (isset($action) && $action === 'scan') {
     Registry::clearOldScans();
     $updater = new RegistryUpdater($registry);
     $updater->setupCrawler();
-
     // handle $_GET['component'], for single component scans, e.g. registry-update.php?action=scan&component=openssl
-    $component = filter_input(INPUT_GET, 'component', FILTER_SANITIZE_STRING);
 
-    if(isset($component) === true) {
-      // run single crawler
-      $numberOfComponents = $updater->getUrlsToCrawl($component);
-    } else {
-      // run all crawlers
-      $numberOfComponents = $updater->getUrlsToCrawl();
-    }
+    $component = filter_input(INPUT_GET, 'component', FILTER_SANITIZE_STRING);
+    $numberOfComponents = (isset($component) === true) ? $updater->getUrlsToCrawl($component) : $updater->getUrlsToCrawl();
 
     $updater->crawl();
     $tableHtml = $updater->evaluateResponses();

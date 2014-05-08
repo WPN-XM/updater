@@ -370,8 +370,8 @@ function jsonPrettyPrintTableFormat($json)
     $lines = str_replace(',,', ',', $lines);
     $lines = str_replace('],', "],\n", $lines);
 
-    // this could probably be one
-    // preg_replace('/^([ ][ ]+)[/', '', $lines);
+    // remove spaces before '['
+    //$lines = preg_replace('/\s*[/', '', $lines);
     $lines = str_replace('     [', '[', $lines);
     $lines = str_replace('    [', '[', $lines);
     $lines = str_replace('   [', '[', $lines);

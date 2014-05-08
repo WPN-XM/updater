@@ -31,7 +31,7 @@ class RegistryUpdater
         $this->guzzleClient->setSslVerification(false);
     }
 
-    public function getUrlsToCrawl($single_component = '')
+    public function getUrlsToCrawl($single_component = null)
     {
         if(isset($single_component) === true) {
             $crawlers = glob(__DIR__ . '\crawlers\\' . $single_component . '*.php');
@@ -40,8 +40,6 @@ class RegistryUpdater
         }
 
         include __DIR__ . '/VersionCrawler.php';
-
-        $i = count($crawlers);
 
         foreach ($crawlers as $i => $file) {
 
@@ -104,6 +102,7 @@ class RegistryUpdater
 
             $component = $this->crawlers[$i]->getName();
             $latestVersion = $this->crawlers[$i]->crawlVersion();
+            $latestVersion = ArrayTool::clean($latestVersion);
 
             $this->registry = Registry::addLatestVersionToRegistry($component, $latestVersion, $this->old_registry);
 
@@ -118,12 +117,23 @@ class RegistryUpdater
             // write temporary component registry, for later registry insertion
             $old_version = $this->old_registry[$component]['latest']['version'];
             $new_version = $this->registry[$component]['latest']['version'];
-
-            // strcmp is used for openssl version numbers, e.g. "1.0.1e" :)
-            if (version_compare($old_version, $new_version, '<') === 1 || strcmp($old_version, $new_version) < 0) {
-                Registry::writeRegistrySubset($component, $this->registry[$component]);
+ 
+            /**
+             * Welcome to Version Compare Hell!
+             */
+            if(isset($new_version) === true) { 
+                // strcmp is used for openssl version numbers, e.g. "1.0.1e" :)
+                if (($component === 'openssl' && strcmp($old_version, $new_version) < 0)) {
+                    Registry::writeRegistrySubset($component, $this->registry[$component]);
+                } elseif($component === 'phpmyadmin' && Version::cmp($old_version, $new_version) === 1) {                  
+                        Registry::writeRegistrySubset($component, $this->registry[$component]);
+                } else {
+                    if(version_compare($old_version, $new_version, '<') === 1) {
+                      Registry::writeRegistrySubset($component, $this->registry[$component]);
+                    }
+                }
             }
-
+            
             // render a table row for version comparison
             $html .= Viewhelper::renderTableRow($component, $old_version, $new_version);
         }
@@ -134,6 +144,18 @@ class RegistryUpdater
     public function setRegistry($registry) {
         $this->registry = $registry;
     }
+}
+
+class Version
+{
+    public static function cmp($a, $b)
+    {
+        if ($a == $b) {
+            return 0;
+        }
+        return ($a < $b) ? -1 : 1;
+    }
+
 }
 
 class Viewhelper
@@ -224,8 +246,6 @@ class Registry
      */
     public static function addLatestVersionToRegistry($name, array $latestVersion, array $registry)
     {
-        $latestVersion = ArrayTool::clean($latestVersion);
-
         if (isset($latestVersion['url']) === true and isset($latestVersion['version']) === true) {
             // the array contains only one element
 
@@ -265,8 +285,10 @@ class Registry
     public static function clearOldScans()
     {
         $scans = glob(__DIR__ . '\scans\*.php');
-        foreach($scans as $file) {
-            unlink($file);
+        if(count($scans) > 0) {
+            foreach($scans as $file) {
+                unlink($file);
+            }
         }
     }
 
@@ -291,11 +313,13 @@ class Registry
             return false;
         }
 
+        var_dump($scans);
+
         foreach($scans as $i => $file) {
             $subset = include $file;
             preg_match('/latest-version-(.*).php/', $file, $matches);
             $component = $matches[1];
-            
+
             printf('Adding Scan/Subset for "%s"' . PHP_EOL, $component);
 
             // add the registry subset only for a specific component
@@ -389,6 +413,8 @@ class Registry
      */
     public static function prettyPrint(array $registry)
     {
+        ksort($registry);
+        
         $content = var_export( $registry, true ) . ';';
 
         return ArrayTool::removeTrailingSpaces($content);
@@ -417,7 +443,7 @@ class Registry
         echo PHP_EOL . 'You might push now.' . PHP_EOL;
         //echo PHP_EOL . 'Push commit to remote server' . PHP_EOL;
         //echo exec('git push');
-        
+
         //echo '<a href="#" class="btn btn-lg btn-primary">'
         //   . '<span class="glyphicon glyphicon-save"></span> Git Push</a>';
     }

@@ -11,18 +11,27 @@ $registry  = include __DIR__ . '\registry\wpnxm-software-registry.php';
 $wizardFiles = glob(__DIR__ . '\registry\*.json');
 $wizardRegistries = array();
 foreach($wizardFiles as $file) {
-	$name = str_replace('wpnxm-software-registry-', '', basename($file, '.json'));
-    $parts = explode("-", $name);
-    $registries[$name]['constraints'] = array(
-        'installer'  => $parts[0],
-        'version'    => $parts[1],
-        'phpversion' => issetArrayKeyOrDefault($parts, 2),
-        'bitsize'    => issetArrayKeyOrDefault($parts, 3),
-    );
-    var_dump($parts, $registries);
-    
+    $name = str_replace('wpnxm-software-registry-', '', basename($file, '.json'));
+    if( preg_match('/(?<installer>.*)-(?<version>.*)-(?<phpversion>.*)-(?<bitsize>.*)/i', $name, $parts)
+     || preg_match('/(?<installer>.*)-(?<bitsize>.*)/i', $name, $parts)) {
+        $parts = dropNumericKeys($parts);
+        $registries[$name]['constraints'] = $parts;
+        unset($parts);
+    }
     $registryContent = issetOrDefault(json_decode(file_get_contents($file), true), array());
-	$wizardRegistries[$name] = fixArraySoftwareAsKey($registryContent);
+    $wizardRegistries[$name] = fixArraySoftwareAsKey($registryContent);
+}
+
+krsort($wizardRegistries);
+
+function dropNumericKeys(array $array)
+{
+    foreach ($array as $key => $value) {
+        if (is_int($key) === true) {
+            unset($array[$key]);
+        }
+    }
+    return $array;
 }
 
 function issetOrDefault($var, $defaultValue = null)
@@ -36,26 +45,26 @@ function issetArrayKeyOrDefault(array $array, $key, $defaultValue = null)
 }
 
 function fixArraySoftwareAsKey(array $array) {
-	$out = array();
-	foreach($array as $key => $values) {
-		$software = $values[0];
-		unset($values[0]);
-		$out[$software] = $values[3];
-	}
-	return $out;
+    $out = array();
+    foreach($array as $key => $values) {
+        $software = $values[0];
+        unset($values[0]);
+        $out[$software] = $values[3];
+    }
+    return $out;
 }
 
 function renderTableHeader(array $wizardRegistries)
 {
-	$header = '';
+    $header = '';
     $i = 0;
     
     // 1th header row
-	foreach($wizardRegistries as $wizardName => $wizardRegistry) {
-		$header .= '<th>' . $wizardName. '</th>';
+    foreach($wizardRegistries as $wizardName => $wizardRegistry) {
+        $header .= '<th>' . $wizardName. '</th>';
         $i++;
-	}     
-    $header .= '<th class="col-md-2">Latest</th><th>Compose New Registry</th></tr>';
+    }     
+    $header .= '<th style="width: 40px;">Latest</th><th>Compose New Registry</th></tr>';
     
     // 2nd header row
     $header .= '<tr><th>&nbsp</th>';
@@ -66,13 +75,13 @@ function renderTableHeader(array $wizardRegistries)
     $header .= '<th><input type="text" class="form-control" name="new-registry-name"><br/>';
     $header .= '<button type="submit" class="btn btn-xs btn-primary pull-right">Create</button></th>';
     
-	return $header;
+    return $header;
 }
 
 function renderTableCells(array $wizardRegistries, $software)
 {
-	$cells = '';
-	foreach($wizardRegistries as $wizardName => $wizardRegistry) { 
+    $cells = '';
+    foreach($wizardRegistries as $wizardName => $wizardRegistry) { 
         // special cases
         /*if($software === 'closure-compiler') { // always latest
             $cells .= '<td class="alert alert-success">Latest</td>';
@@ -81,13 +90,13 @@ function renderTableCells(array $wizardRegistries, $software)
         
         // normal versions
         if(isset($wizardRegistry[$software]) === true) {
-        	$cells .= '<td class="alert alert-success">' . $wizardRegistry[$software] . '</td>';
+            $cells .= '<td class="alert alert-success">' . $wizardRegistry[$software] . '</td>';
         } else {
             $cells .= '<td>&nbsp;</td>';
         }
-	}
+    }
         
-	return $cells;
+    return $cells;
 }
 
 function reduceArrayToContainOnlyVersions($array)
@@ -98,17 +107,23 @@ function reduceArrayToContainOnlyVersions($array)
 }
 
 function renderVersionDropdown($software, $versions)
-{
-    // special case: closure-compiler = is always latest, no dropdown required
-    /*if($software === 'closure-compiler') { // 
+{ 
+    // edge case: "closure-compiler" is always latest version
+    // so the dropdown question must be : "do include" or "do not include"
+    if($software === 'closure-compiler') { // 
         $html = '<td class="alert alert-success"><strong>Latest<strong></td>';
-        $html .= '<td>&nbsp;</td>';
+        // td: version dropdown
+        $html .= '<td><!-- Select --><div>
+                  <select id="version_' . $software . '" name="version_' . $software . '" class="form-control">
+                  <option value="">Do Not Include</option>
+                  <option value="latest">Include</option>
+                  </select></div></td>';
         return $html;
-    }*/  
+    } 
     
     // td: latest version
     $html = '<td class="alert alert-info center"><strong>'.key($versions).'</strong></td>';
-   
+    
     // td: version dropdown
     $html .= '<td><!-- Select --><div>
               <select id="version_' . $software . '" name="version_' . $software . '" class="form-control">
@@ -137,7 +152,7 @@ function renderVersionDropdown($software, $versions)
 <?php
 foreach($registry as $software => $data)
 {
-	echo '<tr><td>' . $software . '</td>' 
+    echo '<tr><td>' . $software . '</td>' 
         . renderTableCells($wizardRegistries, $software) 
         . renderVersionDropdown($software, reduceArrayToContainOnlyVersions($data))
         . '</tr>';

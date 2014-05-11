@@ -117,23 +117,21 @@ class RegistryUpdater
             // write temporary component registry, for later registry insertion
             $old_version = $this->old_registry[$component]['latest']['version'];
             $new_version = $this->registry[$component]['latest']['version'];
- 
+
             /**
              * Welcome to Version Compare Hell!
              */
-            if(isset($new_version) === true) { 
-                // strcmp is used for openssl version numbers, e.g. "1.0.1e" :)
-                if (($component === 'openssl' && strcmp($old_version, $new_version) < 0)) {
+            if(isset($new_version) === true) {
+
+                if (  ($component === 'openssl' && strcmp($old_version, $new_version) < 0)
+                   or ($component === 'phpmyadmin' && Version::cmp($old_version, $new_version) === 1)
+                   or ($component === 'imagick' && Version::cmpImagick($old_version, $new_version) === 1)
+                   or (version_compare($old_version, $new_version, '<') === 1)
+                ) {
                     Registry::writeRegistrySubset($component, $this->registry[$component]);
-                } elseif($component === 'phpmyadmin' && Version::cmp($old_version, $new_version) === 1) {                  
-                        Registry::writeRegistrySubset($component, $this->registry[$component]);
-                } else {
-                    if(version_compare($old_version, $new_version, '<') === 1) {
-                      Registry::writeRegistrySubset($component, $this->registry[$component]);
-                    }
                 }
             }
-            
+
             // render a table row for version comparison
             $html .= Viewhelper::renderTableRow($component, $old_version, $new_version);
         }
@@ -148,6 +146,38 @@ class RegistryUpdater
 
 class Version
 {
+    // compare 1.2.3-1 vs. 1.2.3-4
+    public static function cmpImagick($a, $b)
+    {
+        $a_array = explode('-', $a);
+        $b_array = explode('-', $b);
+
+        $vc1 = version_compare($a_array[0], $b_array[0]);
+        $vc2 = Version::cmp($a_array[1], $b_array[1]);
+
+        #var_dump($a_array, $b_array, $vc1, $vc2);
+
+        if($vc1 === 0 && $vc2 === 0) { // equal
+            return 0;
+        }
+
+        if ($vc1 === -1 && $vc2 === -1) {   // (1.2.4-1, 1.4.0-9) = a greater b (-1, -1)
+            return -1;
+        }
+
+        if( ($vc1 === 0 && $vc2 === -1)     // (1.2.3-1, 1.2.3-2) = a lower b ( 0, -1)
+        or  ($vc1 === -1 && $vc2 === 0))    // (1.2.3-1, 1.2.4-1) = a lower b (-1, 0)
+        {
+            return 1;
+        }
+        return -1;
+    }
+
+    /**
+     * If a lower   b, -1
+     * If a greater b,  1
+     * If a equals  b,  0
+     */
     public static function cmp($a, $b)
     {
         if ($a == $b) {
@@ -414,7 +444,7 @@ class Registry
     public static function prettyPrint(array $registry)
     {
         ksort($registry);
-        
+
         $content = var_export( $registry, true ) . ';';
 
         return ArrayTool::removeTrailingSpaces($content);

@@ -28,22 +28,21 @@
     */
 
 /**
- * Generate wpnxm-software-registry.csv - Downloads
+ * Generate individual installation wizard registries (.csv|.json)
  *
  * This scripts generates individual download definitions per installation wizard "wpnxm-software-registry-{installer}.csv".
  * The registry file for the "BigPack" is used by the build task "download-components", see "build.xml".
  * The csv content is split up and the download urls are used on wget for fetching the downloads.
- * The file must be copied to the main WPN-XM folder - this is done by fetching this repository as a git submodule.
- * Downloading these software components is required when building the "not-web" Installers.
+ * Therefore the registries files must be available in the main WPN-XM folder. This is done by fetching this repo as a git submodule.
+ * A download of the software components is required when building the "not-web" Installers.
  *
  * The data from the csv files is also used on the websites download list.
- * Installers are itself versionzied. For each packaged component we can identify the version number.
+ * Installers and registries are versionized.
+ * This allows to identify the version number for all packages of each installation wizards.
  */
 
 set_time_limit(60*3);
-
 date_default_timezone_set('UTC');
-
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 
@@ -61,7 +60,7 @@ $lists = array();
 
 /**
  * Array containg the downloads and version numbers for the "BigPack - w32" Installation Wizard.
- * Additional Components compared to "All In One":
+ * Additional components compared to "All In One":
  * perl, postgresql, imagick + phpext_imagick, varnish + phpext_varnish
  */
 $lists['bigpack-w32'] = array (
@@ -190,8 +189,9 @@ echo 'Done. <br> <br> You might commit the registries and then trigger a new bui
 
 /**
  * Returns the version number for a given component.
- * The URL string is parsed and if "v" was specified, the version is returned,
- * or using the latest version from the registry.
+ * The URL string is parsed.
+ * If the download URL contains "&v=x.y.z", then return this static version number.
+ * if "&v=" is not set, then return the "latest version" from the registry
  *
  * @param string $component
  * @param string $link
@@ -203,8 +203,6 @@ function getVersion($component, $link)
 
     parse_str($link, $result);
 
-    // if the download URL contains "&v=x.y.z", then return this static version number.
-    // if "&v=" is not set, then return the "latest version" from the registry
     $version = (isset($result['v']) === true) ? $result['v'] : $version = $registry[$component]['latest']['version'];
 
     return $version;
@@ -236,9 +234,8 @@ function writeRegistryFileCsv($file, $registry)
 function writeRegistryFileJson($file, $registry)
 {
     asort($registry);
-    $json = json_encode($registry);
 
-    // pretty print the json
+    $json = json_encode($registry);
     $json_pretty = jsonPrettyPrintCompact($json);
     $json_table = jsonPrettyPrintTableFormat($json_pretty);
 

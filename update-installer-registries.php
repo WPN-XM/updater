@@ -61,7 +61,8 @@ $lists = array();
 
 /**
  * Array containg the downloads and version numbers for the "BigPack - w32" Installation Wizard.
- * Additional Components compared to "All In One": perl, postgresql
+ * Additional Components compared to "All In One":
+ * perl, postgresql, imagick + phpext_imagick, varnish + phpext_varnish
  */
 $lists['bigpack-w32'] = array (
   // 0 => software, 1 => download url, 2 => target file name
@@ -88,6 +89,7 @@ $lists['bigpack-w32'] = array (
   20 => array ( 0 => 'phpext_memcache', 1 => 'http://wpn-xm.org/get.php?s=phpext_memcache', 2 => 'phpext_memcache.zip', ), // without D
   21 => array ( 0 => 'phpext_mongo', 1 => 'http://wpn-xm.org/get.php?s=phpext_mongo', 2 => 'phpext_mongo.zip', ),
   22 => array ( 0 => 'phpext_msgpack', 1 => 'http://wpn-xm.org/get.php?s=phpext_msgpack', 2 => 'phpext_msgpack.zip', ),
+  23 => array ( 0 => 'phpext_phalcon', 1 => 'http://wpn-xm.org/get.php?s=phpext_phalcon', 2 => 'phpext_phalcon.zip', ),
   23 => array ( 0 => 'phpext_rar', 1 => 'http://wpn-xm.org/get.php?s=phpext_rar', 2 => 'phpext_rar.zip', ),
   24 => array ( 0 => 'phpext_trader', 1 => 'http://wpn-xm.org/get.php?s=phpext_trader', 2 => 'phpext_trader.zip', ),
   25 => array ( 0 => 'phpext_varnish', 1 => 'http://wpn-xm.org/get.php?s=phpext_varnish', 2 => 'phpext_varnish.zip', ), // ! exe file
@@ -134,7 +136,7 @@ $lists['allinone-w32'] = array (
   17 => array ( 0 => 'phpext_msgpack', 1 => 'http://wpn-xm.org/get.php?s=phpext_msgpack', 2 => 'phpext_msgpack.zip', ),
   18 => array ( 0 => 'phpext_rar', 1 => 'http://wpn-xm.org/get.php?s=phpext_rar', 2 => 'phpext_rar.zip', ),
   19 => array ( 0 => 'phpext_trader', 1 => 'http://wpn-xm.org/get.php?s=phpext_trader', 2 => 'phpext_trader.zip', ),
-  20 => array ( 0 => 'phpext_varnish', 1 => 'http://wpn-xm.org/get.php?s=phpext_varnish', 2 => 'phpext_varnish.zip', ),
+  20 => array ( 0 => 'phpext_phalcon', 1 => 'http://wpn-xm.org/get.php?s=phpext_phalcon', 2 => 'phpext_phalcon.zip', ),
   21 => array ( 0 => 'phpext_wincache', 1 => 'http://wpn-xm.org/get.php?s=phpext_wincache', 2 => 'phpext_wincache.exe', ), // ! exe file
   22 => array ( 0 => 'phpext_xcache', 1 => 'http://wpn-xm.org/get.php?s=phpext_xcache', 2 => 'phpext_xcache.zip', ),
   23 => array ( 0 => 'phpext_xdebug', 1 => 'http://wpn-xm.org/get.php?s=phpext_xdebug', 2 => 'phpext_xdebug.dll', ), // ! dll file
@@ -166,6 +168,27 @@ $lists['lite-w32'] = array (
 );
 
 /**
+ * Iterate all installer arrays and identify the version numbers for all components
+ * then write the registry file for the installer.
+ */
+foreach($lists as $installer => $components) {
+    $file = __DIR__ . '\registry\wpnxm-software-registry-' . $installer;
+
+    foreach ($components as $i => $component) {
+        $components[$i][3] = getVersion($component[0], $component[1]);
+    }
+
+    // @deprecated
+    writeRegistryFileCsv($file . '.csv', $components);
+
+    writeRegistryFileJson($file . '.json', $components);
+}
+
+echo 'Done. <br> <br> You might commit the registries and then trigger a new build.';
+
+#######################################################################################################################
+
+/**
  * Returns the version number for a given component.
  * The URL string is parsed and if "v" was specified, the version is returned,
  * or using the latest version from the registry.
@@ -180,13 +203,9 @@ function getVersion($component, $link)
 
     parse_str($link, $result);
 
-    // if the download URL contains "&v=x.y.z", then its a static version number
-    if (isset($result['v']) === true) {
-        $version = $result['v'];
-    } else {
-        // if "&v=" is not set, then the "latest version" is taken from the registry
-        $version = $registry[$component]['latest']['version'];
-    }
+    // if the download URL contains "&v=x.y.z", then return this static version number.
+    // if "&v=" is not set, then return the "latest version" from the registry
+    $version = (isset($result['v']) === true) ? $result['v'] : $version = $registry[$component]['latest']['version'];
 
     return $version;
 }
@@ -226,23 +245,6 @@ function writeRegistryFileJson($file, $registry)
     file_put_contents($file, $json_table);
 
     echo 'Created ' . $file . '<br />';
-}
-
-/**
- * Iterate all installer arrays and identify the version numbers for all components
- * then write the registry file for the installer.
- */
-foreach($lists as $installer => $components) {
-    $file = __DIR__ . '\registry\wpnxm-software-registry-' . $installer;
-
-    foreach ($components as $i => $component) {
-        $components[$i][3] = getVersion($component[0], $component[1]);
-    }
-
-    // @deprecated
-    writeRegistryFileCsv($file . '.csv', $components);
-
-    writeRegistryFileJson($file . '.json', $components);
 }
 
 /**
@@ -382,5 +384,3 @@ function jsonPrettyPrintTableFormat($json)
 
     return $lines;
 }
-
-echo 'Done. <br> <br> You might commit the registries and then trigger a new build.';

@@ -9,7 +9,7 @@ class RegistryUpdater
     public $guzzleClient;
     public $crawlers = array();
     public $urls = array();
-    public $responses = array();
+    public $results = array();
 
     public $registry = array();
     public $old_registry = array();
@@ -28,7 +28,9 @@ class RegistryUpdater
 
         // fetch Guzzle out of Goutte and deactivate SSL Verification
         $this->guzzleClient = $goutteClient->getClient();
-        $this->guzzleClient->setSslVerification(false);
+        $this->guzzleClient->setDefaultOption('verify', false);
+
+        $goutteClient->setClient($this->guzzleClient);
     }
 
     public function getUrlsToCrawl($single_component = null)
@@ -51,13 +53,13 @@ class RegistryUpdater
 
             /* set registry and crawling client to version crawler */
             $crawler->setRegistry($this->registry, $component);
-            $crawler->setGuzzle($this->guzzleClient);
+            //$crawler->setGuzzle($this->guzzleClient);
 
             // store crawler object in crawlers array
             $this->crawlers[$i] = $crawler;
 
             // fetch URL from Version Crawler Object and prepare array with all URLs to crawl
-            $this->urls[] = $this->guzzleClient->get( $crawler->getURL() );
+            $this->urls[] = $crawler->getURL();
         }
 
         return $i;
@@ -69,36 +71,30 @@ class RegistryUpdater
      */
     public function crawl()
     {
-        try {
-            $this->responses = $this->guzzleClient->send($this->urls);
-        } catch (MultiTransferException $e) {
-
-            echo "The following exceptions were encountered:\n";
-            foreach ($e as $exception) {
-                echo $exception->getMessage() . "\n";
-            }
-
-            echo "The following requests failed:\n";
-            foreach ($e->getFailedRequests() as $request) {
-                echo $request . "\n\n";
-            }
-
-            echo "The following requests succeeded:\n";
-            foreach ($e->getSuccessfulRequests() as $request) {
-                echo $request . "\n\n";
-            }
+        foreach($this->urls as $idx => $url) {
+            // guzzle does not accept an array of URLs anymore
+            // now Urls must be objects implementing the \GuzzleHttp\Message\RequestInterface
+            $requests[] = $this->guzzleClient->createRequest('GET', $url);
         }
+       
+        $this->results = GuzzleHttp\batch($this->guzzleClient, $requests);
     }
 
     public function evaluateResponses()
     {
         $html = '';
+        $i = 0;
 
+        // responses is an SplObjectStorage object where each request is a key
         // iterate through responses and insert them in the crawler objects
-        foreach ($this->responses as $i => $response) {
+        foreach ($this->results as $request) {
+
+            $new_version = $old_version = '';
+
+            $response = $this->results[$request];
 
             // set the response to the version crawler object
-            $this->crawlers[$i]->addContent( $response->getBody(), $response->getContentType() );
+            $this->crawlers[$i]->addContent( $response->getBody(), $response->getHeader('Content-Type') );
 
             $component = $this->crawlers[$i]->getName();
             $latestVersion = $this->crawlers[$i]->crawlVersion();
@@ -124,7 +120,8 @@ class RegistryUpdater
             if(isset($new_version) === true) {
 
                 if (  ($component === 'openssl' && strcmp($old_version, $new_version) < 0)
-                   or ($component === 'phpmyadmin' && Version::cmp($old_version, $new_version) === 1)
+                   or ($component === 'phpmyadmin' && version_compare($old_version, $new_version, '<') === true
+                       || (strcmp($old_version, $new_version) < 0))
                    or ($component === 'imagick' && Version::cmpImagick($old_version, $new_version) === 1)
                    or (version_compare($old_version, $new_version, '<') === 1)
                 ) {
@@ -134,6 +131,8 @@ class RegistryUpdater
 
             // render a table row for version comparison
             $html .= Viewhelper::renderTableRow($component, $old_version, $new_version);
+
+            $i++;
         }
 
         return $html;

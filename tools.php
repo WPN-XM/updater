@@ -338,24 +338,27 @@ class Registry
         $scans = glob(__DIR__ . '\scans\*.php');
 
         // nothing to do, return early
-        if(count($scans) === 0) {
+        if (count($scans) === 0) {
             return false;
         }
 
         var_dump($scans);
 
-        foreach($scans as $i => $file) {
-            $subset = include $file;
+        foreach ($scans as $i => $file) {
+            $subset    = include $file;
             preg_match('/latest-version-(.*).php/', $file, $matches);
             $component = $matches[1];
 
-            printf('Adding Scan/Subset for "%s"' . PHP_EOL, $component);
-
             // add the registry subset only for a specific component
             if (isset($forComponent) && ($forComponent === $component)) {
+                printf('Adding Scan/Subset for "%s"' . PHP_EOL, $component);
                 $registry[$component] = $subset;
                 return $registry;
+            } elseif (isset($forComponent) && ($forComponent != $component)) {
+                // skip to the next component, if forComponent is used, but not found yet
+                continue;
             } else {
+                // forComponent not set = add all
                 $registry[$component] = $subset;
             }
         }

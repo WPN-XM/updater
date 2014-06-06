@@ -46,7 +46,9 @@ class rockmongo extends VersionCrawler
             if (version_compare($version, $this->registry['rockmongo']['latest']['version'], '>=')) {
                 return array(
                     'version' => $version,
-                    'url' => 'http://rockmongo.com/release/rockmongo-'.$version.'.zip'
+                    // formerly http://rockmongo.com/release/rockmongo-1.1.3.zip
+                    // now      https://github.com/iwind/rockmongo/archive/1.1.7.zip
+                    'url' => 'https://github.com/iwind/rockmongo/archive/'.$version.'.zip'
                 );
             }
         }

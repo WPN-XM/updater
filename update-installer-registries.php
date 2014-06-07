@@ -73,7 +73,7 @@ $lists['bigpack-w32'] = array (
   5  => array ( 0 => 'mariadb', 1 => 'http://wpn-xm.org/get.php?s=mariadb', 2 => 'mariadb.zip', ),
   6  => array ( 0 => 'memadmin', 1 => 'http://wpn-xm.org/get.php?s=memadmin', 2 => 'memadmin.zip', ),
   7  => array ( 0 => 'memcached', 1 => 'http://wpn-xm.org/get.php?s=memcached', 2 => 'memcached.zip', ),
-  8  => array ( 0 => 'mongodb', 1 => 'http://wpn-xm.org/get.php?s=mongodb&v=2.0.8', 2 => 'mongodb.zip', ),
+  8  => array ( 0 => 'mongodb', 1 => 'http://wpn-xm.org/get.php?s=mongodb', 2 => 'mongodb.zip', ),
   9  => array ( 0 => 'nginx', 1 => 'http://wpn-xm.org/get.php?s=nginx', 2 => 'nginx.zip', ),
   10 => array ( 0 => 'node', 1 => 'http://wpn-xm.org/get.php?s=node', 2 => 'node.exe', ), // ! exe file
   11 => array ( 0 => 'nodenpm', 1 => 'http://wpn-xm.org/get.php?s=nodenpm', 2 => 'nodenpm.zip', ),
@@ -122,7 +122,7 @@ $lists['allinone-w32'] = array (
   4  => array ( 0 => 'mariadb', 1 => 'http://wpn-xm.org/get.php?s=mariadb', 2 => 'mariadb.zip', ),
   5  => array ( 0 => 'memadmin', 1 => 'http://wpn-xm.org/get.php?s=memadmin', 2 => 'memadmin.zip', ),
   6  => array ( 0 => 'memcached', 1 => 'http://wpn-xm.org/get.php?s=memcached', 2 => 'memcached.zip', ),
-  7  => array ( 0 => 'mongodb', 1 => 'http://wpn-xm.org/get.php?s=mongodb&v=2.0.8', 2 => 'mongodb.zip', ),
+  7  => array ( 0 => 'mongodb', 1 => 'http://wpn-xm.org/get.php?s=mongodb', 2 => 'mongodb.zip', ),
   8  => array ( 0 => 'nginx', 1 => 'http://wpn-xm.org/get.php?s=nginx', 2 => 'nginx.zip', ),
   9  => array ( 0 => 'openssl', 1 => 'http://wpn-xm.org/get.php?s=openssl', 2 => 'openssl.exe', ), // ! exe file
   10 => array ( 0 => 'pear', 1 => 'http://wpn-xm.org/get.php?s=pear', 2 => 'go-pear.phar', ), // ! phar file

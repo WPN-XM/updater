@@ -36,6 +36,8 @@ class phpext_amqp extends VersionCrawler
 {
     public $url = 'http://windows.php.net/downloads/pecl/releases/amqp/';
 
+    // http://windows.php.net/downloads/pecl/releases/amqp/1.4.0/php_amqp-1.4.0-5.6-ts-vc11-x86.zip
+    // http://windows.php.net/downloads/pecl/releases/amqp/%version%/php_amqp-%version%-%phpversion%-%thread%-%compiler%-%bitsize%.zip
     private $url_template = 'http://windows.php.net/downloads/pecl/releases/amqp/%version%/php_amqp-%version%-5.4-nts-vc9-x86.zip';
 
     public function crawlVersion()

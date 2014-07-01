@@ -28,22 +28,21 @@
     */
 
 /**
- * Generate wpnxm-software-registry.csv - Downloads
+ * Generate individual installation wizard registries (.csv|.json)
  *
  * This scripts generates individual download definitions per installation wizard "wpnxm-software-registry-{installer}.csv".
  * The registry file for the "BigPack" is used by the build task "download-components", see "build.xml".
  * The csv content is split up and the download urls are used on wget for fetching the downloads.
- * The file must be copied to the main WPN-XM folder - this is done by fetching this repository as a git submodule.
- * Downloading these software components is required when building the "not-web" Installers.
+ * Therefore the registries files must be available in the main WPN-XM folder. This is done by fetching this repo as a git submodule.
+ * A download of the software components is required when building the "not-web" Installers.
  *
  * The data from the csv files is also used on the websites download list.
- * Installers are itself versionzied. For each packaged component we can identify the version number.
+ * Installers and registries are versionized.
+ * This allows to identify the version number for all packages of each installation wizards.
  */
 
 set_time_limit(60*3);
-
 date_default_timezone_set('UTC');
-
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 
@@ -61,7 +60,8 @@ $lists = array();
 
 /**
  * Array containg the downloads and version numbers for the "BigPack - w32" Installation Wizard.
- * Additional Components compared to "All In One": perl, postgresql
+ * Additional components compared to "All In One":
+ * perl, postgresql, imagick + phpext_imagick, varnish + phpext_varnish
  */
 $lists['bigpack-w32'] = array (
   // 0 => software, 1 => download url, 2 => target file name
@@ -73,7 +73,7 @@ $lists['bigpack-w32'] = array (
   5  => array ( 0 => 'mariadb', 1 => 'http://wpn-xm.org/get.php?s=mariadb', 2 => 'mariadb.zip', ),
   6  => array ( 0 => 'memadmin', 1 => 'http://wpn-xm.org/get.php?s=memadmin', 2 => 'memadmin.zip', ),
   7  => array ( 0 => 'memcached', 1 => 'http://wpn-xm.org/get.php?s=memcached', 2 => 'memcached.zip', ),
-  8  => array ( 0 => 'mongodb', 1 => 'http://wpn-xm.org/get.php?s=mongodb&v=2.0.8', 2 => 'mongodb.zip', ),
+  8  => array ( 0 => 'mongodb', 1 => 'http://wpn-xm.org/get.php?s=mongodb', 2 => 'mongodb.zip', ),
   9  => array ( 0 => 'nginx', 1 => 'http://wpn-xm.org/get.php?s=nginx', 2 => 'nginx.zip', ),
   10 => array ( 0 => 'node', 1 => 'http://wpn-xm.org/get.php?s=node', 2 => 'node.exe', ), // ! exe file
   11 => array ( 0 => 'nodenpm', 1 => 'http://wpn-xm.org/get.php?s=nodenpm', 2 => 'nodenpm.zip', ),
@@ -88,25 +88,26 @@ $lists['bigpack-w32'] = array (
   20 => array ( 0 => 'phpext_memcache', 1 => 'http://wpn-xm.org/get.php?s=phpext_memcache', 2 => 'phpext_memcache.zip', ), // without D
   21 => array ( 0 => 'phpext_mongo', 1 => 'http://wpn-xm.org/get.php?s=phpext_mongo', 2 => 'phpext_mongo.zip', ),
   22 => array ( 0 => 'phpext_msgpack', 1 => 'http://wpn-xm.org/get.php?s=phpext_msgpack', 2 => 'phpext_msgpack.zip', ),
-  23 => array ( 0 => 'phpext_rar', 1 => 'http://wpn-xm.org/get.php?s=phpext_rar', 2 => 'phpext_rar.zip', ),
-  24 => array ( 0 => 'phpext_trader', 1 => 'http://wpn-xm.org/get.php?s=phpext_trader', 2 => 'phpext_trader.zip', ),
-  25 => array ( 0 => 'phpext_varnish', 1 => 'http://wpn-xm.org/get.php?s=phpext_varnish', 2 => 'phpext_varnish.zip', ), // ! exe file
-  26 => array ( 0 => 'phpext_wincache', 1 => 'http://wpn-xm.org/get.php?s=phpext_wincache', 2 => 'phpext_wincache.exe', ),
-  27 => array ( 0 => 'phpext_xcache', 1 => 'http://wpn-xm.org/get.php?s=phpext_xcache', 2 => 'phpext_xcache.zip', ),
-  28 => array ( 0 => 'phpext_xdebug', 1 => 'http://wpn-xm.org/get.php?s=phpext_xdebug', 2 => 'phpext_xdebug.dll', ), // ! dll file
-  29 => array ( 0 => 'phpext_xhprof', 1 => 'http://wpn-xm.org/get.php?s=phpext_xhprof', 2 => 'phpext_xhprof.zip', ),
-  30 => array ( 0 => 'phpext_zmq', 1 => 'http://wpn-xm.org/get.php?s=phpext_zmq', 2 => 'phpext_zmq.zip', ),
-  31 => array ( 0 => 'phpmemcachedadmin', 1 => 'http://wpn-xm.org/get.php?s=phpmemcachedadmin', 2 => 'phpmemcachedadmin.zip', ),
-  32 => array ( 0 => 'phpmyadmin', 1 => 'http://wpn-xm.org/get.php?s=phpmyadmin', 2 => 'phpmyadmin.zip', ),
-  33 => array ( 0 => 'postgresql', 1 => 'http://wpn-xm.org/get.php?s=postgresql', 2 => 'postgresql.zip', ),
-  34 => array ( 0 => 'redis', 1 => 'http://wpn-xm.org/get.php?s=redis', 2 => 'redis.zip', ),
-  35 => array ( 0 => 'rockmongo', 1 => 'http://wpn-xm.org/get.php?s=rockmongo', 2 => 'rockmongo.zip', ),
-  36 => array ( 0 => 'sendmail', 1 => 'http://wpn-xm.org/get.php?s=sendmail', 2 => 'sendmail.zip', ),
-  37 => array ( 0 => 'varnish', 1 => 'http://wpn-xm.org/get.php?s=varnish', 2 => 'varnish.zip', ),
+  23 => array ( 0 => 'phpext_phalcon', 1 => 'http://wpn-xm.org/get.php?s=phpext_phalcon', 2 => 'phpext_phalcon.zip', ),
+  24 => array ( 0 => 'phpext_rar', 1 => 'http://wpn-xm.org/get.php?s=phpext_rar', 2 => 'phpext_rar.zip', ),
+  25 => array ( 0 => 'phpext_trader', 1 => 'http://wpn-xm.org/get.php?s=phpext_trader', 2 => 'phpext_trader.zip', ),
+  26 => array ( 0 => 'phpext_varnish', 1 => 'http://wpn-xm.org/get.php?s=phpext_varnish', 2 => 'phpext_varnish.zip', ), // ! exe file
+  27 => array ( 0 => 'phpext_wincache', 1 => 'http://wpn-xm.org/get.php?s=phpext_wincache', 2 => 'phpext_wincache.exe', ),
+  28 => array ( 0 => 'phpext_xcache', 1 => 'http://wpn-xm.org/get.php?s=phpext_xcache', 2 => 'phpext_xcache.zip', ),
+  29 => array ( 0 => 'phpext_xdebug', 1 => 'http://wpn-xm.org/get.php?s=phpext_xdebug', 2 => 'phpext_xdebug.dll', ), // ! dll file
+  30 => array ( 0 => 'phpext_xhprof', 1 => 'http://wpn-xm.org/get.php?s=phpext_xhprof', 2 => 'phpext_xhprof.zip', ),
+  31 => array ( 0 => 'phpext_zmq', 1 => 'http://wpn-xm.org/get.php?s=phpext_zmq', 2 => 'phpext_zmq.zip', ),
+  32 => array ( 0 => 'phpmemcachedadmin', 1 => 'http://wpn-xm.org/get.php?s=phpmemcachedadmin', 2 => 'phpmemcachedadmin.zip', ),
+  33 => array ( 0 => 'phpmyadmin', 1 => 'http://wpn-xm.org/get.php?s=phpmyadmin', 2 => 'phpmyadmin.zip', ),
+  34 => array ( 0 => 'postgresql', 1 => 'http://wpn-xm.org/get.php?s=postgresql', 2 => 'postgresql.zip', ),
+  35 => array ( 0 => 'redis', 1 => 'http://wpn-xm.org/get.php?s=redis', 2 => 'redis.zip', ),
+  36 => array ( 0 => 'rockmongo', 1 => 'http://wpn-xm.org/get.php?s=rockmongo', 2 => 'rockmongo.zip', ),
+  37 => array ( 0 => 'sendmail', 1 => 'http://wpn-xm.org/get.php?s=sendmail', 2 => 'sendmail.zip', ),
+  38 => array ( 0 => 'varnish', 1 => 'http://wpn-xm.org/get.php?s=varnish', 2 => 'varnish.zip', ),
   // vcredist_x86.exe (do not delete this comment, its for easier comparison with the .iss file)
-  38 => array ( 0 => 'webgrind', 1 => 'http://wpn-xm.org/get.php?s=webgrind', 2 => 'webgrind.zip', ),
-  39 => array ( 0 => 'wpnxmscp', 1 => 'http://wpn-xm.org/get.php?s=wpnxmscp', 2 => 'wpnxmscp.zip', ),
-  40 => array ( 0 => 'xhprof', 1 => 'http://wpn-xm.org/get.php?s=xhprof', 2 => 'xhprof.zip', ),
+  39 => array ( 0 => 'webgrind', 1 => 'http://wpn-xm.org/get.php?s=webgrind', 2 => 'webgrind.zip', ),
+  40 => array ( 0 => 'wpnxmscp', 1 => 'http://wpn-xm.org/get.php?s=wpnxmscp', 2 => 'wpnxmscp.zip', ),
+  41 => array ( 0 => 'xhprof', 1 => 'http://wpn-xm.org/get.php?s=xhprof', 2 => 'xhprof.zip', ),
 );
 
 /**
@@ -121,7 +122,7 @@ $lists['allinone-w32'] = array (
   4  => array ( 0 => 'mariadb', 1 => 'http://wpn-xm.org/get.php?s=mariadb', 2 => 'mariadb.zip', ),
   5  => array ( 0 => 'memadmin', 1 => 'http://wpn-xm.org/get.php?s=memadmin', 2 => 'memadmin.zip', ),
   6  => array ( 0 => 'memcached', 1 => 'http://wpn-xm.org/get.php?s=memcached', 2 => 'memcached.zip', ),
-  7  => array ( 0 => 'mongodb', 1 => 'http://wpn-xm.org/get.php?s=mongodb&v=2.0.8', 2 => 'mongodb.zip', ),
+  7  => array ( 0 => 'mongodb', 1 => 'http://wpn-xm.org/get.php?s=mongodb', 2 => 'mongodb.zip', ),
   8  => array ( 0 => 'nginx', 1 => 'http://wpn-xm.org/get.php?s=nginx', 2 => 'nginx.zip', ),
   9  => array ( 0 => 'openssl', 1 => 'http://wpn-xm.org/get.php?s=openssl', 2 => 'openssl.exe', ), // ! exe file
   10 => array ( 0 => 'pear', 1 => 'http://wpn-xm.org/get.php?s=pear', 2 => 'go-pear.phar', ), // ! phar file
@@ -134,7 +135,7 @@ $lists['allinone-w32'] = array (
   17 => array ( 0 => 'phpext_msgpack', 1 => 'http://wpn-xm.org/get.php?s=phpext_msgpack', 2 => 'phpext_msgpack.zip', ),
   18 => array ( 0 => 'phpext_rar', 1 => 'http://wpn-xm.org/get.php?s=phpext_rar', 2 => 'phpext_rar.zip', ),
   19 => array ( 0 => 'phpext_trader', 1 => 'http://wpn-xm.org/get.php?s=phpext_trader', 2 => 'phpext_trader.zip', ),
-  20 => array ( 0 => 'phpext_varnish', 1 => 'http://wpn-xm.org/get.php?s=phpext_varnish', 2 => 'phpext_varnish.zip', ),
+  20 => array ( 0 => 'phpext_phalcon', 1 => 'http://wpn-xm.org/get.php?s=phpext_phalcon', 2 => 'phpext_phalcon.zip', ),
   21 => array ( 0 => 'phpext_wincache', 1 => 'http://wpn-xm.org/get.php?s=phpext_wincache', 2 => 'phpext_wincache.exe', ), // ! exe file
   22 => array ( 0 => 'phpext_xcache', 1 => 'http://wpn-xm.org/get.php?s=phpext_xcache', 2 => 'phpext_xcache.zip', ),
   23 => array ( 0 => 'phpext_xdebug', 1 => 'http://wpn-xm.org/get.php?s=phpext_xdebug', 2 => 'phpext_xdebug.dll', ), // ! dll file
@@ -166,9 +167,31 @@ $lists['lite-w32'] = array (
 );
 
 /**
+ * Iterate all installer arrays and identify the version numbers for all components
+ * then write the registry file for the installer.
+ */
+foreach($lists as $installer => $components) {
+    $file = __DIR__ . '\registry\wpnxm-software-registry-' . $installer;
+
+    foreach ($components as $i => $component) {
+        $components[$i][3] = getVersion($component[0], $component[1]);
+    }
+
+    // @deprecated
+    writeRegistryFileCsv($file . '.csv', $components);
+
+    writeRegistryFileJson($file . '.json', $components);
+}
+
+echo 'Done. <br> <br> You might commit the registries and then trigger a new build.';
+
+#######################################################################################################################
+
+/**
  * Returns the version number for a given component.
- * The URL string is parsed and if "v" was specified, the version is returned,
- * or using the latest version from the registry.
+ * The URL string is parsed.
+ * If the download URL contains "&v=x.y.z", then return this static version number.
+ * if "&v=" is not set, then return the "latest version" from the registry
  *
  * @param string $component
  * @param string $link
@@ -180,13 +203,7 @@ function getVersion($component, $link)
 
     parse_str($link, $result);
 
-    // if the download URL contains "&v=x.y.z", then its a static version number
-    if (isset($result['v']) === true) {
-        $version = $result['v'];
-    } else {
-        // if "&v=" is not set, then the "latest version" is taken from the registry
-        $version = $registry[$component]['latest']['version'];
-    }
+    $version = (isset($result['v']) === true) ? $result['v'] : $version = $registry[$component]['latest']['version'];
 
     return $version;
 }
@@ -217,32 +234,14 @@ function writeRegistryFileCsv($file, $registry)
 function writeRegistryFileJson($file, $registry)
 {
     asort($registry);
-    $json = json_encode($registry);
 
-    // pretty print the json
+    $json = json_encode($registry);
     $json_pretty = jsonPrettyPrintCompact($json);
     $json_table = jsonPrettyPrintTableFormat($json_pretty);
 
     file_put_contents($file, $json_table);
 
     echo 'Created ' . $file . '<br />';
-}
-
-/**
- * Iterate all installer arrays and identify the version numbers for all components
- * then write the registry file for the installer.
- */
-foreach($lists as $installer => $components) {
-    $file = __DIR__ . '\registry\wpnxm-software-registry-' . $installer;
-
-    foreach ($components as $i => $component) {
-        $components[$i][3] = getVersion($component[0], $component[1]);
-    }
-
-    // @deprecated
-    writeRegistryFileCsv($file . '.csv', $components);
-
-    writeRegistryFileJson($file . '.json', $components);
 }
 
 /**
@@ -370,8 +369,8 @@ function jsonPrettyPrintTableFormat($json)
     $lines = str_replace(',,', ',', $lines);
     $lines = str_replace('],', "],\n", $lines);
 
-    // this could probably be one
-    // preg_replace('/^([ ][ ]+)[/', '', $lines);
+    // remove spaces before '['
+    //$lines = preg_replace('/\s*[/', '', $lines);
     $lines = str_replace('     [', '[', $lines);
     $lines = str_replace('    [', '[', $lines);
     $lines = str_replace('   [', '[', $lines);
@@ -382,5 +381,3 @@ function jsonPrettyPrintTableFormat($json)
 
     return $lines;
 }
-
-echo 'Done. <br> <br> You might commit the registries and then trigger a new build.';

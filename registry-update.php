@@ -55,18 +55,21 @@ if (isset($action) && $action === 'update') {
     }
 } // end action "update"
 
-// insert a single component version scans into the registry
+// inserts a single component version scan into the registry
 // - git commit with a standardized commit message
-// - git push
+// - show a git push button or reminder
 if (isset($action) && $action === 'update-component') {
-    $component = filter_input(INPUT_GET, 'component', FILTER_SANITIZE_STRING);    
+    $component = filter_input(INPUT_GET, 'component', FILTER_SANITIZE_STRING);
     $registry = Registry::addLatestVersionScansIntoRegistry($registry, $component);
     if(is_array($registry) === true) {
         Registry::writeRegistry($registry);
         echo 'The registry was updated. Component "' . $component .'" inserted.';
+
+        $commitMessage = 'updated software registry - ' . $registry[$component]['name'] . ' v' . $registry[$component]['latest']['version'];
+        Registry::gitCommitAndPush($commitMessage);
     } else {
         echo 'The registry is up to date.';
-    }    
+    }
 } // end action "update-component"
 
 // scan for new versions
@@ -74,17 +77,10 @@ if (isset($action) && $action === 'scan') {
     Registry::clearOldScans();
     $updater = new RegistryUpdater($registry);
     $updater->setupCrawler();
-
     // handle $_GET['component'], for single component scans, e.g. registry-update.php?action=scan&component=openssl
-    $component = filter_input(INPUT_GET, 'component', FILTER_SANITIZE_STRING);
 
-    if(isset($component) === true) {
-      // run single crawler
-      $numberOfComponents = $updater->getUrlsToCrawl($component);
-    } else {
-      // run all crawlers
-      $numberOfComponents = $updater->getUrlsToCrawl();
-    }
+    $component = filter_input(INPUT_GET, 'component', FILTER_SANITIZE_STRING);
+    $numberOfComponents = (isset($component) === true) ? $updater->getUrlsToCrawl($component) : $updater->getUrlsToCrawl();
 
     $updater->crawl();
     $tableHtml = $updater->evaluateResponses();
@@ -218,11 +214,6 @@ if (isset($action) && $action === 'insert') {
 
 } // end action "insert"
 
-if (isset($action) && $action === 'versionmatrix') {
+if (isset($action) && $action === 'show') {
     include 'version-matrix.php';
-} // end action "build"
-
-if (isset($action) && $action === 'build') {
-    include 'version-matrix-build.php';
-} // end action "build"
-
+} // end action "show"

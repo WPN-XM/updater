@@ -34,15 +34,25 @@ namespace WPNXM\Updater\Crawler;
  */
 class postgresql extends VersionCrawler
 {
+    // do not use  http://www.enterprisedb.com/products-services-training/pgdownload
+    // because beta versions are only listed on the following page:
     public $url = 'http://www.enterprisedb.com/products-services-training/pgbindownload';
 
     public function crawlVersion()
     {
+        /**
+         * We scrape the "text above the link images".
+         * "Binaries from installer version 9.4 beta Release 1" => 9.4.0-beta1-1
+         *
+         * Scraping the links is not possible, because matching the version number wouldn't work:
+         * "http://www.enterprisedb.com/postgresql-8421-binaries-win32?ls=Crossover&type=Crossover"
+         * Because of the added "1", it's unclear if 8421 means 8.4.2 or 8.4.21.
+         */
         return $this->filterXPath('//p/i')->each(function ($node) {
 
             $value = strtolower($node->text());
 
-            if (preg_match("#(\d+\.\d+(\.\d+)*)#i", $value, $matches)) {
+            if (preg_match("/(\d+\.\d+(\.\d+)*)(-beta(\d+))?/", $value, $matches) && false === strpos($value, 'beta')) {
 
                 $download_version = '9.3.0-beta2-1';
 
@@ -54,7 +64,7 @@ class postgresql extends VersionCrawler
                     }
                 } else {
                     $version = $matches[0]; // just 1.2.3
-                    $download_version = $version . '-1'; // wtf? "-1" means "not beta", or what?
+                    $download_version = $version . '-1'; // wtf? "-1" means "not beta" or "stable release", or what?
                 }
 
                 if (version_compare($version, $this->registry['postgresql']['latest']['version'], '>=')) {

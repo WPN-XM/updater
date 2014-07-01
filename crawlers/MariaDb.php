@@ -85,7 +85,7 @@ class MariaDb extends VersionCrawler
                     // "http://archive.mariadb.org/mariadb-"; "http://mirrors.n-ix.net/mariadb/mariadb-"
                     return array(
                         'version' => $version,
-                        'url' => 'http://mirrors.n-ix.net/mariadb/mariadb-' . $version . '/' . $folder .'/' . $filename
+                        'url' => 'http://archive.mariadb.org/mariadb-' . $version . '/' . $folder .'/' . $filename
                     );
                 }
             }

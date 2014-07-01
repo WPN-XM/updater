@@ -9,7 +9,7 @@ class RegistryUpdater
     public $guzzleClient;
     public $crawlers = array();
     public $urls = array();
-    public $responses = array();
+    public $results = array();
 
     public $registry = array();
     public $old_registry = array();
@@ -28,10 +28,12 @@ class RegistryUpdater
 
         // fetch Guzzle out of Goutte and deactivate SSL Verification
         $this->guzzleClient = $goutteClient->getClient();
-        $this->guzzleClient->setSslVerification(false);
+        $this->guzzleClient->setDefaultOption('verify', false);
+
+        $goutteClient->setClient($this->guzzleClient);
     }
 
-    public function getUrlsToCrawl($single_component = '')
+    public function getUrlsToCrawl($single_component = null)
     {
         if(isset($single_component) === true) {
             $crawlers = glob(__DIR__ . '\crawlers\\' . $single_component . '*.php');
@@ -40,8 +42,6 @@ class RegistryUpdater
         }
 
         include __DIR__ . '/VersionCrawler.php';
-
-        $i = count($crawlers);
 
         foreach ($crawlers as $i => $file) {
 
@@ -53,13 +53,13 @@ class RegistryUpdater
 
             /* set registry and crawling client to version crawler */
             $crawler->setRegistry($this->registry, $component);
-            $crawler->setGuzzle($this->guzzleClient);
+            //$crawler->setGuzzle($this->guzzleClient);
 
             // store crawler object in crawlers array
             $this->crawlers[$i] = $crawler;
 
             // fetch URL from Version Crawler Object and prepare array with all URLs to crawl
-            $this->urls[] = $this->guzzleClient->get( $crawler->getURL() );
+            $this->urls[] = $crawler->getURL();
         }
 
         return $i;
@@ -71,39 +71,34 @@ class RegistryUpdater
      */
     public function crawl()
     {
-        try {
-            $this->responses = $this->guzzleClient->send($this->urls);
-        } catch (MultiTransferException $e) {
-
-            echo "The following exceptions were encountered:\n";
-            foreach ($e as $exception) {
-                echo $exception->getMessage() . "\n";
-            }
-
-            echo "The following requests failed:\n";
-            foreach ($e->getFailedRequests() as $request) {
-                echo $request . "\n\n";
-            }
-
-            echo "The following requests succeeded:\n";
-            foreach ($e->getSuccessfulRequests() as $request) {
-                echo $request . "\n\n";
-            }
+        foreach($this->urls as $idx => $url) {
+            // guzzle does not accept an array of URLs anymore
+            // now Urls must be objects implementing the \GuzzleHttp\Message\RequestInterface
+            $requests[] = $this->guzzleClient->createRequest('GET', $url);
         }
+       
+        $this->results = GuzzleHttp\batch($this->guzzleClient, $requests);
     }
 
     public function evaluateResponses()
     {
         $html = '';
+        $i = 0;
 
+        // responses is an SplObjectStorage object where each request is a key
         // iterate through responses and insert them in the crawler objects
-        foreach ($this->responses as $i => $response) {
+        foreach ($this->results as $request) {
+
+            $new_version = $old_version = '';
+
+            $response = $this->results[$request];
 
             // set the response to the version crawler object
-            $this->crawlers[$i]->addContent( $response->getBody(), $response->getContentType() );
+            $this->crawlers[$i]->addContent( $response->getBody(), $response->getHeader('Content-Type') );
 
             $component = $this->crawlers[$i]->getName();
             $latestVersion = $this->crawlers[$i]->crawlVersion();
+            $latestVersion = ArrayTool::clean($latestVersion);
 
             $this->registry = Registry::addLatestVersionToRegistry($component, $latestVersion, $this->old_registry);
 
@@ -119,13 +114,25 @@ class RegistryUpdater
             $old_version = $this->old_registry[$component]['latest']['version'];
             $new_version = $this->registry[$component]['latest']['version'];
 
-            // strcmp is used for openssl version numbers, e.g. "1.0.1e" :)
-            if (version_compare($old_version, $new_version, '<') === 1 || strcmp($old_version, $new_version) < 0) {
-                Registry::writeRegistrySubset($component, $this->registry[$component]);
+            /**
+             * Welcome to Version Compare Hell!
+             */
+            if(isset($new_version) === true) {
+
+                if (  ($component === 'openssl' && strcmp($old_version, $new_version) < 0)
+                   or ($component === 'phpmyadmin' && version_compare($old_version, $new_version, '<') === true
+                       || (strcmp($old_version, $new_version) < 0))
+                   or ($component === 'imagick' && Version::cmpImagick($old_version, $new_version) === 1)
+                   or (version_compare($old_version, $new_version, '<') === 1)
+                ) {
+                    Registry::writeRegistrySubset($component, $this->registry[$component]);
+                }
             }
 
             // render a table row for version comparison
             $html .= Viewhelper::renderTableRow($component, $old_version, $new_version);
+
+            $i++;
         }
 
         return $html;
@@ -134,6 +141,50 @@ class RegistryUpdater
     public function setRegistry($registry) {
         $this->registry = $registry;
     }
+}
+
+class Version
+{
+    // compare 1.2.3-1 vs. 1.2.3-4
+    public static function cmpImagick($a, $b)
+    {
+        $a_array = explode('-', $a);
+        $b_array = explode('-', $b);
+
+        $vc1 = version_compare($a_array[0], $b_array[0]);
+        $vc2 = Version::cmp($a_array[1], $b_array[1]);
+
+        #var_dump($a_array, $b_array, $vc1, $vc2);
+
+        if($vc1 === 0 && $vc2 === 0) { // equal
+            return 0;
+        }
+
+        if ($vc1 === -1 && $vc2 === -1) {   // (1.2.4-1, 1.4.0-9) = a greater b (-1, -1)
+            return -1;
+        }
+
+        if( ($vc1 === 0 && $vc2 === -1)     // (1.2.3-1, 1.2.3-2) = a lower b ( 0, -1)
+        or  ($vc1 === -1 && $vc2 === 0))    // (1.2.3-1, 1.2.4-1) = a lower b (-1, 0)
+        {
+            return 1;
+        }
+        return -1;
+    }
+
+    /**
+     * If a lower   b, -1
+     * If a greater b,  1
+     * If a equals  b,  0
+     */
+    public static function cmp($a, $b)
+    {
+        if ($a == $b) {
+            return 0;
+        }
+        return ($a < $b) ? -1 : 1;
+    }
+
 }
 
 class Viewhelper
@@ -224,8 +275,6 @@ class Registry
      */
     public static function addLatestVersionToRegistry($name, array $latestVersion, array $registry)
     {
-        $latestVersion = ArrayTool::clean($latestVersion);
-
         if (isset($latestVersion['url']) === true and isset($latestVersion['version']) === true) {
             // the array contains only one element
 
@@ -265,8 +314,10 @@ class Registry
     public static function clearOldScans()
     {
         $scans = glob(__DIR__ . '\scans\*.php');
-        foreach($scans as $file) {
-            unlink($file);
+        if(count($scans) > 0) {
+            foreach($scans as $file) {
+                unlink($file);
+            }
         }
     }
 
@@ -287,22 +338,29 @@ class Registry
         $scans = glob(__DIR__ . '\scans\*.php');
 
         // nothing to do, return early
-        if(count($scans) === 0) {
+        if (count($scans) === 0) {
             return false;
         }
 
-        foreach($scans as $i => $file) {
-            $subset = include $file;
+        var_dump($scans);
+
+        foreach ($scans as $i => $file) {
+            $subset    = include $file;
             preg_match('/latest-version-(.*).php/', $file, $matches);
             $component = $matches[1];
 
             // add the registry subset only for a specific component
-            if(isset($forComponent) && ($forComponent === $component)) {
-                 $registry[$component] = $subset;
-                 break;
+            if (isset($forComponent) && ($forComponent === $component)) {
+                printf('Adding Scan/Subset for "%s"' . PHP_EOL, $component);
+                $registry[$component] = $subset;
+                return $registry;
+            } elseif (isset($forComponent) && ($forComponent != $component)) {
+                // skip to the next component, if forComponent is used, but not found yet
+                continue;
+            } else {
+                // forComponent not set = add all
+                $registry[$component] = $subset;
             }
-
-            $registry[$component] = $subset;
         }
 
         return $registry;
@@ -352,9 +410,12 @@ class Registry
     }
 
     /**
+     * This works on the array and moves the key to the top.
+     *
+     * @param array $array
      * @param string $key
      */
-    private static function move_to_top(&$array, $key) {
+    private static function move_to_top(array &$array, $key) {
         if(isset($array[$key]) === true) {
             $temp = array($key => $array[$key]);
             unset($array[$key]);
@@ -363,9 +424,12 @@ class Registry
     }
 
     /**
+     * This works on the array and moves the key to the bottom.
+     *
+     * @param array $array
      * @param string $key
      */
-    private static function move_to_bottom(&$array, $key) {
+    private static function move_to_bottom(array &$array, $key) {
         if(isset($array[$key]) === true) {
             $value = $array[$key];
             unset($array[$key]);
@@ -373,11 +437,47 @@ class Registry
         }
     }
 
+    /**
+     * Pretty prints the registry.
+     *
+     * @param array $registry
+     * @return array
+     */
     public static function prettyPrint(array $registry)
     {
+        ksort($registry);
+
         $content = var_export( $registry, true ) . ';';
 
         return ArrayTool::removeTrailingSpaces($content);
+    }
+
+    /**
+     * Git commits and pushes the latest changes to the
+     * wpnxm software registry with specified commit message.
+     *
+     * @param string $commitMessage Optional Commit Message
+     */
+    public static function gitCommitAndPush($commitMessage = '')
+    {
+        // switch to the git submodule "registry"
+        chdir(__DIR__ . '/registry');
+
+        echo 'Pull possible changes' . PHP_EOL;
+        echo exec('git pull');
+
+        //echo PHP_EOL . 'Staging current changes' . PHP_EOL;
+        //exec('git add .; git add -u .');
+
+        echo PHP_EOL . 'Commit current changes "' . $commitMessage . '"' . PHP_EOL;
+        echo exec('git commit -m "'. $commitMessage .'" -- wpnxm-software-registry.php');
+
+        echo PHP_EOL . 'You might push now.' . PHP_EOL;
+        //echo PHP_EOL . 'Push commit to remote server' . PHP_EOL;
+        //echo exec('git push');
+
+        //echo '<a href="#" class="btn btn-lg btn-primary">'
+        //   . '<span class="glyphicon glyphicon-save"></span> Git Push</a>';
     }
 }
 

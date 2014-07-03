@@ -8,15 +8,14 @@ class RegistryUpdater
 {
     public $guzzleClient;
     public $crawlers = array();
-    public $urls = array();
-    public $results = array();
-
-    public $registry = array();
+    public $urls     = array();
+    public $results  = array();
+    public $registry     = array();
     public $old_registry = array();
 
     public function __construct($registry)
     {
-        $this->registry = $registry;
+        $this->registry     = $registry;
         $this->old_registry = $registry;
     }
 
@@ -35,8 +34,8 @@ class RegistryUpdater
 
     public function getUrlsToCrawl($single_component = null)
     {
-        if(isset($single_component) === true) {
-            $crawlers = glob(__DIR__ . '\crawlers\\' . $single_component . '*.php');
+        if (isset($single_component) === true) {
+            $crawlers = glob(__DIR__ . '\crawlers\\' . $single_component . '.php');
         } else {
             $crawlers = glob(__DIR__ . '\crawlers\*.php');
         }
@@ -47,14 +46,13 @@ class RegistryUpdater
 
             // instantiate version crawler
             include $file;
-            $component = strtolower(pathinfo($file, PATHINFO_FILENAME));
+            $component = str_replace(array('-', '.'), array('_', '_'), strtolower(pathinfo($file, PATHINFO_FILENAME)));
             $classname = 'WPNXM\Updater\Crawler\\' . ucfirst($component);
-            $crawler = new $classname;
+            $crawler   = new $classname;
 
             /* set registry and crawling client to version crawler */
             $crawler->setRegistry($this->registry, $component);
             //$crawler->setGuzzle($this->guzzleClient);
-
             // store crawler object in crawlers array
             $this->crawlers[$i] = $crawler;
 
@@ -76,14 +74,14 @@ class RegistryUpdater
             // now Urls must be objects implementing the \GuzzleHttp\Message\RequestInterface
             $requests[] = $this->guzzleClient->createRequest('GET', $url);
         }
-       
+
         $this->results = GuzzleHttp\batch($this->guzzleClient, $requests);
     }
 
     public function evaluateResponses()
     {
         $html = '';
-        $i = 0;
+        $i    = 0;
 
         // responses is an SplObjectStorage object where each request is a key
         // iterate through responses and insert them in the crawler objects
@@ -94,9 +92,9 @@ class RegistryUpdater
             $response = $this->results[$request];
 
             // set the response to the version crawler object
-            $this->crawlers[$i]->addContent( $response->getBody(), $response->getHeader('Content-Type') );
+            $this->crawlers[$i]->addContent($response->getBody(), $response->getHeader('Content-Type'));
 
-            $component = $this->crawlers[$i]->getName();
+            $component     = $this->crawlers[$i]->getName();
             $latestVersion = $this->crawlers[$i]->crawlVersion();
             $latestVersion = ArrayTool::clean($latestVersion);
 
@@ -114,16 +112,16 @@ class RegistryUpdater
             $old_version = $this->old_registry[$component]['latest']['version'];
             $new_version = $this->registry[$component]['latest']['version'];
 
-            /**
-             * Welcome to Version Compare Hell!
-             */
-            if(isset($new_version) === true) {
+             if (isset($new_version) === true) {
 
-                if (  ($component === 'openssl' && strcmp($old_version, $new_version) < 0)
-                   or ($component === 'phpmyadmin' && version_compare($old_version, $new_version, '<') === true
-                       || (strcmp($old_version, $new_version) < 0))
-                   or ($component === 'imagick' && Version::cmpImagick($old_version, $new_version) === 1)
-                   or (version_compare($old_version, $new_version, '<') === 1)
+                /**
+                 * Welcome to Version Compare Hell!
+                 */
+                if (($component === 'openssl' && strcmp($old_version, $new_version) < 0)
+                or ($component === 'phpmyadmin' && version_compare($old_version, $new_version, '<') === true
+                    || (strcmp($old_version, $new_version) < 0))
+                or ($component === 'imagick' && Version::cmpImagick($old_version, $new_version) === 1)
+                or (version_compare($old_version, $new_version, '<') === 1)
                 ) {
                     Registry::writeRegistrySubset($component, $this->registry[$component]);
                 }
@@ -138,13 +136,16 @@ class RegistryUpdater
         return $html;
     }
 
-    public function setRegistry($registry) {
+    public function setRegistry($registry)
+    {
         $this->registry = $registry;
     }
+
 }
 
 class Version
 {
+
     // compare 1.2.3-1 vs. 1.2.3-4
     public static function cmpImagick($a, $b)
     {
@@ -156,7 +157,7 @@ class Version
 
         #var_dump($a_array, $b_array, $vc1, $vc2);
 
-        if($vc1 === 0 && $vc2 === 0) { // equal
+        if ($vc1 === 0 && $vc2 === 0) { // equal
             return 0;
         }
 
@@ -164,9 +165,8 @@ class Version
             return -1;
         }
 
-        if( ($vc1 === 0 && $vc2 === -1)     // (1.2.3-1, 1.2.3-2) = a lower b ( 0, -1)
-        or  ($vc1 === -1 && $vc2 === 0))    // (1.2.3-1, 1.2.4-1) = a lower b (-1, 0)
-        {
+        if (($vc1 === 0 && $vc2 === -1)     // (1.2.3-1, 1.2.3-2) = a lower b ( 0, -1)
+            or ($vc1 === -1 && $vc2 === 0)) {    // (1.2.3-1, 1.2.4-1) = a lower b (-1, 0)
             return 1;
         }
         return -1;
@@ -189,6 +189,7 @@ class Version
 
 class Viewhelper
 {
+
     /**
      * The function prints an update symbol if old_version is lower than new_version.
      *
@@ -202,9 +203,9 @@ class Viewhelper
             $html .= $new_version;
             $html .= '</span><span style="color:green; font-size: 16px">&nbsp;&#x25B2;&nbsp;</span>';
 
-            $html .= '<a class="btn btn-default btn-xs" href=';
-            $html .= '"registry-update.php?action=update-component&component=' . $component . '"';
-            $html .= '>Commit & Push</a>';
+            $html .= '<a class="btn btn-default btn-xs"';
+            $html .= ' href="registry-update.php?action=update-component&component=' . $component;
+            $html .= '">Commit & Push</a>';
 
             return $html;
         }
@@ -216,10 +217,13 @@ class Viewhelper
         $html .= '<td>' . $component . '</td>';
         $html .= '<td>' . $old_version . '</td>';
         $html .= '<td>' . self::printUpdatedSign($old_version, $new_version, $component) . '</td>';
+        $html .= '<td><a class="btn btn-default btn-xs"';
+        $html .= ' href="registry-update.php?action=scan&component=' . $component . '">Scan</a></td>';
         $html .= '</tr>';
 
         return $html;
     }
+
 }
 
 class Registry
@@ -234,7 +238,10 @@ class Registry
     public static function writeRegistry(array $registry)
     {
         // backup current registry
-        rename(__DIR__ . '/registry/wpnxm-software-registry.php', __DIR__ . '/registry/wpnxm-software-registry-backup-' . date("dmy-His") . '.php');
+        rename(
+            __DIR__ . '/registry/wpnxm-software-registry.php',
+            __DIR__ . '/registry/wpnxm-software-registry-backup-' . date("dmy-His") . '.php'
+        );
 
         // registry file header
         $content = "<?php\n";
@@ -248,21 +255,39 @@ class Registry
 
         // formatting
         $registry = Registry::sort($registry);
-        $content  .= Registry::prettyPrint($registry);
+        $content .= Registry::prettyPrint($registry);
+        $content .= ';';
 
         // write new registry
         return (bool) file_put_contents(__DIR__ . '/registry/wpnxm-software-registry.php', $content);
     }
 
-    public static function getArrayForNewComponent($component, $url, $version, $website)
+    public static function getArrayForNewComponent($component, $url, $version, $website, $phpversion)
     {
+        // array structure for PHP Extensions must take PHP Versions into account
+        if (strpos($component, 'phpext_') !== false) {
+            return array(
+                'name'    => $component,
+                'website' => $website,
+                $version  => array(
+                    $phpversion => $url
+                ),
+                'latest'  => array(
+                    'version' => $version,
+                    'url'     => array(
+                        $phpversion => $url
+                    )
+                )
+            );
+        }
+
         return array(
-            'name' => $component,
+            'name'    => $component,
             'website' => $website,
-            $version => $url,
-            'latest' => array(
+            $version  => $url,
+            'latest'  => array(
                 'version' => $version,
-                'url' => $url
+                'url'     => $url
             )
         );
     }
@@ -277,13 +302,12 @@ class Registry
     {
         if (isset($latestVersion['url']) === true and isset($latestVersion['version']) === true) {
             // the array contains only one element
-
             // create [latest] sub-array
-            $registry[$name]['latest']['url'] = $latestVersion['url'];
+            $registry[$name]['latest']['url']     = $latestVersion['url'];
             $registry[$name]['latest']['version'] = $latestVersion['version'];
 
             // create [version] => [url] relationship
-            $registry[$name][ $latestVersion['version'] ] =$latestVersion['url'];
+            $registry[$name][$latestVersion['version']] = $latestVersion['url'];
 
             unset($latestVersion);
         } else {
@@ -291,18 +315,17 @@ class Registry
             asort($latestVersion);
 
             // add the last array item of multiple elements (the one with the highest version number)
-
             // insert the last array item as [latest][version] => [url]
             $registry[$name]['latest'] = array_pop($latestVersion);
 
             // insert the last array item also as a pure [version] => [url] relationship
-            $registry[$name][ $registry[$name]['latest']['version'] ] = $registry[$name]['latest']['url'];
+            $registry[$name][$registry[$name]['latest']['version']] = $registry[$name]['latest']['url'];
         }
 
         // added remaining array items (if any) as pure [version] => [url] relationships
         if (false === empty($latestVersion)) {
             foreach ($latestVersion as $new_version_entry) {
-                $registry[$name][ $new_version_entry['version'] ] = $new_version_entry['url'];
+                $registry[$name][$new_version_entry['version']] = $new_version_entry['url'];
             }
         }
 
@@ -314,8 +337,8 @@ class Registry
     public static function clearOldScans()
     {
         $scans = glob(__DIR__ . '\scans\*.php');
-        if(count($scans) > 0) {
-            foreach($scans as $file) {
+        if (count($scans) > 0) {
+            foreach ($scans as $file) {
                 unlink($file);
             }
         }
@@ -327,10 +350,10 @@ class Registry
      */
     public static function writeRegistrySubset($component, $registry)
     {
-        // write a return array for "array to var" inclusion
-        $content = "<?php\nreturn " . self::prettyPrint($registry);
-
-        file_put_contents(__DIR__ . '/scans/latest-version-' . $component . '.php', $content);
+        return (bool) file_put_contents(
+            __DIR__ . '/scans/latest-version-' . $component . '.php',
+            sprintf("<?php\nreturn %s;", self::prettyPrint($registry))
+        );
     }
 
     public static function addLatestVersionScansIntoRegistry(array $registry, $forComponent = '')
@@ -341,8 +364,6 @@ class Registry
         if (count($scans) === 0) {
             return false;
         }
-
-        var_dump($scans);
 
         foreach ($scans as $i => $file) {
             $subset    = include $file;
@@ -379,7 +400,6 @@ class Registry
         return $registry;
     }
 
-
     public static function sort(array $registry)
     {
         // sort registry (software components in alphabetical order)
@@ -388,13 +408,13 @@ class Registry
         // sort registry (version numbers in lower-to-higher order)
         // maintain "name" and "website" keys on top, then versions, then "latest" key on bottom.
         foreach ($registry as $component => $array) {
-           // sort by version number
-           // but version_compare does not seem to work on x.y.z{alpha} version numbers
-           if($component === 'openssl') {
-               uksort($array, 'strnatcmp');
-           } else {
-               uksort($array, 'version_compare');
-           }
+            // sort by version number
+            // but version_compare does not seem to work on x.y.z{alpha} version numbers
+            if ($component === 'openssl') {
+                uksort($array, 'strnatcmp');
+            } else {
+                uksort($array, 'version_compare');
+            }
 
             // move 'latest' to the bottom of the arary
             self::move_to_bottom($array, 'latest');
@@ -404,7 +424,7 @@ class Registry
             self::move_to_top($array, 'name');
 
             $registry[$component] = $array;
-         }
+        }
 
         return $registry;
     }
@@ -415,9 +435,10 @@ class Registry
      * @param array $array
      * @param string $key
      */
-    private static function move_to_top(array &$array, $key) {
-        if(isset($array[$key]) === true) {
-            $temp = array($key => $array[$key]);
+    private static function move_to_top(array &$array, $key)
+    {
+        if (isset($array[$key]) === true) {
+            $temp  = array($key => $array[$key]);
             unset($array[$key]);
             $array = $temp + $array;
         }
@@ -429,9 +450,10 @@ class Registry
      * @param array $array
      * @param string $key
      */
-    private static function move_to_bottom(array &$array, $key) {
-        if(isset($array[$key]) === true) {
-            $value = $array[$key];
+    private static function move_to_bottom(array &$array, $key)
+    {
+        if (isset($array[$key]) === true) {
+            $value       = $array[$key];
             unset($array[$key]);
             $array[$key] = $value;
         }
@@ -447,7 +469,7 @@ class Registry
     {
         ksort($registry);
 
-        $content = var_export( $registry, true ) . ';';
+        $content = var_export($registry, true);
 
         return ArrayTool::removeTrailingSpaces($content);
     }
@@ -483,6 +505,12 @@ class Registry
 
 class ArrayTool
 {
+    /**
+     * Unsets null values and removes duplicates.
+     *
+     * @param array $array
+     * @return array
+     */
     public static function clean(array $array)
     {
         $array = self::unsetNullValues($array);
@@ -490,6 +518,7 @@ class ArrayTool
 
         return $array;
     }
+
     /**
      * Removes all keys with value "null" from the array and returns the array.
      *
@@ -534,28 +563,80 @@ class ArrayTool
 
         return $content;
     }
+
 }
+/*
+foreach ($registry as $software => $versions) {
+
+            // if software is a php extension, we have might have URLs for multiple PHP versions
+
+            if(strpos($software, 'phpext_') !== false) {
+  foreach ($versions as $version => $phpversions) {
+                if ($version === 'latest') {
+                   foreach($phpversions as $phpversion => $url) {
+                        $urls[] = $url;
+                    }
+                }
+            }
+ *
+ *
+                foreach ($versions as $version => $phpversions) {
+                    foreach($phpversions as $phpversion => $url) {
+                        $urls[] = $url;
+                    }
+                    $urls[] = 'http://wpn-xm.org/get.php?s=' . $software .'&p=' . $phpversion;
+                }
+            } else {
+                foreach ($versions as $version => $url) {
+                    if ($version === 'latest') {
+                        $urls[] = $url['url'];
+                    }
+                }
+                $urls[] = 'http://wpn-xm.org/get.php?s=' . $software;
+            }
+        }*/
+
 
 class StatusRequest
 {
+    /**
+     * Builds an array with Download URLs to the WPN-XM Server
+     * http://wpn-xm.org/get.php?s=%software%
+     *
+     * @param type $registry
+     * @return array
+     */
     public static function getUrlsToCrawl($registry)
     {
         // build array with URLs to crawl
         $urls = array();
-        foreach ($registry as $software => $versions) {
-            foreach ($versions as $version => $url) {
-                if ($version === 'latest') {
-                    $urls[] = $url['url'];
+
+        foreach ($registry as $software => $keys) {
+
+            // if software is a php extension,
+            // we have might have a latest version with URLs for multiple PHP versions
+            if (strpos($software, 'phpext_') !== false) {
+                $phpversions = $keys['latest']['url'];
+                foreach ($phpversions as $phpversion => $url) {
+                    $urls[] = $url;
+                    $urls[] = 'http://wpn-xm.org/get.php?s=' . $software . '&p=' . $phpversion;
                 }
+            } else {
+                $urls[] = $keys['latest']['url'];
+                $urls[] = 'http://wpn-xm.org/get.php?s=' . $software;
             }
-            $urls[] = 'http://wpn-xm.org/get.php?s=' . $software;
         }
+
+        #echo '<pre>' . var_export($urls, true) . '</pre>'; exit;
 
         return $urls;
     }
 
     /**
-     * Returns the HTTP Status Code
+     * Returns the HTTP Status Code for a URL
+     *
+     * @param string $url URL
+     * @return string
      */
     public static function getHttpStatusCode($url)
     {
@@ -575,64 +656,56 @@ class StatusRequest
         // get number of urls
         $count = count($targetUrls);
 
-        // set cURL options
         $options = array(
-            CURLOPT_HEADER => true,
-            CURLOPT_RETURNTRANSFER => true,         // do not output to browser
-            CURLOPT_NOPROGRESS => true,
+            CURLOPT_HEADER         => true,
+            CURLOPT_RETURNTRANSFER => true, // do not output to browser
+            CURLOPT_NOPROGRESS     => true,
             //CURLOPT_URL => $url,
-            CURLOPT_NOBODY => true,                 // do HEAD request only, exclude the body from output
-            CURLOPT_TIMEOUT => $timeout,
+            CURLOPT_NOBODY         => true, // do HEAD request only, exclude the body from output
+            CURLOPT_TIMEOUT        => $timeout,
             CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_FORBID_REUSE => false,
+            CURLOPT_FORBID_REUSE   => false,
             CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_SSL_VERIFYHOST => 2,
-            CURLOPT_SSLVERSION => 3,
-            CURLOPT_ENCODING => '',                 // !important
-            CURLOPT_AUTOREFERER => true,
+            CURLOPT_SSLVERSION     => 3,
+            CURLOPT_ENCODING       => '', // !important
+            CURLOPT_AUTOREFERER    => true,
             CURLOPT_USERAGENT, 'WPN-XM Server Stack - Registry Status Tool - http://wpn-xm.org/'
         );
 
-        // initialize multiple cURL handler
         $mh = curl_multi_init();
 
-        $ch = array(); // cUrl handles storage
+        $ch = array();
 
-        for($i = 0; $i < $count; $i++) {
-          // create multiple cURL handles
-          $ch[$i] = curl_init($targetUrls[$i]);
-          // set cURL options for each handle
-          curl_setopt_array($ch[$i], $options);
-          // Add the handles to the curl_multi handle
-          curl_multi_add_handle($mh, $ch[$i]);
+        // create multiple cURL handles, set options and add them to curl_multi handler
+        for ($i = 0; $i < $count; $i++) {
+            $ch[$i] = curl_init($targetUrls[$i]);
+            curl_setopt_array($ch[$i], $options);
+            curl_multi_add_handle($mh, $ch[$i]);
         }
 
-        // Execute Multi curl
         $running = null;
         do {
-          curl_multi_exec($mh, $running);
+            curl_multi_exec($mh, $running);
         } while ($running > 0);
 
-        // Response Handling
         $responses = array();
 
-        // Remove the handles and return the response
-        for($i = 0; $i < $count; $i++) {
-          curl_multi_remove_handle($mh, $ch[$i]);
+        // remove handles and return the responses
+        for ($i = 0; $i < $count; $i++) {
+            curl_multi_remove_handle($mh, $ch[$i]);
 
-          // Response: Content
-          //$responses[$i] = curl_multi_getcontent($ch[$i]);
-
-          //echo $targetUrls[$i];
-          //var_dump($responses[$i]);
-
-          // Response: HTTP Status Code
-          $responses[$i]  = curl_getinfo($ch[$i], CURLINFO_HTTP_CODE) == 200; // check if HTTP OK
+            // Response: Content
+            //$responses[$i] = curl_multi_getcontent($ch[$i]);
+            //echo $targetUrls[$i];
+            //var_dump($responses[$i]);
+            // Response: HTTP Status Code
+            $responses[$i] = curl_getinfo($ch[$i], CURLINFO_HTTP_CODE) == 200; // check if HTTP OK
         }
 
-        // Close multiple cURL handler
         curl_multi_close($mh);
 
         return $responses;
     }
+
 }

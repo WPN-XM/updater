@@ -1,11 +1,11 @@
-<?php 
+<?php
 // WPN-XM Software Registry
 $registry  = include __DIR__ . '\registry\wpnxm-software-registry.php';
 
 /**
  * Installation Wizard Registries
  * - fetch the registry files
- * - split filenames to get version constraints (e.g. version, lite, php5.4, php5.4, w32, w64)
+ * - split filenames to get version constraints (e.g. version, lite, php5.4, w32, w64)
  * - restructure the arrays for better iteration
  */
 $wizardFiles = glob(__DIR__ . '\registry\*.json');
@@ -58,14 +58,14 @@ function renderTableHeader(array $wizardRegistries)
 {
     $header = '';
     $i = 0;
-    
+
     // 1th header row
     foreach($wizardRegistries as $wizardName => $wizardRegistry) {
         $header .= '<th>' . $wizardName. '</th>';
         $i++;
-    }     
+    }
     $header .= '<th style="width: 40px;">Latest</th><th>Compose New Registry</th></tr>';
-    
+
     // 2nd header row
     $header .= '<tr><th>&nbsp</th>';
     for($j=1; $j <= $i; $j++) {
@@ -74,20 +74,20 @@ function renderTableHeader(array $wizardRegistries)
     $header .= '<th>&nbsp;</th>';
     $header .= '<th><input type="text" class="form-control" name="new-registry-name"><br/>';
     $header .= '<button type="submit" class="btn btn-xs btn-primary pull-right">Create</button></th>';
-    
+
     return $header;
 }
 
 function renderTableCells(array $wizardRegistries, $software)
 {
     $cells = '';
-    foreach($wizardRegistries as $wizardName => $wizardRegistry) { 
+    foreach($wizardRegistries as $wizardName => $wizardRegistry) {
         // special cases
         /*if($software === 'closure-compiler') { // always latest
             $cells .= '<td class="alert alert-success">Latest</td>';
             continue;
         }*/
-        
+
         // normal versions
         if(isset($wizardRegistry[$software]) === true) {
             $cells .= '<td class="alert alert-success">' . $wizardRegistry[$software] . '</td>';
@@ -95,22 +95,22 @@ function renderTableCells(array $wizardRegistries, $software)
             $cells .= '<td>&nbsp;</td>';
         }
     }
-        
+
     return $cells;
 }
 
 function reduceArrayToContainOnlyVersions($array)
 {
-    unset($array['website'], $array['latest'], $array['name']);    
+    unset($array['website'], $array['latest'], $array['name']);
     $array = array_reverse($array); // latest version first
     return $array;
 }
 
 function renderVersionDropdown($software, $versions)
-{ 
+{
     // edge case: "closure-compiler" is always latest version
     // so the dropdown question must be : "do include" or "do not include"
-    if($software === 'closure-compiler') { // 
+    if($software === 'closure-compiler') { //
         $html = '<td class="alert alert-success"><strong>Latest<strong></td>';
         // td: version dropdown
         $html .= '<td><!-- Select --><div>
@@ -119,25 +119,25 @@ function renderVersionDropdown($software, $versions)
                   <option value="latest">Include</option>
                   </select></div></td>';
         return $html;
-    } 
-    
+    }
+
     // td: latest version
     $html = '<td class="alert alert-info center"><strong>'.key($versions).'</strong></td>';
-    
+
     // td: version dropdown
     $html .= '<td><!-- Select --><div>
               <select id="version_' . $software . '" name="version_' . $software . '" class="form-control">
                   <option value="">Do Not Include</option>';
 
     $latest_version = key($versions);
-    
-    foreach ($versions as $version => $url) {        
+
+    foreach ($versions as $version => $url) {
         $selected = ($version === $latest_version) ? ' selected' : '';
         $html .= '<option value="' . $version . '"' . $selected .'>' . $version . '</option>' . PHP_EOL;
     }
 
     $html .= '</select></div></td>';
-    
+
     return $html;
 }
 ?>
@@ -145,15 +145,15 @@ function renderVersionDropdown($software, $versions)
 <table class="table table-condensed table-bordered" style="width: auto !important; padding: 0px; vertical-align: middle;">
 <thead>
     <tr>
-        <th>Software Components (<?php echo count($registry); ?>)</th> 
+        <th>Software Components (<?php echo count($registry); ?>)</th>
         <?php echo renderTableHeader($wizardRegistries); ?>
     </tr>
 </thead>
 <?php
 foreach($registry as $software => $data)
 {
-    echo '<tr><td>' . $software . '</td>' 
-        . renderTableCells($wizardRegistries, $software) 
+    echo '<tr><td>' . $software . '</td>'
+        . renderTableCells($wizardRegistries, $software)
         . renderVersionDropdown($software, reduceArrayToContainOnlyVersions($data))
         . '</tr>';
 }

@@ -312,7 +312,7 @@ class Registry
             unset($latestVersion);
         } else {
             // sort by version number, from low to high
-            asort($latestVersion);
+            $latestVersion = static::sortArrayByVersion($latestVersion);
 
             // add the last array item of multiple elements (the one with the highest version number)
             // insert the last array item as [latest][version] => [url]
@@ -332,6 +332,16 @@ class Registry
         array_multisort(array_keys($registry[$name]), SORT_NATURAL, $registry[$name]);
 
         return $registry;
+    }
+
+    public static function sortArrayByVersion($array)
+    {
+        $sort = function($versionA, $versionB) {
+            return version_compare($versionA['version'], $versionB['version']);
+        };
+        usort($array, $sort);
+
+        return $array;
     }
 
     public static function clearOldScans()

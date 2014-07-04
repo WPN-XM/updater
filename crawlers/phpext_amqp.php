@@ -34,27 +34,26 @@ namespace WPNXM\Updater\Crawler;
  */
 class phpext_amqp extends VersionCrawler
 {
-    public $url = 'http://windows.php.net/downloads/pecl/releases/amqp/';
 
+    public $url = 'http://windows.php.net/downloads/pecl/releases/amqp/';
+    
     // http://windows.php.net/downloads/pecl/releases/amqp/1.4.0/php_amqp-1.4.0-5.6-ts-vc11-x86.zip
     // http://windows.php.net/downloads/pecl/releases/amqp/%version%/php_amqp-%version%-%phpversion%-%thread%-%compiler%-%bitsize%.zip
-    private $url_template = 'http://windows.php.net/downloads/pecl/releases/amqp/%version%/php_amqp-%version%-5.4-nts-vc9-x86.zip';
+    private $url_template = 'http://windows.php.net/downloads/pecl/releases/amqp/%version%/php_amqp-%version%-%phpversion%-nts-%compiler%-x86.zip';
 
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
-            if (preg_match("#(\d+\.\d+(\.\d+)*)$#", $node->text(), $matches)) {
-                $version = $matches[1];
-
-                $url = str_replace("%version%", $version, $this->url_template);
-
-                if (version_compare($version, $this->registry['phpext_amqp']['latest']['version'], '>=') && $this->fileExistsOnServer($url)) {
-                    return array(
-                       'version' => $version,
-                       'url' => $url,
-                    );
+                if (preg_match("#(\d+\.\d+(\.\d+)*)$#", $node->text(), $matches)) {
+                    $version = $matches[1];
+                    if (version_compare($version, $this->registry['phpext_amqp']['latest']['version'], '>=')) {
+                        return array(
+                            'version' => $version,
+                            'url'     => $this->createPhpVersionsArrayForExtension($version, $this->url_template)
+                        );
+                    }
                 }
-            }
-        });
+            });
     }
+
 }

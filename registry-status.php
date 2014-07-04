@@ -85,17 +85,28 @@ function isAvailable($url)
 <th>Forwarding URL<br/>(server wpnxm-software-registry.php)</th></tr>
 
 <?php
-foreach ($registry as $software => $versions) {
+
+// test latest version links (and not every version url)
+// test forwarding links
+
+foreach ($registry as $software => $keys) {
     echo '<tr><td style="padding: 1px 5px;"><b>'. $software .'</b></td>';
-    foreach ($versions as $version => $url) {
-        // test only the link of the latest version and not every url
-        if ($version === 'latest') {
-            echo '<td>' . $url['version'] . '</td>' . renderTd($url['url']);
+        
+    // if software is a PHP Extension, we have a latest version with URLs for multiple PHP versions           
+    if (strpos($software, 'phpext_') !== false) {
+        $phpversions = $keys['latest']['url'];
+        $skipFirstTd = true;
+        foreach ($phpversions as $phpversion => $url) {
+            if($skipFirstTd === false) { echo '<td>&nbsp;</td>'; } else { $skipFirstTd = false; }
+            echo '<td>' . $keys['latest']['version'] . ' - ' . $phpversion . '</td>' . renderTd($url);             
+            echo renderTd('http://wpn-xm.org/get.php?s=' . $software . '&p=' . $phpversion);
+            echo '</tr>';
         }
+    } else {
+        echo '<td>' . $keys['latest']['version'] . '</td>' . renderTd($keys['latest']['url']);
+        echo renderTd('http://wpn-xm.org/get.php?s=' . $software);
+        echo '</tr>';
     }
-    // test forwarding links
-    echo renderTd('http://wpn-xm.org/get.php?s=' . $software);
-    echo '</tr>';
 }
 ?>
 </table>

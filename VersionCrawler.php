@@ -92,6 +92,10 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
      */
     public function getName()
     {
+        if(isset($this->name)) {
+            return $this->name;
+        }
+
         $classname = get_called_class();
 
         return strtolower(substr($classname, strrpos($classname, '\\')+1));
@@ -131,5 +135,43 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
     public function modifiyRegistry($registry)
     {
         return $registry;
+    }
+    
+    /**
+     * Creates an array for a PHP Extension URL.
+     * Replaces %compiler% and %phpversion% placeholder strings in that URL:
+     * http://php.net/amqp/%version%/php_amqp-%version%-%phpversion%-nts-%compiler%-x86.zip
+     * 
+     * array(
+     *  '5.4' => url,
+     *  '5.5' => url,
+     *  '5.6' => url
+     * )
+     * 
+     * @param URL $url PHP Extension URL with placeholders.
+     * @return array
+     */
+    public function createPhpVersionsArrayForExtension($version, $url)
+    {
+        $url = str_replace("%version%", $version, $this->url); 
+        
+        $phpversions = array('5.4', '5.5', '5.6');
+        $urls        = array();
+
+        foreach ($phpversions as $phpversion) {
+            // compiler
+            if ($phpversion === '5.4') {
+                $compiler = 'VC9';
+            } else {
+                $compiler = 'VC11';
+            }
+            $replacedUrl = str_replace(array('%compiler%', '%phpversion%'), array($compiler, $phpversion), $url);
+
+            if ($this->fileExistsOnServer($replacedUrl) === true) {
+                $urls[$phpversion] = $replacedUrl;
+            }
+        }
+
+        return $urls;
     }
 }

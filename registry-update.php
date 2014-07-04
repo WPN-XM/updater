@@ -56,8 +56,8 @@ if (isset($action) && $action === 'update') {
 } // end action "update"
 
 // inserts a single component version scan into the registry
-// - git commit with a standardized commit message
-// - show a git push button or reminder
+// - automatically git commit's with a standardized commit message
+// - shows a git push reminder
 if (isset($action) && $action === 'update-component') {
     $component = filter_input(INPUT_GET, 'component', FILTER_SANITIZE_STRING);
     $registry = Registry::addLatestVersionScansIntoRegistry($registry, $component);
@@ -68,7 +68,7 @@ if (isset($action) && $action === 'update-component') {
         $commitMessage = 'updated software registry - ' . $registry[$component]['name'] . ' v' . $registry[$component]['latest']['version'];
         Registry::gitCommitAndPush($commitMessage);
     } else {
-        echo 'The registry is up to date.';
+        echo 'No version scans found: The registry is up to date.';
     }
 } // end action "update-component"
 
@@ -90,7 +90,7 @@ if (isset($action) && $action === 'scan') {
     <table class="table table-condensed table-hover">
     <thead>
         <tr>
-            <th>Software Components (<?=$numberOfComponents?>)</th><th>(Old) Latest Version</th><th>(New) Latest Version</th>
+            <th>Software Components (<?=$numberOfComponents?>)</th><th>(Old) Latest Version</th><th>(New) Latest Version</th><th>Action</th>
         </tr>
     </thead>
     <?php echo $tableHtml; ?>
@@ -190,9 +190,10 @@ if (isset($action) && $action === 'insert') {
     $url        = filter_input(INPUT_POST, 'url', FILTER_SANITIZE_STRING);
     $version    = filter_input(INPUT_POST, 'version', FILTER_SANITIZE_STRING);
     $website    = filter_input(INPUT_POST, 'website', FILTER_SANITIZE_STRING);
+    $phpversion = ($phpversion = filter_input(INPUT_POST, 'phpversion', FILTER_SANITIZE_STRING)) ? $phpversion : '';
 
     // compose new array, write a new registry scan, insert scan into registry
-    $array = Registry::getArrayForNewComponent($component, $url, $version, $website);
+    $array = Registry::getArrayForNewComponent($component, $url, $version, $website, $phpversion);
     Registry::writeRegistrySubset($shorthand, $array);
     $newRegistry = Registry::addLatestVersionScansIntoRegistry($registry, $component);
     if($newRegistry !== false) {

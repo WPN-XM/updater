@@ -63,6 +63,7 @@ class MariaDb extends VersionCrawler
                      */
                     
                     $filename = 'mariadb-' . $version . '-win32.zip';
+                    $folder = 'win32-packages';
 
                     if (version_compare($version, '5.1.49', '<=')) {
                         $folder   = 'kvm-zip-winxp-x86';

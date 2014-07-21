@@ -65,7 +65,7 @@ $lists = array();
  */
 $lists['bigpack-w32'] = array(
   //software, download url, target file name
-  0  => array('adminer', 'http://wpn-xm.org/get.php?s=adminer', 'adminer. php'), // ! php file
+  0  => array('adminer', 'http://wpn-xm.org/get.php?s=adminer', 'adminer.php'), // ! php file
   1  => array('closure-compiler', 'http://wpn-xm.org/get.php?s=closure-compiler', 'closure-compiler.zip'),
   2  => array('composer', 'http://wpn-xm.org/get.php?s=composer', 'composer.phar'), // ! phar file
   3  => array('imagick', 'http://wpn-xm.org/get.php?s=imagick', 'imagick.zip'),
@@ -157,7 +157,7 @@ $lists['allinone-w32'] = array(
  */
 $lists['lite-w32'] = array(
   //software, download url, target file name
-  0 => array('adminer', 'http://wpn-xm.org/get.php?s=adminer', 'adminer. php'), // ! php file
+  0 => array('adminer', 'http://wpn-xm.org/get.php?s=adminer', 'adminer.php'), // ! php file
   1 => array('composer', 'http://wpn-xm.org/get.php?s=composer', 'composer.phar'), // ! phar file
   2 => array('mariadb', 'http://wpn-xm.org/get.php?s=mariadb', 'mariadb.zip'),
   3 => array('nginx', 'http://wpn-xm.org/get.php?s=nginx', 'nginx.zip'),
@@ -175,13 +175,28 @@ foreach($lists as $installer => $components) {
 
     foreach ($components as $i => $component) {
         $components[$i][3] = getVersionFromMainRegistry($component[0], $component[1]);
+        
+        if($installer === 'bigpack-w32') {
+            $txt .= $components[$i][1].'&v='.$components[$i][3] . PHP_EOL;
+            $txt .= '    out='.$components[$i][2] . PHP_EOL;
+        }
     }
 
     // @deprecated
     writeRegistryFileCsv($file . '.csv', $components);
 
     writeRegistryFileJson($file . '.json', $components);
+    
+    if($installer === 'bigpack-w32') {
+        $file = __DIR__ . '\registry\downloads.txt';
+        file_put_contents($file, $txt);
+        echo 'Created ' . $file . '<br />';
+    }
 }
+
+// create aria2c file for multiple parallel downloads
+
+
 
 echo 'Done. <br> <br> You might commit the registries and then trigger a new build.';
 

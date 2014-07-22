@@ -169,6 +169,7 @@ $lists['lite-w32'] = array(
 $ariaDownloadsTxt  = '# Aria2c Downloads' . PHP_EOL;
 $ariaDownloadsTxt .= '# http://aria2.sourceforge.net/manual/en/html/aria2c.html#id2' . PHP_EOL;
 $ariaDownloadsTxt .= '#' . PHP_EOL;
+$php_version = '';
 
 /**
  * Iterate all installer arrays and identify the version numbers for all components
@@ -182,7 +183,14 @@ foreach($lists as $installer => $components) {
         
         // create aria download file content, by concatenating download url with version and their target names
         if($installer === 'bigpack-w32') {
-            $ariaDownloadsTxt .= $components[$i][1].'&v='.$components[$i][3] . PHP_EOL;
+            if($component[0] === 'php') { # or $component[0] === 'php-x64') {
+                $php_version = substr($components[$i][3], 0, 3);
+            }
+            if(false !== strpos($component[0], 'phpext_')) {
+                $ariaDownloadsTxt .= $components[$i][1].'&v='.$components[$i][3] . '&p=' . $php_version .PHP_EOL;
+            } else {
+                $ariaDownloadsTxt .= $components[$i][1].'&v='.$components[$i][3] . PHP_EOL;                
+            }            
             $ariaDownloadsTxt .= '    out='.$components[$i][2] . PHP_EOL;
         }
     }

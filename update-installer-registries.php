@@ -166,6 +166,10 @@ $lists['lite-w32'] = array(
   6 => array('wpnxmscp', 'http://wpn-xm.org/get.php?s=wpnxmscp', 'wpnxmscp.zip'),
 );
 
+$ariaDownloadsTxt  = '# Aria2c Downloads' . PHP_EOL;
+$ariaDownloadsTxt .= '# http://aria2.sourceforge.net/manual/en/html/aria2c.html#id2' . PHP_EOL;
+$ariaDownloadsTxt .= '#' . PHP_EOL;
+
 /**
  * Iterate all installer arrays and identify the version numbers for all components
  * then write the registry file for the installer.
@@ -176,20 +180,19 @@ foreach($lists as $installer => $components) {
     foreach ($components as $i => $component) {
         $components[$i][3] = getVersionFromMainRegistry($component[0], $component[1]);
         
+        // create aria download file content, by concatenating download url with version and their target names
         if($installer === 'bigpack-w32') {
-            $txt .= $components[$i][1].'&v='.$components[$i][3] . PHP_EOL;
-            $txt .= '    out='.$components[$i][2] . PHP_EOL;
+            $ariaDownloadsTxt .= $components[$i][1].'&v='.$components[$i][3] . PHP_EOL;
+            $ariaDownloadsTxt .= '    out='.$components[$i][2] . PHP_EOL;
         }
     }
 
-    // @deprecated
-    writeRegistryFileCsv($file . '.csv', $components);
-
     writeRegistryFileJson($file . '.json', $components);
     
+    // write the aria2c downloads file
     if($installer === 'bigpack-w32') {
         $file = __DIR__ . '\registry\downloads.txt';
-        file_put_contents($file, $txt);
+        file_put_contents($file, $ariaDownloadsTxt);
         echo 'Created ' . $file . '<br />';
     }
 }
@@ -221,25 +224,6 @@ function getVersionFromMainRegistry($component, $link)
     $version = (isset($result['v']) === true) ? $result['v'] : $version = $registry[$component]['latest']['version'];
 
     return $version;
-}
-
-/**
- * @param string $file
- * @param array $registry
- */
-function writeRegistryFileCsv($file, $registry)
-{
-    asort($registry);
-
-    $fp = fopen($file, 'w');
-
-    foreach ($registry as $fields) {
-      fputcsv($fp, $fields);
-    }
-
-    fclose($fp);
-
-    echo 'Created ' . $file . '<br />';
 }
 
 /**

@@ -1,4 +1,28 @@
 <?php
+include 'update-installer-registries.php';
+
+function readCSV($csvFile){
+	$file_handle = fopen($csvFile, 'r');
+	while (!feof($file_handle) ) {
+		$line_of_text[] = fgetcsv($file_handle, 1024);
+	}
+	fclose($file_handle);
+	return $line_of_text;
+}
+
+$csvFiles = glob(__DIR__ . '\registry\*.csv');
+
+foreach($csvFiles as $csvFile) {
+   $name = str_replace('wpnxm-software-registry-', '', basename($csvFile, '.csv'));   
+   $jsonFile = __DIR__ . '\registry\\' . $name . '.json';
+   echo $name . '<br>';
+   $csvRegistryArray = readCSV($csvFile);
+   array_pop($csvRegistryArray);
+   echo '<pre>'; var_dump($csvRegistryArray); echo '</pre>';   
+   writeRegistryFileJson($jsonFile, $csvRegistryArray);
+}
+exit;
+
 // WPN-XM Software Registry
 $registry  = include __DIR__ . '\registry\wpnxm-software-registry.php';
 

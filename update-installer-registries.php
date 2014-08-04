@@ -28,15 +28,16 @@
     */
 
 /**
- * Generate individual installation wizard registries (.csv|.json)
+ * Generate individual installation wizard registries (.json)
  *
- * This scripts generates individual download definitions per installation wizard "wpnxm-software-registry-{installer}.csv".
+ * This scripts generates individual download definitions per installation wizard "wpnxm-software-registry-{installer}.json".
  * The registry file for the "BigPack" is used by the build task "download-components", see "build.xml".
- * The csv content is split up and the download urls are used on wget for fetching the downloads.
- * Therefore the registries files must be available in the main WPN-XM folder. This is done by fetching this repo as a git submodule.
+ * A seperate downloads.txt file is created for using aria2c for downloading.
+ * Therefore the registries files must be available in the main WPN-XM folder.
+ * This is done by fetching this repo as a git submodule.
  * A download of the software components is required when building the "not-web" Installers.
  *
- * The data from the csv files is also used on the websites download list.
+ * The data is also used on the websites download list.
  * Installers and registries are versionized.
  * This allows to identify the version number for all packages of each installation wizards.
  */

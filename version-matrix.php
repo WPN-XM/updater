@@ -11,7 +11,7 @@ $registry  = include __DIR__ . '\registry\wpnxm-software-registry.php';
 $wizardFiles = glob(__DIR__ . '\registry\*.json');
 $wizardRegistries = array();
 foreach($wizardFiles as $file) {
-    $name = str_replace('wpnxm-software-registry-', '', basename($file, '.json'));
+    $name = basename($file, '.json');
     if( preg_match('/(?<installer>.*)-(?<version>.*)-(?<phpversion>.*)-(?<bitsize>.*)/i', $name, $parts)
      || preg_match('/(?<installer>.*)-(?<bitsize>.*)/i', $name, $parts)) {
         $parts = dropNumericKeys($parts);
@@ -22,7 +22,7 @@ foreach($wizardFiles as $file) {
     $wizardRegistries[$name] = fixArraySoftwareAsKey($registryContent);
 }
 
-krsort($wizardRegistries);
+asort($wizardRegistries);
 
 function dropNumericKeys(array $array)
 {

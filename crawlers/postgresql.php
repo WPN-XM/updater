@@ -64,6 +64,11 @@ class postgresql extends VersionCrawler
                     }
                 } else {
                     $version = $matches[0]; // just 1.2.3
+                    
+                    if(3 === substr_count($version, '.')) { // 9.3.5.1  
+                        $version = substr($version, 0, -2); // 9.3.5    WTF? WHY?
+                    }
+                    
                     $download_version = $version . '-1'; // wtf? "-1" means "not beta" or "stable release", or what?
                 }
 

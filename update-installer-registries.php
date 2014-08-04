@@ -28,18 +28,35 @@
     */
 
 /**
- * Generate individual installation wizard registries (.json)
- *
- * This scripts generates individual download definitions per installation wizard "wpnxm-software-registry-{installer}.json".
- * The registry file for the "BigPack" is used by the build task "download-components", see "build.xml".
- * A seperate downloads.txt file is created for using aria2c for downloading.
- * Therefore the registries files must be available in the main WPN-XM folder.
- * This is done by fetching this repo as a git submodule.
- * A download of the software components is required when building the "not-web" Installers.
- *
- * The data is also used on the websites download list.
- * Installers and registries are versionized.
- * This allows to identify the version number for all packages of each installation wizards.
+ * This scripts generates 
+ *  - download definitions for each BigPack installation wizard (download-*.txt)
+ *  - installation wizard registries for each installation wizard (installer-*.json).
+ * 
+ * download.txt
+ * ------------
+ * 
+ * The file is versionized as "downloads-{phpXY}-{x86/64}.txt".
+ * 
+ * A downloads.txt file contain all downloads for a BigPack Installation Wizard for that specific PHP version.
+ * The build task "download-components" from "build.xml" uses aria2c and the "downloads.txt" to 
+ * download all files in parallel to the "/downloads" dir.
+ * This implies, that the registry files must be available in the main WPN-XM folder.
+ * This is done by fetching the registry repository as a git submodule inside the WPN-XM main repository.
+ * 
+ * A download of the software components is only required, when building the "not-web" installation wizards.
+ * The webinstallers acquire their download urls from the website and download their packages from the web.
+ * 
+ * The other installation wizards (lite, all) only use a subset of the components downloaded for the BigPack.
+ * The subsets are created by copying from the /downloads folder, to a own subfolder for this installation wizard.
+ * E.g. all packages to be included in the lite installation wizard are copied from /downloads to /downloads/lite.
+ * 
+ * installer.json
+ * --------------
+ * 
+ * The file is versionized as "{installer}.json".
+ * 
+ * The installer.json files are used to identify the version number for all packages 
+ * of an installation wizard. The data is used on the websites download list.
  */
 
 set_time_limit(60*3);
@@ -177,7 +194,7 @@ $php_version = '';
  * then write the registry file for the installer.
  */
 foreach($lists as $installer => $components) {
-    $file = __DIR__ . '\registry\wpnxm-software-registry-' . $installer;
+    $file = __DIR__ . '\registry\\' . $installer;
 
     foreach ($components as $i => $component) {
         $components[$i][3] = getVersionFromMainRegistry($component[0], $component[1]);

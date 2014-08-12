@@ -69,7 +69,9 @@ function renderTableHeader(array $wizardRegistries)
     // 2nd header row
     $header .= '<tr><th>&nbsp</th>';
     for($j=1; $j <= $i; $j++) {
-        $header .= '<th><span class="glyphicon glyphicon-share-alt pull-right"></span></th>';
+        $header .= '<th><button type="button" id="syncDropDownsButton' . $j . '" class="btn btn-xs btn-primary pull-right">';
+        $header .= '<span class="glyphicon glyphicon-share-alt pull-right"></span>';
+        $header .= '</button></th>';
     }
     $header .= '<th>&nbsp;</th>';
     $header .= '<th><input type="text" class="form-control" name="new-registry-name"><br/>';
@@ -82,12 +84,6 @@ function renderTableCells(array $wizardRegistries, $software)
 {
     $cells = '';
     foreach($wizardRegistries as $wizardName => $wizardRegistry) {
-        // special cases
-        /*if($software === 'closure-compiler') { // always latest
-            $cells .= '<td class="alert alert-success">Latest</td>';
-            continue;
-        }*/
-
         // normal versions
         if(isset($wizardRegistry[$software]) === true) {
             $cells .= '<td class="alert alert-success">' . $wizardRegistry[$software] . '</td>';
@@ -127,7 +123,7 @@ function renderVersionDropdown($software, $versions)
     // td: version dropdown
     $html .= '<td><!-- Select --><div>
               <select id="version_' . $software . '" name="version_' . $software . '" class="form-control">
-                  <option value="">Do Not Include</option>';
+                  <option value="Do Not Include">Do Not Include</option>';
 
     $latest_version = key($versions);
 

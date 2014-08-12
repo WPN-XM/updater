@@ -159,6 +159,30 @@
               $("#ajax-container").empty().append(html);
           });
         }
+
+        $("body").on("click", '[id^=syncDropDownsButton]', function() {
+
+          // find the cell, where we clicked the syncDropDownButton
+          //var row = $(this).parent().children().index(this);
+          var column = $(this).parent().parent().children().index(this.parentNode);
+
+          // for each table row
+          $(this).closest('table').find('tr').each(function() {
+              // get the td in our current column
+              var td =  $(this).find("td").eq(column);
+              // get the version number
+              var version = td.html();
+
+              // select the version number at the version DropDown box in the same row
+              if(typeof version != 'undefined') {
+                  if(version == '&nbsp;') {
+                    td.closest("tr").find("option[value='Do Not Include']").attr("selected", "selected");
+                  }
+                  td.closest("tr").find("option[value='"+version+"']").attr("selected", "selected");
+              }
+          });
+
+        });
       });
     </script>
   </body>

@@ -111,7 +111,7 @@ class RegistryUpdater
             // write temporary component registry, for later registry insertion
             $old_version = $this->old_registry[$component]['latest']['version'];
             $new_version = $this->registry[$component]['latest']['version'];
-            
+
             if (isset($new_version) === true) {
                 //  Welcome in Version Compare Hell!
                 switch ($component) {
@@ -130,7 +130,7 @@ class RegistryUpdater
                             Registry::writeRegistrySubset($component, $this->registry[$component]);
                         }
                         break;
-                    default: 
+                    default:
                         if(version_compare($old_version, $new_version, '<=')) {
                             Registry::writeRegistrySubset($component, $this->registry[$component]);
                         }
@@ -323,7 +323,7 @@ class Registry
             unset($latestVersion);
         } else {
             // sort by version number, from low to high
-            $latestVersion = static::sortArrayByVersion($latestVersion);            
+            $latestVersion = static::sortArrayByVersion($latestVersion);
 
             // add the last array item of multiple elements (the one with the highest version number)
             // insert the last array item as [latest][version] => [url]
@@ -339,7 +339,7 @@ class Registry
                 $registry[$name][$new_version_entry['version']] = $new_version_entry['url'];
             }
         }
-        
+
         return static::sort($registry);
     }
 
@@ -368,7 +368,7 @@ class Registry
      * @param $registry The registry.
      */
     public static function writeRegistrySubset($component, $registry)
-    {      
+    {
         return (bool) file_put_contents(
             __DIR__ . '/scans/latest-version-' . $component . '.php',
             sprintf("<?php\nreturn %s;", self::prettyPrint($registry))

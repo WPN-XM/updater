@@ -64,18 +64,17 @@ function renderTableHeader(array $wizardRegistries)
         $header .= '<th>' . $wizardName. '</th>';
         $i++;
     }
-    $header .= '<th style="width: 40px;">Latest</th><th>Compose New Registry</th></tr>';
+    $header .= '<th style="width: 40px;">Latest</th><th>Compose New Registry <br> <input type="text" class="form-control" name="new-registry-name"></th></tr>';
 
     // 2nd header row
     $header .= '<tr><th>&nbsp</th>';
     for($j=1; $j <= $i; $j++) {
-        $header .= '<th><button type="button" id="syncDropDownsButton' . $j . '" class="btn btn-xs btn-primary pull-right">';
-        $header .= '<span class="glyphicon glyphicon-share-alt pull-right"></span>';
+        $header .= '<th><button type="button" id="syncDropDownsButton' . $j . '" class="btn btn-default btn-block" title="Derive versions from this installer.">';
+        $header .= '<span class="glyphicon glyphicon-share-alt"></span>';
         $header .= '</button></th>';
     }
     $header .= '<th>&nbsp;</th>';
-    $header .= '<th><input type="text" class="form-control" name="new-registry-name"><br/>';
-    $header .= '<button type="submit" class="btn btn-xs btn-primary pull-right">Create</button></th>';
+    $header .= '<th><button type="submit" class="btn btn-small btn-primary pull-right">Create</button></th>';
 
     return $header;
 }
@@ -138,7 +137,7 @@ function renderVersionDropdown($software, $versions)
 }
 ?>
 
-<table class="table table-condensed table-bordered" style="width: auto !important; padding: 0px; vertical-align: middle;">
+<table id="version-matrix" class="table table-condensed table-bordered" style="width: auto !important; padding: 0px; vertical-align: middle;">
 <thead>
     <tr>
         <th>Software Components (<?php echo count($registry); ?>)</th>
@@ -155,3 +154,6 @@ foreach($registry as $software => $data)
 }
 ?>
 </table>
+<script>
+    $('div#ajax-container.container').css('width', 'auto');
+</script>

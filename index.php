@@ -29,6 +29,17 @@
       h3 {
         font-size: 24.5px;
       }
+      select {
+          -webkit-appearance: none;
+          background: transparent;
+      }
+      select.updated {
+          background: yellow;
+           transition: background 2s;
+          -moz-transition: background 2s;
+          -webkit-transition: background 2s;
+          -o-transition: background 2s;
+      }
     </style>
     <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
 
@@ -176,12 +187,20 @@
               // select the version number at the version DropDown box in the same row
               if(typeof version != 'undefined') {
                   if(version == '&nbsp;') {
-                    td.closest("tr").find("option[value='Do Not Include']").attr("selected", "selected");
+                    var selectOption = td.closest("tr").find("option[value='Do Not Include']");
+                  } else {
+                    var selectOption = td.closest("tr").find("option[value='"+version+"']");
                   }
-                  td.closest("tr").find("option[value='"+version+"']").attr("selected", "selected");
+
+                  selectOption.attr("selected", "selected");
+
+                  selectOption.parent().addClass("updated");
+
+                  setTimeout(function(){ // toggle back after 1 second
+                    selectOption.parent().removeClass("updated");
+                  }, 1000);
               }
           });
-
         });
       });
     </script>

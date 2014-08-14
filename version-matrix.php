@@ -12,17 +12,47 @@ $wizardFiles = glob(__DIR__ . '\registry\*.json');
 $wizardRegistries = array();
 foreach($wizardFiles as $file) {
     $name = basename($file, '.json');
-    if( preg_match('/(?<installer>.*)-(?<version>.*)-(?<phpversion>.*)-(?<bitsize>.*)/i', $name, $parts)
-     || preg_match('/(?<installer>.*)-(?<bitsize>.*)/i', $name, $parts)) {
-        $parts = dropNumericKeys($parts);
-        $registries[$name]['constraints'] = $parts;
-        unset($parts);
+
+    if(substr_count($name, '-') === 2) {
+        preg_match('/(?<installer>.*)-(?<version>.*)-(?<bitsize>.*)/i', $name, $parts);
     }
+
+    if(substr_count($name, '-') === 3) {
+        preg_match('/(?<installer>.*)-(?<version>.*)-(?<phpversion>.*)-(?<bitsize>.*)/i', $name, $parts);
+    }
+
+    $parts = dropNumericKeys($parts);
+    $wizardRegistries[$name]['constraints'] = $parts;
+    unset($parts);
+
+    // load registry
     $registryContent = issetOrDefault(json_decode(file_get_contents($file), true), array());
-    $wizardRegistries[$name] = fixArraySoftwareAsKey($registryContent);
+    $wizardRegistries[$name]['registry'] = fixArraySoftwareAsKey($registryContent);
 }
 
-asort($wizardRegistries);
+$wizardRegistries = sortWizardRegistries($wizardRegistries);
+
+/**
+ * Sort Wizard registries from low to high version number,
+ * with -next- registries at the bottom.
+ */
+function sortWizardRegistries($wizardRegistries)
+{
+    uasort($wizardRegistries, "versionCompare");
+
+    $nextRegistries = array_slice($wizardRegistries, 0, 3, true);
+    array_shift($wizardRegistries);
+    array_shift($wizardRegistries);
+    array_shift($wizardRegistries);
+    $wizardRegistries = array_merge($wizardRegistries, $nextRegistries);
+
+    return $wizardRegistries;
+}
+
+function versionCompare($a, $b)
+{
+   return version_compare($a['constraints']['version'], $b['constraints']['version'], ">=");
+}
 
 function dropNumericKeys(array $array)
 {
@@ -84,8 +114,8 @@ function renderTableCells(array $wizardRegistries, $software)
     $cells = '';
     foreach($wizardRegistries as $wizardName => $wizardRegistry) {
         // normal versions
-        if(isset($wizardRegistry[$software]) === true) {
-            $cells .= '<td class="alert alert-success">' . $wizardRegistry[$software] . '</td>';
+        if(isset($wizardRegistry['registry'][$software]) === true) {
+            $cells .= '<td class="alert alert-success">' . $wizardRegistry['registry'][$software] . '</td>';
         } else {
             $cells .= '<td>&nbsp;</td>';
         }

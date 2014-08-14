@@ -31,14 +31,14 @@
       }
       select {
           -webkit-appearance: none;
-          background: transparent;
+          background-color: transparent;
       }
       select.updated {
-          background: yellow;
-           transition: background 2s;
-          -moz-transition: background 2s;
-          -webkit-transition: background 2s;
-          -o-transition: background 2s;
+          background-color: yellow;
+           transition: background-color 2s;
+          -moz-transition: background-color 2s;
+          -webkit-transition: background-color 2s;
+          -o-transition: background-color 2s;
       }
     </style>
     <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
@@ -174,11 +174,17 @@
         $("body").on("click", '[id^=syncDropDownsButton]', function() {
 
           // find the cell, where we clicked the syncDropDownButton
-          //var row = $(this).parent().children().index(this);
           var column = $(this).parent().parent().children().index(this.parentNode);
 
+          // get the table
+          var table = $(this).closest('table').find('tr');
+
+          // fetch the installer name from the header of our column
+          var installerName = table.find("th").eq(column).html();
+          $('input[name="new-registry-name"]').val(installerName);
+
           // for each table row
-          $(this).closest('table').find('tr').each(function() {
+          table.each(function() {
               // get the td in our current column
               var td =  $(this).find("td").eq(column);
               // get the version number
@@ -194,6 +200,7 @@
 
                   selectOption.attr("selected", "selected");
 
+                  // add some color highlighting to indicate the change
                   selectOption.parent().addClass("updated");
 
                   setTimeout(function(){ // toggle back after 1 second

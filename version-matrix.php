@@ -156,4 +156,5 @@ foreach($registry as $software => $data)
 </table>
 <script>
     $('div#ajax-container.container').css('width', 'auto');
+    $('head').append('<style>.form-control { height: auto; padding: 0;} </style>');
 </script>

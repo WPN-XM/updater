@@ -42,24 +42,27 @@ function sortWizardRegistries($wizardRegistries)
 
     $cnt = countNextRegistries($wizardRegistries);
 
+    // copy
     $nextRegistries = array_slice($wizardRegistries, 0, $cnt, true);
 
+    // reduce
     for($i = 1; $i <= $cnt; $i++) {
         array_shift($wizardRegistries);
     }
 
+    // append (to bottom)
     $wizardRegistries = array_merge($wizardRegistries, $nextRegistries);
 
     return $wizardRegistries;
 }
 
-function countNextRegistries($wizardRegistries)
+function countNextRegistries($registries)
 {
     $cnt = 0;
 
-    foreach($wizardRegistries as $wizardRegistry)
+    foreach($registries as $registry)
     {
-        if($wizardRegistry['constraints']['version'] === 'next') {
+        if($registry['constraints']['version'] === 'next') {
             $cnt = $cnt + 1;
         }
     }

@@ -186,7 +186,7 @@
           // for each table row
           table.each(function() {
               // get the td in our current column
-              var td =  $(this).find("td").eq(column);
+              var td = $(this).find("td").eq(column);
               // get the version number
               var version = td.html();
 

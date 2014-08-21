@@ -40,13 +40,31 @@ function sortWizardRegistries($wizardRegistries)
 {
     uasort($wizardRegistries, "versionCompare");
 
-    $nextRegistries = array_slice($wizardRegistries, 0, 3, true);
-    array_shift($wizardRegistries);
-    array_shift($wizardRegistries);
-    array_shift($wizardRegistries);
+    $cnt = countNextRegistries($wizardRegistries);
+
+    $nextRegistries = array_slice($wizardRegistries, 0, $cnt, true);
+
+    for($i = 1; $i <= $cnt; $i++) {
+        array_shift($wizardRegistries);
+    }
+
     $wizardRegistries = array_merge($wizardRegistries, $nextRegistries);
 
     return $wizardRegistries;
+}
+
+function countNextRegistries($wizardRegistries)
+{
+    $cnt = 0;
+
+    foreach($wizardRegistries as $wizardRegistry)
+    {
+        if($wizardRegistry['constraints']['version'] === 'next') {
+            $cnt = $cnt + 1;
+        }
+    }
+
+    return $cnt;
 }
 
 function versionCompare($a, $b)
@@ -104,7 +122,7 @@ function renderTableHeader(array $wizardRegistries)
         $header .= '</button></th>';
     }
     $header .= '<th>&nbsp;</th>';
-    $header .= '<th><button type="submit" class="btn btn-small btn-primary pull-right">Create</button></th>';
+    $header .= '<th><button type="submit" class="btn btn-block btn-success pull-right" id="save-button">Save</button></th>';
 
     return $header;
 }
@@ -140,7 +158,7 @@ function renderVersionDropdown($software, $versions)
         // td: version dropdown
         $html .= '<td><!-- Select --><div>
                   <select id="version_' . $software . '" name="version_' . $software . '" class="form-control">
-                  <option value="">Do Not Include</option>
+                  <option value="do-not-include">Do Not Include</option>
                   <option value="latest">Include</option>
                   </select></div></td>';
         return $html;
@@ -152,7 +170,7 @@ function renderVersionDropdown($software, $versions)
     // td: version dropdown
     $html .= '<td><!-- Select --><div>
               <select id="version_' . $software . '" name="version_' . $software . '" class="form-control">
-                  <option value="Do Not Include">Do Not Include</option>';
+                  <option value="do-not-include">Do Not Include</option>';
 
     $latest_version = key($versions);
 
@@ -186,5 +204,43 @@ foreach($registry as $software => $data)
 </table>
 <script>
     $('div#ajax-container.container').css('width', 'auto');
-    $('head').append('<style>.form-control { height: auto; padding: 0;} </style>');
+    $('head').append('<style>.form-control { height: auto; padding: 0; } </style>');
+
+    $("#save-button").click(function(event) {
+
+        // find the cell, where we clicked the syncDropDownButton
+        var column = $(this).parent().parent().children().index(this.parentNode);
+
+        // get the table
+        var table = $(this).closest('table').find('tr');
+
+        // fetch the installer name from the header of our column
+        var installerName = table.find("th").eq(column).html();
+        $('input[name="new-registry-name"]').val(installerName);
+
+        var versions = {};
+
+        // for each table row
+        table.each(function() {
+              // get the td in our current column
+              var versionTd = $(this).find("td").eq(column);
+              // get the version number
+              var version = versionTd.find("option:selected").val();
+
+              if(typeof version == "undefined") {
+                return; // continue
+              }
+
+              // get the first td (component name)
+              var componentTd = $(this).find("td").eq(0);
+              // get the version number
+              var component = componentTd.html();
+
+              versions[" " + component + " "] = version;
+        });
+
+        console.log(versions);
+
+        return false; // stop clicking from causing navigation
+    });
 </script>

@@ -283,7 +283,7 @@ if (isset($action) && $action === 'update-installer-registry') {
 
     // special handling for PHP (php, php-x64)
     if ($component === 'php') { # or $component === 'php-x64') {
-        $php_version = $installerRegistry['php'];
+        $php_version = substr($installerRegistry['php'], 0, 3); // get only major.minor, e.g. "5.4", not "5.4.2"
     }
 
     // special handling for PHP Extensions (which depend on a specific PHP version)
@@ -293,11 +293,12 @@ if (isset($action) && $action === 'update-installer-registry') {
 
     $downloadFilename = $downloadFilenames[$component];
 
-    $data[] = array($component, $url, $version, $downloadFilename);
+    $data[] = array($component, $url, $downloadFilename, $version);
   }
 
   #var_dump($installer, $registryJson, $installerRegistry, $file, $data);
 
-  //writeRegistryFileJson($file, $data);
+  $ir = new InstallerRegistry;
+  $ir->writeRegistryFileJson($file, $data);
 
 } // end action "update-installer-registry"

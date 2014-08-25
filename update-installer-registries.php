@@ -46,9 +46,9 @@
  * A download of the software components is only required, when building the "not-web" installation wizards.
  * The webinstallers acquire their download urls from the website and download their packages from the web.
  *
- * The other installation wizards (lite, standard) only use a subset of the components downloaded for "full".
- * The subsets are created by copying from the /downloads folder, to a own subfolder for this installation wizard.
- * E.g. all packages to be included in the lite installation wizard are copied from /downloads to /downloads/lite.
+ * The other installation wizards (lite, standard) only use a subset of the components downloaded for the "full" wizard.
+ * The subsets are created by copying from the /downloads folder, to a own versionized subfolder for this installation wizard.
+ * E.g. all packages to be included in the lite installation wizard are copied from /downloads to /downloads/lite-{versionized}.
  *
  * installer.json
  * --------------
@@ -238,9 +238,7 @@ function getVersionFromMainRegistry($component, $link)
 
     parse_str($link, $result);
 
-    $version = (isset($result['v']) === true) ? $result['v'] : $version = $registry[$component]['latest']['version'];
-
-    return $version;
+    return (isset($result['v']) === true) ? $result['v'] : $registry[$component]['latest']['version'];
 }
 
 /**

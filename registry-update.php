@@ -44,7 +44,7 @@ $registry  = Registry::load();
 // handle $_GET['action'], e.g. registry-update.php?action=scan
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 
-// insert version scans into registry
+// insert version scans into main software registry
 if (isset($action) && $action === 'update') {
     $registry = Registry::addLatestVersionScansIntoRegistry($registry);
     if(is_array($registry) === true) {
@@ -55,7 +55,7 @@ if (isset($action) && $action === 'update') {
     }
 } // end action "update"
 
-// inserts a single component version scan into the registry
+// inserts a single component version scan into the main registry
 // - automatically git commit's with a standardized commit message
 // - shows a git push reminder
 if (isset($action) && $action === 'update-component') {
@@ -218,3 +218,8 @@ if (isset($action) && $action === 'insert') {
 if (isset($action) && $action === 'show') {
     include 'version-matrix.php';
 } // end action "show"
+
+if (isset($action) && $action === 'update-installer-registry') {
+   var_dump($_POST);
+   $component  = filter_input(INPUT_POST, 'software', FILTER_SANITIZE_STRING);
+} // end action "update-installer-registry"

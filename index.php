@@ -173,27 +173,27 @@
 
         $("body").on("click", '[id^=syncDropDownsButton]', function() {
 
-          // find the cell, where we clicked the syncDropDownButton
+          // find cell, where we clicked "syncDropDownButton"
           var column = $(this).parent().parent().children().index(this.parentNode);
 
-          // get the table
+          // get table
           var table = $(this).closest('table').find('tr');
 
-          // fetch the installer name from the header of our column
+          // fetch installer name from column header
           var installerName = table.find("th").eq(column).html();
           $('input[name="new-registry-name"]').val(installerName);
 
           // for each table row
           table.each(function() {
-              // get the td in our current column
+              // get td element of current column
               var td = $(this).find("td").eq(column);
-              // get the version number
+              // get version number
               var version = td.html();
 
-              // select the version number at the version DropDown box in the same row
+              // select this version number at the version DropDown box in the same row
               if(typeof version != 'undefined') {
                   if(version == '&nbsp;') {
-                    var selectOption = td.closest("tr").find("option[value='Do Not Include']");
+                    var selectOption = td.closest("tr").find("option[value='do-not-include']");
                   } else {
                     var selectOption = td.closest("tr").find("option[value='"+version+"']");
                   }

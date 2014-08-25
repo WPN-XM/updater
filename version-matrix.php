@@ -211,13 +211,13 @@ foreach($registry as $software => $data)
 
     $("#save-button").click(function(event) {
 
-        // find the cell, where we clicked the syncDropDownButton
+        // find cell, where we clicked "syncDropDownButton"
         var column = $(this).parent().parent().children().index(this.parentNode);
 
-        // get the table
+        // get table
         var table = $(this).closest('table').find('tr');
 
-        // fetch the installer name from the header of our column
+        // fetch installer name from column header
         var installerName = table.find("th").eq(column).html();
         $('input[name="new-registry-name"]').val(installerName);
 
@@ -225,24 +225,31 @@ foreach($registry as $software => $data)
 
         // for each table row
         table.each(function() {
-              // get the td in our current column
+              // get td element of current column
               var versionTd = $(this).find("td").eq(column);
-              // get the version number
+              // get version number
               var version = versionTd.find("option:selected").val();
 
               if(typeof version == "undefined") {
                 return; // continue
               }
 
-              // get the first td (component name)
+              // get first td (component name)
               var componentTd = $(this).find("td").eq(0);
-              // get the version number
+              // get version number
               var component = componentTd.html();
 
               versions[" " + component + " "] = version;
         });
 
         console.log(versions);
+
+        // ajax post (to write the new version numbers to file)
+        var data = {};
+        data["versions"] = versions;
+        //data["installer-registry-name"] = registryName;
+
+        $.post("index.php?action=update-installer-registry", data);
 
         return false; // stop clicking from causing navigation
     });

@@ -73,125 +73,21 @@ $registry = include __DIR__ . '/registry/wpnxm-software-registry.php';
 
 echo '<h2>Generating Software Registry Files...</h2>';
 
-// Array containing the individual download definitions and version numbers for each installer
-$lists = array();
-
-/**
- * Array containg the downloads and version numbers for the "All - w32" Installation Wizard.
- * Additional components compared to "Standard":
- * perl, postgresql, imagick + phpext_imagick, varnish + phpext_varnish
- */
-$lists['full-w32'] = array(
-    //software, download url, target file name
-    0  => array('adminer', 'http://wpn-xm.org/get.php?s=adminer', 'adminer.php'), // ! php file
-    1  => array('closure-compiler', 'http://wpn-xm.org/get.php?s=closure-compiler', 'closure-compiler.zip'),
-    2  => array('composer', 'http://wpn-xm.org/get.php?s=composer', 'composer.phar'), // ! phar file
-    3  => array('imagick', 'http://wpn-xm.org/get.php?s=imagick', 'imagick.zip'),
-    4  => array('junction', 'http://wpn-xm.org/get.php?s=junction', 'junction.zip'),
-    5  => array('mariadb', 'http://wpn-xm.org/get.php?s=mariadb', 'mariadb.zip'),
-    6  => array('memadmin', 'http://wpn-xm.org/get.php?s=memadmin', 'memadmin.zip'),
-    7  => array('memcached', 'http://wpn-xm.org/get.php?s=memcached', 'memcached.zip'),
-    8  => array('mongodb', 'http://wpn-xm.org/get.php?s=mongodb', 'mongodb.zip'),
-    9  => array('nginx', 'http://wpn-xm.org/get.php?s=nginx', 'nginx.zip'),
-    10 => array('node', 'http://wpn-xm.org/get.php?s=node', 'node.exe'), // ! exe file
-    11 => array('nodenpm', 'http://wpn-xm.org/get.php?s=nodenpm', 'nodenpm.zip'),
-    12 => array('openssl', 'http://wpn-xm.org/get.php?s=openssl', 'openssl.exe'), // ! exe file
-    13 => array('pear', 'http://wpn-xm.org/get.php?s=pear', 'go-pear.phar'), // ! phar file
-    14 => array('perl', 'http://wpn-xm.org/get.php?s=perl', 'perl.zip'),
-    15 => array('php', 'http://wpn-xm.org/get.php?s=php', 'php.zip'),
-    16 => array('phpext_amqp', 'http://wpn-xm.org/get.php?s=phpext_amqp', 'phpext_amqp.zip'),
-    17 => array('phpext_apc', 'http://wpn-xm.org/get.php?s=phpext_apc', 'phpext_apc.zip'),
-    18 => array('phpext_imagick', 'http://wpn-xm.org/get.php?s=phpext_imagick', 'phpext_imagick.zip'),
-    19 => array('phpext_mailparse', 'http://wpn-xm.org/get.php?s=phpext_mailparse', 'phpext_mailparse.zip'),
-    20 => array('phpext_memcache', 'http://wpn-xm.org/get.php?s=phpext_memcache', 'phpext_memcache.zip'), // without D
-    21 => array('phpext_mongo', 'http://wpn-xm.org/get.php?s=phpext_mongo', 'phpext_mongo.zip'),
-    22 => array('phpext_msgpack', 'http://wpn-xm.org/get.php?s=phpext_msgpack', 'phpext_msgpack.zip'),
-    23 => array('phpext_phalcon', 'http://wpn-xm.org/get.php?s=phpext_phalcon', 'phpext_phalcon.zip'),
-    24 => array('phpext_rar', 'http://wpn-xm.org/get.php?s=phpext_rar', 'phpext_rar.zip'),
-    25 => array('phpext_trader', 'http://wpn-xm.org/get.php?s=phpext_trader', 'phpext_trader.zip'),
-    26 => array('phpext_varnish', 'http://wpn-xm.org/get.php?s=phpext_varnish', 'phpext_varnish.zip'), // ! exe file
-    27 => array('phpext_wincache', 'http://wpn-xm.org/get.php?s=phpext_wincache', 'phpext_wincache.exe'),
-    28 => array('phpext_xcache', 'http://wpn-xm.org/get.php?s=phpext_xcache', 'phpext_xcache.zip'),
-    29 => array('phpext_xdebug', 'http://wpn-xm.org/get.php?s=phpext_xdebug', 'phpext_xdebug.dll'), // ! dll file
-    30 => array('phpext_xhprof', 'http://wpn-xm.org/get.php?s=phpext_xhprof', 'phpext_xhprof.zip'),
-    31 => array('phpext_zmq', 'http://wpn-xm.org/get.php?s=phpext_zmq', 'phpext_zmq.zip'),
-    32 => array('phpmemcachedadmin', 'http://wpn-xm.org/get.php?s=phpmemcachedadmin', 'phpmemcachedadmin.zip'),
-    33 => array('phpmyadmin', 'http://wpn-xm.org/get.php?s=phpmyadmin', 'phpmyadmin.zip'),
-    34 => array('postgresql', 'http://wpn-xm.org/get.php?s=postgresql', 'postgresql.zip'),
-    35 => array('redis', 'http://wpn-xm.org/get.php?s=redis', 'redis.zip'),
-    36 => array('rockmongo', 'http://wpn-xm.org/get.php?s=rockmongo', 'rockmongo.zip'),
-    37 => array('sendmail', 'http://wpn-xm.org/get.php?s=sendmail', 'sendmail.zip'),
-    38 => array('varnish', 'http://wpn-xm.org/get.php?s=varnish', 'varnish.zip'),
-    // vcredist_x86.exe (do not delete this comment, its for easier comparison with the .iss file)
-    39 => array('webgrind', 'http://wpn-xm.org/get.php?s=webgrind', 'webgrind.zip'),
-    40 => array('wpnxmscp', 'http://wpn-xm.org/get.php?s=wpnxmscp', 'wpnxmscp.zip'),
-    41 => array('xhprof', 'http://wpn-xm.org/get.php?s=xhprof', 'xhprof.zip'),
-);
-
-/**
- * Array containg the downloads and version numbers for the "Standard - w32" Installation Wizard.
- */
-$lists['standard-w32'] = array(
-    //software, download url, target file name
-    0  => array('adminer', 'http://wpn-xm.org/get.php?s=adminer', 'adminer.php'), // ! php file
-    1  => array('closure-compiler', 'http://wpn-xm.org/get.php?s=closure-compiler', 'closure-compiler.zip'),
-    2  => array('composer', 'http://wpn-xm.org/get.php?s=composer', 'composer.phar'), // ! phar file
-    3  => array('junction', 'http://wpn-xm.org/get.php?s=junction', 'junction.zip'),
-    4  => array('mariadb', 'http://wpn-xm.org/get.php?s=mariadb', 'mariadb.zip'),
-    5  => array('memadmin', 'http://wpn-xm.org/get.php?s=memadmin', 'memadmin.zip'),
-    6  => array('memcached', 'http://wpn-xm.org/get.php?s=memcached', 'memcached.zip'),
-    7  => array('mongodb', 'http://wpn-xm.org/get.php?s=mongodb', 'mongodb.zip'),
-    8  => array('nginx', 'http://wpn-xm.org/get.php?s=nginx', 'nginx.zip'),
-    9  => array('openssl', 'http://wpn-xm.org/get.php?s=openssl', 'openssl.exe'), // ! exe file
-    10 => array('pear', 'http://wpn-xm.org/get.php?s=pear', 'go-pear.phar'), // ! phar file
-    11 => array('php', 'http://wpn-xm.org/get.php?s=php', 'php.zip'),
-    12 => array('phpext_amqp', 'http://wpn-xm.org/get.php?s=phpext_amqp', 'phpext_amqp.zip'),
-    13 => array('phpext_apc', 'http://wpn-xm.org/get.php?s=phpext_apc', 'phpext_apc.zip'),
-    14 => array('phpext_mailparse', 'http://wpn-xm.org/get.php?s=phpext_mailparse', 'phpext_mailparse.zip'),
-    15 => array('phpext_memcache', 'http://wpn-xm.org/get.php?s=phpext_memcache', 'phpext_memcache.zip'), // without D
-    16 => array('phpext_mongo', 'http://wpn-xm.org/get.php?s=phpext_mongo', 'phpext_mongo.zip'),
-    17 => array('phpext_msgpack', 'http://wpn-xm.org/get.php?s=phpext_msgpack', 'phpext_msgpack.zip'),
-    18 => array('phpext_phalcon', 'http://wpn-xm.org/get.php?s=phpext_phalcon', 'phpext_phalcon.zip'),
-    19 => array('phpext_rar', 'http://wpn-xm.org/get.php?s=phpext_rar', 'phpext_rar.zip'),
-    20 => array('phpext_trader', 'http://wpn-xm.org/get.php?s=phpext_trader', 'phpext_trader.zip'),
-    21 => array('phpext_wincache', 'http://wpn-xm.org/get.php?s=phpext_wincache', 'phpext_wincache.exe'), // ! exe file
-    22 => array('phpext_xcache', 'http://wpn-xm.org/get.php?s=phpext_xcache', 'phpext_xcache.zip'),
-    23 => array('phpext_xdebug', 'http://wpn-xm.org/get.php?s=phpext_xdebug', 'phpext_xdebug.dll'), // ! dll file
-    24 => array('phpext_xhprof', 'http://wpn-xm.org/get.php?s=phpext_xhprof', 'phpext_xhprof.zip'),
-    25 => array('phpext_zmq', 'http://wpn-xm.org/get.php?s=phpext_zmq', 'phpext_zmq.zip'),
-    26 => array('phpmemcachedadmin', 'http://wpn-xm.org/get.php?s=phpmemcachedadmin', 'phpmemcachedadmin.zip'),
-    27 => array('phpmyadmin', 'http://wpn-xm.org/get.php?s=phpmyadmin', 'phpmyadmin.zip'),
-    28 => array('redis', 'http://wpn-xm.org/get.php?s=redis', 'redis.zip'),
-    29 => array('rockmongo', 'http://wpn-xm.org/get.php?s=rockmongo', 'rockmongo.zip'),
-    30 => array('sendmail', 'http://wpn-xm.org/get.php?s=sendmail', 'sendmail.zip'),
-    // vcredist_x86.exe (do not delete this comment, its for easier comparison with the .iss file)
-    31 => array('webgrind', 'http://wpn-xm.org/get.php?s=webgrind', 'webgrind.zip'),
-    32 => array('wpnxmscp', 'http://wpn-xm.org/get.php?s=wpnxmscp', 'wpnxmscp.zip'),
-    33 => array('xhprof', 'http://wpn-xm.org/get.php?s=xhprof', 'xhprof.zip'),
-);
-
-/**
- * Array containg the downloads and version numbers for the "Lite - w32" Installation Wizard.
- */
-$lists['lite-w32'] = array(
-    //software, download url, target file name
-    0 => array('adminer', 'http://wpn-xm.org/get.php?s=adminer', 'adminer.php'), // ! php file
-    1 => array('composer', 'http://wpn-xm.org/get.php?s=composer', 'composer.phar'), // ! phar file
-    2 => array('mariadb', 'http://wpn-xm.org/get.php?s=mariadb', 'mariadb.zip'),
-    3 => array('nginx', 'http://wpn-xm.org/get.php?s=nginx', 'nginx.zip'),
-    4 => array('php', 'http://wpn-xm.org/get.php?s=php', 'php.zip'),
-    5 => array('phpext_xdebug', 'http://wpn-xm.org/get.php?s=phpext_xdebug', 'phpext_xdebug.dll'), // ! dll file
-    6 => array('wpnxmscp', 'http://wpn-xm.org/get.php?s=wpnxmscp', 'wpnxmscp.zip'),
-);
-
 $php_version      = '';
 
 /**
- * Iterate all installer arrays and identify the version numbers for all components
+ * Iterate the installer array and identify the version numbers for all components
  * then write the registry file for the installer.
  */
-foreach ($lists as $installer => $components) {
-    $file = __DIR__ . '\registry\\' . $installer;
+
+// incomming $_POST array
+// containing key "versions" containing an array with "component" => "version" relationship
+// and key "installer-registry-name"
+
+foreach($registryData as $component => $version)
+{
+
+}
 
     foreach ($components as $i => $component) {
         $components[$i][3] = getVersionFromMainRegistry($component[0], $component[1]);
@@ -215,8 +111,9 @@ foreach ($lists as $installer => $components) {
         }
     }
 
-    writeRegistryFileJson($file . '.json', $components);
-}
+    $file = __DIR__ . '\registry\\' . $installer . '.json';
+
+    writeRegistryFileJson($file, $components);
 
 echo 'Done. <br> <br> You might commit the registries and then trigger a new build.';
 

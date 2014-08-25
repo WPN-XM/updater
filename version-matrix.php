@@ -218,9 +218,10 @@ foreach($registry as $software => $data)
         var table = $(this).closest('table').find('tr');
 
         // fetch installer name from column header
-        var installerName = table.find('input[name="new-registry-name"]').val();
+        var installer = table.find('input[name="new-registry-name"]').val();
 
-        var versions = {};
+        // registry (component => version relationship)
+        var registry = {};
 
         // for each table row
         table.each(function() {
@@ -229,25 +230,27 @@ foreach($registry as $software => $data)
               // get version number
               var version = versionTd.find("option:selected").val();
 
-              if(typeof version == "undefined") {
+              // exclude "do-not-include" versions
+              if(version == "do-not-include" || version == "") {
                 return; // continue
               }
 
-              // get first td (component name)
-              var componentTd = $(this).find("td").eq(0);
-              // get version number
-              var component = componentTd.html();
+              // get component name from first td
+              var component = $(this).find("td").eq(0).html();
 
-              versions[" " + component + " "] = version;
+              // add to registry
+              registry[component] = version;
         });
 
-        console.log(versions);
+        // debug
+        console.log(registry);
 
-        // ajax post (to write the new version numbers to file)
+        // prepare data
         var data = {};
-        data["versions"] = versions;
-        data["installer-registry-name"] = installerName;
+        data["registry-json"] = JSON.stringify(registry);
+        data["installer"] = installer;
 
+        // ajax POST
         $.post("registry-update.php?action=update-installer-registry", data);
 
         return false; // stop clicking from causing navigation

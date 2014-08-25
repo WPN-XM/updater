@@ -180,8 +180,8 @@
           var table = $(this).closest('table').find('tr');
 
           // fetch installer name from column header
-          var installerName = table.find("th").eq(column).html();
-          $('input[name="new-registry-name"]').val(installerName);
+          var installer = table.find("th").eq(column).html();
+          $('input[name="new-registry-name"]').val(installer);
 
           // for each table row
           table.each(function() {

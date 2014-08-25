@@ -218,8 +218,7 @@ foreach($registry as $software => $data)
         var table = $(this).closest('table').find('tr');
 
         // fetch installer name from column header
-        var installerName = table.find("th").eq(column).html();
-        $('input[name="new-registry-name"]').val(installerName);
+        var installerName = table.find('input[name="new-registry-name"]').val();
 
         var versions = {};
 
@@ -247,9 +246,9 @@ foreach($registry as $software => $data)
         // ajax post (to write the new version numbers to file)
         var data = {};
         data["versions"] = versions;
-        //data["installer-registry-name"] = registryName;
+        data["installer-registry-name"] = installerName;
 
-        $.post("index.php?action=update-installer-registry", data);
+        $.post("registry-update.php?action=update-installer-registry", data);
 
         return false; // stop clicking from causing navigation
     });

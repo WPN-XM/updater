@@ -268,8 +268,8 @@ if (isset($action) && $action === 'update-installer-registry') {
   {
     $url = 'http://wpn-xm.org/get.php?s=' . $component . '&v=' . $version;
 
-    // special handling for PHP (php, php-x64)
-    if ($component === 'php') { # or $component === 'php-x64') {
+    // special handling for PHP
+    if ($component === 'php' or $component === 'php-x64' or $component === 'php-qa-x64' or $component === 'php-qa') {
         $php_version = substr($installerRegistry['php'], 0, 3); // get only major.minor, e.g. "5.4", not "5.4.2"
     }
 

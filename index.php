@@ -181,6 +181,8 @@
 
           // fetch installer name from column header
           var installer = table.find("th").eq(column).html();
+
+          // set installer name to input field
           $('input[name="new-registry-name"]').val(installer);
 
           // for each table row
@@ -209,6 +211,21 @@
               }
           });
         });
+
+      $("body").on("click", '[id^=syncInstallerNameButton]', function() {
+          // find cell, where we clicked "syncInstallerNameButton"
+          var column = $(this).parent().parent().children().index(this.parentNode);
+
+          // get table
+          var table = $(this).closest('table').find('tr');
+
+          // fetch installer name from column header
+          var installer = table.find("th").eq(column).html();
+
+          // set installer name to input field
+          $('input[name="new-registry-name"]').val(installer);
+      });
+
       });
     </script>
   </body>

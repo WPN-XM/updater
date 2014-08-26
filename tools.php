@@ -111,7 +111,7 @@ class RegistryUpdater
             // write temporary component registry, for later registry insertion
             $old_version = $this->old_registry[$component]['latest']['version'];
             $new_version = $this->registry[$component]['latest']['version'];
-            
+
             if (isset($new_version) === true) {
                 //  Welcome in Version Compare Hell!
                 switch ($component) {
@@ -130,7 +130,7 @@ class RegistryUpdater
                             Registry::writeRegistrySubset($component, $this->registry[$component]);
                         }
                         break;
-                    default: 
+                    default:
                         if(version_compare($old_version, $new_version, '<=')) {
                             Registry::writeRegistrySubset($component, $this->registry[$component]);
                         }
@@ -323,7 +323,7 @@ class Registry
             unset($latestVersion);
         } else {
             // sort by version number, from low to high
-            $latestVersion = static::sortArrayByVersion($latestVersion);            
+            $latestVersion = static::sortArrayByVersion($latestVersion);
 
             // add the last array item of multiple elements (the one with the highest version number)
             // insert the last array item as [latest][version] => [url]
@@ -339,7 +339,7 @@ class Registry
                 $registry[$name][$new_version_entry['version']] = $new_version_entry['url'];
             }
         }
-        
+
         return static::sort($registry);
     }
 
@@ -368,7 +368,7 @@ class Registry
      * @param $registry The registry.
      */
     public static function writeRegistrySubset($component, $registry)
-    {      
+    {
         return (bool) file_put_contents(
             __DIR__ . '/scans/latest-version-' . $component . '.php',
             sprintf("<?php\nreturn %s;", self::prettyPrint($registry))
@@ -584,37 +584,178 @@ class ArrayTool
     }
 
 }
-/*
-foreach ($registry as $software => $versions) {
 
-            // if software is a php extension, we have might have URLs for multiple PHP versions
+class InstallerRegistry
+{
+    /**
+     * @param string $file
+     * @param array $registry
+     */
+    function writeRegistryFileJson($file, $registry)
+    {
+        asort($registry);
 
-            if(strpos($software, 'phpext_') !== false) {
-  foreach ($versions as $version => $phpversions) {
-                if ($version === 'latest') {
-                   foreach($phpversions as $phpversion => $url) {
-                        $urls[] = $url;
-                    }
+        $json        = json_encode($registry);
+        $json_pretty = JsonHelper::jsonPrettyPrintCompact($json);
+        $json_table  = JsonHelper::jsonPrettyPrintTableFormat($json_pretty);
+
+        file_put_contents($file, $json_table);
+
+        echo 'Updated or Created Installer Registry "' . $file . '"<br />';
+    }
+}
+
+class JsonHelper
+{
+    /**
+     * Returns compacted, pretty printed JSON data.
+     * Yes, there is JSON_PRETTY_PRINT, but it is odd at printing compact.
+     *
+     * @param string $json The unpretty JSON encoded string.
+     * @return string Pretty printed JSON.
+     */
+    public static function jsonPrettyPrintCompact($json)
+    {
+        $out   = '';
+        $nl    = "\n";
+        $cnt   = 0;
+        $tab   = 1;
+        $len   = strlen($json);
+        $space = ' ';
+        $k     = strlen($space) ? strlen($space) : 1;
+
+        for ($i = 0; $i <= $len; $i++) {
+
+            $char = substr($json, $i, 1);
+
+            if ($char === '}' || $char === ']') {
+                $cnt--;
+                if ($i + 1 === $len) { // newline before last ]
+                    $out .= $nl;
+                } else {
+                    $out .= str_pad('', ($tab * $cnt * $k), $space);
+                }
+            } elseif ($char === '{' || $char === '[') {
+                $cnt++;
+                if ($cnt > 1) {
+                    $out .= $nl;
+                } // no newline on first line
+            }
+
+            $out .= $char;
+
+            if ($char === ',' || $char === '{' || $char === '[') {
+                /* $out .= str_pad('', ($tab * $cnt * $k), $space); */
+                if ($cnt >= 1) {
+                    $out .= $space;
                 }
             }
- *
- *
-                foreach ($versions as $version => $phpversions) {
-                    foreach($phpversions as $phpversion => $url) {
-                        $urls[] = $url;
-                    }
-                    $urls[] = 'http://wpn-xm.org/get.php?s=' . $software .'&p=' . $phpversion;
-                }
-            } else {
-                foreach ($versions as $version => $url) {
-                    if ($version === 'latest') {
-                        $urls[] = $url['url'];
-                    }
-                }
-                $urls[] = 'http://wpn-xm.org/get.php?s=' . $software;
+            if ($char === ':' && '\\' !== substr($json, $i + 1, 1)) {
+                $out .= ' ';
             }
-        }*/
+        }
+        return $out;
+    }
 
+    /**
+     * JSON Table Format
+     * Like "tab separated value" (TSV) format, BUT with spaces :)
+     * Aligns values correctly underneath each other.
+     * jakoch: my tackling of this indention problem is ugly, but it works.
+     * @param string $json
+     */
+    public static function jsonPrettyPrintTableFormat($json)
+    {
+        $lines = explode("\n", $json);
+
+        $array = array();
+
+        // count lengths and set to array
+        foreach ($lines as $line) {
+            $line       = trim($line);
+            $commas     = explode(", ", $line);
+            $keyLengths = array_map('strlen', array_values($commas));
+            $array[]    = array('lines' => $commas, 'lengths' => $keyLengths);
+        }
+
+        // calculate the number of missing spaces
+        $numberOfSpacesToAdd = function($longest_line_length, $line_length) {
+            return ($longest_line_length - $line_length) + 2; // were the magic happens
+        };
+
+        // append certain number of spaces to string
+        $appendSpaces = function($num, $string) {
+            for ($i = 0; $i <= $num; $i++) {
+                $string .= ' ';
+            }
+            return $string;
+        };
+
+        // chop of first and last element of the array: the brackets [,]
+        unset($array[0]);
+        $last_nr = count($array);
+        unset($array[$last_nr]);
+
+        // walk through multi-dim array and compare key lengths
+        // build array with longest key lengths
+        $elements = $last_nr - 1;
+        $num_keys = count($array[1]['lines']) - 1;
+        $longest  = array();
+
+        for ($i = 1; $i <= $elements; $i++) {
+            for ($j = 0; $j < $num_keys; $j++) {
+                $key_length = $array[$i]['lengths'][$j];
+                if (isset($longest[$j]) === true && $longest[$j] >= $key_length) {
+                    continue;
+                }
+                $longest[$j] = $key_length;
+            }
+        }
+
+        // appends the missing number of spaces to the elements
+        // to align them correctly underneath each other
+        for ($i = 1; $i <= $elements; $i++) {
+            for ($j = 0; $j < $num_keys; $j++) {
+                // append spaces to the element
+                $newElement = $appendSpaces(
+                    $numberOfSpacesToAdd($longest[$j], $array[$i]['lengths'][$j]), $array[$i]['lines'][$j]
+                );
+
+                // reinsert the element
+                $array[$i]['lines'][$j] = $newElement;
+                //$array[$i]['lengths'][$j] = $longest[$j];
+            }
+        }
+
+        // build output string from array
+        $lines = '';
+        foreach ($array as $idx => $values) {
+            foreach ($values['lines'] as $key => $value) {
+                $lines .= $value;
+            }
+        }
+
+        // reinsert commas
+        $lines = str_replace('"  ', '", ', $lines);
+
+        // cleanups
+        $lines = str_replace(',,', ',', $lines);
+        $lines = str_replace('],', "],\n", $lines);
+
+        // remove spaces before '['
+        //$lines = preg_replace('/\s*[/', '', $lines);
+        $lines = str_replace('     [', '[', $lines);
+        $lines = str_replace('    [', '[', $lines);
+        $lines = str_replace('   [', '[', $lines);
+        $lines = str_replace('  [', '[', $lines);
+        $lines = str_replace(' [', '[', $lines);
+
+        $lines = "[\n" . trim($lines) . "\n]";
+
+        return $lines;
+    }
+
+}
 
 class StatusRequest
 {

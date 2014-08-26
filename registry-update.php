@@ -44,7 +44,7 @@ $registry  = Registry::load();
 // handle $_GET['action'], e.g. registry-update.php?action=scan
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 
-// insert version scans into registry
+// insert version scans into main software registry
 if (isset($action) && $action === 'update') {
     $registry = Registry::addLatestVersionScansIntoRegistry($registry);
     if(is_array($registry) === true) {
@@ -55,7 +55,7 @@ if (isset($action) && $action === 'update') {
     }
 } // end action "update"
 
-// inserts a single component version scan into the registry
+// inserts a single component version scan into the main registry
 // - automatically git commit's with a standardized commit message
 // - shows a git push reminder
 if (isset($action) && $action === 'update-component') {
@@ -218,3 +218,88 @@ if (isset($action) && $action === 'insert') {
 if (isset($action) && $action === 'show') {
     include 'version-matrix.php';
 } // end action "show"
+
+if (isset($action) && $action === 'update-installer-registry') {
+
+  $installer = filter_input(INPUT_POST, 'installer', FILTER_SANITIZE_STRING);
+  $registryJson = filter_input(INPUT_POST, 'registry-json', FILTER_SANITIZE_STRING);
+
+  $registryJson = html_entity_decode($registryJson, ENT_COMPAT, 'UTF-8'); // fix the JSON.stringify quotes &#34;
+  $installerRegistry = json_decode($registryJson, true);
+
+  $file = __DIR__ . '\registry\\' . $installer . '.json';
+
+  $downloadFilenames = array(
+    'adminer' => 'adminer.php', // ! php file
+    'closure-compiler' => 'closure-compiler.zip',
+    'composer' => 'composer.phar', // ! phar file
+    'imagick' => 'imagick.zip',
+    'junction' => 'junction.zip',
+    'mariadb' => 'mariadb.zip',
+    'memadmin' => 'memadmin.zip',
+    'memcached' => 'memcached.zip',
+    'mongodb' => 'mongodb.zip',
+    'nginx' => 'nginx.zip',
+    'node' =>  'node.exe', // ! exe file
+    'nodenpm' => 'nodenpm.zip',
+    'openssl' =>  'openssl.exe', // ! exe file
+    'pear' => 'go-pear.phar', // ! phar file
+    'perl' =>  'perl.zip',
+    'php' => 'php.zip',
+    'phpext_amqp' => 'phpext_amqp.zip',
+    'phpext_apc' => 'phpext_apc.zip',
+    'phpext_imagick' => 'phpext_imagick.zip',
+    'phpext_mailparse' => 'phpext_mailparse.zip',
+    'phpext_memcache' => 'phpext_memcache.zip', // without D
+    'phpext_mongo' => 'phpext_mongo.zip',
+    'phpext_msgpack' => 'phpext_msgpack.zip',
+    'phpext_phalcon' => 'phpext_phalcon.zip',
+    'phpext_rar' => 'phpext_rar.zip',
+    'phpext_trader' => 'phpext_trader.zip',
+    'phpext_uploadprogress' => 'phpext_uploadprogress.zip',
+    'phpext_varnish' => 'phpext_varnish.zip',
+    'phpext_wincache' => 'phpext_wincache.exe', // ! exe file
+    'phpext_xcache' => 'phpext_xcache.zip',
+    'phpext_xdebug' => 'phpext_xdebug.dll', // ! dll file
+    'phpext_xhprof' => 'phpext_xhprof.zip',
+    'phpext_zmq' => 'phpext_zmq.zip',
+    'phpmemcachedadmin' => 'phpmemcachedadmin.zip',
+    'phpmyadmin' =>  'phpmyadmin.zip',
+    'postgresql' =>  'postgresql.zip',
+    'redis' =>  'redis.zip',
+    'rockmongo' =>  'rockmongo.zip',
+    'sendmail' =>  'sendmail.zip',
+    'varnish' =>  'varnish.zip',
+    // vcredist_x86.exe (do not delete this comment, its for easier comparison with the .iss file)
+    'webgrind' =>  'webgrind.zip',
+    'wpnxmscp' =>  'wpnxmscp.zip',
+    'xhprof' =>  'xhprof.zip',
+  );
+
+  $data = array();
+
+  foreach($installerRegistry as $component => $version)
+  {
+    $url = 'http://wpn-xm.org/get.php?s=' . $component . '&v=' . $version;
+
+    // special handling for PHP (php, php-x64)
+    if ($component === 'php') { # or $component === 'php-x64') {
+        $php_version = substr($installerRegistry['php'], 0, 3); // get only major.minor, e.g. "5.4", not "5.4.2"
+    }
+
+    // special handling for PHP Extensions (which depend on a specific PHP version)
+    if (false !== strpos($component, 'phpext_')) {
+        $url .= '&p=' . $php_version;
+    }
+
+    $downloadFilename = $downloadFilenames[$component];
+
+    $data[] = array($component, $url, $downloadFilename, $version);
+  }
+
+  #var_dump($installer, $registryJson, $installerRegistry, $file, $data);
+
+  $ir = new InstallerRegistry;
+  $ir->writeRegistryFileJson($file, $data);
+
+} // end action "update-installer-registry"

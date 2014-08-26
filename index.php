@@ -29,6 +29,17 @@
       h3 {
         font-size: 24.5px;
       }
+      select {
+          -webkit-appearance: none;
+          background-color: transparent;
+      }
+      select.updated {
+          background-color: yellow;
+           transition: background-color 2s;
+          -moz-transition: background-color 2s;
+          -webkit-transition: background-color 2s;
+          -o-transition: background-color 2s;
+      }
     </style>
     <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
 
@@ -159,6 +170,62 @@
               $("#ajax-container").empty().append(html);
           });
         }
+
+        $("body").on("click", '[id^=syncDropDownsButton]', function() {
+
+          // find cell, where we clicked "syncDropDownButton"
+          var column = $(this).parent().parent().children().index(this.parentNode);
+
+          // get table
+          var table = $(this).closest('table').find('tr');
+
+          // fetch installer name from column header
+          var installer = table.find("th").eq(column).html();
+
+          // set installer name to input field
+          $('input[name="new-registry-name"]').val(installer);
+
+          // for each table row
+          table.each(function() {
+              // get td element of current column
+              var td = $(this).find("td").eq(column);
+              // get version number
+              var version = td.html();
+
+              // select this version number at the version DropDown box in the same row
+              if(typeof version != 'undefined') {
+                  if(version == '&nbsp;') {
+                    var selectOption = td.closest("tr").find("option[value='do-not-include']");
+                  } else {
+                    var selectOption = td.closest("tr").find("option[value='"+version+"']");
+                  }
+
+                  selectOption.attr("selected", "selected");
+
+                  // add some color highlighting to indicate the change
+                  selectOption.parent().addClass("updated");
+
+                  setTimeout(function(){ // toggle back after 1 second
+                    selectOption.parent().removeClass("updated");
+                  }, 1000);
+              }
+          });
+        });
+
+      $("body").on("click", '[id^=syncInstallerNameButton]', function() {
+          // find cell, where we clicked "syncInstallerNameButton"
+          var column = $(this).parent().parent().children().index(this.parentNode);
+
+          // get table
+          var table = $(this).closest('table').find('tr');
+
+          // fetch installer name from column header
+          var installer = table.find("th").eq(column).html();
+
+          // set installer name to input field
+          $('input[name="new-registry-name"]').val(installer);
+      });
+
       });
     </script>
   </body>

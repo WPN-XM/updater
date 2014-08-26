@@ -51,18 +51,19 @@ class MariaDb extends VersionCrawler
 
                     /**
                      *   *** WARNING ***
-                     * 
-                     * The links are not consistent, because of folder and filename changes in the 
+                     *
+                     * The links are not consistent, because of folder and filename changes in the
                      * release archive. Also some versions are missing in their archive.
                      * Windows releases are available from v5.1.49
-                     * 
+                     *
                      * - http://archive.mariadb.org/mariadb-5.1.49/kvm-zip-winxp-x86/mariadb-noinstall-....
                      * - http://archive.mariadb.org/mariadb-5.2.6/win2008r2-vs2010-i386/mariadb-5.2.6-win32.zip
                      * - http://archive.mariadb.org/mariadb-5.5.27/windows/mariadb-5.5.27-win32.zip
                      * - http://archive.mariadb.org/mariadb-5.5.28/win32-packages/mariadb-5.5.28-win32.zip
                      */
-                    
+
                     $filename = 'mariadb-' . $version . '-win32.zip';
+                    $folder = 'win32-packages';
 
                     if (version_compare($version, '5.1.49', '<=')) {
                         $folder   = 'kvm-zip-winxp-x86';
@@ -80,6 +81,7 @@ class MariaDb extends VersionCrawler
                     /**
                      * Download Mirrors
                      *
+                     * http://archive.mariadb.org/mariadb-5.5.38/win32-packages/mariadb-5.5.38-win32.zip
                      * http://mirrors.n-ix.net/mariadb/mariadb-5.5.32/win32-packages/mariadb-5.5.32-win32.zip
                      * http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-5.5.38/win32-packages/mariadb-5.5.38-win32.zip
                      */
@@ -87,7 +89,7 @@ class MariaDb extends VersionCrawler
                     if (version_compare($version, $this->registry['mariadb']['latest']['version'], '>=')) {
                         return array(
                             'version' => $version,
-                            'url'     => 'http://archive.mariadb.org/mariadb-' . $version . '/' . $folder . '/' . $filename
+                            'url'     => 'http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-' . $version . '/' . $folder . '/' . $filename
                         );
                     }
                 }

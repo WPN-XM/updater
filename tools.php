@@ -1,4 +1,13 @@
 <?php
+/**
+ * WPИ-XM Server Stack
+ * Copyright © 2010 - 2014 Jens-André Koch <jakoch@web.de>
+ * http://wpn-xm.org/
+ *
+ * This source file is subject to the terms of the MIT license.
+ * For full copyright and license information, view the bundled LICENSE file.
+ */
+
 require_once __DIR__ . '/vendor/goutte.phar';
 
 use Goutte\Client as GoutteClient;
@@ -256,6 +265,15 @@ class Registry
 
         // registry file header
         $content = "<?php\n";
+        $content .= "   /**\n";
+        $content .= "    * WPИ-XM Server Stack\n";
+        $content .= "    * Copyright © 2010 - " . date("Y") . " Jens-André Koch <jakoch@web.de>\n";
+        $content .= "    * http://wpn-xm.org/\n";
+        $content .= "    *\n";
+        $content .= "    * This source file is subject to the terms of the MIT license.\n";
+        $content .= "    * For full copyright and license information, view the bundled LICENSE file.\n";
+        $content .= "    */\n";
+        $content .= "\n";
         $content .= "   /**\n";
         $content .= "    * WPN-XM Software Registry\n";
         $content .= "    * ------------------------\n";

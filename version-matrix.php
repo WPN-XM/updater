@@ -110,15 +110,24 @@ function renderTableHeader(array $wizardRegistries)
     $header = '';
     $i = 0;
 
-    // 1th header row
+    // 1th header row - column identifiers
     foreach($wizardRegistries as $wizardName => $wizardRegistry) {
         $header .= '<th>' . $wizardName. '</th>';
         $i++;
     }
-    $header .= '<th style="width: 40px;">Latest</th><th>Compose New Registry <br> <input type="text" class="form-control" name="new-registry-name"></th></tr>';
+    $header .= '<th style="width: 40px;">Latest Version</th><th>Compose New Registry <br> <input type="text" class="form-control" name="new-registry-name"></th></tr>';
 
-    // 2nd header row
-    $header .= '<tr><th>&nbsp</th>';
+    // 2nd header row - "use installer name buttons"
+    $header .= '<tr><th>Use installer name</th>';
+    for($j=1; $j <= $i; $j++) {
+        $header .= '<th><button type="button" id="syncInstallerNameButton' . $j . '" class="btn btn-default btn-block" title="Use name of this installer.">';
+        $header .= '<span class="glyphicon glyphicon-share-alt"></span>';
+        $header .= '</button></th>';
+    }
+    $header .= '</tr>';
+
+    // 3nd header row - "derive versions buttons"
+    $header .= '<tr><th>Derive versions from this installer</th>';
     for($j=1; $j <= $i; $j++) {
         $header .= '<th><button type="button" id="syncDropDownsButton' . $j . '" class="btn btn-default btn-block" title="Derive versions from this installer.">';
         $header .= '<span class="glyphicon glyphicon-share-alt"></span>';
@@ -126,6 +135,7 @@ function renderTableHeader(array $wizardRegistries)
     }
     $header .= '<th>&nbsp;</th>';
     $header .= '<th><button type="submit" class="btn btn-block btn-success pull-right" id="save-button">Save</button></th>';
+    $header .= '</tr>';
 
     return $header;
 }

@@ -46,7 +46,9 @@ if (isset($action) && $action === 'update-component') {
         Registry::writeRegistry($registry);
         echo 'The registry was updated. Component "' . $component .'" inserted.';
 
-        $commitMessage = 'updated software registry - ' . $registry[$component]['name'] . ' v' . $registry[$component]['latest']['version'];
+        $name = isset($registry[$component]['name']) ?  $registry[$component]['name'] : '';
+
+        $commitMessage = 'updated software registry - ' . $name . ' v' . $registry[$component]['latest']['version'];
         Registry::gitCommitAndPush($commitMessage);
     } else {
         echo 'No version scans found: The registry is up to date.';

@@ -635,7 +635,7 @@ class JsonHelper
                 } else {
                     $out .= str_pad('', ($tab * $cnt * $k), $space);
                 }
-            } else if ($char === '{' || $char === '[') {
+            } elseif ($char === '{' || $char === '[') {
                 $cnt++;
                 if ($cnt > 1) {
                     $out .= $nl;

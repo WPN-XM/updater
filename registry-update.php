@@ -227,6 +227,7 @@ if (isset($action) && $action === 'update-installer-registry') {
     'pear' => 'go-pear.phar', // ! phar file
     'perl' =>  'perl.zip',
     'php' => 'php.zip',
+    'php-x64' => 'php.zip',
     'phpext_amqp' => 'phpext_amqp.zip',
     'phpext_apc' => 'phpext_apc.zip',
     'phpext_imagick' => 'phpext_imagick.zip',

@@ -117,10 +117,17 @@ class RegistryUpdater
              */
             $this->registry = $this->crawlers[$i]->modifiyRegistry($this->registry);
 
-            // write temporary component registry, for later registry insertion
-            $old_version = $this->old_registry[$component]['latest']['version'];
+            // get old and new version for comparison.
+            // if crawler is new and component not in registry, use 0.0.0
+            if(!isset($this->old_registry[$component]['latest']['version'])) {
+                $old_version = '0.0.0';
+            } else {
+                $old_version = $this->old_registry[$component]['latest']['version'];
+            }
+
             $new_version = $this->registry[$component]['latest']['version'];
 
+            // write temporary component registry, for later registry insertion
             if (isset($new_version) === true) {
                 //  Welcome in Version Compare Hell!
                 switch ($component) {

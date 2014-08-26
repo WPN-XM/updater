@@ -22,7 +22,6 @@ class PHP_QA_X64 extends VersionCrawler
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
-            echo $node->text() . "<br>";
             if (preg_match("#php-(\d+\.\d+(\.\d+)*(RC\d+))-nts-Win32-VC11-x64.zip$#", $node->text(), $matches)) {
                 if (version_compare($matches[1], $this->registry['php-x64']['latest']['version'], '>=')) {
                     return array(

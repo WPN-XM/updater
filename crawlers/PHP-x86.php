@@ -11,7 +11,7 @@
 namespace WPNXM\Updater\Crawler;
 
 /**
- * Php - Version Crawler
+ * PHP x86 - Version Crawler
  */
 class PHP_X86 extends VersionCrawler
 {
@@ -22,7 +22,7 @@ class PHP_X86 extends VersionCrawler
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
-            if (preg_match("#php-+(\d+\.\d+(\.\d+)*)-nts-Win32-(VC9|VC11)-x86.zip$#", $node->text(), $matches)) {
+            if (preg_match("#php-(\d+\.\d+(\.\d+)*)-nts-Win32-(VC9|VC11)-x86.zip$#", $node->text(), $matches)) {
                 if (version_compare($matches[1], $this->registry['php']['latest']['version'], '>=')) {
                     return array(
                         'version' => $matches[1],

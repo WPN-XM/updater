@@ -26,7 +26,7 @@
       body { padding-top: 60px; } /* 60px to make the container go all the way to the bottom of the topbar */
       .navbar { border-top: 4px solid #D73D3D; }
       .navbar .brand { font-size: 18px; }
-      .container { font-size: 12px; }
+      .container { font-size: 14px; }
       .center { text-align: center; }
       h1, h2, h3, h4, h5 {
         color: #555555;
@@ -49,6 +49,20 @@
           -moz-transition: background-color 2s;
           -webkit-transition: background-color 2s;
           -o-transition: background-color 2s;
+      }
+      .table-version-matrix > thead > tr > th,
+      .table-version-matrix > tbody > tr > th,
+      .table-version-matrix > tfoot > tr > th,
+      .table-version-matrix > thead > tr > td,
+      .table-version-matrix > tbody > tr > td,
+      .table-version-matrix > tfoot > tr > td {
+          padding: 0.1em;
+          text-align: center;
+          vertical-align: middle;
+      }
+      .version-number {
+          background-color: #dff0d8;
+          color: #006400;
       }
     </style>
     <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">

@@ -155,7 +155,7 @@ function renderTableCells(array $wizardRegistries, $software)
     foreach($wizardRegistries as $wizardName => $wizardRegistry) {
         // normal versions
         if(isset($wizardRegistry['registry'][$software]) === true) {
-            $cells .= '<td class="alert alert-success">' . $wizardRegistry['registry'][$software] . '</td>';
+            $cells .= '<td class="version-number">' . $wizardRegistry['registry'][$software] . '</td>';
         } else {
             $cells .= '<td>&nbsp;</td>';
         }
@@ -207,7 +207,7 @@ function renderVersionDropdown($software, $versions)
 }
 ?>
 
-<table id="version-matrix" class="table table-condensed table-bordered" style="width: auto !important; padding: 0px; vertical-align: middle;">
+<table id="version-matrix" class="table table-condensed table-bordered table-version-matrix" style="width: auto !important; padding: 0px; vertical-align: middle;">
 <thead>
     <tr>
         <th>Software Components (<?php echo count($registry); ?>)</th>

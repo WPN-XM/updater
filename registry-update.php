@@ -256,6 +256,7 @@ if (isset($action) && $action === 'update-installer-registry') {
     'phpext_phalcon' => 'phpext_phalcon.zip',
     'phpext_rar' => 'phpext_rar.zip',
     'phpext_trader' => 'phpext_trader.zip',
+    'phpext_uploadprogress' => 'phpext_uploadprogress.zip',
     'phpext_varnish' => 'phpext_varnish.zip',
     'phpext_wincache' => 'phpext_wincache.exe', // ! exe file
     'phpext_xcache' => 'phpext_xcache.zip',

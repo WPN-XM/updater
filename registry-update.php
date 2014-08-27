@@ -251,6 +251,7 @@ if (isset($action) && $action === 'update-installer-registry') {
     'phpext_zmq' => 'phpext_zmq.zip',
     'phpmemcachedadmin' => 'phpmemcachedadmin.zip',
     'phpmyadmin' =>  'phpmyadmin.zip',
+    'pickle' => 'pickle.phar',
     'postgresql' =>  'postgresql.zip',
     'redis' =>  'redis.zip',
     'rockmongo' =>  'rockmongo.zip',
@@ -268,9 +269,9 @@ if (isset($action) && $action === 'update-installer-registry') {
   {
     $url = 'http://wpn-xm.org/get.php?s=' . $component . '&v=' . $version;
 
-    // special handling for PHP
-    if ($component === 'php' or $component === 'php-x64' or $component === 'php-qa-x64' or $component === 'php-qa') {
-        $php_version = substr($installerRegistry['php'], 0, 3); // get only major.minor, e.g. "5.4", not "5.4.2"
+    // special handling for PHP - 'php', 'php-x64', 'php-qa-x64', 'php-qa'
+    if (false !== strpos($component, 'php') && false === strpos($component, 'phpext_')) {
+        $php_version = substr($installerRegistry[$component], 0, 3); // get only major.minor, e.g. "5.4", not "5.4.2"
     }
 
     // special handling for PHP Extensions (which depend on a specific PHP version)

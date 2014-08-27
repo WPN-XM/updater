@@ -90,8 +90,8 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
     public function fileExistsOnServer($url)
     {
         $headers = get_headers($url);
-        if($headers[0] === 'HTTP/1.1 200 OK') { return true; }
-        return false;
+
+        return ($headers[0] === 'HTTP/1.1 200 OK') ? true : false;
     }
 
     /**

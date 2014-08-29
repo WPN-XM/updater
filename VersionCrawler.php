@@ -134,7 +134,7 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
      */
     public function createPhpVersionsArrayForExtension($version, $url)
     {
-        $url = str_replace("%version%", $version, $this->url);
+        $url = str_replace("%version%", $version, $url);
 
         $phpversions = array('5.4', '5.5', '5.6');
         $urls        = array();

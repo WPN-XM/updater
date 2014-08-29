@@ -229,9 +229,9 @@ if (isset($action) && $action === 'update-installer-registry') {
     'pear' => 'go-pear.phar', // ! phar file
     'perl' =>  'perl.zip',
     'php' => 'php.zip',
-    'php-x64' => 'php.zip',
     'php-qa' => 'php.zip',
     'php-qa-x64' => 'php.zip',
+    'php-x64' => 'php.zip',
     'phpext_amqp' => 'phpext_amqp.zip',
     'phpext_apc' => 'phpext_apc.zip',
     'phpext_imagick' => 'phpext_imagick.zip',
@@ -243,6 +243,7 @@ if (isset($action) && $action === 'update-installer-registry') {
     'phpext_rar' => 'phpext_rar.zip',
     'phpext_trader' => 'phpext_trader.zip',
     'phpext_uploadprogress' => 'phpext_uploadprogress.zip',
+    'phpext_uprofiler' => 'phpext_uprofiler.zip',
     'phpext_varnish' => 'phpext_varnish.zip',
     'phpext_wincache' => 'phpext_wincache.exe', // ! exe file
     'phpext_xcache' => 'phpext_xcache.zip',
@@ -256,6 +257,7 @@ if (isset($action) && $action === 'update-installer-registry') {
     'redis' =>  'redis.zip',
     'rockmongo' =>  'rockmongo.zip',
     'sendmail' =>  'sendmail.zip',
+    'uprofiler' =>  'uprofiler.zip',
     'varnish' =>  'varnish.zip',
     // vcredist_x86.exe (do not delete this comment, its for easier comparison with the .iss file)
     'webgrind' =>  'webgrind.zip',

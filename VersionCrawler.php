@@ -139,13 +139,10 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
         $phpversions = array('5.4', '5.5', '5.6');
         $urls        = array();
 
-        foreach ($phpversions as $phpversion) {
-            // compiler
-            if ($phpversion === '5.4') {
-                $compiler = 'VC9';
-            } else {
-                $compiler = 'VC11';
-            }
+        foreach ($phpversions as $phpversion)
+        {
+            $compiler = ($phpversion === '5.4') ? 'VC9' : 'VC11';
+
             $replacedUrl = str_replace(array('%compiler%', '%phpversion%'), array($compiler, $phpversion), $url);
 
             if ($this->fileExistsOnServer($replacedUrl) === true) {

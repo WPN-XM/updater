@@ -139,7 +139,7 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
      * @param URL $url PHP Extension URL with placeholders.
      * @return array
      */
-    public function createPhpVersionsArrayForExtension($version, $url)
+    public function createPhpVersionsArrayForExtension($version, $url, $skipURLcheck = false)
     {
         $url = str_replace("%version%", $version, $url);
 
@@ -155,7 +155,9 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
 
                 $replacedUrl = str_replace(array('%compiler%', '%phpversion%', '%bitsize%'), array($compiler, $phpversion, $bitsize), $url);
 
-                if ($this->fileExistsOnServer($replacedUrl) === true) {
+                if($skipURLcheck === true) {
+                    $urls[$bitsize][$phpversion] = $replacedUrl;
+                } elseif ($this->fileExistsOnServer($replacedUrl) === true) {
                     $urls[$bitsize][$phpversion] = $replacedUrl;
                 }
             }

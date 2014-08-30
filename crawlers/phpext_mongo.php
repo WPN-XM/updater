@@ -24,19 +24,23 @@ class phpext_mongo extends VersionCrawler
      *
      * Downloads are now on AS3.
      */
+    public $url = 'http://windows.php.net/downloads/pecl/releases/mongo/';
 
-    public $url = 'https://s3.amazonaws.com/drivers.mongodb.org/php/index.html';
+    /**
+     * S3 URL:   http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-'.$version.'.zip
+     * PECL URL: http://windows.php.net/downloads/pecl/releases/mongo/1.5.5/php_mongo-1.5.5-5.6-nts-vc11-x86.zip
+     */
+    private $url_template = 'http://windows.php.net/downloads/pecl/releases/mongo/%version%/php_mongo-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
 
     public function crawlVersion()
     {
         return $this->filter('a')->each( function ($node) {
-            // /package/mongo/1.4.5/windows
-            if (preg_match("#mongo/(\d+\.\d+(\.\d+)*)(?:[._-]?(rc)?(\d+))/windows?#i", $node->attr('href'), $matches)) {
+            if (preg_match("#(\d+\.\d+(\.\d+)*)$#", $node->text(), $matches)) {
                 $version = $matches[1]; // 1.2.3
                 if (version_compare($version, $this->registry['phpext_mongo']['latest']['version'], '>=')) {
                     return array(
                         'version' => $version,
-                        'url' => 'http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-'.$version.'.zip'
+                        'url' => $this->createPhpVersionsArrayForExtension($version, $this->url_template)
                     );
                 }
             }

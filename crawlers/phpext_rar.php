@@ -17,6 +17,8 @@ class phpext_rar extends VersionCrawler
 {
     public $url = 'http://windows.php.net/downloads/pecl/releases/rar/';
 
+    private $url_template = 'http://windows.php.net/downloads/pecl/releases/rar/%version%/php_rar-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
+
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
@@ -28,7 +30,7 @@ class phpext_rar extends VersionCrawler
                 if (version_compare($version, $this->registry['phpext_rar']['latest']['version'], '>=') and $this->fileExistsOnServer($url)) {
                     return array(
                         'version' => $version,
-                        'url' => $url,
+                        'url' => $this->createPhpVersionsArrayForExtension($version, $this->url_template)
                     );
                 }
             }

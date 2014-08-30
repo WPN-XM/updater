@@ -17,6 +17,8 @@ class phpext_xhprof extends VersionCrawler
 {
     public $url = 'http://windows.php.net/downloads/pecl/releases/xhprof/';
 
+    private $url_template = 'http://windows.php.net/downloads/pecl/releases/xhprof/%version%/php_xhprof-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
+
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
@@ -25,7 +27,7 @@ class phpext_xhprof extends VersionCrawler
 
                 return array(
                     'version' => $version,
-                    'url' => 'http://windows.php.net/downloads/pecl/releases/xhprof/'.$version.'/php_xhprof-'.$version.'-5.4-nts-vc9-x86.zip'
+                    'url' => $this->createPhpVersionsArrayForExtension($version, $this->url_template)
                 );
             }
         });

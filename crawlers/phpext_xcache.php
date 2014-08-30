@@ -17,6 +17,8 @@ class phpext_xcache extends VersionCrawler
 {
     public $url = 'http://xcache.lighttpd.net/pub/Releases/';
 
+    private $url_template = 'http://xcache.lighttpd.net/pub/Releases/%version%/XCache-%version%-php-%phpversion%-Win32-%compiler%-%bitsize%.zip'
+
     public $needsOnlyRegistrySubset = false;
 
     public $needsGuzzle = true;
@@ -59,7 +61,7 @@ class phpext_xcache extends VersionCrawler
                     // http://xcache.lighttpd.net/pub/Releases/3.1.0-rc1/XCache-3.1.0-rc1-php-5.4.20-Win32-VC9-x86.zip
                     return array(
                         'version' => $version,
-                        'url' => 'http://xcache.lighttpd.net/pub/Releases/'.$version.'/XCache-'.$version.'-php-5.4.20-Win32-VC9-x86.zip'
+                        'url'     => $this->createPhpVersionsArrayForExtension($version, $this->url_template)
                     );
                 }
             }

@@ -17,6 +17,8 @@ class phpext_zmq extends VersionCrawler
 {
     public $url = 'http://windows.php.net/downloads/pecl/releases/zmq/';
 
+    private $url_template = 'http://windows.php.net/downloads/pecl/releases/zmq/%version%/php_zmq-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
+
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
@@ -26,7 +28,7 @@ class phpext_zmq extends VersionCrawler
                 if (version_compare($version, $this->registry['phpext_zmq']['latest']['version'], '>=')) {
                     return array(
                         'version' => $version,
-                        'url' => 'http://windows.php.net/downloads/pecl/releases/zmq/'.$version.'/php_zmq-'.$version.'-5.4-nts-vc9-x86.zip'
+                        'url' => $this->createPhpVersionsArrayForExtension($version, $this->url_template)
                     );
                 }
             }

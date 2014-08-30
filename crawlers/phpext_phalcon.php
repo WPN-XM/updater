@@ -21,6 +21,9 @@ class phpext_phalcon extends VersionCrawler
      */
     public $url = 'http://static.phalconphp.com/files/';
 
+    // http://static.phalconphp.com/files/phalcon_x86_VC9_php5.4.0_1.3.1_nts.zip
+    private $url_template = 'http://static.phalconphp.com/files/phalcon_%bitsize%_%compiler%_php%phpversion%_%version%_nts.zip';
+
     public $needsOnlyRegistrySubset = false;
 
     public $needsGuzzle = true;
@@ -36,10 +39,9 @@ class phpext_phalcon extends VersionCrawler
 
                 if (version_compare($version, $this->registry['phpext_xcache']['latest']['version'], '>='))
                 {
-                    // http://static.phalconphp.com/files/phalcon_x86_VC9_php5.4.0_1.3.1_nts.zip
                     return array(
                         'version' => $version,
-                        'url' => 'http://static.phalconphp.com/files/phalcon_x86_VC9_php5.4.0_'.$version.'_nts.zip'
+                        'url'     => $this->createPhpVersionsArrayForExtension($version, $this->url_template)
                     );
                 }
             }

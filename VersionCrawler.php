@@ -121,12 +121,19 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
     /**
      * Creates an array for a PHP Extension URL.
      * Replaces %compiler% and %phpversion% placeholder strings in that URL:
-     * http://php.net/amqp/%version%/php_amqp-%version%-%phpversion%-nts-%compiler%-x86.zip
+     * http://php.net/amqp/%version%/php_amqp-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip
      *
-     * array(
-     *  '5.4' => url,
-     *  '5.5' => url,
-     *  '5.6' => url
+     * array (
+     *   'x86' => array(
+     *     '5.4' => url,
+     *     '5.5' => url,
+     *     '5.6' => url
+     *    ),
+     *  'x64' => array(
+     *     '5.4' => url,
+     *     '5.5' => url,
+     *     '5.6' => url
+     *  ),
      * )
      *
      * @param URL $url PHP Extension URL with placeholders.
@@ -136,18 +143,23 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
     {
         $url = str_replace("%version%", $version, $url);
 
+        $bitsizes    = array('x86', 'x64');
         $phpversions = array('5.4', '5.5', '5.6');
         $urls        = array();
 
-        foreach ($phpversions as $phpversion)
+        foreach ($bitsizes as $bitsize)
         {
-            $compiler = ($phpversion === '5.4') ? 'VC9' : 'VC11';
+            foreach ($phpversions as $phpversion)
+            {
+                $compiler = ($phpversion === '5.4') ? 'VC9' : 'VC11';
 
-            $replacedUrl = str_replace(array('%compiler%', '%phpversion%'), array($compiler, $phpversion), $url);
+                $replacedUrl = str_replace(array('%compiler%', '%phpversion%', '%bitsize%'), array($compiler, $phpversion, $bitsize), $url);
 
-            if ($this->fileExistsOnServer($replacedUrl) === true) {
-                $urls[$phpversion] = $replacedUrl;
+                if ($this->fileExistsOnServer($replacedUrl) === true) {
+                    $urls[$bitsize][$phpversion] = $replacedUrl;
+                }
             }
+
         }
 
         return $urls;

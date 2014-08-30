@@ -33,11 +33,11 @@ class phpext_phalcon extends VersionCrawler
         return $this->filter('a')->each(function ($node) {
 
             // there are "rc" versions, but we don't take them into account
-            if (preg_match("#php5.4.0_(\d+\.\d+(\.\d+)*)#i", $node->text(), $matches))
+            if (preg_match("#php(?:.*)_(\d+\.\d+(\.\d+)*)#i", $node->text(), $matches))
             {
                 $version = $matches[1];
 
-                if (version_compare($version, $this->registry['phpext_xcache']['latest']['version'], '>='))
+                if (version_compare($version, $this->registry['phpext_phalcon']['latest']['version'], '>='))
                 {
                     return array(
                         'version' => $version,

@@ -15,19 +15,20 @@ namespace WPNXM\Updater\Crawler;
  */
 class phpext_xdebug extends VersionCrawler
 {
-    public $url = 'http://xdebug.org/files/';
+    public $url = 'http://windows.php.net/downloads/pecl/releases/xdebug/';
+
+    private $url_template = 'http://windows.php.net/downloads/pecl/releases/xdebug/%version%/php_xdebug-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
 
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
-            # regexp for all version: "#((\d+\.)?(\d+\.)?(\d+\.)?(\*|\d+))([^\s]+nts(\.(?i)(dll))$)#i"
-            # we are fetching all xdebug versions for php 5.4
-            if (preg_match("#php_xdebug-(\d+\.\d+(\.\d+)*)-5.4-vc9-nts.dll#", $node->text(), $matches)) {
+            if (preg_match("#(\d+\.\d+(\.\d+)*)$#", $node->text(), $matches)) {
                 $version = $matches[1];
                 if (version_compare($version, $this->registry['phpext_xdebug']['latest']['version'], '>=')) {
                     return array(
                         'version' => $version,
-                        'url' => 'http://xdebug.org/files/' . $node->text());
+                        'url' => $this->createPhpVersionsArrayForExtension($version, $this->url_template)
+                    );
                 }
             }
         });

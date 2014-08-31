@@ -799,12 +799,14 @@ class StatusRequest
         foreach ($registry as $software => $keys) {
 
             // if software is a php extension,
-            // we have might have a latest version with URLs for multiple PHP versions
+            // we have a latest version with URLs for multiple PHP versions and multiple bitsizes
             if (strpos($software, 'phpext_') !== false) {
-                $phpversions = $keys['latest']['url'];
-                foreach ($phpversions as $phpversion => $url) {
-                    $urls[] = $url;
-                    $urls[] = 'http://wpn-xm.org/get.php?s=' . $software . '&p=' . $phpversion;
+                $bitsizes = $keys['latest']['url'];
+                foreach ($bitsizes as $bitsize => $phpversions) {
+                    foreach ($phpversions as $phpversion => $url) {
+                        $urls[] = $url;
+                        $urls[] = 'http://wpn-xm.org/get.php?s=' . $software . '&p=' . $phpversion . '&bitsize=' . $bitsize;
+                    }
                 }
             } else {
                 $urls[] = $keys['latest']['url'];

@@ -161,7 +161,6 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
                     $urls[$bitsize][$phpversion] = $replacedUrl;
                 }
             }
-
         }
 
         return $urls;

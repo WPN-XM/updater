@@ -234,6 +234,7 @@ if (isset($action) && $action === 'update-installer-registry') {
     'php-x64' => 'php.zip',
     'phpext_amqp' => 'phpext_amqp.zip',
     'phpext_apc' => 'phpext_apc.zip',
+    'phpext_apcu' => 'phpext_apcu.zip',
     'phpext_imagick' => 'phpext_imagick.zip',
     'phpext_mailparse' => 'phpext_mailparse.zip',
     'phpext_memcache' => 'phpext_memcache.zip', // without D

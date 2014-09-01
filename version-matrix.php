@@ -18,6 +18,11 @@ $registry  = include __DIR__ . '\registry\wpnxm-software-registry.php';
  * - restructure the arrays for better iteration
  */
 $wizardFiles = glob(__DIR__ . '\registry\*.json');
+
+if(empty($wizardFiles) === true) {
+    exit('No JSON registries found.');
+}
+
 $wizardRegistries = array();
 foreach($wizardFiles as $file) {
     $name = basename($file, '.json');

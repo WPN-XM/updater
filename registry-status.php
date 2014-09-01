@@ -50,7 +50,8 @@ function isAvailable($url)
 {
     global $urlsHttpStatus;
     // special handling for googlecode, because they don't like /HEAD requests via curl
-    if (false !== strpos($url, 'googlecode') or false !== strpos($url, 'phpmemcachedadmin') or
+    if (false !== strpos($url, 'googlecode') or
+        false !== strpos($url, 'phpmemcachedadmin') or
         false !== strpos($url, 'webgrind')) {
         return (bool) StatusRequest::getHttpStatusCode($url);
     }
@@ -76,13 +77,15 @@ foreach ($registry as $software => $keys) {
 
     // if software is a PHP Extension, we have a latest version with URLs for multiple PHP versions
     if (strpos($software, 'phpext_') !== false) {
-        $phpversions = $keys['latest']['url'];
+        $bitsizes = $keys['latest']['url'];
         $skipFirstTd = true;
-        foreach ($phpversions as $phpversion => $url) {
-            if($skipFirstTd === false) { echo '<td>&nbsp;</td>'; } else { $skipFirstTd = false; }
-            echo '<td>' . $keys['latest']['version'] . ' - ' . $phpversion . '</td>' . renderTd($url);
-            echo renderTd('http://wpn-xm.org/get.php?s=' . $software . '&p=' . $phpversion);
-            echo '</tr>';
+        foreach ($bitsizes as $bitsize => $phpversions) {
+            foreach ($phpversions as $phpversion => $url) {
+                if($skipFirstTd === false) { echo '<td>&nbsp;</td>'; } else { $skipFirstTd = false; }
+                echo '<td>' . $keys['latest']['version'] . ' - ' . $phpversion . ' - ' . $bitsize . '</td>' . renderTd($url);
+                echo renderTd('http://wpn-xm.org/get.php?s=' . $software . '&p=' . $phpversion . '&bitsize='. $bitsize);
+                echo '</tr>';
+            }
         }
     } else {
         echo '<td>' . $keys['latest']['version'] . '</td>' . renderTd($keys['latest']['url']);

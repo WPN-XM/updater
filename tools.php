@@ -786,7 +786,10 @@ class StatusRequest
 {
     /**
      * Builds an array with Download URLs to the WPN-XM Server
+     *
      * http://wpn-xm.org/get.php?s=%software%
+     *
+     * http://wpn-xm.org/get.php?s=%software%&p=%phpversion%&bitsize=%bitsize%
      *
      * @param type $registry
      * @return array
@@ -798,8 +801,7 @@ class StatusRequest
 
         foreach ($registry as $software => $keys) {
 
-            // if software is a php extension,
-            // we have a latest version with URLs for multiple PHP versions and multiple bitsizes
+            // if software is a PHP Extension, we have a latest version with URLs for multiple PHP versions
             if (strpos($software, 'phpext_') !== false) {
                 $bitsizes = $keys['latest']['url'];
                 foreach ($bitsizes as $bitsize => $phpversions) {
@@ -809,6 +811,7 @@ class StatusRequest
                     }
                 }
             } else {
+                // standard software component (without php constraints)
                 $urls[] = $keys['latest']['url'];
                 $urls[] = 'http://wpn-xm.org/get.php?s=' . $software;
             }

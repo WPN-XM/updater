@@ -63,7 +63,7 @@ function isAvailable($url)
 
 <h5>WPN-XM Software Registry - Status<span class="pull-right"><?=date(DATE_RFC822)?></span></h5>
 <h5>Components (<?=count($registry)?>)</h5>
-<table class="table table-condensed table-hover" style="font-size: 12px;">
+<table class="table table-condensed table-hover" style="font-size: 12px; width: 1480px;">
 <tr><th>Software Component</th><th>Version</th><th>Download URL<br/>(local wpnxm-software-registry.php)</th>
 <th>Forwarding URL<br/>(server wpnxm-software-registry.php)</th></tr>
 

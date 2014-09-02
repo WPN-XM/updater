@@ -515,12 +515,9 @@ class Registry
 
         $content = var_export($registry, true);
 
-        /*$content = str_replace('array (', 'array(', $content);
+        $content = str_replace('array (', 'array(', $content);
 
-        $content = str_replace("\n  array", "array", $content);
-        $content = str_replace("\n    array", "array", $content);
-        $content = str_replace("\n      array", "array", $content);
-        $content = str_replace("\n        array", "array", $content);*/
+        $content = preg_replace('/\n\s+array/', 'array', $content);
 
         return ArrayTool::removeTrailingSpaces($content);
     }

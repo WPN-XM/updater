@@ -767,12 +767,12 @@ class JsonHelper
         // reinsert commas
         $lines = str_replace('"  ', '", ', $lines);
 
+        // remove spaces before '['
+        $lines = preg_replace('#\s+\[#i', '[', $lines);
+
         // cleanups
         $lines = str_replace(',,', ',', $lines);
         $lines = str_replace('],', "],\n", $lines);
-
-        // remove spaces before '['
-        $lines = preg_replace('/\s+/[/', '[', $lines);
 
         $lines = "[\n" . trim($lines) . "\n]";
 

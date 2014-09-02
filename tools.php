@@ -772,12 +772,7 @@ class JsonHelper
         $lines = str_replace('],', "],\n", $lines);
 
         // remove spaces before '['
-        //$lines = preg_replace('/\s*[/', '', $lines);
-        $lines = str_replace('     [', '[', $lines);
-        $lines = str_replace('    [', '[', $lines);
-        $lines = str_replace('   [', '[', $lines);
-        $lines = str_replace('  [', '[', $lines);
-        $lines = str_replace(' [', '[', $lines);
+        $lines = preg_replace('/\s+/[/', '[', $lines);
 
         $lines = "[\n" . trim($lines) . "\n]";
 

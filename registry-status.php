@@ -36,7 +36,11 @@ require __DIR__ . '/tools.php';
 $registry  = Registry::load();
 
 $urls      = StatusRequest::getUrlsToCrawl($registry);
+
+$before = microtime(true);
 $responses = StatusRequest::getHttpStatusCodesInParallel($urls);
+$crawlingTime = round((microtime(true) - $before), 2);
+
 // build a lookup array: url => http status code 200
 $urlsHttpStatus = array_combine($urls, $responses);
 
@@ -95,4 +99,4 @@ foreach ($registry as $software => $keys) {
 }
 ?>
 </table>
-Used a total of <?=round((microtime(true) - $start), 2)?> seconds for crawling <?=count($urls)?> URLs.
+Used a total of <?=$crawlingTime?> seconds for crawling <?=count($urls)?> URLs. Total Page Build Time <?=round((microtime(true) - $start), 2)?> secs.

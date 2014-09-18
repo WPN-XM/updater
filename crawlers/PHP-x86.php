@@ -22,10 +22,18 @@ class PHP_X86 extends VersionCrawler
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
+            // VC9 for PHP
             if (preg_match("#php-(\d+\.\d+(\.\d+)*)-nts-Win32-(VC9|VC11)-x86.zip$#", $node->text(), $matches)) {
-                if (version_compare($matches[1], $this->registry['php']['latest']['version'], '>=')) {
+
+                $version = $matches[1];
+
+                if(false !== strpos($version, '5.3')) {
+                    return;
+                }
+
+                if (version_compare($version, $this->registry['php']['latest']['version'], '>=') or isset($this->registry['php'][$version]) === false) {
                     return array(
-                        'version' => $matches[1],
+                        'version' => $version,
                         'url' => 'http://windows.php.net/downloads/releases/' . $node->text()
                     );
                 }

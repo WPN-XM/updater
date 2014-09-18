@@ -23,9 +23,16 @@ class PHP_QA_X64 extends VersionCrawler
     {
         return $this->filter('a')->each(function ($node) {
             if (preg_match("#php-(\d+\.\d+(\.\d+)*(RC\d+))-nts-Win32-VC11-x64.zip$#", $node->text(), $matches)) {
-                if (version_compare($matches[1], $this->registry['php-x64']['latest']['version'], '>=')) {
+
+                $version = $matches[1];
+
+                if(false !== strpos($version, '5.3')) {
+                    return;
+                }
+
+                if (version_compare($version, $this->registry['php-x64']['latest']['version'], '>=')) {
                     return array(
-                        'version' => $matches[1],
+                        'version' => $version,
                         'url' => 'http://windows.php.net/downloads/qa/' . $node->text()
                     );
                 }

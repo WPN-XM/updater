@@ -41,6 +41,11 @@ if (isset($action) && $action === 'update') {
 // - shows a git push reminder
 if (isset($action) && $action === 'update-component') {
     $component = filter_input(INPUT_GET, 'component', FILTER_SANITIZE_STRING);
+
+    if(false !== strpos($component, 'php-x86')) {
+        $component = 'php';
+    }
+
     $registry = Registry::addLatestVersionScansIntoRegistry($registry, $component);
     if(is_array($registry) === true) {
         Registry::writeRegistry($registry);
@@ -275,11 +280,14 @@ if (isset($action) && $action === 'update-installer-registry') {
     // special handling for PHP - 'php', 'php-x64', 'php-qa-x64', 'php-qa'
     if (false !== strpos($component, 'php') && false === strpos($component, 'phpext_')) {
         $php_version = substr($installerRegistry[$component], 0, 3); // get only major.minor, e.g. "5.4", not "5.4.2"
+
+        $bitsize = (false !== strpos($component, 'x64')) ? 'x64' : ''; // empty bitsize defaults to x86, see website "get.php"
     }
 
-    // special handling for PHP Extensions (which depend on a specific PHP version)
+    // special handling for PHP Extensions (which depend on a specific PHP version and bitsize)
     if (false !== strpos($component, 'phpext_')) {
         $url .= '&p=' . $php_version;
+        $url .= ($bitsize !== '') ? '&bitsize=' . $bitsize : '';
     }
 
     $downloadFilename = $downloadFilenames[$component];

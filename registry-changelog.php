@@ -100,5 +100,7 @@ function getChangelog($registryNameA, $registryNameB)
         file_get_contents(__DIR__ . '/registry/' . $registryNameB . '.json')
     );
 
-    return "<pre>" . implode("\n", $diff) . "</pre>";
+    $header = 'Changes (' . $registryNameA . ' -> ' . $registryNameB . ")\n\n";
+
+    return "<pre>" . $header . implode("\n", $diff) . "</pre>";
 }

@@ -300,6 +300,8 @@ class Registry
 
     public static function getArrayForNewComponent($component, $url, $version, $website, $phpversion)
     {
+        $version = (string) $version;
+
         // array structure for PHP Extensions must take PHP Versions into account
         if (strpos($component, 'phpext_') !== false) {
             return array(

@@ -26,8 +26,7 @@ class Gogs extends VersionCrawler
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
-
-                if (preg_match("#releases/download/v(\d+\.\d+.\d+)/windows_amd64.zip#", $node->text(), $matches)) {
+                if (preg_match("#v(\d+\.\d+.\d+)#", $node->text(), $matches)) {
                     $version = $matches[1];
                     if (version_compare($version, $this->registry['gogs']['latest']['version'], '>=')) {
                         return array(

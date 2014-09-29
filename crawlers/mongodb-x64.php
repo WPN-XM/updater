@@ -13,7 +13,7 @@ namespace WPNXM\Updater\Crawler;
 /**
  * MongoDb (x86_64) - Version Crawler
  */
-class mongodb extends VersionCrawler
+class mongodb_X64 extends VersionCrawler
 {
     // formerly http://www.mongodb.org/downloads
     public $url = 'http://dl.mongodb.org/dl/win32/';
@@ -24,7 +24,7 @@ class mongodb extends VersionCrawler
             // no RC versions!
             if (preg_match("#win32-x86_64-(\d+\.\d+(\.\d+)*).zip$#", $node->attr('href'), $matches)) {
                 $version = $matches[1];
-                if (version_compare($version, $this->registry['mongodb']['latest']['version'], '>=')) {
+                if (version_compare($version, $this->registry['mongodb-x64']['latest']['version'], '>=')) {
                     return array(
                         'version' => $version,
                         # http://downloads.mongodb.org/win32/mongodb-win32-x86_64-2.2.0.zip

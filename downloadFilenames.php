@@ -53,4 +53,5 @@ return array(
     'webgrind' =>  'webgrind.zip',
     'wpnxmscp' =>  'wpnxmscp.zip',
     'xhprof' =>  'xhprof.zip',
+    'yuicompressor' => 'yuicompressor.jar', // ! jar file
 );

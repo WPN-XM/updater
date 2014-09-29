@@ -16,6 +16,10 @@
 
 echo getChangelog('bigpack-0.7.0-w32', 'full-0.8.0-php5.4-w32');
 
+echo getChangelog('allinone-0.7.0-w32', 'standard-0.8.0-php5.4-w32');
+
+echo getChangelog('lite-0.7.0-w32', 'lite-0.8.0-php5.4-w32');
+
 /**
  * Installer Registry Difference
  *
@@ -63,7 +67,7 @@ function diffRegistries($registryA, $registryB)
          * this shouldn't happen at all.
          * this would mean, that we use a lower component version in a higher installer version .. o.O
          * the only use case might be, to downgrade to fix a version incompatability.
-         */ 
+         */
         elseif ($vcResult === 1) {
             $diff[$component] = 'UPD ' . $component . ' was downgraded from v' . $versionA . ' to v' . $versionB;
         }
@@ -96,7 +100,7 @@ function reindexArrayComponentNamed($array)
 function getChangelog($registryNameA, $registryNameB)
 {
     $diff = diffRegistries(
-        file_get_contents(__DIR__ . '/registry/' . $registryNameA . '.json'), 
+        file_get_contents(__DIR__ . '/registry/' . $registryNameA . '.json'),
         file_get_contents(__DIR__ . '/registry/' . $registryNameB . '.json')
     );
 
@@ -104,3 +108,25 @@ function getChangelog($registryNameA, $registryNameB)
 
     return "<pre>" . $header . implode("\n", $diff) . "</pre>";
 }
+
+function getClosedIssuesForMilestone($milestone)
+{
+    $url = 'https://api.github.com/repos/WPN-XM/WPN-XM/issues?milestone=' . $milestone . '&state=closed';
+
+    $options  = array('http' => array('user_agent'=> $_SERVER['HTTP_USER_AGENT']));
+    $context  = stream_context_create($options);
+    $json = file_get_contents($url, false, $context);
+
+    $array = json_decode($json, true);
+
+    $log = '';
+
+    foreach($array as $key => $values)
+    {
+        $log .= '      #' . $values['number'] . '    ' . $values['html_url'] . '  ' . $values['title'] . "\n";
+    }
+
+    return $log;
+}
+
+#echo '<pre>' . getClosedIssuesForMilestone('10') . '</pre>';

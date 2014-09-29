@@ -29,7 +29,7 @@ class mysysgit extends VersionCrawler
                     return array(
                         'version' => $version,
                         # https://github.com/msysgit/msysgit/releases/download/Git-1.9.4-preview20140815/PortableGit-1.9.4-preview20140815.7z
-                        'url' => 'https://github.com/msysgit/msysgit/releases/download/Git-' . $version . '/PortableGit-' . $version . '.7z';
+                        'url' => 'https://github.com/msysgit/msysgit/releases/download/Git-' . $version . '/PortableGit-' . $version . '.7z'
                     );
                 }
             }

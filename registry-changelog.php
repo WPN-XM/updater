@@ -20,6 +20,8 @@ echo getChangelog('allinone-0.7.0-w32', 'standard-0.8.0-php5.4-w32');
 
 echo getChangelog('lite-0.7.0-w32', 'lite-0.8.0-php5.4-w32');
 
+echo '<pre>' . getClosedIssuesForMilestone('10') . '</pre>';
+
 /**
  * Installer Registry Difference
  *
@@ -128,5 +130,3 @@ function getClosedIssuesForMilestone($milestone)
 
     return $log;
 }
-
-#echo '<pre>' . getClosedIssuesForMilestone('10') . '</pre>';

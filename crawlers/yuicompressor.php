@@ -21,8 +21,7 @@ class yuicompressor extends VersionCrawler
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
-
-                if (preg_match("#releases/download/v(\d+\.\d+.\d+)#", $node->text(), $matches)) {
+                if (preg_match("#yuicompressor-(\d+\.\d+.\d+).jar#", $node->text(), $matches)) {
                     $version = $matches[1];
                     if (version_compare($version, $this->registry['yuicompressor']['latest']['version'], '>=')) {
                         return array(

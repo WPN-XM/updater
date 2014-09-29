@@ -61,7 +61,7 @@ class RegistryUpdater
 
             /* set registry and crawling client to version crawler */
             $crawler->setRegistry($this->registry, $component);
-            //$crawler->setGuzzle($this->guzzleClient);
+
             // store crawler object in crawlers array
             $this->crawlers[$i] = $crawler;
 
@@ -81,7 +81,7 @@ class RegistryUpdater
         foreach($this->urls as $idx => $url) {
             // guzzle does not accept an array of URLs anymore
             // now Urls must be objects implementing the \GuzzleHttp\Message\RequestInterface
-            $requests[] = $this->guzzleClient->createRequest('GET', $url);
+            $requests[] = $this->guzzleClient->createRequest('GET', $url, ['allow_redirects' => true]);
         }
 
         $this->results = GuzzleHttp\batch($this->guzzleClient, $requests);

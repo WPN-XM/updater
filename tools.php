@@ -291,7 +291,7 @@ class Registry
         // formatting
         $registry = Registry::sort($registry);
         $content .= Registry::prettyPrint($registry);
-        $content .= ';';
+        $content .= ";\n";
 
         // write new registry
         return (bool) file_put_contents(__DIR__ . '/registry/wpnxm-software-registry.php', $content);

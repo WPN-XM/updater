@@ -25,6 +25,8 @@ echo '<pre>' . getClosedIssuesForMilestone('10') . '</pre>';
 /**
  * Installer Registry Difference
  *
+ * @param string $registryA
+ * @param string $registryB
  * @return $result array Array Difference in Changelog style.
  */
 function diffRegistries($registryA, $registryB)

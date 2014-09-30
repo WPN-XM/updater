@@ -11,7 +11,6 @@
 require_once __DIR__ . '/vendor/goutte.phar';
 
 use Goutte\Client as GoutteClient;
-use Guzzle\Common\Exception\MultiTransferException;
 
 class RegistryUpdater
 {
@@ -509,7 +508,7 @@ class Registry
      * Pretty prints the registry.
      *
      * @param array $registry
-     * @return array
+     * @return string
      */
     public static function prettyPrint(array $registry)
     {

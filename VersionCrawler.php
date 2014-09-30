@@ -136,7 +136,8 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
      *  ),
      * )
      *
-     * @param URL $url PHP Extension URL with placeholders.
+     * @param string $url PHP Extension URL with placeholders.
+     * @param string $version
      * @return array
      */
     public function createPhpVersionsArrayForExtension($version, $url, $skipURLcheck = false)

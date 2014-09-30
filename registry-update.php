@@ -147,9 +147,9 @@ if (isset($action) && $action === 'add') {
             </div>
 
 <script type="text/javascript" charset="utf-8">
-$(document).ready(function() {
+$(document).ready(function () {
    // bind submit action
-   $('#myModal button[type="submit"]').bind('click', function(event) {
+   $('#myModal button[type="submit"]').bind('click', function (event) {
        var form = $("#myModal .modal-body form");
 
        $.ajax({
@@ -158,7 +158,7 @@ $(document).ready(function() {
          data: form.serializeArray(),
 
          cache: false,
-         success: function(response, status) {
+         success: function (response, status) {
            $('#myModal .modal-body').html(response);
          }
        });
@@ -190,7 +190,7 @@ if (isset($action) && $action === 'insert') {
 
     // check result and send response
     $js = '<script type="text/javascript" charset="utf-8">
-            $(document).ready(function() {
+            $(document).ready(function () {
                 $(\'#myModal button[type="submit"]\').hide();
             });
            </script>';
@@ -221,8 +221,7 @@ if (isset($action) && $action === 'update-installer-registry') {
 
   $data = array();
 
-  foreach($installerRegistry as $component => $version)
-  {
+  foreach($installerRegistry as $component => $version) {
     $url = 'http://wpn-xm.org/get.php?s=' . $component . '&v=' . $version;
 
     // special handling for PHP - 'php', 'php-x64', 'php-qa-x64', 'php-qa'

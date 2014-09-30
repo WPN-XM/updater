@@ -125,8 +125,7 @@ function getClosedIssuesForMilestone($milestone)
 
     $log = '';
 
-    foreach($array as $key => $values)
-    {
+    foreach($array as $key => $values) {
         $log .= '      #' . $values['number'] . '    ' . $values['html_url'] . '  ' . $values['title'] . "\n";
     }
 

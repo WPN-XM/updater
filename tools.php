@@ -371,7 +371,7 @@ class Registry
 
     public static function sortArrayByVersion($array)
     {
-        $sort = function($versionA, $versionB) {
+        $sort = function ($versionA, $versionB) {
             return version_compare($versionA['version'], $versionB['version']);
         };
         usort($array, $sort);
@@ -621,7 +621,7 @@ class InstallerRegistry
      * @param string $file
      * @param array $registry
      */
-    function writeRegistryFileJson($file, $registry)
+    public function writeRegistryFileJson($file, $registry)
     {
         asort($registry);
 
@@ -709,12 +709,12 @@ class JsonHelper
         }
 
         // calculate the number of missing spaces
-        $numberOfSpacesToAdd = function($longest_line_length, $line_length) {
+        $numberOfSpacesToAdd = function ($longest_line_length, $line_length) {
             return ($longest_line_length - $line_length) + 2; // were the magic happens
         };
 
         // append certain number of spaces to string
-        $appendSpaces = function($num, $string) {
+        $appendSpaces = function ($num, $string) {
             for ($i = 0; $i <= $num; $i++) {
                 $string .= ' ';
             }

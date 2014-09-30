@@ -148,10 +148,8 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
         $phpversions = array('5.4', '5.5', '5.6');
         $urls        = array();
 
-        foreach ($bitsizes as $bitsize)
-        {
-            foreach ($phpversions as $phpversion)
-            {
+        foreach ($bitsizes as $bitsize) {
+            foreach ($phpversions as $phpversion) {
                 $compiler = ($phpversion === '5.4') ? 'VC9' : 'VC11';
 
                 $replacedUrl = str_replace(array('%compiler%', '%phpversion%', '%bitsize%'), array($compiler, $phpversion, $bitsize), $url);

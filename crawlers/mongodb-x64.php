@@ -13,7 +13,7 @@ namespace WPNXM\Updater\Crawler;
 /**
  * MongoDb (x86_64) - Version Crawler
  */
-class mongodb_X64 extends VersionCrawler
+class mongodb-x64 extends VersionCrawler
 {
     // formerly http://www.mongodb.org/downloads
     public $url = 'http://dl.mongodb.org/dl/win32/';

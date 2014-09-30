@@ -13,7 +13,7 @@ namespace WPNXM\Updater\Crawler;
 /**
  * ImageMagick - Version Crawler
  */
-class Imagick extends VersionCrawler
+class imagick extends VersionCrawler
 {
     // http://www.imagemagick.org/download/windows/
     public $url = 'http://www.imagemagick.org/script/binary-releases.php';

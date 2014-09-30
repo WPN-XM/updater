@@ -74,8 +74,7 @@ function countNextRegistries($registries)
 {
     $cnt = 0;
 
-    foreach($registries as $registry)
-    {
+    foreach($registries as $registry) {
         if($registry['constraints']['version'] === 'next') {
             $cnt = $cnt + 1;
         }
@@ -109,7 +108,8 @@ function issetArrayKeyOrDefault(array $array, $key, $defaultValue = null)
     return (isset($array[$key]) === true) ? $array[$key] : $defaultValue;
 }
 
-function fixArraySoftwareAsKey(array $array) {
+function fixArraySoftwareAsKey(array $array)
+{
     $out = array();
     foreach($array as $key => $values) {
         $software = $values[0];
@@ -220,8 +220,7 @@ function renderVersionDropdown($software, $versions)
     </tr>
 </thead>
 <?php
-foreach($registry as $software => $data)
-{
+foreach($registry as $software => $data) {
     echo '<tr><td>' . $software . '</td>'
         . renderTableCells($wizardRegistries, $software)
         . renderVersionDropdown($software, reduceArrayToContainOnlyVersions($data))
@@ -233,7 +232,7 @@ foreach($registry as $software => $data)
     $('div#ajax-container.container').css('width', 'auto');
     $('head').append('<style>.form-control { height: auto; padding: 0; } </style>');
 
-    $("#save-button").click(function(event) {
+    $("#save-button").click(function (event) {
 
         // find cell, where we clicked "syncDropDownButton"
         var column = $(this).parent().parent().children().index(this.parentNode);
@@ -248,7 +247,7 @@ foreach($registry as $software => $data)
         var registry = {};
 
         // for each table row
-        table.each(function() {
+        table.each(function () {
               // get td element of current column
               var versionTd = $(this).find("td").eq(column);
               // get version number

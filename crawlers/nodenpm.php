@@ -7,13 +7,13 @@
  * This source file is subject to the terms of the MIT license.
  * For full copyright and license information, view the bundled LICENSE file.
  */
- 
+
 namespace WPNXM\Updater\Crawler;
 
 /**
  * Node NPM - Version Crawler
  */
-class Nodenpm extends VersionCrawler
+class nodenpm extends VersionCrawler
 {
     public $url = 'http://nodejs.org/dist/npm/';
 

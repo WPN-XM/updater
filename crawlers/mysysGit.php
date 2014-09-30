@@ -13,7 +13,7 @@ namespace WPNXM\Updater\Crawler;
 /**
  * mysysGit (PortableGit) - Version Crawler
  */
-class mysysgit extends VersionCrawler
+class mysysGit extends VersionCrawler
 {
     public $url = 'https://github.com/msysgit/msysgit/releases/latest';
 

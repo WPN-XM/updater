@@ -130,19 +130,19 @@
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script type="text/javascript">
-      $(document).ready(function() {
+      $(document).ready(function () {
 
         // init modal window and hide it
         $('#myModal').modal({show:false});
 
         // with a click on a link in the top navi, do the following
-        $("#menu li a").click(function(event) {
+        $("#menu li a").click(function (event) {
 
           href = $(this).attr('href'); // get click target href
 
           // href contain add, show dialog
           if(href.toLowerCase().indexOf('add') >= 0) {
-            $.get(href, function(response) {
+            $.get(href, function (response) {
               $("#myModal .modal-content").html(response);
             });
             return;
@@ -173,8 +173,8 @@
           return false; // stop clicking from causing navigation
         });
 
-        function doGetRequest(href) {
-
+        function doGetRequest(href)
+        {
           // reset target, show modal dlg
           $("#ajax-container").empty();
           $('#myModal').modal('show');
@@ -188,14 +188,14 @@
               url: href,
               cache: false,
               timeout: 99999
-          }).done(function(html) {
+          }).done(function (html) {
               // hide modal, insert content on target
               $('#myModal').modal('hide');
               $("#ajax-container").empty().append(html);
           });
         }
 
-        $("body").on("click", '[id^=syncDropDownsButton]', function() {
+        $("body").on("click", '[id^=syncDropDownsButton]', function () {
 
           // find cell, where we clicked "syncDropDownButton"
           var column = $(this).parent().parent().children().index(this.parentNode);
@@ -210,7 +210,7 @@
           $('input[name="new-registry-name"]').val(installer);
 
           // for each table row
-          table.each(function() {
+          table.each(function () {
               // get td element of current column
               var td = $(this).find("td").eq(column);
               // get version number
@@ -229,14 +229,14 @@
                   // add some color highlighting to indicate the change
                   selectOption.parent().addClass("updated");
 
-                  setTimeout(function(){ // toggle back after 1 second
+                  setTimeout(function () { // toggle back after 1 second
                     selectOption.parent().removeClass("updated");
                   }, 1000);
               }
           });
         });
 
-      $("body").on("click", '[id^=syncInstallerNameButton]', function() {
+      $("body").on("click", '[id^=syncInstallerNameButton]', function () {
           // find cell, where we clicked "syncInstallerNameButton"
           var column = $(this).parent().parent().children().index(this.parentNode);
 

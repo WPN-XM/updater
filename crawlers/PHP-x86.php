@@ -13,7 +13,7 @@ namespace WPNXM\Updater\Crawler;
 /**
  * PHP x86 - Version Crawler
  */
-class PHP_X86 extends VersionCrawler
+class PHP-x86 extends VersionCrawler
 {
     public $name = 'php';
 

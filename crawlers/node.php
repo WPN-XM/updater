@@ -7,7 +7,7 @@
  * This source file is subject to the terms of the MIT license.
  * For full copyright and license information, view the bundled LICENSE file.
  */
- 
+
 namespace WPNXM\Updater\Crawler;
 
 /**
@@ -19,7 +19,7 @@ namespace WPNXM\Updater\Crawler;
  * 32 bit http://nodejs.org/dist/latest/node.exe
  * 64 bit http://nodejs.org/dist/latest/x64/node.exe
  */
-class Node extends VersionCrawler
+class node extends VersionCrawler
 {
     public $url = 'http://nodejs.org/dist/';
 

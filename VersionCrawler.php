@@ -85,6 +85,7 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
     /**
      * Checks, if URL exists via header evaluation.
      *
+     * @param string $url
      * @return bool Returns true, if URL exists, otherwise false.
      */
     public function fileExistsOnServer($url)

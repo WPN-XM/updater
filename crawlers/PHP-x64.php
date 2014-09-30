@@ -13,7 +13,7 @@ namespace WPNXM\Updater\Crawler;
 /**
  * PHP x64 - Version Crawler
  */
-class PHP-x64 extends VersionCrawler
+class PHP_x64 extends VersionCrawler
 {
     public $name = 'php-x64';
 

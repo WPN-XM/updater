@@ -11,9 +11,9 @@
 namespace WPNXM\Updater\Crawler;
 
 /**
- * mysysGit (PortableGit) - Version Crawler
+ * msysGit (PortableGit) - Version Crawler
  */
-class mysysGit extends VersionCrawler
+class msysGit extends VersionCrawler
 {
     public $url = 'https://github.com/msysgit/msysgit/releases/latest';
 
@@ -25,7 +25,7 @@ class mysysGit extends VersionCrawler
 
             if (preg_match("#PortableGit-(\d+\.\d+.\d+-\w+).7z#i", $node->text(), $matches)) {
                 $version = $matches[1]; // 1.9.4-preview20140815
-                if (version_compare($version, $this->registry['mysysgit']['latest']['version'], '>=')) {
+                if (version_compare($version, $this->registry['msysgit']['latest']['version'], '>=')) {
                     return array(
                         'version' => $version,
                         # https://github.com/msysgit/msysgit/releases/download/Git-1.9.4-preview20140815/PortableGit-1.9.4-preview20140815.7z

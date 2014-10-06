@@ -58,6 +58,8 @@ class RegistryUpdater
             $classname = 'WPNXM\Updater\Crawler\\' . ucfirst($component);
             $crawler   = new $classname;
 
+            #echo $component . ' - ' . $file;
+
             /* set registry and crawling client to version crawler */
             $crawler->setRegistry($this->registry, $component);
 
@@ -98,6 +100,10 @@ class RegistryUpdater
             $new_version = $old_version = '';
 
             $response = $this->results[$request];
+
+            if($response instanceOf GuzzleHttp\Exception\RequestException) {
+                echo $response->getMessage(); // Get the exception message
+            }
 
             // set the response to the version crawler object
             $this->crawlers[$i]->addContent($response->getBody(), $response->getHeader('Content-Type'));

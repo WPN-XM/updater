@@ -68,7 +68,7 @@ if (isset($action) && $action === 'scan') {
     // handle $_GET['component'], for single component scans, e.g. registry-update.php?action=scan&component=openssl
 
     $component = filter_input(INPUT_GET, 'component', FILTER_SANITIZE_STRING);
-    $numberOfComponents = (isset($component) === true) ? $updater->getUrlsToCrawl($component) : $updater->getUrlsToCrawl();
+    $numberOfComponents = (isset($component) === true) ? $updater->getUrlsToCrawl($component) : $updater->getUrlsToCrawl() + 1;
 
     $updater->crawl();
     $tableHtml = $updater->evaluateResponses();

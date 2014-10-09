@@ -43,7 +43,8 @@ class RegistryUpdater
     public function getUrlsToCrawl($single_component = null)
     {
         if (isset($single_component) === true) {
-            $crawlers = glob(__DIR__ . '\crawlers\\' . $single_component . '.php');
+            $crawler_file = str_replace('-', '_', $single_component);
+            $crawlers = glob(__DIR__ . '\crawlers\\' . $crawler_file . '.php');
         } else {
             $crawlers = glob(__DIR__ . '\crawlers\*.php');
         }
@@ -57,6 +58,8 @@ class RegistryUpdater
             $component = str_replace(array('-', '.'), array('_', '_'), strtolower(pathinfo($file, PATHINFO_FILENAME)));
             $classname = 'WPNXM\Updater\Crawler\\' . ucfirst($component);
             $crawler   = new $classname;
+
+            #echo $component . ' - ' . $file;
 
             /* set registry and crawling client to version crawler */
             $crawler->setRegistry($this->registry, $component);
@@ -98,6 +101,10 @@ class RegistryUpdater
             $new_version = $old_version = '';
 
             $response = $this->results[$request];
+
+            if($response instanceOf GuzzleHttp\Exception\RequestException) {
+                echo $response->getMessage(); // Get the exception message
+            }
 
             // set the response to the version crawler object
             $this->crawlers[$i]->addContent($response->getBody(), $response->getHeader('Content-Type'));

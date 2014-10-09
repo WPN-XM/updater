@@ -16,7 +16,8 @@ namespace WPNXM\Updater\Crawler;
 class mongodb extends VersionCrawler
 {
     // formerly http://www.mongodb.org/downloads
-    public $url = 'http://dl.mongodb.org/dl/win32/';
+    // warning: do not use http://dl.mongodb.org/dl/win32/ - use instead: https://www.mongodb.org/dl/win32/
+    public $url = 'https://www.mongodb.org/dl/win32/';
 
     public function crawlVersion()
     {

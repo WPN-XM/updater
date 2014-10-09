@@ -18,7 +18,8 @@ class mongodb_x64 extends VersionCrawler
     public $name = 'mongodb-x64';
 
     // formerly http://www.mongodb.org/downloads
-    public $url = 'http://dl.mongodb.org/dl/win32/';
+    // warning: do not use http://dl.mongodb.org/dl/win32/ - use instead: https://www.mongodb.org/dl/win32/
+    public $url = 'https://www.mongodb.org/dl/win32/';
 
     public function crawlVersion()
     {

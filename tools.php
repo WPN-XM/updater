@@ -43,7 +43,8 @@ class RegistryUpdater
     public function getUrlsToCrawl($single_component = null)
     {
         if (isset($single_component) === true) {
-            $crawlers = glob(__DIR__ . '\crawlers\\' . $single_component . '.php');
+            $crawler_file = str_replace('-', '_', $single_component);
+            $crawlers = glob(__DIR__ . '\crawlers\\' . $crawler_file . '.php');
         } else {
             $crawlers = glob(__DIR__ . '\crawlers\*.php');
         }

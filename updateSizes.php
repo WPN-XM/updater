@@ -83,8 +83,6 @@ function calculateSizesForZipArchive($file)
 
 function calculateSizesForFolders($folders)
 {
-	$results = [];
-
 	foreach($folders as $folder => $components) {
 		foreach($components as $component => $values) {
 			$file = $values['file'];
@@ -96,6 +94,7 @@ function calculateSizesForFolders($folders)
 			}
 		}
 	}
+
 	return $folders;
 }
 
@@ -132,7 +131,7 @@ function calculateSizesOfCombinedComponents($folders)
 
 function insertExtraDiskSizeIntoInstallers($folders)
 {
-	$installers = $files = glob("D:\Github\WPN-XM\WPN-XM\installers\*.iss");
+	$installers = glob("D:\Github\WPN-XM\WPN-XM\installers\*.iss");
 
 	foreach($installers as $installer)
 	{

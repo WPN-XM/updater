@@ -105,7 +105,7 @@ class RegistryUpdater
             $response = $this->results[$request];
 
             if($response instanceOf GuzzleHttp\Exception\RequestException) {
-                echo $response->getMessage(); // Get the exception message
+                throw new RuntimeException($response->getMessage());
             }
 
             // set the response to the version crawler object

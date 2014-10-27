@@ -27,6 +27,8 @@ $wizardRegistries = array();
 foreach($wizardFiles as $file) {
     $name = basename($file, '.json');
 
+    $parts = array();
+
     if(substr_count($name, '-') === 2) {
         preg_match('/(?<installer>.*)-(?<version>.*)-(?<bitsize>.*)/i', $name, $parts);
     }

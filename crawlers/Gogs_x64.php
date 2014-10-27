@@ -11,14 +11,16 @@
 namespace WPNXM\Updater\Crawler;
 
 /**
- * Gogs - Version Crawler
+ * Gogs x64 - Version Crawler
  *
  * Gogs(Go Git Service) is a painless self-hosted Git Service written in Go.
  *
  * http://gogs.io - https://github.com/gogits/gogs
  */
-class Gogs extends VersionCrawler
+class Gogs_x64 extends VersionCrawler
 {
+    public $name = 'gogs-x64';
+
     // we are scraping the github releases page
     // alternative: http://gogs.io/docs/installation/install_from_binary.html
     public $url = 'https://github.com/gogits/gogs/releases/latest';
@@ -34,6 +36,7 @@ class Gogs extends VersionCrawler
                             // CDNs
                             // - http://gogs.dn.qbox.me/gogs_v0.5.2_windows_amd64.zip
                             // - https://github.com/gogits/gogs/releases/download/v0.5.2/windows_amd64.zip
+                            // - http://gobuild3.qiniudn.com/github.com/gogits/gogs/tag-v-v0.5.5/gogs-windows-amd64.zip
                             'url'     => 'https://github.com/gogits/gogs/releases/download/v' . $version . '/windows_amd64.zip'
                         );
                     }

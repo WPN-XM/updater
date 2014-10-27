@@ -80,6 +80,8 @@ class RegistryUpdater
      */
     public function crawl()
     {
+        $requests = array();
+
         foreach($this->urls as $idx => $url) {
             // guzzle does not accept an array of URLs anymore
             // now Urls must be objects implementing the \GuzzleHttp\Message\RequestInterface

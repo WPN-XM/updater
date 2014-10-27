@@ -581,7 +581,7 @@ class ArrayTool
      * Removes all keys with value "null" from the array and returns the array.
      *
      * @param $array Array
-     * @return $array
+     * @return array
      */
     public static function unsetNullValues(array $array)
     {
@@ -598,7 +598,7 @@ class ArrayTool
      * Removes duplicates from the array.
      *
      * @param $array Array
-     * @return $array
+     * @return array
      */
     public static function removeDuplicates(array $array)
     {

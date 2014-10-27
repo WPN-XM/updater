@@ -27,7 +27,7 @@ echo '<pre>' . getClosedIssuesForMilestone('10') . '</pre>';
  *
  * @param string $registryA
  * @param string $registryB
- * @return $result array Array Difference in Changelog style.
+ * @return array $result Array Difference in Changelog style.
  */
 function diffRegistries($registryA, $registryB)
 {
@@ -91,6 +91,9 @@ function diffRegistries($registryA, $registryB)
 
 /**
  * Convert a numerically indexed array to a "component name" indexed array.
+ *
+ * @param $array Numerically indexed array.
+ * @return array Component-name indexed array.
  */
 function reindexArrayComponentNamed($array)
 {

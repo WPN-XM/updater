@@ -8,6 +8,13 @@
  * For full copyright and license information, view the bundled LICENSE file.
  */
 
+/**
+ * This scripts fetches the packed/unpacked archive sizes
+ * and calculates the ExtraDiskSpaceRequired for each component
+ * in each installer specific download folder.
+ * It creates a "sizes-report.txt", which provides all the details.
+ * Finally, the the ISS files are updated with the new ExtraDiskSpaceRequired value.
+ */
 
 // calc sizes
 $array = recursiveGlob('D:\Github\WPN-XM\WPN-XM\downloads', 'zip');

@@ -700,8 +700,9 @@ class JsonHelper
      * JSON Table Format
      * Like "tab separated value" (TSV) format, BUT with spaces :)
      * Aligns values correctly underneath each other.
-     * jakoch: my tackling of this indention problem is ugly, but it works.
+     *
      * @param string $json
+     * @return string
      */
     public static function jsonPrettyPrintTableFormat($json)
     {

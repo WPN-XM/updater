@@ -17,10 +17,8 @@ class phpmemcachedadmin extends VersionCrawler
 {
     /**
      * WARNING
-     * The project name is phpmemcache[]admin
-     * while  file name is phpmemcached[d]admin.
-     *
-     * In WPN-XM the name is "phpmemcachedadmin" with D.
+     * The project name is "phpmemcacheadmin", while the filename is "phpmemcachedadmin" (with D).
+     * In WPN-XM the name is "phpmemcachedadmin" (with D).
      *
      * @var string
      */

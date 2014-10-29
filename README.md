@@ -1,4 +1,4 @@
-updater [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/WPN-XM/updater/badges/quality-score.png?s=1a9a64432070368d4081cde47ed7e85afc984c51)](https://scrutinizer-ci.com/g/WPN-XM/updater/)
+updater [![Build Status](http://img.shields.io/travis/WPN-XM/updater.svg?style=flat-square)](https://travis-ci.org/KSST/KF) [![Scrutinizer Quality Score](http://img.shields.io/scrutinizer/g/WPN-XM/updater.svg?style=flat-square)](https://scrutinizer-ci.com/g/WPN-XM/updater/)
 =======
 
 Update Tool for the Software Components Registry of the WPN-XM Server Stack.

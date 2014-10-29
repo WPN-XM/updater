@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- http://www.phpunit.de/manual/current/en/appendixes.configuration.html -->
+<phpunit
+    backupGlobals               = "false"
+    backupStaticAttributes      = "false"
+    colors                      = "true"
+    convertErrorsToExceptions   = "true"
+    convertNoticesToExceptions  = "true"
+    convertWarningsToExceptions = "true"
+    processIsolation            = "false"
+    stopOnFailure               = "false"
+    strict                      = "true"
+    syntaxCheck                 = "false"
+    verbose                     = "true"
+    bootstrap                   = "./bootstrap.php">
+
+    <php>
+        <ini name="memory_limit" value="-1"/>
+    </php>
+
+    <testsuite name="WPN-XM Updater Test Suite">
+        <directory>./.</directory>
+        <exclude>vendor</exclude>
+    </testsuite>
+
+    <filter>
+        <whitelist addUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">../</directory>
+            <exclude>
+                <directory>../tests</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+
+    <logging>
+        <log type="coverage-clover" target="../build/logs/clover.xml" />
+        <log type="coverage-html" target="../build/coverage" title="WPN-XM Updater" />
+        <log type="junit" target="../build/logs/junit.xml" />
+    </logging>
+</phpunit>

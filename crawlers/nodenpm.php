@@ -20,7 +20,7 @@ class nodenpm extends VersionCrawler
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
-        	// http://nodejs.org/dist/npm/npm-1.4.6.zip
+            // http://nodejs.org/dist/npm/npm-1.4.6.zip
             if (preg_match("#(\d+\.\d+(\.\d+)*)(.zip)$#i", $node->text(), $matches)) {
                 if (version_compare($matches[1], $this->registry['nodenpm']['latest']['version'], '>=') === true) {
                     return array(

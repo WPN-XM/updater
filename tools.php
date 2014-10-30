@@ -662,11 +662,11 @@ class JsonHelper
         $len   = strlen($json);
         $space = ' ';
         $k     = strlen($space) ? strlen($space) : 1;
-        
+
         for ($i = 0; $i <= $len; $i++) {
-            
+
             $char = substr($json, $i, 1);
-            
+
             if ($char === '}' || $char === ']') {
                 $cnt--;
                 // newline before last ]
@@ -675,9 +675,9 @@ class JsonHelper
                 $cnt++;
                 $out .= ($cnt > 1) ? PHP_EOL : ''; // no newline on first line
             }
-            
+
             $out .= $char;
-            
+
             if ($char === ',' || $char === '{' || $char === '[') {
                 $out .= ($cnt >= 1) ? $space : '';
             }
@@ -685,7 +685,7 @@ class JsonHelper
                 $out .= ' ';
             }
         }
-        
+
         return $out;
     }
 

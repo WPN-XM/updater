@@ -20,7 +20,8 @@
 
     <testsuite name="WPN-XM Updater Test Suite">
         <directory>./.</directory>
-        <exclude>vendor</exclude>
+        <exclude>../vendor</exclude>
+        <exclude>../registry/wpnxm-software-registry-backup-*</exclude>
     </testsuite>
 
     <filter>
@@ -28,6 +29,7 @@
             <directory suffix=".php">../</directory>
             <exclude>
                 <directory>../tests</directory>
+                <directory>../vendor</directory>
             </exclude>
         </whitelist>
     </filter>

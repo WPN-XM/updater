@@ -145,7 +145,7 @@ class RegistryUpdater
                         }
                         break;
                     case 'phpmyadmin':
-                        if(version_compare($old_version, $new_version, '<') === 1 || (strcmp($old_version, $new_version) < 0)) {
+                        if(version_compare($old_version, $new_version, '<') === true || (strcmp($old_version, $new_version) < 0)) {
                             Registry::writeRegistrySubset($component, $this->registry[$component]);
                         }
                         break;
@@ -155,7 +155,7 @@ class RegistryUpdater
                         }
                         break;
                     default:
-                        if(version_compare($old_version, $new_version, '<=')) {
+                        if(version_compare($old_version, $new_version, '<=') === true) {
                             Registry::writeRegistrySubset($component, $this->registry[$component]);
                         }
                         break;

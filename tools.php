@@ -729,8 +729,6 @@ class JsonHelper
             }
             return $string;
         };
-
-        var_dump($array);
         
         // chop of first and last element of the array: the brackets [,]
         unset($array[0]);

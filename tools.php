@@ -729,7 +729,7 @@ class JsonHelper
             }
             return $string;
         };
-        
+
         // chop of first and last element of the array: the brackets [,]
         unset($array[0]);
         $last_nr = count($array);

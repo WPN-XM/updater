@@ -4,7 +4,7 @@ namespace Tests;
 
 class RegistryTest extends \PHPUnit_Framework_TestCase
 {
-	public $registry = array();
+    public $registry = array();
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -17,6 +17,6 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
 
     public function testRegistryIsValidArray()
     {
-    	$this->assertTrue(is_array($this->registry));
+        $this->assertTrue(is_array($this->registry));
     }
 }

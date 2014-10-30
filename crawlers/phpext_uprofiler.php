@@ -24,7 +24,7 @@ class phpext_uprofiler extends VersionCrawler
         return $this->filter('a')->each(function ($node) {
             if (preg_match("#(\d+\.\d+(\.\d+)*)$#", $node->text(), $matches)) {
                 $version = $matches[1];
-                if (version_compare($version, $this->registry['phpext_uprofiler']['latest']['version'], '>=')) {
+                if (version_compare($version, $this->registry['phpext_uprofiler']['latest']['version'], '>=') === true) {
                     return array(
                         'version' => $version,
                         'url' => $this->createPhpVersionsArrayForExtension($version, $this->url_template)

@@ -27,7 +27,7 @@ class phpext_rar extends VersionCrawler
 
                 $url = 'http://windows.php.net/downloads/pecl/releases/rar/'.$version.'/php_rar-'.$version.'-5.4-nts-vc9-x86.zip';
 
-                if (version_compare($version, $this->registry['phpext_rar']['latest']['version'], '>=') and $this->fileExistsOnServer($url)) {
+                if ((version_compare($version, $this->registry['phpext_rar']['latest']['version'], '>=') === true) and $this->fileExistsOnServer($url)) {
                     return array(
                         'version' => $version,
                         'url' => $this->createPhpVersionsArrayForExtension($version, $this->url_template)

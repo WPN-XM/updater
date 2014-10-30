@@ -25,7 +25,7 @@ class msysGit extends VersionCrawler
 
             if (preg_match("#PortableGit-(\d+\.\d+.\d+-\w+).7z#i", $node->text(), $matches)) {
                 $version = $matches[1]; // 1.9.4-preview20140815
-                if (version_compare($version, $this->registry['msysgit']['latest']['version'], '>=')) {
+                if (version_compare($version, $this->registry['msysgit']['latest']['version'], '>=') === true) {
                     return array(
                         'version' => $version,
                         # https://github.com/msysgit/msysgit/releases/download/Git-1.9.4-preview20140815/PortableGit-1.9.4-preview20140815.7z

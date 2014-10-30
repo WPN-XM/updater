@@ -24,7 +24,7 @@ class openssl extends VersionCrawler
             if (preg_match("#Win32OpenSSL_Light-(\d+\_\d+\_\d+[a-z]).exe$#", $node->attr('href'), $matches)) {
                 // the version match contains underscores: so turn "1_0_1d" into "1.0.1d", that's still not SemVer but anyway
                 $version = str_replace('_', '.', $matches[1]);
-                if (version_compare($version, $this->registry['openssl']['latest']['version'], '>')
+                if (version_compare($version, $this->registry['openssl']['latest']['version'], '>') === true
                 || (strcmp($this->registry['openssl']['latest']['version'], $version) < 0) ) {
                     return array(
                         'version' => $version,

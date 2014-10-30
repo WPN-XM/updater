@@ -36,7 +36,7 @@ class phpext_phalcon extends VersionCrawler
             if (preg_match("#php(?:.*)_(\d+\.\d+(\.\d+)*)#i", $node->text(), $matches)) {
                 $version = $matches[1];
 
-                if (version_compare($version, $this->registry['phpext_phalcon']['latest']['version'], '>=')) {
+                if (version_compare($version, $this->registry['phpext_phalcon']['latest']['version'], '>=') === true) {
                     return array(
                         'version' => $version,
                         'url'     => $this->createPhpVersionsArrayForExtension($version, $this->url_template)

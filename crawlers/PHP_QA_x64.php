@@ -30,7 +30,7 @@ class PHP_QA_x64 extends VersionCrawler
                     return;
                 }
 
-                if (version_compare($version, $this->registry['php-x64']['latest']['version'], '>=')) {
+                if (version_compare($version, $this->registry['php-x64']['latest']['version'], '>=') === true) {
                     return array(
                         'version' => $version,
                         'url' => 'http://windows.php.net/downloads/qa/' . $node->text()

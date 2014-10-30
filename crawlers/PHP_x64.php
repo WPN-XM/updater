@@ -30,7 +30,7 @@ class PHP_x64 extends VersionCrawler
                     return;
                 }
 
-                if (version_compare($version, $this->registry['php-x64']['latest']['version'], '>=') or isset($this->registry['php'][$version]) === false) {
+                if ((version_compare($version, $this->registry['php-x64']['latest']['version'], '>=')  === true) or isset($this->registry['php'][$version]) === false) {
                     return array(
                         'version' => $version,
                         'url' => 'http://windows.php.net/downloads/releases/' . $node->text()

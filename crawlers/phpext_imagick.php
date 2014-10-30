@@ -28,7 +28,7 @@ class phpext_imagick extends VersionCrawler
 
                 $url = 'http://windows.php.net/downloads/pecl/releases/imagick/'.$version.'/php_imagick-'.$version.'-5.4-nts-vc9-x86.zip';
 
-                if (version_compare($version, $this->registry['phpext_imagick']['latest']['version'], '>=') and $this->fileExistsOnServer($url)) {
+                if ((version_compare($version, $this->registry['phpext_imagick']['latest']['version'], '>=') === true) and $this->fileExistsOnServer($url)) {
                     return array(
                         'version' => $version,
                         'url' => $this->createPhpVersionsArrayForExtension($version, $this->url_template)

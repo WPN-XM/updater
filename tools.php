@@ -11,6 +11,7 @@
 require_once __DIR__ . '/vendor/goutte.phar';
 
 use Goutte\Client as GoutteClient;
+use GuzzleHttp\Exception\RequestException;
 
 class RegistryUpdater
 {
@@ -661,37 +662,30 @@ class JsonHelper
         $len   = strlen($json);
         $space = ' ';
         $k     = strlen($space) ? strlen($space) : 1;
-
+        
         for ($i = 0; $i <= $len; $i++) {
-
+            
             $char = substr($json, $i, 1);
-
+            
             if ($char === '}' || $char === ']') {
                 $cnt--;
-                if ($i + 1 === $len) { // newline before last ]
-                    $out .= PHP_EOL;
-                } else {
-                    $out .= str_pad('', ($tab * $cnt * $k), $space);
-                }
+                // newline before last ]
+                $out .= ($i + 1 === $len) ? PHP_EOL : str_pad('', ($tab * $cnt * $k), $space);
             } elseif ($char === '{' || $char === '[') {
                 $cnt++;
-                if ($cnt > 1) {
-                    $out .= PHP_EOL;
-                } // no newline on first line
+                $out .= ($cnt > 1) ? PHP_EOL : ''; // no newline on first line
             }
-
+            
             $out .= $char;
-
+            
             if ($char === ',' || $char === '{' || $char === '[') {
-                /* $out .= str_pad('', ($tab * $cnt * $k), $space); */
-                if ($cnt >= 1) {
-                    $out .= $space;
-                }
+                $out .= ($cnt >= 1) ? $space : '';
             }
             if ($char === ':' && '\\' !== substr($json, $i + 1, 1)) {
                 $out .= ' ';
             }
         }
+        
         return $out;
     }
 
@@ -781,8 +775,7 @@ class JsonHelper
         $lines = preg_replace('#\s+\[#i', '[', $lines);
 
         // cleanups
-        $lines = str_replace(',,', ',', $lines);
-        $lines = str_replace('],', '],' . PHP_EOL, $lines);
+        $lines = str_replace(array(',,', '],'), array(',', '],' . PHP_EOL), $lines);
 
         $lines = '[' . PHP_EOL . trim($lines) . PHP_EOL . ']';
 

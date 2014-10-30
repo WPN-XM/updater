@@ -656,7 +656,6 @@ class JsonHelper
     public static function jsonPrettyPrintCompact($json)
     {
         $out   = '';
-        $nl    = "\n";
         $cnt   = 0;
         $tab   = 1;
         $len   = strlen($json);
@@ -670,14 +669,14 @@ class JsonHelper
             if ($char === '}' || $char === ']') {
                 $cnt--;
                 if ($i + 1 === $len) { // newline before last ]
-                    $out .= $nl;
+                    $out .= PHP_EOL;
                 } else {
                     $out .= str_pad('', ($tab * $cnt * $k), $space);
                 }
             } elseif ($char === '{' || $char === '[') {
                 $cnt++;
                 if ($cnt > 1) {
-                    $out .= $nl;
+                    $out .= PHP_EOL;
                 } // no newline on first line
             }
 
@@ -706,7 +705,7 @@ class JsonHelper
      */
     public static function jsonPrettyPrintTableFormat($json)
     {
-        $lines = explode("\n", $json);
+        $lines = explode(PHP_EOL, $json);
 
         $array = array();
 
@@ -731,6 +730,8 @@ class JsonHelper
             return $string;
         };
 
+        var_dump($array);
+        
         // chop of first and last element of the array: the brackets [,]
         unset($array[0]);
         $last_nr = count($array);
@@ -783,9 +784,9 @@ class JsonHelper
 
         // cleanups
         $lines = str_replace(',,', ',', $lines);
-        $lines = str_replace('],', "],\n", $lines);
+        $lines = str_replace('],', '],' . PHP_EOL, $lines);
 
-        $lines = "[\n" . trim($lines) . "\n]";
+        $lines = '[' . PHP_EOL . trim($lines) . PHP_EOL . ']';
 
         return $lines;
     }

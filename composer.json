@@ -27,7 +27,7 @@
         "ext-json"        : "*"
     },
     "autoload": {
-        "psr-0": { "": "/" }
+        "psr-0": { "": "./" }
     },
     "autoload-dev": {
         "psr-0": { "Tests\\": "tests/" }

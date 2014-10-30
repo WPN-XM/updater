@@ -36,15 +36,15 @@ function recursiveGlob($dir, $ext)
 
         $files = glob("$dir\*.$ext");
 
-	    if(count($files) > 0) {
-		    foreach ($files as $file) {
-		    	$component = str_replace(".$ext", '', basename($file));
+        if(count($files) > 0) {
+            foreach ($files as $file) {
+                $component = str_replace(".$ext", '', basename($file));
 
-		        $results[basename($dir)][$component]['file'] = $file;
-		    }
-	    }
+                $results[basename($dir)][$component]['file'] = $file;
+            }
+        }
 
-	    recursiveGlob($dir, $ext);
+        recursiveGlob($dir, $ext);
     }
 
     return $results;
@@ -54,122 +54,121 @@ function recursiveGlob($dir, $ext)
 // so that directory names match the installer filenames
 function convertDirNamesToFileNames($array)
 {
-	foreach($array as $dir => $values) {
-		$dirWithoutVersion = str_replace(array('-0.8.0', '.'), array('', ''), $dir);
+    foreach($array as $dir => $values) {
+        $dirWithoutVersion = str_replace(array('-0.8.0', '.'), array('', ''), $dir);
 
-		$array[$dirWithoutVersion] = $array[$dir];
-		unset($array[$dir]);
-	}
-	return $array;
+        $array[$dirWithoutVersion] = $array[$dir];
+        unset($array[$dir]);
+    }
+    return $array;
 }
 
 function calculateSizesForZipArchive($file)
 {
-	$zip = new ZipArchive();
+    $zip = new ZipArchive();
 
-	$results = array();
+    $results = array();
 
-	if ($zip->open($file) === true) {
+    if ($zip->open($file) === true) {
 
-		$totalSize = 0;
+        $totalSize = 0;
 
-	    for ($i = 0; $i < $zip->numFiles; $i++) {
-	        $fileStats = $zip->statIndex($i);
-	        $totalSize += $fileStats['size'];
-	    }
+        for ($i = 0; $i < $zip->numFiles; $i++) {
+            $fileStats = $zip->statIndex($i);
+            $totalSize += $fileStats['size'];
+        }
 
-	    $results['uncompressed'] = $totalSize;
-	    $results['compressed'] = filesize($file);
-	    $results['extraDiskSpaceRequired'] = round( ($totalSize - filesize($file)), -4); // round to nearest thousand
+        $results['uncompressed'] = $totalSize;
+        $results['compressed'] = filesize($file);
+        $results['extraDiskSpaceRequired'] = round( ($totalSize - filesize($file)), -4); // round to nearest thousand
 
-		$zip->close();
-	}
+        $zip->close();
+    }
 
-	return $results;
+    return $results;
 }
 
 function calculateSizesForFolders($folders)
 {
-	foreach($folders as $folder => $components) {
-		foreach($components as $component => $values) {
-			$file = $values['file'];
-			$results = calculateSizesForZipArchive($file);
-			if(empty($results) === true) {
-				echo 'Error calculating Zip Archive size: ' . $file . PHP_EOL;
-			} else {
-				$folders[$folder][$component] = array_merge($folders[$folder][$component], $results);
-			}
-		}
-	}
+    foreach($folders as $folder => $components) {
+        foreach($components as $component => $values) {
+            $file = $values['file'];
+            $results = calculateSizesForZipArchive($file);
+            if(empty($results) === true) {
+                echo 'Error calculating Zip Archive size: ' . $file . PHP_EOL;
+            } else {
+                $folders[$folder][$component] = array_merge($folders[$folder][$component], $results);
+            }
+        }
+    }
 
-	return $folders;
+    return $folders;
 }
 
 function calculateSizesOfCombinedComponents($folders)
 {
-	$results = [];
+    $results = [];
 
-	foreach($folders as $folder => $components) {
-			/**
-			 * Component: "serverstack"
-			 * Calculate the size for the base of the stack: php + nginx + mariadb.
-			 */
-			$base = $components['php']['extraDiskSpaceRequired'] + $components['nginx']['extraDiskSpaceRequired'] + $components['mariadb']['extraDiskSpaceRequired'];
-			$results['serverstack']['extraDiskSpaceRequired'] = round($base, -4);
+    foreach($folders as $folder => $components) {
+            /**
+             * Component: "serverstack"
+             * Calculate the size for the base of the stack: php + nginx + mariadb.
+             */
+            $base = $components['php']['extraDiskSpaceRequired'] + $components['nginx']['extraDiskSpaceRequired'] + $components['mariadb']['extraDiskSpaceRequired'];
+            $results['serverstack']['extraDiskSpaceRequired'] = round($base, -4);
 
-			/**
-			 * Component: "phpextesions"
-			 * Calculate the size for all PHP extensions.
-			 */
-			$phpext = 0;
-			foreach($components as $component => $values) {
-				if(strpos('phpext_', $component) !== false) {
-					$phpext =+ $values['extraDiskSpaceRequired'];
-				}
-			}
-			$results['phpextensions']['extraDiskSpaceRequired'] = round($phpext, -4);
-
+            /**
+             * Component: "phpextesions"
+             * Calculate the size for all PHP extensions.
+             */
+            $phpext = 0;
+            foreach($components as $component => $values) {
+                if(strpos('phpext_', $component) !== false) {
+                    $phpext =+ $values['extraDiskSpaceRequired'];
+                }
+            }
+            $results['phpextensions']['extraDiskSpaceRequired'] = round($phpext, -4);
 
             $folders[$folder] = array_merge($folders[$folder], $results);
-	}
+    }
 
-	return $folders;
+    return $folders;
 }
 
 function insertExtraDiskSizeIntoInstallers($folders)
 {
-	$installers = glob("D:\Github\WPN-XM\WPN-XM\installers\*.iss");
+    $installers = glob("D:\Github\WPN-XM\WPN-XM\installers\*.iss");
 
-	foreach($installers as $installer)
-	{
-		#echo 'Writing to ' . $installer . PHP_EOL;
+    foreach($installers as $installer)
+    {
+        #echo 'Writing to ' . $installer . PHP_EOL;
 
-		$lines = file($installer);
+        $lines = file($installer);
 
-		foreach($folders as $folder => $components)
-		{
-			foreach($components as $component => $values)
-			{
-				// skip PHP extensions, they are Component: phpextensions;
-				if(false !== strpos($component, 'phpext_')) {
-					continue;
-				}
+        foreach($folders as $folder => $components)
+        {
+            foreach($components as $component => $values)
+            {
+                // skip PHP extensions, they are Component: phpextensions;
+                if(false !== strpos($component, 'phpext_')) {
+                    continue;
+                }
 
-				echo 'Updating value for ' . $component . PHP_EOL;
+                echo 'Updating value for ' . $component . PHP_EOL;
 
-				$nameLookup = 'Name: ' . $component;
-				$extraDiskSpaceRequired = $values['extraDiskSpaceRequired'];
+                $nameLookup = 'Name: ' . $component;
+                $extraDiskSpaceRequired = $values['extraDiskSpaceRequired'];
 
-				foreach ($lines as $lineNum => $line)
-				{
-					if(false !== strpos($line, $nameLookup)) {
-						$lines[$lineNum] = preg_replace("/ExtraDiskSpaceRequired:\s(\d+);/", "ExtraDiskSpaceRequired: $extraDiskSpaceRequired;", $line, 1);
-						break;
-					}
-				}
-			}
-		}
+                foreach ($lines as $lineNum => $line)
+                {
+                    if(false !== strpos($line, $nameLookup)) {
+                        $lines[$lineNum] = preg_replace("/ExtraDiskSpaceRequired:\s(\d+);/", "ExtraDiskSpaceRequired: $extraDiskSpaceRequired;", $line, 1);
+                        break;
+                    }
+                }
+            }
+        }
 
-		file_put_contents($installer, $lines);
-	}
+        file_put_contents($installer, $lines);
+    }
 }

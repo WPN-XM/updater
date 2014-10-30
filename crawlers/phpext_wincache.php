@@ -19,7 +19,6 @@ class phpext_wincache extends VersionCrawler
 
     private $url_template = 'http://windows.php.net/downloads/pecl/releases/wincache/%version%/php_wincache-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
 
-
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {

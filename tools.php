@@ -52,6 +52,8 @@ class RegistryUpdater
 
         include __DIR__ . '/VersionCrawler.php';
 
+        $i = 0;
+
         foreach ($crawlers as $i => $file) {
 
             // instantiate version crawler

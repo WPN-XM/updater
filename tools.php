@@ -8,7 +8,14 @@
  * For full copyright and license information, view the bundled LICENSE file.
  */
 
-require_once __DIR__ . '/vendor/goutte.phar';
+// Composer Autoloader
+if (is_file(__DIR__ . '/vendor/autoload.php')) {
+    include_once __DIR__ . '/vendor/autoload.php';
+} else {
+    echo '[Error] Bootstrap: Could not find "vendor/autoload.php".' . PHP_EOL;
+    echo 'Did you forget to run "composer install --dev"?' . PHP_EOL;
+    exit(1);
+}
 
 use Goutte\Client as GoutteClient;
 use GuzzleHttp\Exception\RequestException;

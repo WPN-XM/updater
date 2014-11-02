@@ -19,6 +19,7 @@ if (is_file(__DIR__ . '/vendor/autoload.php')) {
 
 use Goutte\Client as GoutteClient;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Pool;
 
 class RegistryUpdater
 {
@@ -98,25 +99,25 @@ class RegistryUpdater
             $requests[] = $this->guzzleClient->createRequest('GET', $url, ['allow_redirects' => true]);
         }
 
-        $this->results = GuzzleHttp\batch($this->guzzleClient, $requests);
+        // results is a GuzzleHttp\BatchResults object
+        $this->results = GuzzleHttp\Pool::batch($this->guzzleClient, $requests);
     }
 
     public function evaluateResponses()
     {
         $html = '';
         $i    = 0;
-
-        // responses is an SplObjectStorage object where each request is a key
+        
+        // Retrieve all failures.
+        foreach ($this->results->getFailures() as $requestException) {
+            echo $requestException->getMessage() . "\n";
+        }
+        
+        // Retrieve all successful responses
         // iterate through responses and insert them in the crawler objects
-        foreach ($this->results as $request) {
+        foreach ($this->results->getSuccessful() as $response) {
 
             $new_version = $old_version = '';
-
-            $response = $this->results[$request];
-
-            if($response instanceOf GuzzleHttp\Exception\RequestException) {
-                throw new RuntimeException($response->getMessage());
-            }
 
             // set the response to the version crawler object
             $this->crawlers[$i]->addContent($response->getBody(), $response->getHeader('Content-Type'));

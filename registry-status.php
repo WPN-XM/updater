@@ -56,7 +56,10 @@ function isAvailable($url)
     // special handling for googlecode, because they don't like /HEAD requests via curl
     if (false !== strpos($url, 'googlecode') or
         false !== strpos($url, 'phpmemcachedadmin') or
-        false !== strpos($url, 'webgrind')) {
+        false !== strpos($url, 'webgrind') or
+        false !== strpos($url, 'github') or
+        false !== strpos($url, 'codeload') or
+        false !== strpos($url, 'microsoft')) {
         return (bool) StatusRequest::getHttpStatusCode($url);
     }
     return $urlsHttpStatus[$url];

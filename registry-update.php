@@ -325,9 +325,10 @@ function getLatestVersion($component, $minConstraint = null, $maxConstraint = nu
   // remove all non-version stuff
   unset($software['name'], $software['latest'], $software['website']);
   // the array is already sorted.
-  // first we reverse it, in order to have the highest version number on top.
-  // then we flip it, to have (url => version)
-  $software = array_flip(array_reverse($software));
+  // get rid of (version => url) and use (idx => version)
+  $software = array_keys($software);
+  // reverse array, in order to have the highest version number on top.
+  $software = array_reverse($software);
   // reduce array to values in constraint range
   foreach($software as $url => $version) {
     if(version_compare($version, $minConstraint, '>=') === true && version_compare($version, $maxConstraint, '<') === true) {
@@ -337,7 +338,7 @@ function getLatestVersion($component, $minConstraint = null, $maxConstraint = nu
     }
   }
   // pop off the first element
-  $latestVersion = array_pop($software);
+  $latestVersion = array_shift($software);
 
   return $latestVersion;
 }

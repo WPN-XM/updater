@@ -107,12 +107,12 @@ class RegistryUpdater
     {
         $html = '';
         $i    = 0;
-        
+
         // Retrieve all failures.
         foreach ($this->results->getFailures() as $requestException) {
             echo $requestException->getMessage() . "\n";
         }
-        
+
         // Retrieve all successful responses
         // iterate through responses and insert them in the crawler objects
         foreach ($this->results->getSuccessful() as $response) {
@@ -638,10 +638,12 @@ class ArrayTool
 class InstallerRegistry
 {
     /**
+     * Writes the registry as JSON to the installer registry file.
+     *
      * @param string $file
      * @param array $registry
      */
-    public function writeRegistryFileJson($file, $registry)
+    public static function write($file, $registry)
     {
         asort($registry);
 

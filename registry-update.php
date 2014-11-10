@@ -244,7 +244,99 @@ if (isset($action) && $action === 'update-installer-registry') {
 
   #var_dump($installer, $registryJson, $installerRegistry, $file, $data);
 
-  $ir = new InstallerRegistry;
-  $ir->writeRegistryFileJson($file, $data);
-
+  InstallerRegistry::write($file, $data);
 } // end action "update-installer-registry"
+
+/**
+ * This updates all components of all installation registry to their latest version.
+ */
+if (isset($action) && $action === 'update-components') {
+
+  $nextRegistries = glob(__DIR__ . '\registry\*-next-*.json');
+
+  if(empty($nextRegistries) === true) {
+    exit('No "next" JSON registries found. Create installers for the next version.');
+  }
+
+  echo 'Update all components to their latest version.<br>';
+
+  foreach($nextRegistries as $file) {
+      $filename = basename($file);
+      echo '<br>Processing Installer: "' . $filename . '":<br>';
+      $components = json_decode(file_get_contents($file), true);
+      for($i = 0; $i < count($components); ++$i) {
+          $componentName = $components[$i][0];
+          if(isset($registry[$componentName]) === true) {
+              $version = $components[$i][3];
+              $url = $components[$i][1];
+              $latestVersion = getLatestVersionForComponent($componentName, $filename);
+
+              if(version_compare($version, $latestVersion, '<') === true) {
+                $components[$i][3] = $latestVersion;
+                if(false !== strpos($url, $version)) { // if the url has a version appended, update it too
+                  $components[$i][1] = str_replace($version, $latestVersion, $url);
+                }
+                echo 'Updated "' . $componentName . '" from v'. $version .' to v'. $latestVersion .'.<br>';
+              }
+          }
+      }
+      InstallerRegistry::write($file, $components);
+  }
+} // end action "update-all-next-registries"
+
+function getPHPVersionFromFilename($file)
+{
+    preg_match("/-php(.*)-/", $file, $matches);
+    return $matches[1];
+}
+
+function getLatestVersionForComponent($component, $filename)
+{
+    // latest version of PHP means "latest version for PHP5.4, PHP5.5, PHP5.6"
+    // we have to raise the PHP version, respecting the major.minor version constraint
+    if($component === 'php') {
+        $minVersionConstraint = getPHPVersionFromFilename($filename); // 5.4, 5.5
+        $maxVersionConstraint = $minVersionConstraint . '.99'; // 5.4.99, 5.5.99
+        return getLatestVersion('php', $minVersionConstraint, $maxVersionConstraint);
+    }
+
+    return getLatestVersion($component);
+}
+
+function getLatestVersion($component, $minConstraint = null, $maxConstraint = null)
+{
+  global $registry;
+
+  if(isset($component) === false) {
+       throw new RuntimeException('No component provided.');
+  }
+
+  if(isset($registry[$component]) === false) {
+      throw new RuntimeException('The component "' . $component . '" was not found in the registry.');
+  }
+
+  $software = $registry[$component];
+
+  if($minConstraint === null && $maxConstraint === null) {
+      return $software['latest']['version'];
+  }
+
+  // remove all non-version stuff
+  unset($software['name'], $software['latest'], $software['website']);
+  // the array is already sorted.
+  // first we reverse it, in order to have the highest version number on top.
+  // then we flip it, to have (url => version)
+  $software = array_flip(array_reverse($software));
+  // reduce array to values in constraint range
+  foreach($software as $url => $version) {
+    if(version_compare($version, $minConstraint, '>=') === true && version_compare($version, $maxConstraint, '<') === true) {
+      #echo 'Version v' . $version . ' is greater v' . $minConstraint . '(MinConstraint) and smaller v' . $maxConstraint . '(MaxConstraint).<br>';
+    } else {
+      unset($software[$url]);
+    }
+  }
+  // pop off the first element
+  $latestVersion = array_pop($software);
+
+  return $latestVersion;
+}

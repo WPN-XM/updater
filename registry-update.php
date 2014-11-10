@@ -314,11 +314,13 @@ function getLatestVersion($component, $minConstraint = null, $maxConstraint = nu
       throw new RuntimeException('The component "' . $component . '" was not found in the registry.');
   }
 
-  $software = $registry[$component];
-
   if($minConstraint === null && $maxConstraint === null) {
-      return $software['latest']['version'];
+      return $registry[$component]['latest']['version'];
   }
+
+  // determine latest version for a component given a min/max constraint
+
+  $software = $registry[$component];
 
   // remove all non-version stuff
   unset($software['name'], $software['latest'], $software['website']);

@@ -266,18 +266,17 @@ if (isset($action) && $action === 'update-components') {
       $components = json_decode(file_get_contents($file), true);
       for($i = 0; $i < count($components); ++$i) {
           $componentName = $components[$i][0];
-          if(isset($registry[$componentName]) === true) {
-              $version = $components[$i][3];
-              $url = $components[$i][1];
-              $latestVersion = getLatestVersionForComponent($componentName, $filename);
+          $version = $components[$i][3];
+          $url = $components[$i][1];
 
-              if(version_compare($version, $latestVersion, '<') === true) {
-                $components[$i][3] = $latestVersion;
-                if(false !== strpos($url, $version)) { // if the url has a version appended, update it too
-                  $components[$i][1] = str_replace($version, $latestVersion, $url);
-                }
-                echo 'Updated "' . $componentName . '" from v'. $version .' to v'. $latestVersion .'.<br>';
-              }
+          $latestVersion = getLatestVersionForComponent($componentName, $filename);
+
+          if(version_compare($version, $latestVersion, '<') === true) {
+            $components[$i][3] = $latestVersion;
+            if(false !== strpos($url, $version)) { // if the url has a version appended, update it too
+              $components[$i][1] = str_replace($version, $latestVersion, $url);
+            }
+            echo 'Updated "' . $componentName . '" from v'. $version .' to v'. $latestVersion .'.<br>';
           }
       }
       InstallerRegistry::write($file, $components);

@@ -264,6 +264,7 @@ if (isset($action) && $action === 'update-components') {
       $filename = basename($file);
       echo '<br>Processing Installer: "' . $filename . '":<br>';
       $components = json_decode(file_get_contents($file), true);
+      $version_updated = false;
       for($i = 0; $i < count($components); ++$i) {
           $componentName = $components[$i][0];
           $version = $components[$i][3];
@@ -277,9 +278,14 @@ if (isset($action) && $action === 'update-components') {
               $components[$i][1] = str_replace($version, $latestVersion, $url);
             }
             echo 'Updated "' . $componentName . '" from v'. $version .' to v'. $latestVersion .'.<br>';
+            $version_updated = true;
           }
       }
-      InstallerRegistry::write($file, $components);
+      if($version_updated === true) {
+          InstallerRegistry::write($file, $components);
+      } else {
+          echo 'The installer registry is up-to-date.<br>';
+      }
   }
 } // end action "update-all-next-registries"
 

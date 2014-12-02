@@ -161,7 +161,7 @@ class RegistryUpdater
                         }
                         break;
                    case  'imagick':
-                        if(Version::cmpImagick($old_version, $new_version) === 1) {
+                        if(Version::cmpImagick($old_version, $new_version) === true) {
                             Registry::writeRegistrySubset($component, $this->registry[$component]);
                         }
                         break;
@@ -192,45 +192,21 @@ class RegistryUpdater
 class Version
 {
 
-    // compare 1.2.3-1 vs. 1.2.3-4
-    public static function cmpImagick($a, $b)
-    {
-        $a_array = explode('-', $a);
-        $b_array = explode('-', $b);
-
-        $vc1 = version_compare($a_array[0], $b_array[0]);
-        $vc2 = Version::cmp($a_array[1], $b_array[1]);
-
-        #var_dump($a_array, $b_array, $vc1, $vc2);
-
-        if ($vc1 === 0 && $vc2 === 0) { // equal
-            return 0;
-        }
-
-        if ($vc1 === -1 && $vc2 === -1) {   // (1.2.4-1, 1.4.0-9) = a greater b (-1, -1)
-            return -1;
-        }
-
-        if (($vc1 === 0 && $vc2 === -1)     // (1.2.3-1, 1.2.3-2) = a lower b ( 0, -1)
-            or ($vc1 === -1 && $vc2 === 0)) {    // (1.2.3-1, 1.2.4-1) = a lower b (-1, 0)
-            return 1;
-        }
-        return -1;
-    }
-
     /**
-     * If a lower   b, -1
-     * If a greater b,  1
-     * If a equals  b,  0
+     * Compare an Imagick version number
+     * Examples: (1.2.3-1 vs. 1.2.3-4) or (6.8.9-10 vs. 6.9.0-0)
+     * 
+     * @param string $oldVersion
+     * @param string $newVersion
+     * @return boolean True, if newVersion is higher then oldVersion.
      */
-    public static function cmp($a, $b)
+    public static function cmpImagick($oldVersion, $newVersion)
     {
-        if ($a == $b) {
-            return 0;
-        }
-        return ($a < $b) ? -1 : 1;
-    }
-
+        $rOldVersion = str_replace('-', '.', $oldVersion);
+        $rNewVersion = str_replace('-', '.', $newVersion);
+        
+        return version_compare($rNewVersion, $rOldVersion, '>');
+    }    
 }
 
 class Viewhelper

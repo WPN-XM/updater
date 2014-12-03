@@ -137,16 +137,15 @@ class RegistryUpdater
             $this->registry = $this->crawlers[$i]->modifiyRegistry($this->registry);
 
             // get old and new version for comparison.
+
             // if crawler is new and component not in registry, use 0.0.0
-            if(!isset($this->old_registry[$component]['latest']['version'])) {
-                $old_version = '0.0.0';
-            } else {
-                $old_version = $this->old_registry[$component]['latest']['version'];
-            }
+            $old_version = isset($this->old_registry[$component]['latest']['version']) 
+                ? $this->old_registry[$component]['latest']['version']
+                : '0.0.0';
 
             $new_version = $this->registry[$component]['latest']['version'];
 
-            // write temporary component registry, for later registry insertion
+            // write a temporary component registry, for later registry insertion
             if (isset($new_version) === true) {
                 //  Welcome in Version Compare Hell!
                 switch ($component) {
@@ -193,8 +192,7 @@ class Version
 {
 
     /**
-     * Compare an Imagick version number
-     * Examples: (1.2.3-1 vs. 1.2.3-4) or (6.8.9-10 vs. 6.9.0-0)
+     * Compare an Imagick version number.
      * 
      * @param string $oldVersion
      * @param string $newVersion

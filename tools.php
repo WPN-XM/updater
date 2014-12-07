@@ -139,37 +139,15 @@ class RegistryUpdater
             // get old and new version for comparison.
 
             // if crawler is new and component not in registry, use 0.0.0
-            $old_version = isset($this->old_registry[$component]['latest']['version']) 
+            $old_version = isset($this->old_registry[$component]['latest']['version'])
                 ? $this->old_registry[$component]['latest']['version']
                 : '0.0.0';
 
             $new_version = $this->registry[$component]['latest']['version'];
 
             // write a temporary component registry, for later registry insertion
-            if (isset($new_version) === true) {
-                //  Welcome in Version Compare Hell!
-                switch ($component) {
-                    case 'openssl':
-                        if(strcmp($old_version, $new_version) < 0) {
-                            Registry::writeRegistrySubset($component, $this->registry[$component]);
-                        }
-                        break;
-                    case 'phpmyadmin':
-                        if(version_compare($old_version, $new_version, '<') === true || (strcmp($old_version, $new_version) < 0)) {
-                            Registry::writeRegistrySubset($component, $this->registry[$component]);
-                        }
-                        break;
-                   case  'imagick':
-                        if(Version::cmpImagick($old_version, $new_version) === true) {
-                            Registry::writeRegistrySubset($component, $this->registry[$component]);
-                        }
-                        break;
-                    default:
-                        if(version_compare($old_version, $new_version, '<=') === true) {
-                            Registry::writeRegistrySubset($component, $this->registry[$component]);
-                        }
-                        break;
-                }
+            if(Version::compare($component, $old_version, $new_version) === true) {
+                Registry::writeRegistrySubset($component, $this->registry[$component]);
             }
 
             // render a table row for version comparison
@@ -192,8 +170,35 @@ class Version
 {
 
     /**
+     * Welcome in Version Compare Hell!
+     * Some software components need their own version compare handling.
+     */
+    public static function compare($component, $oldVersion, $newVersion)
+    {
+        switch ($component) {
+            case 'openssl':
+                if(strcmp($oldVersion, $newVersion) < 0) {
+                    return true;
+                }
+            case 'phpmyadmin':
+                if(version_compare($oldVersion, $newVersion, '<') === true || (strcmp($oldVersion, $newVersion) < 0)) {
+                    return true;
+                }
+            case  'imagick':
+                if(Version::cmpImagick($oldVersion, $newVersion) === true) {
+                    return true;
+                }
+            default:
+                if(version_compare($oldVersion, $newVersion, '<=') === true) {
+                    return true;
+                }
+        }
+        return false;
+    }
+
+    /**
      * Compare an Imagick version number.
-     * 
+     *
      * @param string $oldVersion
      * @param string $newVersion
      * @return boolean True, if newVersion is higher then oldVersion.
@@ -202,9 +207,9 @@ class Version
     {
         $rOldVersion = str_replace('-', '.', $oldVersion);
         $rNewVersion = str_replace('-', '.', $newVersion);
-        
+
         return version_compare($rNewVersion, $rOldVersion, '>');
-    }    
+    }
 }
 
 class Viewhelper

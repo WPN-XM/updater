@@ -87,6 +87,17 @@ if (isset($action) && $action === 'scan') {
 <?php
 } // end action "write-file"
 
+// show the dropdown for a single-component-scan
+if(isset($action) && $action === 'single-component-scan') {
+?>
+  <table class="table table-hover table-condensed">
+    <?php foreach($registry as $item => $component) {
+      echo '<tr><td>' . $component['name'] . '</td><td><a href="registry-update.php?action=scan&amp;component=' . $item . '">Scan</a></td></tr>';
+    } ?>
+  </table>
+    <?php
+} // end action "single-component-scan"
+
 // add a new software into the registry
 if (isset($action) && $action === 'add') {
     ?>

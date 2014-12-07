@@ -80,19 +80,13 @@
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
           <a class="navbar-brand" href="#">WPN-XM Software Registry - Update Tool</a>
         </div>
           <div class="nav-collapse">
             <ul id="menu" class="nav navbar-nav">
               <li class="active"><a href="registry-status.php">Status</a></li>
-              <li><a href="registry-update.php?action=scan">Scan</a></li>
-              <li><a href="registry-update.php?action=single-component-scan">Scan Single</a>
+              <li><a href="registry-update.php?action=scan">Scan All</a></li>
+              <li><a href="registry-update.php?action=single-component-scan">Scan One</a>
               <li><a href="registry-update.php?action=update">Update</a></li>
               <li><a data-toggle="modal" data-target="#myModal" data-remote="registry-update.php?action=add" href="registry-update.php?action=add">Add</a></li>
               <li><a class="navbar-brand" href="#">Installation Wizard Registries</a></li>

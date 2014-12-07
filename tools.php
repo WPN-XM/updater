@@ -145,8 +145,8 @@ class RegistryUpdater
 
             $new_version = $this->registry[$component]['latest']['version'];
 
-            // write a temporary component registry, for later registry insertion
             if(Version::compare($component, $old_version, $new_version) === true) {
+                // write a temporary component registry, for later registry insertion
                 Registry::writeRegistrySubset($component, $this->registry[$component]);
             }
 
@@ -214,39 +214,56 @@ class Version
 
 class Viewhelper
 {
+    /**
+     * Render a table row.
+     *
+     * @param string $component Component
+     * @param string $old_version Old Version
+     * @param string $new_version New Version
+     */
+    public static function renderTableRow($component, $old_version, $new_version)
+    {
+        $link =  'registry-update.php?action=scan&component=' . $component;
+
+        $html = '<tr>';
+        $html .= '<td>' . $component . '</td>';
+        $html .= '<td>' . $old_version . '</td>';
+        $html .= '<td>' . self::printUpdatedSign($old_version, $new_version, $component) . '</td>';
+        $html .= '<td>' . self::renderAnchorButton($link, 'Scan'). '</td>';
+        $html .= '</tr>';
+
+        return $html;
+    }
 
     /**
-     * The function prints an update symbol if old_version is lower than new_version.
+     * Print an update symbol, if old_version is lower than new_version.
      *
-     * @param string Old version.
-     * @param string New version.
+     * @param string $old_version Old version.
+     * @param string $new_version New version.
+     * @param string $component Component
      */
     public static function printUpdatedSign($old_version, $new_version, $component)
     {
         if (version_compare($old_version, $new_version, '<') === true || (strcmp($old_version, $new_version) < 0)) {
-            $html = '<span class="badge alert-success">';
-            $html .= $new_version;
-            $html .= '</span><span style="color:green; font-size: 16px">&nbsp;&#x25B2;&nbsp;</span>';
+            $link =  'registry-update.php?action=update-component&component=' . $component;
 
-            $html .= '<a class="btn btn-default btn-xs"';
-            $html .= ' href="registry-update.php?action=update-component&component=' . $component;
-            $html .= '">Commit & Push</a>';
+            $html = '<span class="badge alert-success">' . $new_version . '</span>';
+            $html .= '<span style="color:green; font-size: 16px">&nbsp;&#x25B2;&nbsp;</span>';
+            $html .= self::renderAnchorButton($link, 'Commit & Push');
 
             return $html;
         }
     }
 
-    public static function renderTableRow($component, $old_version, $new_version)
+    /**
+     * Render an anchor tag.
+     *
+     * @param string $link An URL, the href.
+     * @param string $text Link Text.
+     */
+    public static function renderAnchorButton($link, $text)
     {
-        $html = '<tr>';
-        $html .= '<td>' . $component . '</td>';
-        $html .= '<td>' . $old_version . '</td>';
-        $html .= '<td>' . self::printUpdatedSign($old_version, $new_version, $component) . '</td>';
-        $html .= '<td><a class="btn btn-default btn-xs"';
-        $html .= ' href="registry-update.php?action=scan&component=' . $component . '">Scan</a></td>';
-        $html .= '</tr>';
-
-        return $html;
+        return '<a class="btn btn-default btn-xs" href="' . $link . '">' . $text . '</a>';
     }
 
 }

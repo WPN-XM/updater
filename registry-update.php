@@ -22,6 +22,8 @@ require __DIR__ . '/tools.php';
 
 $registry  = Registry::load();
 
+Registry::healthCheck($registry);
+
 // handle $_GET['action'], e.g. registry-update.php?action=scan
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 

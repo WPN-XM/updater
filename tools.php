@@ -549,6 +549,26 @@ class Registry
         //echo '<a href="#" class="btn btn-lg btn-primary">'
         //   . '<span class="glyphicon glyphicon-save"></span> Git Push</a>';
     }
+
+    public static function healthCheck(array $registry)
+    {
+        foreach ($registry as $software => $component)
+        {
+            if(!isset($component['name'])) {
+                echo 'The registry is missing the key "name" for Component "' . $software . '".';
+            }
+
+            if(!isset($component['website'])) {
+                echo 'The registry is missing the key "website" for Component "' . $software . '".';
+            }
+
+            if(!isset($component['latest'])) {
+                echo 'The registry is missing the key "latest" for Component "' . $software . '".';
+            }
+        }
+
+        return true;
+    }
 }
 
 class ArrayTool

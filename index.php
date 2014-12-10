@@ -84,14 +84,15 @@
         </div>
           <div class="nav-collapse">
             <ul id="menu" class="nav navbar-nav">
-              <li class="active"><a href="registry-status.php">Status</a></li>
-              <li><a href="registry-update.php?action=scan">Scan All</a></li>
-              <li><a href="registry-update.php?action=single-component-scan">Scan One</a>
-              <li><a href="registry-update.php?action=update">Update</a></li>
-              <li><a data-toggle="modal" data-target="#myModal" data-remote="registry-update.php?action=add" href="registry-update.php?action=add">Add</a></li>
+              <li><a href="registry-status.php">Link Status</a></li>
+              <li class="active"><a href=".">Version Scanner</a></li>
               <li><a class="navbar-brand" href="#">Installation Wizard Registries</a></li>
-              <li><a href="registry-update.php?action=show">Show</a></li>
-              <li><a href="registry-update.php?action=update-components" title="Raise the version of all Components, of all 'next' Installation Registries to their latest version.">Update</a></li>
+              <li><a href="registry-update.php?action=show-version-matrix">Show Version Matrix</a></li>
+              <li><a href="registry-update.php?action=update-components"
+                     title="Raise the version of all Components, of all 'next' Installation Registries to their latest version.">
+                     Update
+                  </a>
+              </li>
             </ul>
           </div><!--/.nav-collapse -->
       </div>
@@ -101,14 +102,15 @@
       <!-- This is where the precious Ajax Content goes... -->
     </div> <!-- /ajax-container -->
 
-    <!-- The modal windows with Ajax Loading Indicator -->
-    <div id="myModal" class="modal fade bootstrap-dialog type-primary size-normal in"
+    <!-- The modal windows with Ajax Loading Indicator - hidden, but loaded with the main page / top-level position -->
+    <div id="myModal" class="modal bootstrap-dialog type-primary size-normal fade in"
          tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
+
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3>Scanning URLs... Please wait...</h3>
+            <h3 class="modal-title">Scanning URLs... Please wait...</h3>
           </div>
           <div class="modal-body center">
             <p><img src='assets/img/ajax_spinner.gif' alt="Loading... Please wait." /></p>
@@ -116,60 +118,78 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
-        </div>
-      </div>
+
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
     <!-- javascript -->
-
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script type="text/javascript">
-      $(document).ready(function () {
+      $(document).ready(function() {
 
         // init modal window and hide it
-        $('#myModal').modal({show:false});
+        $('#myModal').modal({show: false});
+
+        doGetRequestIfServerIsRunning('registry-update.php?action=single-component-scan');
+
+        // bind "submit" button on the modal window
+        $('#myModal button[type="submit"]').on("click", function (event) {
+           var form = $("#myModal .modal-body form");
+
+           $.ajax({
+             type: form.attr('method'),
+             url: form.attr('action'),
+             data: form.serializeArray(),
+             cache: false,
+             success: function (response) {
+               $('#myModal .modal-body').html(response);
+             }
+           });
+
+           event.preventDefault();
+        });
 
         // with a click on a link in the top navi, do the following
-        $("#menu li a").click(function (event) {
-
+        $("#menu li a").on("click", function (event) {
           href = $(this).attr('href'); // get click target href
-
-          // href contain add, show dialog
-          if(href.toLowerCase().indexOf('add') >= 0) {
-            $.get(href, function (response) {
-              $("#myModal .modal-content").html(response);
-            });
-            return;
-          }
+          if(href == '.') return; // skip version scanner link
 
           event.preventDefault(); // stop the click from causing navigation
-
-          // test, if script available with a timeout request
-          // if the timeout is not reached, do the "non-timeout" call
-          $.ajax({
-            url: "index.php",
-            type: "HEAD",
-            timeout: 500, // set timeout to 0,5 sec
-            cache: false,
-            statusCode: {
-                200: function (response) {
-                    doGetRequest(href);
-                },
-                400: function (response) {
-                    alert("Request Timeout!\n\nEnsure Server & PHP are up!");
-                },
-                0: function (response) {
-                    alert("Request Timeout!\n\nEnsure Server & PHP are up!");
-                }
-            }
-          });
-
+          doGetRequestIfServerIsRunning(href);
           return false; // stop clicking from causing navigation
         });
 
-        function doGetRequest(href)
-        {
+        // remove the old modal content on hide event
+        $('body').on('hidden.bs.modal', '.modal', function () {
+            $(this).removeData('bs.modal');
+
+        });
+
+        // test, if script on the server is available with a timeout request
+        // if the timeout is not reached, we assume the server is running and do the "non-timeout" call to href
+        function doGetRequestIfServerIsRunning(href) {
+            $.ajax({
+              url: "index.php",
+              type: "HEAD",
+              timeout: 500, // set timeout to 0,5 sec
+              cache: false,
+              statusCode: {
+                  200: function (response) {
+                      doGetRequest(href);
+                  },
+                  400: function (response) {
+                      alert("Request Timeout!\n\nEnsure Server & PHP are up!");
+                  },
+                  0: function (response) {
+                      alert("Request Timeout!\n\nEnsure Server & PHP are up!");
+                  }
+              }
+            });
+        }
+
+        function doGetRequest(href) {
           // reset target, show modal dlg
           $("#ajax-container").empty();
           $('#myModal').modal('show');
@@ -190,7 +210,8 @@
           });
         }
 
-        $("body").on("click", '[id^=syncDropDownsButton]', function () {
+        // event binding for the version comparision matrix
+        $("body").on("click", '[id^=syncDropDownsButton]', function() {
 
           // find cell, where we clicked "syncDropDownButton"
           var column = $(this).parent().parent().children().index(this.parentNode);
@@ -231,6 +252,7 @@
           });
         });
 
+      // event binding for the version comparision matrix
       $("body").on("click", '[id^=syncInstallerNameButton]', function () {
           // find cell, where we clicked "syncInstallerNameButton"
           var column = $(this).parent().parent().children().index(this.parentNode);
@@ -245,7 +267,7 @@
           $('input[name="new-registry-name"]').val(installer);
       });
 
-      });
+      }); // document.read end
     </script>
   </body>
 </html>

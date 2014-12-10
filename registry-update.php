@@ -77,7 +77,7 @@ if (isset($action) && $action === 'scan') {
 
     /******************************************************************************/
     ?>
-    <table class="table table-condensed table-hover">
+    <table class="table table-condensed table-hover table-striped table-bordered">
     <thead>
         <tr>
             <th>Software Components (<?=$numberOfComponents?>)</th><th>(Old) Latest Version</th><th>(New) Latest Version</th><th>Action</th>
@@ -89,14 +89,49 @@ if (isset($action) && $action === 'scan') {
 <?php
 } // end action "write-file"
 
-// show the dropdown for a single-component-scan
+// "single-component-scan" = main page
 if(isset($action) && $action === 'single-component-scan') {
 ?>
-  <table class="table table-hover table-condensed">
-    <?php foreach($registry as $item => $component) {
-      echo '<tr><td>' . $component['name'] . '</td><td><a href="registry-update.php?action=scan&amp;component=' . $item . '">Scan</a></td></tr>';
-    } ?>
-  </table>
+
+<!-- Table -->
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+              <span class="glyphicon glyphicon-list"></span>&nbsp; Version Crawler
+              <span class="pull-right">
+                <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal" href="registry-update.php?action=add">
+                  <span class="glyphicon glyphicon-plus"></span>
+                  Add Component
+                </button>
+                <button class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal" href="registry-update.php?action=update">
+                  <span class="glyphicon glyphicon-search"></span>
+                  Merge Scans into Registry
+                </button>
+                <button class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal" href="registry-update.php?action=scan">
+                  <span class="glyphicon glyphicon-search"></span>
+                  Scan All
+                </button>
+              </span>
+            </div>
+            <div class="panel-body">
+              <table class="table table-condensed table-hover table-striped table-bordered" style="font-size: 12px;">
+              <thead><tr><th style="width: 220px">Software Component</th><th>Version</th><th>Action</th></tr></thead>
+              <tbody>
+                <?php foreach($registry as $item => $component) {
+                  echo '<tr>';
+                  echo '<td>' . $component['name'] . '</td>';
+                  echo '<td>' . $component['latest']['version'] . '</td>';
+                  echo '<td><a class="btn btn-info btn-xs" href="registry-update.php?action=scan&amp;component=' . $item . '">Scan</a></td>';
+                  echo '</tr>';
+                } ?>
+              </tbody>
+              </table>
+            </div>
+        </div>
+    </div>
+</div>
+
     <?php
 } // end action "single-component-scan"
 
@@ -106,8 +141,7 @@ if (isset($action) && $action === 'add') {
 
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                 <h4 class="modal-title">Add Software To Registry</h4>
-
+                 <h4 class="modal-title">Add Component To Software Registry</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" action="registry-update.php?action=insert" method="post">
@@ -159,28 +193,6 @@ if (isset($action) && $action === 'add') {
                 <button type="submit" class="btn btn-primary">Add</button>
             </div>
 
-<script type="text/javascript" charset="utf-8">
-$(document).ready(function () {
-   // bind submit action
-   $('#myModal button[type="submit"]').bind('click', function (event) {
-       var form = $("#myModal .modal-body form");
-
-       $.ajax({
-         type: form.attr('method'),
-         url: form.attr('action'),
-         data: form.serializeArray(),
-
-         cache: false,
-         success: function (response, status) {
-           $('#myModal .modal-body').html(response);
-         }
-       });
-
-       event.preventDefault();
-  });
-});
-</script>
-
     <?php
 } // end action "add"
 
@@ -202,7 +214,7 @@ if (isset($action) && $action === 'insert') {
     }
 
     // check result and send response
-    $js = '<script type="text/javascript" charset="utf-8">
+    $js = '<script type="text/javascript">
             $(document).ready(function () {
                 $(\'#myModal button[type="submit"]\').hide();
             });
@@ -216,7 +228,7 @@ if (isset($action) && $action === 'insert') {
 
 } // end action "insert"
 
-if (isset($action) && $action === 'show') {
+if (isset($action) && $action === 'show-version-matrix') {
     include 'version-matrix.php';
 } // end action "show"
 

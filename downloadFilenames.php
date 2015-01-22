@@ -17,6 +17,7 @@ return array(
     'pear' => 'go-pear.phar', // ! phar file
     'perl' =>  'perl.zip',
     'php' => 'php.zip',
+    'phpcsfixer' => 'php-cs-fixer.phar', // ! phar file
     'php-qa' => 'php.zip',
     'php-qa-x64' => 'php.zip',
     'php-x64' => 'php.zip',

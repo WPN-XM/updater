@@ -87,7 +87,7 @@ function countNextRegistries($registries)
 
 function versionCompare($a, $b)
 {
-   return version_compare($a['constraints']['version'], $b['constraints']['version'], ">=");
+   return version_compare($a['constraints']['version'], $b['constraints']['version'], '>=');
 }
 
 function dropNumericKeys(array $array)

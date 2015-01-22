@@ -30,7 +30,7 @@ class Gogs_x86 extends VersionCrawler
         return $this->filter('a')->each(function ($node) {
                 if (preg_match("#v(\d+\.\d+.\d+)#", $node->text(), $matches)) {
                     $version = $matches[1];
-                    if (version_compare($version, $this->registry['gogs-x86']['latest']['version'], '>=')) {
+                    if (version_compare($version, $this->registry['gogs-x86']['latest']['version'], '>=') === true) {
                         return array(
                             'version' => $version,
                             // CDNs

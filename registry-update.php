@@ -12,7 +12,7 @@ $start = microtime(true);
 set_time_limit(180); // 60*3
 date_default_timezone_set('UTC');
 error_reporting(E_ALL);
-ini_set('display_errors', true);
+ini_set('display_errors', '1');
 
 if (!extension_loaded('curl')) {
     exit('Error: PHP Extension cURL required.');
@@ -21,6 +21,8 @@ if (!extension_loaded('curl')) {
 require __DIR__ . '/tools.php';
 
 $registry  = Registry::load();
+
+Registry::healthCheck($registry);
 
 // handle $_GET['action'], e.g. registry-update.php?action=scan
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
@@ -75,7 +77,7 @@ if (isset($action) && $action === 'scan') {
 
     /******************************************************************************/
     ?>
-    <table class="table table-condensed table-hover">
+    <table class="table table-condensed table-hover table-striped table-bordered">
     <thead>
         <tr>
             <th>Software Components (<?=$numberOfComponents?>)</th><th>(Old) Latest Version</th><th>(New) Latest Version</th><th>Action</th>
@@ -87,14 +89,59 @@ if (isset($action) && $action === 'scan') {
 <?php
 } // end action "write-file"
 
+// "single-component-scan" = main page
+if(isset($action) && $action === 'single-component-scan') {
+?>
+
+<!-- Table -->
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+              <span class="glyphicon glyphicon-list"></span>&nbsp; Version Crawler
+              <span class="pull-right">
+                <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal" href="registry-update.php?action=add">
+                  <span class="glyphicon glyphicon-plus"></span>
+                  Add Component
+                </button>
+                <button class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal" href="registry-update.php?action=update">
+                  <span class="glyphicon glyphicon-search"></span>
+                  Merge Scans into Registry
+                </button>
+                <button class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal" href="registry-update.php?action=scan">
+                  <span class="glyphicon glyphicon-search"></span>
+                  Scan All
+                </button>
+              </span>
+            </div>
+            <div class="panel-body">
+              <table class="table table-condensed table-hover table-striped table-bordered" style="font-size: 12px;">
+              <thead><tr><th style="width: 220px">Software Component</th><th>Version</th><th>Action</th></tr></thead>
+              <tbody>
+                <?php foreach($registry as $item => $component) {
+                  echo '<tr>';
+                  echo '<td>' . $component['name'] . '</td>';
+                  echo '<td>' . $component['latest']['version'] . '</td>';
+                  echo '<td><a class="btn btn-info btn-xs" href="registry-update.php?action=scan&amp;component=' . $item . '">Scan</a></td>';
+                  echo '</tr>';
+                } ?>
+              </tbody>
+              </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <?php
+} // end action "single-component-scan"
+
 // add a new software into the registry
 if (isset($action) && $action === 'add') {
     ?>
 
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                 <h4 class="modal-title">Add Software To Registry</h4>
-
+                 <h4 class="modal-title">Add Component To Software Registry</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" action="registry-update.php?action=insert" method="post">
@@ -146,28 +193,6 @@ if (isset($action) && $action === 'add') {
                 <button type="submit" class="btn btn-primary">Add</button>
             </div>
 
-<script type="text/javascript" charset="utf-8">
-$(document).ready(function () {
-   // bind submit action
-   $('#myModal button[type="submit"]').bind('click', function (event) {
-       var form = $("#myModal .modal-body form");
-
-       $.ajax({
-         type: form.attr('method'),
-         url: form.attr('action'),
-         data: form.serializeArray(),
-
-         cache: false,
-         success: function (response, status) {
-           $('#myModal .modal-body').html(response);
-         }
-       });
-
-       event.preventDefault();
-  });
-});
-</script>
-
     <?php
 } // end action "add"
 
@@ -189,7 +214,7 @@ if (isset($action) && $action === 'insert') {
     }
 
     // check result and send response
-    $js = '<script type="text/javascript" charset="utf-8">
+    $js = '<script type="text/javascript">
             $(document).ready(function () {
                 $(\'#myModal button[type="submit"]\').hide();
             });
@@ -203,7 +228,7 @@ if (isset($action) && $action === 'insert') {
 
 } // end action "insert"
 
-if (isset($action) && $action === 'show') {
+if (isset($action) && $action === 'show-version-matrix') {
     include 'version-matrix.php';
 } // end action "show"
 
@@ -244,7 +269,107 @@ if (isset($action) && $action === 'update-installer-registry') {
 
   #var_dump($installer, $registryJson, $installerRegistry, $file, $data);
 
-  $ir = new InstallerRegistry;
-  $ir->writeRegistryFileJson($file, $data);
-
+  InstallerRegistry::write($file, $data);
 } // end action "update-installer-registry"
+
+/**
+ * This updates all components of all installation registry to their latest version.
+ */
+if (isset($action) && $action === 'update-components') {
+
+  $nextRegistries = glob(__DIR__ . '\registry\*-next-*.json');
+
+  if(empty($nextRegistries) === true) {
+    exit('No "next" JSON registries found. Create installers for the next version.');
+  }
+
+  echo 'Update all components to their latest version.<br>';
+
+  foreach($nextRegistries as $file) {
+      $filename = basename($file);
+      echo '<br>Processing Installer: "' . $filename . '":<br>';
+      $components = json_decode(file_get_contents($file), true);
+      $version_updated = false;
+      for($i = 0; $i < count($components); ++$i) {
+          $componentName = $components[$i][0];
+          $version = $components[$i][3];
+          $url = $components[$i][1];
+
+          $latestVersion = getLatestVersionForComponent($componentName, $filename);
+
+          if(version_compare($version, $latestVersion, '<') === true) {
+            $components[$i][3] = $latestVersion;
+            if(false !== strpos($url, $version)) { // if the url has a version appended, update it too
+              $components[$i][1] = str_replace($version, $latestVersion, $url);
+            }
+            echo 'Updated "' . $componentName . '" from v'. $version .' to v'. $latestVersion .'.<br>';
+            $version_updated = true;
+          }
+      }
+      if($version_updated === true) {
+          InstallerRegistry::write($file, $components);
+      } else {
+          echo 'The installer registry is up-to-date.<br>';
+      }
+  }
+} // end action "update-all-next-registries"
+
+function getPHPVersionFromFilename($file)
+{
+    preg_match("/-php(.*)-/", $file, $matches);
+    return $matches[1];
+}
+
+function getLatestVersionForComponent($component, $filename)
+{
+    // latest version of PHP means "latest version for PHP5.4, PHP5.5, PHP5.6"
+    // we have to raise the PHP version, respecting the major.minor version constraint
+    if($component === 'php') {
+        $minVersionConstraint = getPHPVersionFromFilename($filename); // 5.4, 5.5
+        $maxVersionConstraint = $minVersionConstraint . '.99'; // 5.4.99, 5.5.99
+        return getLatestVersion('php', $minVersionConstraint, $maxVersionConstraint);
+    }
+
+    return getLatestVersion($component);
+}
+
+function getLatestVersion($component, $minConstraint = null, $maxConstraint = null)
+{
+  global $registry;
+
+  if(isset($component) === false) {
+       throw new RuntimeException('No component provided.');
+  }
+
+  if(isset($registry[$component]) === false) {
+      throw new RuntimeException('The component "' . $component . '" was not found in the registry.');
+  }
+
+  if($minConstraint === null && $maxConstraint === null) {
+      return $registry[$component]['latest']['version'];
+  }
+
+  // determine latest version for a component given a min/max constraint
+
+  $software = $registry[$component];
+
+  // remove all non-version stuff
+  unset($software['name'], $software['latest'], $software['website']);
+  // the array is already sorted.
+  // get rid of (version => url) and use (idx => version)
+  $software = array_keys($software);
+  // reverse array, in order to have the highest version number on top.
+  $software = array_reverse($software);
+  // reduce array to values in constraint range
+  foreach($software as $url => $version) {
+    if(version_compare($version, $minConstraint, '>=') === true && version_compare($version, $maxConstraint, '<') === true) {
+      #echo 'Version v' . $version . ' is greater v' . $minConstraint . '(MinConstraint) and smaller v' . $maxConstraint . '(MaxConstraint).<br>';
+    } else {
+      unset($software[$url]);
+    }
+  }
+  // pop off the first element
+  $latestVersion = array_shift($software);
+
+  return $latestVersion;
+}

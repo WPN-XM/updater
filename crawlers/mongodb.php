@@ -25,7 +25,7 @@ class mongodb extends VersionCrawler
             // no RC versions!
             if (preg_match("#win32-i386-(\d+\.\d+(\.\d+)*).zip$#", $node->attr('href'), $matches)) {
                 $version = $matches[1];
-                if (version_compare($version, $this->registry['mongodb']['latest']['version'], '>=')) {
+                if (version_compare($version, $this->registry['mongodb']['latest']['version'], '>=') === true) {
                     return array(
                         'version' => $version,
                         'url' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-' . $version . '.zip'

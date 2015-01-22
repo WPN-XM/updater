@@ -26,7 +26,7 @@ class imagick extends VersionCrawler
                 // They also adhere to a standard, where archived versions are postfixed with "-10", e.g. "6.8.8-10".
                 if (preg_match("#(\d+\.\d+(\.\d+)*-\d+)-Q16-x86-windows.zip$#", $node->attr('href'), $matches)) {
                     $version = $matches[1];
-                    if (version_compare($version, $this->registry['imagick']['latest']['version'], '>=')) {
+                    if (version_compare($version, $this->registry['imagick']['latest']['version'], '>=') === true) {
                         return array(
                             'version' => $version,
                             'url' => 'http://www.imagemagick.org/download/binaries/ImageMagick-'.$version.'-Q16-x86-windows.zip',

@@ -8,9 +8,18 @@
  * For full copyright and license information, view the bundled LICENSE file.
  */
 
-require_once __DIR__ . '/vendor/goutte.phar';
+// Composer Autoloader
+if (is_file(__DIR__ . '/vendor/autoload.php')) {
+    include_once __DIR__ . '/vendor/autoload.php';
+} else {
+    echo '[Error] Bootstrap: Could not find "vendor/autoload.php".' . PHP_EOL;
+    echo 'Did you forget to run "composer install --dev"?' . PHP_EOL;
+    exit(1);
+}
 
 use Goutte\Client as GoutteClient;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Pool;
 
 class RegistryUpdater
 {
@@ -51,6 +60,8 @@ class RegistryUpdater
 
         include __DIR__ . '/VersionCrawler.php';
 
+        $i = 0;
+
         foreach ($crawlers as $i => $file) {
 
             // instantiate version crawler
@@ -88,7 +99,8 @@ class RegistryUpdater
             $requests[] = $this->guzzleClient->createRequest('GET', $url, ['allow_redirects' => true]);
         }
 
-        $this->results = GuzzleHttp\batch($this->guzzleClient, $requests);
+        // results is a GuzzleHttp\BatchResults object
+        $this->results = GuzzleHttp\Pool::batch($this->guzzleClient, $requests);
     }
 
     public function evaluateResponses()
@@ -96,17 +108,16 @@ class RegistryUpdater
         $html = '';
         $i    = 0;
 
-        // responses is an SplObjectStorage object where each request is a key
+        // Retrieve all failures.
+        foreach ($this->results->getFailures() as $requestException) {
+            echo $requestException->getMessage() . "\n";
+        }
+
+        // Retrieve all successful responses
         // iterate through responses and insert them in the crawler objects
-        foreach ($this->results as $request) {
+        foreach ($this->results->getSuccessful() as $response) {
 
             $new_version = $old_version = '';
-
-            $response = $this->results[$request];
-
-            if($response instanceOf GuzzleHttp\Exception\RequestException) {
-                throw new RuntimeException($response->getMessage());
-            }
 
             // set the response to the version crawler object
             $this->crawlers[$i]->addContent($response->getBody(), $response->getHeader('Content-Type'));
@@ -126,40 +137,17 @@ class RegistryUpdater
             $this->registry = $this->crawlers[$i]->modifiyRegistry($this->registry);
 
             // get old and new version for comparison.
+
             // if crawler is new and component not in registry, use 0.0.0
-            if(!isset($this->old_registry[$component]['latest']['version'])) {
-                $old_version = '0.0.0';
-            } else {
-                $old_version = $this->old_registry[$component]['latest']['version'];
-            }
+            $old_version = isset($this->old_registry[$component]['latest']['version'])
+                ? $this->old_registry[$component]['latest']['version']
+                : '0.0.0';
 
             $new_version = $this->registry[$component]['latest']['version'];
 
-            // write temporary component registry, for later registry insertion
-            if (isset($new_version) === true) {
-                //  Welcome in Version Compare Hell!
-                switch ($component) {
-                    case 'openssl':
-                        if(strcmp($old_version, $new_version) < 0) {
-                            Registry::writeRegistrySubset($component, $this->registry[$component]);
-                        }
-                        break;
-                    case 'phpmyadmin':
-                        if(version_compare($old_version, $new_version, '<') === 1 || (strcmp($old_version, $new_version) < 0)) {
-                            Registry::writeRegistrySubset($component, $this->registry[$component]);
-                        }
-                        break;
-                   case  'imagick':
-                        if(Version::cmpImagick($old_version, $new_version) === 1) {
-                            Registry::writeRegistrySubset($component, $this->registry[$component]);
-                        }
-                        break;
-                    default:
-                        if(version_compare($old_version, $new_version, '<=')) {
-                            Registry::writeRegistrySubset($component, $this->registry[$component]);
-                        }
-                        break;
-                }
+            if(Version::compare($component, $old_version, $new_version) === true) {
+                // write a temporary component registry, for later registry insertion
+                Registry::writeRegistrySubset($component, $this->registry[$component]);
             }
 
             // render a table row for version comparison
@@ -181,82 +169,101 @@ class RegistryUpdater
 class Version
 {
 
-    // compare 1.2.3-1 vs. 1.2.3-4
-    public static function cmpImagick($a, $b)
+    /**
+     * Welcome in Version Compare Hell!
+     * Some software components need their own version compare handling.
+     */
+    public static function compare($component, $oldVersion, $newVersion)
     {
-        $a_array = explode('-', $a);
-        $b_array = explode('-', $b);
-
-        $vc1 = version_compare($a_array[0], $b_array[0]);
-        $vc2 = Version::cmp($a_array[1], $b_array[1]);
-
-        #var_dump($a_array, $b_array, $vc1, $vc2);
-
-        if ($vc1 === 0 && $vc2 === 0) { // equal
-            return 0;
+        switch ($component) {
+            case 'openssl':
+                if(strcmp($oldVersion, $newVersion) < 0) {
+                    return true;
+                }
+            case 'phpmyadmin':
+                if(version_compare($oldVersion, $newVersion, '<') === true || (strcmp($oldVersion, $newVersion) < 0)) {
+                    return true;
+                }
+            case  'imagick':
+                if(Version::cmpImagick($oldVersion, $newVersion) === true) {
+                    return true;
+                }
+            default:
+                if(version_compare($oldVersion, $newVersion, '<=') === true) {
+                    return true;
+                }
         }
-
-        if ($vc1 === -1 && $vc2 === -1) {   // (1.2.4-1, 1.4.0-9) = a greater b (-1, -1)
-            return -1;
-        }
-
-        if (($vc1 === 0 && $vc2 === -1)     // (1.2.3-1, 1.2.3-2) = a lower b ( 0, -1)
-            or ($vc1 === -1 && $vc2 === 0)) {    // (1.2.3-1, 1.2.4-1) = a lower b (-1, 0)
-            return 1;
-        }
-        return -1;
+        return false;
     }
 
     /**
-     * If a lower   b, -1
-     * If a greater b,  1
-     * If a equals  b,  0
+     * Compare an Imagick version number.
+     *
+     * @param string $oldVersion
+     * @param string $newVersion
+     * @return boolean True, if newVersion is higher then oldVersion.
      */
-    public static function cmp($a, $b)
+    public static function cmpImagick($oldVersion, $newVersion)
     {
-        if ($a == $b) {
-            return 0;
-        }
-        return ($a < $b) ? -1 : 1;
-    }
+        $rOldVersion = str_replace('-', '.', $oldVersion);
+        $rNewVersion = str_replace('-', '.', $newVersion);
 
+        return version_compare($rNewVersion, $rOldVersion, '>');
+    }
 }
 
 class Viewhelper
 {
+    /**
+     * Render a table row.
+     *
+     * @param string $component Component
+     * @param string $old_version Old Version
+     * @param string $new_version New Version
+     */
+    public static function renderTableRow($component, $old_version, $new_version)
+    {
+        $link =  'registry-update.php?action=scan&component=' . $component;
+
+        $html = '<tr>';
+        $html .= '<td>' . $component . '</td>';
+        $html .= '<td>' . $old_version . '</td>';
+        $html .= '<td>' . self::printUpdatedSign($old_version, $new_version, $component) . '</td>';
+        $html .= '<td>' . self::renderAnchorButton($link, 'Scan'). '</td>';
+        $html .= '</tr>';
+
+        return $html;
+    }
 
     /**
-     * The function prints an update symbol if old_version is lower than new_version.
+     * Print an update symbol, if old_version is lower than new_version.
      *
-     * @param string Old version.
-     * @param string New version.
+     * @param string $old_version Old version.
+     * @param string $new_version New version.
+     * @param string $component Component
      */
     public static function printUpdatedSign($old_version, $new_version, $component)
     {
         if (version_compare($old_version, $new_version, '<') === true || (strcmp($old_version, $new_version) < 0)) {
-            $html = '<span class="badge alert-success">';
-            $html .= $new_version;
-            $html .= '</span><span style="color:green; font-size: 16px">&nbsp;&#x25B2;&nbsp;</span>';
+            $link =  'registry-update.php?action=update-component&component=' . $component;
 
-            $html .= '<a class="btn btn-default btn-xs"';
-            $html .= ' href="registry-update.php?action=update-component&component=' . $component;
-            $html .= '">Commit & Push</a>';
+            $html = '<span class="badge alert-success">' . $new_version . '</span>';
+            $html .= '<span style="color:green; font-size: 16px">&nbsp;&#x25B2;&nbsp;</span>';
+            $html .= self::renderAnchorButton($link, 'Commit & Push');
 
             return $html;
         }
     }
 
-    public static function renderTableRow($component, $old_version, $new_version)
+    /**
+     * Render an anchor tag.
+     *
+     * @param string $link An URL, the href.
+     * @param string $text Link Text.
+     */
+    public static function renderAnchorButton($link, $text)
     {
-        $html = '<tr>';
-        $html .= '<td>' . $component . '</td>';
-        $html .= '<td>' . $old_version . '</td>';
-        $html .= '<td>' . self::printUpdatedSign($old_version, $new_version, $component) . '</td>';
-        $html .= '<td><a class="btn btn-default btn-xs"';
-        $html .= ' href="registry-update.php?action=scan&component=' . $component . '">Scan</a></td>';
-        $html .= '</tr>';
-
-        return $html;
+        return '<a class="btn btn-default btn-xs" href="' . $link . '">' . $text . '</a>';
     }
 
 }
@@ -559,6 +566,26 @@ class Registry
         //echo '<a href="#" class="btn btn-lg btn-primary">'
         //   . '<span class="glyphicon glyphicon-save"></span> Git Push</a>';
     }
+
+    public static function healthCheck(array $registry)
+    {
+        foreach ($registry as $software => $component)
+        {
+            if(!isset($component['name'])) {
+                echo 'The registry is missing the key "name" for Component "' . $software . '".';
+            }
+
+            if(!isset($component['website'])) {
+                echo 'The registry is missing the key "website" for Component "' . $software . '".';
+            }
+
+            if(!isset($component['latest'])) {
+                echo 'The registry is missing the key "latest" for Component "' . $software . '".';
+            }
+        }
+
+        return true;
+    }
 }
 
 class ArrayTool
@@ -627,10 +654,12 @@ class ArrayTool
 class InstallerRegistry
 {
     /**
+     * Writes the registry as JSON to the installer registry file.
+     *
      * @param string $file
      * @param array $registry
      */
-    public function writeRegistryFileJson($file, $registry)
+    public static function write($file, $registry)
     {
         asort($registry);
 
@@ -656,7 +685,6 @@ class JsonHelper
     public static function jsonPrettyPrintCompact($json)
     {
         $out   = '';
-        $nl    = "\n";
         $cnt   = 0;
         $tab   = 1;
         $len   = strlen($json);
@@ -669,30 +697,23 @@ class JsonHelper
 
             if ($char === '}' || $char === ']') {
                 $cnt--;
-                if ($i + 1 === $len) { // newline before last ]
-                    $out .= $nl;
-                } else {
-                    $out .= str_pad('', ($tab * $cnt * $k), $space);
-                }
+                // newline before last ]
+                $out .= ($i + 1 === $len) ? PHP_EOL : str_pad('', ($tab * $cnt * $k), $space);
             } elseif ($char === '{' || $char === '[') {
                 $cnt++;
-                if ($cnt > 1) {
-                    $out .= $nl;
-                } // no newline on first line
+                $out .= ($cnt > 1) ? PHP_EOL : ''; // no newline on first line
             }
 
             $out .= $char;
 
             if ($char === ',' || $char === '{' || $char === '[') {
-                /* $out .= str_pad('', ($tab * $cnt * $k), $space); */
-                if ($cnt >= 1) {
-                    $out .= $space;
-                }
+                $out .= ($cnt >= 1) ? $space : '';
             }
             if ($char === ':' && '\\' !== substr($json, $i + 1, 1)) {
                 $out .= ' ';
             }
         }
+
         return $out;
     }
 
@@ -706,7 +727,7 @@ class JsonHelper
      */
     public static function jsonPrettyPrintTableFormat($json)
     {
-        $lines = explode("\n", $json);
+        $lines = explode(PHP_EOL, $json);
 
         $array = array();
 
@@ -782,10 +803,9 @@ class JsonHelper
         $lines = preg_replace('#\s+\[#i', '[', $lines);
 
         // cleanups
-        $lines = str_replace(',,', ',', $lines);
-        $lines = str_replace('],', "],\n", $lines);
+        $lines = str_replace(array(',,', '],'), array(',', '],' . PHP_EOL), $lines);
 
-        $lines = "[\n" . trim($lines) . "\n]";
+        $lines = '[' . PHP_EOL . trim($lines) . PHP_EOL . ']';
 
         return $lines;
     }

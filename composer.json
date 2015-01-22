@@ -1,0 +1,37 @@
+{
+    "name": "wpn-xm/updater",
+    "description": "Update Tool for the Software Registry and Maintenance Tool for the Installation Wizard Registries of the WPN-XM Server Stack.",
+    "license": "MIT",
+    "keywords": ["wpn-xm", "serverstack", "windows", "php"],
+    "type": "library",
+    "authors": [
+        {
+            "name": "Jens-André Koch",
+            "email": "jakoch@web.de"
+        }
+    ],
+    "support": {
+        "irc": "irc://irc.freenode.org/koch",
+        "source": "https://github.com/WPN-XM/updater/",
+        "issues": "https://github.com/WPN-XM/WPN-XM/issues/"
+    },
+    "require": {
+        "php"                             : ">=5.4",
+        "fabpot/goutte"                   : "2.0.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit"                 : "4.3.*@dev",
+        "fabpot/php-cs-fixer"             : "dev-master"
+    },
+    "suggest": {
+        "ext-curl"        : "*",
+        "ext-json"        : "*"
+    },
+    "autoload": {
+        "psr-0": { "": "./" }
+    },
+    "autoload-dev": {
+        "psr-0": { "Tests\\": "tests/" }
+    },
+    "minimum-stability": "dev"
+}

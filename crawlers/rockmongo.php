@@ -15,23 +15,25 @@ namespace WPNXM\Updater\Crawler;
  */
 class rockmongo extends VersionCrawler
 {
-    public $url = 'http://rockmongo.com/downloads';
+    // fomerly: http://rockmongo.com/downloads
+    public $url = 'https://github.com/iwind/rockmongo/releases/latest';
 
     public function crawlVersion()
     {
         // span tag contains "RockMongo v1.1.5"
-        $text = $this->filterXPath('//ul/li/a/span')->text();
-
-        if (preg_match("#(\d+\.\d+(\.\d+)*)#", $text, $matches)) {
-            $version = $matches[0];
-            if (version_compare($version, $this->registry['rockmongo']['latest']['version'], '>=')) {
-                return array(
-                    'version' => $version,
-                    // formerly http://rockmongo.com/release/rockmongo-1.1.3.zip
-                    // now      https://github.com/iwind/rockmongo/archive/1.1.7.zip
-                    'url' => 'https://github.com/iwind/rockmongo/archive/'.$version.'.zip'
-                );
+        // $text = $this->filterXPath('//ul/li/a/span')->text();
+        return $this->filter('a')->each(function ($node) {
+            if (preg_match("#(\d+\.\d+(\.\d+)*)#", $node->text(), $matches)) {
+                $version = $matches[0];
+                if (version_compare($version, $this->registry['rockmongo']['latest']['version'], '>=') === true) {
+                    return array(
+                        'version' => $version,
+                        // formerly http://rockmongo.com/release/rockmongo-1.1.3.zip
+                        // now      https://github.com/iwind/rockmongo/archive/1.1.7.zip
+                        'url' => 'https://github.com/iwind/rockmongo/archive/' . $version . '.zip'
+                    );
+                }
             }
-        }
+        });
     }
 }

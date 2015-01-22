@@ -45,16 +45,16 @@ class MariaDb extends VersionCrawler
                     $filename = 'mariadb-' . $version . '-win32.zip';
                     $folder = 'win32-packages';
 
-                    if (version_compare($version, '5.1.49', '<=')) {
+                    if (version_compare($version, '5.1.49', '<=') === true) {
                         $folder   = 'kvm-zip-winxp-x86';
                         $filename = 'mariadb-noinstall-' . $version . '-win32.zip';
-                    } elseif (version_compare($version, '5.2.6', '<=')) {
+                    } elseif (version_compare($version, '5.2.6', '<=') === true) {
                         $folder = 'win2008r2-vs2010-i386';
-                    } elseif (version_compare($version, '5.5.23', '<=')) {
+                    } elseif (version_compare($version, '5.5.23', '<=') === true) {
                         $folder = 'win2008r2-vs2010-i386-packages';
-                    } elseif (version_compare($version, '5.5.27', '<=')) {
+                    } elseif (version_compare($version, '5.5.27', '<=') === true) {
                         $folder = 'windows';
-                    } elseif (version_compare($version, '5.5.28', '>=')) { // 5.5.28 and above
+                    } elseif (version_compare($version, '5.5.28', '>=') === true) { // 5.5.28 and above
                         $folder = 'win32-packages';
                     }
 
@@ -66,7 +66,7 @@ class MariaDb extends VersionCrawler
                      * http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-5.5.38/win32-packages/mariadb-5.5.38-win32.zip
                      */
 
-                    if (version_compare($version, $this->registry['mariadb']['latest']['version'], '>=')) {
+                    if (version_compare($version, $this->registry['mariadb']['latest']['version'], '>=') === true) {
                         return array(
                             'version' => $version,
                             'url'     => 'http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-' . $version . '/' . $folder . '/' . $filename

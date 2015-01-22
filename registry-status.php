@@ -25,7 +25,7 @@ $start = microtime(true);
 set_time_limit(180); // 60*3
 date_default_timezone_set('UTC');
 error_reporting(E_ALL);
-ini_set('display_errors', true);
+ini_set('display_errors', '1');
 
 if (!extension_loaded('curl')) {
     exit('Error: PHP Extension cURL required.');
@@ -56,7 +56,10 @@ function isAvailable($url)
     // special handling for googlecode, because they don't like /HEAD requests via curl
     if (false !== strpos($url, 'googlecode') or
         false !== strpos($url, 'phpmemcachedadmin') or
-        false !== strpos($url, 'webgrind')) {
+        false !== strpos($url, 'webgrind') or
+        false !== strpos($url, 'github') or
+        false !== strpos($url, 'codeload') or
+        false !== strpos($url, 'microsoft')) {
         return (bool) StatusRequest::getHttpStatusCode($url);
     }
     return $urlsHttpStatus[$url];

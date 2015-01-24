@@ -11,9 +11,10 @@ return array(
     'memcached' => 'memcached.zip',
     'mongodb' => 'mongodb.zip',
     'nginx' => 'nginx.zip',
-    'node' =>  'node.exe', // ! exe file
+    'node' => 'node.exe', // ! exe file
     'nodenpm' => 'nodenpm.zip',
-    'openssl' =>  'openssl.exe', // ! exe file
+    'openssl' => 'openssl.exe', // ! exe file
+    'openssl-x64' => 'openssl.exe', // ! exe file
     'pear' => 'go-pear.phar', // ! phar file
     'perl' =>  'perl.zip',
     'php' => 'php.zip',

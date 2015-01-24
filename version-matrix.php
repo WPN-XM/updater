@@ -8,6 +8,8 @@
  * For full copyright and license information, view the bundled LICENSE file.
  */
 
+use Seld\JsonLint\JsonParser;
+
 // WPN-XM Software Registry
 $registry  = include __DIR__ . '\registry\wpnxm-software-registry.php';
 
@@ -41,9 +43,18 @@ foreach($wizardFiles as $file) {
     $wizardRegistries[$name]['constraints'] = $parts;
     unset($parts);
 
-    // load registry
-    $registryContent = issetOrDefault(json_decode(file_get_contents($file), true), array());
-    $wizardRegistries[$name]['registry'] = fixArraySoftwareAsKey($registryContent);
+    try
+    {
+        // finding errors in JSON files is tedious
+        // let's use JSON lint, it's slower, but we get exceptions thrown on syntax errors
+        $parser = new JsonParser();
+        $registryContent = issetOrDefault($parser->parse(file_get_contents($file)), array());
+        $wizardRegistries[$name]['registry'] = fixArraySoftwareAsKey($registryContent);
+    }
+    catch (Exception $e)
+    {
+        throw new Exception('Error while parsing "' . $file . '".' . $e->getMessage());
+    }
 }
 
 $wizardRegistries = sortWizardRegistries($wizardRegistries);

@@ -189,7 +189,7 @@ class Version
                     return true;
                 }
             default:
-                if(version_compare($oldVersion, $newVersion, '<=') === true) {
+                if(version_compare($oldVersion, $newVersion, '<') === true) {
                     return true;
                 }
         }
@@ -244,7 +244,7 @@ class Viewhelper
      */
     public static function printUpdatedSign($old_version, $new_version, $component)
     {
-        if (version_compare($old_version, $new_version, '<') === true || (strcmp($old_version, $new_version) < 0)) {
+        if (Version::compare($component, $old_version, $new_version) === true) {
             $link =  'registry-update.php?action=update-component&component=' . $component;
 
             $html = '<span class="badge alert-success">' . $new_version . '</span>';

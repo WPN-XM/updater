@@ -30,13 +30,19 @@ class Gogs_x86 extends VersionCrawler
         return $this->filter('a')->each(function ($node) {
                 if (preg_match("#v(\d+\.\d+.\d+)#", $node->text(), $matches)) {
                     $version = $matches[1];
-                    if (version_compare($version, $this->registry['gogs-x86']['latest']['version'], '>=') === true) {
+
+                    // CDNs
+                    // https://github.com/gogits/gogs/releases/download/v0.5.9/windows_386.zip
+                    // http://gobuild3.qiniudn.com/github.com/gogits/gogs/tag-v-v0.5.5/gogs-windows-386.zip
+                    // 'https://github.com/gogits/gogs/releases/download/v' . $version . '/windows_386.zip'
+
+                    $download_file = 'https://github.com/gogits/gogs/releases/download/v' . $version . '/windows_386.zip';
+
+                    if (version_compare($version, $this->registry['gogs-x86']['latest']['version'], '>=') === true
+                        && $this->fileExistsOnServer($download_file) === true) {
                         return array(
                             'version' => $version,
-                            // CDNs
-                            // - 'https://github.com/gogits/gogs/releases/download/v' . $version . '/windows_amd64.zip'
-                            // - http://gobuild3.qiniudn.com/github.com/gogits/gogs/tag-v-v0.5.5/gogs-windows-386.zip
-                            'url'     => 'http://gobuild3.qiniudn.com/github.com/gogits/gogs/tag-v-v' . $version . '/gogs-windows-386.zip'
+                            'url'     => $download_file
                         );
                     }
                 }

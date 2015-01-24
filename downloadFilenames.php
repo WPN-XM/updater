@@ -4,12 +4,14 @@ return array(
     'adminer' => 'adminer.php', // ! php file
     'closure-compiler' => 'closure-compiler.zip',
     'composer' => 'composer.phar', // ! phar file
+    'gogitservice' => 'gotgitservice.zip',
     'imagick' => 'imagick.zip',
     'junction' => 'junction.zip',
     'mariadb' => 'mariadb.zip',
     'memadmin' => 'memadmin.zip',
     'memcached' => 'memcached.zip',
     'mongodb' => 'mongodb.zip',
+    'msysgit' => 'msysgit.7z', // ! 7zip file
     'nginx' => 'nginx.zip',
     'node' => 'node.exe', // ! exe file
     'nodenpm' => 'nodenpm.zip',

@@ -34,12 +34,13 @@ class openssl extends VersionCrawler
                 // the version match contains underscores. so we turn "1_0_1d" into "1.0.1d".
                 // the version match might contain uppercase char. so we turn to lowercase for the comparision.
                 // that's still not SemVer, but anyway.
-                $version = strtolower(str_replace('_', '.', $matches[1]));
+                $version = str_replace('_', '.', $matches[1]);
 
-                if (version_compare($version, $this->registry['openssl']['latest']['version'], '>') === true
-                    || strcmp($this->registry['openssl']['latest']['version'], $version) < 0) {
+                $compare_version = strtolower($version);
+
+                if (strcmp($this->registry['openssl']['latest']['version'], $compare_version) < 0) {
                     return array(
-                        'version' => $matches[1],
+                        'version' => $version,
                         'url' => 'http://slproweb.com/download/Win32OpenSSL_Light-'.$matches[1].'.exe'
                     );
                 }

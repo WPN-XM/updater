@@ -1,16 +1,28 @@
 <?php
 
+/**
+ * download filenames
+ * ------------------
+ *
+ * The array defines the relationship between
+ * a "component" in the registry (array key) and it's "filename" in the downloads directory.
+ * The filename is used by the installation wizards.
+ */
+
 return array(
     'adminer' => 'adminer.php', // ! php file
     'closure-compiler' => 'closure-compiler.zip',
     'composer' => 'composer.phar', // ! phar file
-    'gogitservice' => 'gotgitservice.zip',
+    'gogs-x86' => 'gotgitservice.zip',
+    'gogs-x64' => 'gotgitservice.zip',
     'imagick' => 'imagick.zip',
     'junction' => 'junction.zip',
     'mariadb' => 'mariadb.zip',
+    'mariadb-x64' => 'mariadb.zip',
     'memadmin' => 'memadmin.zip',
     'memcached' => 'memcached.zip',
     'mongodb' => 'mongodb.zip',
+    'mongodb-x64' => 'mongodb.zip',
     'msysgit' => 'msysgit.7z', // ! 7zip file
     'nginx' => 'nginx.zip',
     'node' => 'node.exe', // ! exe file
@@ -48,6 +60,7 @@ return array(
     'phpmyadmin' =>  'phpmyadmin.zip',
     'pickle' => 'pickle.phar',
     'postgresql' =>  'postgresql.zip',
+    'postgresql-x64' =>  'postgresql.zip',
     'redis' =>  'redis.zip',
     'rockmongo' =>  'rockmongo.zip',
     'sendmail' =>  'sendmail.zip',

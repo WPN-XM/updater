@@ -314,20 +314,34 @@ if (isset($action) && $action === 'update-components') {
   }
 } // end action "update-all-next-registries"
 
+/**
+ * Return the PHP version of a registry file.
+ *
+ * @param string  A filename, e.g. registry filename, like "full-next-php5.6-w64.json".
+ * @return string PHP Version.
+ */
 function getPHPVersionFromFilename($file)
 {
     preg_match("/-php(.*)-/", $file, $matches);
     return $matches[1];
 }
 
+/**
+ * Return the latest version for a component.
+ * Takes the PHP major.minor.latest version constraint into account.
+ * 
+ * @param string $component
+ * @param string $filename 
+ * @return string version
+ */
 function getLatestVersionForComponent($component, $filename)
 {
     // latest version of PHP means "latest version for PHP5.4, PHP5.5, PHP5.6"
     // we have to raise the PHP version, respecting the major.minor version constraint
-    if($component === 'php') {
+    if($component === 'php' || $component === 'php-x64' || $component === "php-qa" || $component === "php-qa-x64") {
         $minVersionConstraint = getPHPVersionFromFilename($filename); // 5.4, 5.5
         $maxVersionConstraint = $minVersionConstraint . '.99'; // 5.4.99, 5.5.99
-        return getLatestVersion('php', $minVersionConstraint, $maxVersionConstraint);
+        return getLatestVersion($component, $minVersionConstraint, $maxVersionConstraint);
     }
 
     return getLatestVersion($component);

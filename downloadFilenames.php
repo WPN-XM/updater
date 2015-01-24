@@ -60,6 +60,7 @@ return array(
     'pickle'                => 'pickle.phar',
     'postgresql'            => 'postgresql.zip',
     'postgresql-x64'        => 'postgresql.zip',
+    'rabbitmq'              => 'rabbitmq.zip',
     'redis'                 => 'redis.zip',
     'rockmongo'             => 'rockmongo.zip',
     'sendmail'              => 'sendmail.zip',

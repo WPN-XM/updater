@@ -189,7 +189,7 @@ class Version
                     return true;
                 }
             default:
-                if(version_compare($oldVersion, $newVersion, '<=') === true) {
+                if(version_compare($oldVersion, $newVersion, '<') === true) {
                     return true;
                 }
         }

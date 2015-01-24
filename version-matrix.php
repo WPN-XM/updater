@@ -191,9 +191,13 @@ function reduceArrayToContainOnlyVersions($array)
 
 function renderVersionDropdown($software, $versions)
 {
-    // edge case: "closure-compiler" is always latest version
-    // so the dropdown question must be : "do include" or "do not include"
-    if($software === 'closure-compiler') { //
+    /**
+     * handle "is always latest version" edge cases:
+     * - "closure-compiler"
+     * - "php-cs-fixer"
+     * so the dropdown question must be : "do include" or "do not include".
+     */
+    if($software === 'closure-compiler' || $software === 'php-cs-fixer') { //
         $html = '<td class="alert alert-success"><strong>Latest<strong></td>';
         // td: version dropdown
         $html .= '<td><!-- Select --><div>

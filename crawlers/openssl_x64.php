@@ -17,7 +17,7 @@ class openssl_x64 extends VersionCrawler
 {
     public $name = 'openssl-x64';
 
-    public $url = 'http://slproweb.com/products/Win32OpenSSL.html';
+    public $url = 'http://indy.fulgan.com/SSL/';
 
     public function crawlVersion()
     {
@@ -26,24 +26,19 @@ class openssl_x64 extends VersionCrawler
             /**
              * The regexp must take the following cases into account:
              *
-             * http://slproweb.com/download/Win64OpenSSL_Light-1_0_1d.exe  - one char lowercase?
-             * http://slproweb.com/download/Win64OpenSSL_Light-1_0_1L.exe  - one char uppercase ?
-             * http://slproweb.com/download/Win64OpenSSL_Light-1_0_1ze.exe - two chars lowercase`?
+             * http://indy.fulgan.com/SSL/openssl-0.9.8ze-x64_86-win64.zip - two chars lowercase
+             * http://indy.fulgan.com/SSL/openssl-1.0.0l-x64_86-win64.zip  - one char lowercase
+             * http://indy.fulgan.com/SSL/openssl-1.0.2-x64_86-win64.zip   - version only
              */
 
-            if (preg_match("/Win64OpenSSL_Light-(\d+\_\d+\_\d+[A-Za-z]*).exe$/i", $node->attr('href'), $matches)) {
+            if (preg_match("/openssl-(\d+\.\d+\.\d+[A-Za-z]*)-x64_86-win64.zip$/i", $node->attr('href'), $matches)) {
 
-                // the version match contains underscores. so we turn "1_0_1d" into "1.0.1d".
-                // the version match might contain uppercase char. so we turn to lowercase for the comparision.
-                // that's still not SemVer, but anyway.
-                $version = str_replace('_', '.', $matches[1]);
+                $version = $matches[1];
 
-                $compare_version = strtolower($version);
-
-                if (strcmp($this->registry['openssl']['latest']['version'], $compare_version) < 0) {
+                if (strcmp($this->registry['openssl-x64']['latest']['version'], $version) < 0) {
                     return array(
                         'version' => $version,
-                        'url' => 'http://slproweb.com/download/Win64OpenSSL_Light-'.$matches[1].'.exe'
+                        'url' => 'http://indy.fulgan.com/SSL/openssl-'.$version.'-x64_86-win64.zip'
                     );
                 }
             }

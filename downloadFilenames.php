@@ -26,8 +26,8 @@ return array(
     'nginx'                 => 'nginx.zip',
     'node'                  => 'node.exe', // ! exe file
     'nodenpm'               => 'nodenpm.zip',
-    'openssl'               => 'openssl.exe', // ! exe file
-    'openssl-x64'           => 'openssl.exe', // ! exe file
+    'openssl'               => 'openssl.zip',
+    'openssl-x64'           => 'openssl.zip',
     'pear'                  => 'go-pear.phar', // ! phar file
     'perl'                  => 'perl.zip',
     'php'                   => 'php.zip',

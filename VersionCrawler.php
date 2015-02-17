@@ -19,6 +19,7 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
     public $url;
     public $registry;
     public $guzzle;
+    public $name;
 
     /**
      * The variable controls, if this version crawler object gets

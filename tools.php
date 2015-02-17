@@ -18,7 +18,6 @@ if (is_file(__DIR__ . '/vendor/autoload.php')) {
 }
 
 use Goutte\Client as GoutteClient;
-use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Pool;
 
 class RegistryUpdater

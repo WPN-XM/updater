@@ -34,5 +34,9 @@
     "autoload-dev": {
         "psr-0": { "Tests\\": "tests/" }
     },
+    "config": {
+        "bin-dir": "bin/",
+        "preferred-install": "dist"
+    },
     "minimum-stability": "dev"
 }

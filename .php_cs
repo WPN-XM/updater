@@ -19,6 +19,7 @@ $finder = Symfony\CS\Finder\DefaultFinder::create()
     ->notName('*.jpg')
     ->notName('*.png')
     ->notName('*.exe')
+    ->notName('wpnxm-software-registry.php')
     ->exclude('vendor')
     ->exclude('registry') // registry is JSON pretty printed in its own short format
     ->exclude('nbproject') // netbeans project files

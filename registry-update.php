@@ -7,7 +7,6 @@
  * This source file is subject to the terms of the MIT license.
  * For full copyright and license information, view the bundled LICENSE file.
  */
-
 $start = microtime(true);
 set_time_limit(180); // 60*3
 date_default_timezone_set('UTC');
@@ -30,7 +29,7 @@ $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 // insert version scans into main software registry
 if (isset($action) && $action === 'update') {
     $registry = Registry::addLatestVersionScansIntoRegistry($registry);
-    if(is_array($registry) === true) {
+    if (is_array($registry) === true) {
         Registry::writeRegistry($registry);
         echo 'The registry was updated.';
     } else {
@@ -44,14 +43,14 @@ if (isset($action) && $action === 'update') {
 if (isset($action) && $action === 'update-component') {
     $component = filter_input(INPUT_GET, 'component', FILTER_SANITIZE_STRING);
 
-    if(false !== strpos($component, 'php-x86')) {
+    if (false !== strpos($component, 'php-x86')) {
         $component = 'php';
     }
 
     $registry = Registry::addLatestVersionScansIntoRegistry($registry, $component);
-    if(is_array($registry) === true) {
+    if (is_array($registry) === true) {
         Registry::writeRegistry($registry);
-        echo 'The registry was updated. Component "' . $component .'" inserted.';
+        echo 'The registry was updated. Component "' . $component . '" inserted.';
 
         $name = isset($registry[$component]['name']) ?  $registry[$component]['name'] : $component;
 
@@ -69,7 +68,7 @@ if (isset($action) && $action === 'scan') {
     $updater->setupCrawler();
     // handle $_GET['component'], for single component scans, e.g. registry-update.php?action=scan&component=openssl
 
-    $component = filter_input(INPUT_GET, 'component', FILTER_SANITIZE_STRING);
+    $component          = filter_input(INPUT_GET, 'component', FILTER_SANITIZE_STRING);
     $numberOfComponents = (isset($component) === true) ? $updater->getUrlsToCrawl($component) : $updater->getUrlsToCrawl() + 1;
 
     $updater->crawl();
@@ -83,15 +82,17 @@ if (isset($action) && $action === 'scan') {
             <th>Software Components (<?=$numberOfComponents?>)</th><th>(Old) Latest Version</th><th>(New) Latest Version</th><th>Action</th>
         </tr>
     </thead>
-    <?php echo $tableHtml; ?>
+    <?php echo $tableHtml;
+    ?>
     </table>
     Used a total of <?=round((microtime(true) - $start), 2)?> seconds for crawling <?=$numberOfComponents?> URLs.
 <?php
+
 } // end action "write-file"
 
 // "single-component-scan" = main page
-if(isset($action) && $action === 'single-component-scan') {
-?>
+if (isset($action) && $action === 'single-component-scan') {
+    ?>
 
 <!-- Table -->
 <div class="row">
@@ -118,13 +119,14 @@ if(isset($action) && $action === 'single-component-scan') {
               <table class="table table-condensed table-hover table-striped table-bordered" style="font-size: 12px;">
               <thead><tr><th style="width: 220px">Software Component</th><th>Version</th><th>Action</th></tr></thead>
               <tbody>
-                <?php foreach($registry as $item => $component) {
-                  echo '<tr>';
-                  echo '<td>' . $component['name'] . '</td>';
-                  echo '<td>' . $component['latest']['version'] . '</td>';
-                  echo '<td><a class="btn btn-info btn-xs" href="registry-update.php?action=scan&amp;component=' . $item . '">Scan</a></td>';
-                  echo '</tr>';
-                } ?>
+                <?php foreach ($registry as $item => $component) {
+    echo '<tr>';
+    echo '<td>' . $component['name'] . '</td>';
+    echo '<td>' . $component['latest']['version'] . '</td>';
+    echo '<td><a class="btn btn-info btn-xs" href="registry-update.php?action=scan&amp;component=' . $item . '">Scan</a></td>';
+    echo '</tr>';
+}
+    ?>
               </tbody>
               </table>
             </div>
@@ -133,6 +135,7 @@ if(isset($action) && $action === 'single-component-scan') {
 </div>
 
     <?php
+
 } // end action "single-component-scan"
 
 // add a new software into the registry
@@ -194,10 +197,10 @@ if (isset($action) && $action === 'add') {
             </div>
 
     <?php
+
 } // end action "add"
 
 if (isset($action) && $action === 'insert') {
-
     $component  = filter_input(INPUT_POST, 'software', FILTER_SANITIZE_STRING);
     $shorthand  = filter_input(INPUT_POST, 'shorthand', FILTER_SANITIZE_STRING);
     $url        = filter_input(INPUT_POST, 'url', FILTER_SANITIZE_STRING);
@@ -209,7 +212,7 @@ if (isset($action) && $action === 'insert') {
     $array = Registry::getArrayForNewComponent($component, $url, $version, $website, $phpversion);
     Registry::writeRegistrySubset($shorthand, $array);
     $newRegistry = Registry::addLatestVersionScansIntoRegistry($registry, $component);
-    if($newRegistry !== false) {
+    if ($newRegistry !== false) {
         $result = Registry::writeRegistry($newRegistry);
     }
 
@@ -220,12 +223,11 @@ if (isset($action) && $action === 'insert') {
             });
            </script>';
 
-    $response_ok = '<div class="alert alert-success">Successfully added to registry.</div>';
+    $response_ok   = '<div class="alert alert-success">Successfully added to registry.</div>';
     $response_fail = '<div class="alert alert-danger">Component was not added to registry.</div>';
-    $response = (isset($newRegistry[$component]) === true) ? $response_ok : $response_fail;
+    $response      = (isset($newRegistry[$component]) === true) ? $response_ok : $response_fail;
 
     echo $response . $js;
-
 } // end action "insert"
 
 if (isset($action) && $action === 'show-version-matrix') {
@@ -233,21 +235,20 @@ if (isset($action) && $action === 'show-version-matrix') {
 } // end action "show"
 
 if (isset($action) && $action === 'update-installer-registry') {
+    $installer    = filter_input(INPUT_POST, 'installer', FILTER_SANITIZE_STRING);
+    $registryJson = filter_input(INPUT_POST, 'registry-json', FILTER_SANITIZE_STRING);
 
-  $installer = filter_input(INPUT_POST, 'installer', FILTER_SANITIZE_STRING);
-  $registryJson = filter_input(INPUT_POST, 'registry-json', FILTER_SANITIZE_STRING);
-
-  $registryJson = html_entity_decode($registryJson, ENT_COMPAT, 'UTF-8'); // fix the JSON.stringify quotes &#34;
+    $registryJson    = html_entity_decode($registryJson, ENT_COMPAT, 'UTF-8'); // fix the JSON.stringify quotes &#34;
   $installerRegistry = json_decode($registryJson, true);
 
-  $file = __DIR__ . '\registry\\' . $installer . '.json';
+    $file = __DIR__ . '\registry\\' . $installer . '.json';
 
-  $downloadFilenames = include __DIR__ . '\downloadFilenames.php';
+    $downloadFilenames = include __DIR__ . '\downloadFilenames.php';
 
-  $data = array();
+    $data = array();
 
-  foreach($installerRegistry as $component => $version) {
-    $url = 'http://wpn-xm.org/get.php?s=' . $component . '&v=' . $version;
+    foreach ($installerRegistry as $component => $version) {
+        $url = 'http://wpn-xm.org/get.php?s=' . $component . '&v=' . $version;
 
     // special handling for PHP - 'php', 'php-x64', 'php-qa-x64', 'php-qa'
     if (false !== strpos($component, 'php') && false === strpos($component, 'phpext_')) {
@@ -262,56 +263,55 @@ if (isset($action) && $action === 'update-installer-registry') {
         $url .= ($bitsize !== '') ? '&bitsize=' . $bitsize : '';
     }
 
-    $downloadFilename = $downloadFilenames[$component];
+        $downloadFilename = $downloadFilenames[$component];
 
-    $data[] = array($component, $url, $downloadFilename, $version);
-  }
+        $data[] = array($component, $url, $downloadFilename, $version);
+    }
 
   #var_dump($installer, $registryJson, $installerRegistry, $file, $data);
 
   InstallerRegistry::write($file, $data);
 } // end action "update-installer-registry"
 
-/**
+/*
  * This updates all components of all installation registry to their latest version.
  */
 if (isset($action) && $action === 'update-components') {
+    $nextRegistries = glob(__DIR__ . '\registry\*-next-*.json');
 
-  $nextRegistries = glob(__DIR__ . '\registry\*-next-*.json');
+    if (empty($nextRegistries) === true) {
+        exit('No "next" JSON registries found. Create installers for the next version.');
+    }
 
-  if(empty($nextRegistries) === true) {
-    exit('No "next" JSON registries found. Create installers for the next version.');
-  }
+    echo 'Update all components to their latest version.<br>';
 
-  echo 'Update all components to their latest version.<br>';
+    foreach ($nextRegistries as $file) {
+        $filename = basename($file);
+        echo '<br>Processing Installer: "' . $filename . '":<br>';
+        $components      = json_decode(file_get_contents($file), true);
+        $version_updated = false;
+        for ($i = 0; $i < count($components); ++$i) {
+            $componentName = $components[$i][0];
+            $version       = $components[$i][3];
+            $url           = $components[$i][1];
 
-  foreach($nextRegistries as $file) {
-      $filename = basename($file);
-      echo '<br>Processing Installer: "' . $filename . '":<br>';
-      $components = json_decode(file_get_contents($file), true);
-      $version_updated = false;
-      for($i = 0; $i < count($components); ++$i) {
-          $componentName = $components[$i][0];
-          $version = $components[$i][3];
-          $url = $components[$i][1];
+            $latestVersion = getLatestVersionForComponent($componentName, $filename);
 
-          $latestVersion = getLatestVersionForComponent($componentName, $filename);
-
-          if(version_compare($version, $latestVersion, '<') === true) {
-            $components[$i][3] = $latestVersion;
-            if(false !== strpos($url, $version)) { // if the url has a version appended, update it too
+            if (version_compare($version, $latestVersion, '<') === true) {
+                $components[$i][3] = $latestVersion;
+                if (false !== strpos($url, $version)) { // if the url has a version appended, update it too
               $components[$i][1] = str_replace($version, $latestVersion, $url);
+                }
+                echo 'Updated "' . $componentName . '" from v' . $version . ' to v' . $latestVersion . '.<br>';
+                $version_updated = true;
             }
-            echo 'Updated "' . $componentName . '" from v'. $version .' to v'. $latestVersion .'.<br>';
-            $version_updated = true;
-          }
-      }
-      if($version_updated === true) {
-          InstallerRegistry::write($file, $components);
-      } else {
-          echo 'The installer registry is up-to-date.<br>';
-      }
-  }
+        }
+        if ($version_updated === true) {
+            InstallerRegistry::write($file, $components);
+        } else {
+            echo 'The installer registry is up-to-date.<br>';
+        }
+    }
 } // end action "update-all-next-registries"
 
 /**
@@ -323,22 +323,23 @@ if (isset($action) && $action === 'update-components') {
 function getPHPVersionFromFilename($file)
 {
     preg_match("/-php(.*)-/", $file, $matches);
+
     return $matches[1];
 }
 
 /**
  * Return the latest version for a component.
  * Takes the PHP major.minor.latest version constraint into account.
- * 
+ *
  * @param string $component
- * @param string $filename 
+ * @param string $filename
  * @return string version
  */
 function getLatestVersionForComponent($component, $filename)
 {
     // latest version of PHP means "latest version for PHP5.4, PHP5.5, PHP5.6"
     // we have to raise the PHP version, respecting the major.minor version constraint
-    if($component === 'php' || $component === 'php-x64' || $component === "php-qa" || $component === "php-qa-x64") {
+    if ($component === 'php' || $component === 'php-x64' || $component === "php-qa" || $component === "php-qa-x64") {
         $minVersionConstraint = getPHPVersionFromFilename($filename); // 5.4, 5.5
         $maxVersionConstraint = $minVersionConstraint . '.99'; // 5.4.99, 5.5.99
         return getLatestVersion($component, $minVersionConstraint, $maxVersionConstraint);
@@ -349,19 +350,19 @@ function getLatestVersionForComponent($component, $filename)
 
 function getLatestVersion($component, $minConstraint = null, $maxConstraint = null)
 {
-  global $registry;
+    global $registry;
 
-  if(isset($component) === false) {
-       throw new RuntimeException('No component provided.');
-  }
+    if (isset($component) === false) {
+        throw new RuntimeException('No component provided.');
+    }
 
-  if(isset($registry[$component]) === false) {
-      throw new RuntimeException('The component "' . $component . '" was not found in the registry.');
-  }
+    if (isset($registry[$component]) === false) {
+        throw new RuntimeException('The component "' . $component . '" was not found in the registry.');
+    }
 
-  if($minConstraint === null && $maxConstraint === null) {
-      return $registry[$component]['latest']['version'];
-  }
+    if ($minConstraint === null && $maxConstraint === null) {
+        return $registry[$component]['latest']['version'];
+    }
 
   // determine latest version for a component given a min/max constraint
 
@@ -375,15 +376,15 @@ function getLatestVersion($component, $minConstraint = null, $maxConstraint = nu
   // reverse array, in order to have the highest version number on top.
   $software = array_reverse($software);
   // reduce array to values in constraint range
-  foreach($software as $url => $version) {
-    if(version_compare($version, $minConstraint, '>=') === true && version_compare($version, $maxConstraint, '<') === true) {
-      #echo 'Version v' . $version . ' is greater v' . $minConstraint . '(MinConstraint) and smaller v' . $maxConstraint . '(MaxConstraint).<br>';
-    } else {
-      unset($software[$url]);
-    }
+  foreach ($software as $url => $version) {
+      if (version_compare($version, $minConstraint, '>=') === true && version_compare($version, $maxConstraint, '<') === true) {
+          #echo 'Version v' . $version . ' is greater v' . $minConstraint . '(MinConstraint) and smaller v' . $maxConstraint . '(MaxConstraint).<br>';
+      } else {
+          unset($software[$url]);
+      }
   }
   // pop off the first element
   $latestVersion = array_shift($software);
 
-  return $latestVersion;
+    return $latestVersion;
 }

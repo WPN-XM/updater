@@ -42,11 +42,10 @@ class Gogs_x64 extends VersionCrawler
                         && $this->fileExistsOnServer($download_file) === true) {
                         return array(
                             'version' => $version,
-                            'url'     => $download_file
+                            'url'     => $download_file,
                         );
                     }
                 }
             });
     }
-
 }

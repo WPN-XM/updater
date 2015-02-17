@@ -30,7 +30,7 @@ class rockmongo extends VersionCrawler
                         'version' => $version,
                         // formerly http://rockmongo.com/release/rockmongo-1.1.3.zip
                         // now      https://github.com/iwind/rockmongo/archive/1.1.7.zip
-                        'url' => 'https://github.com/iwind/rockmongo/archive/' . $version . '.zip'
+                        'url' => 'https://github.com/iwind/rockmongo/archive/' . $version . '.zip',
                     );
                 }
             }

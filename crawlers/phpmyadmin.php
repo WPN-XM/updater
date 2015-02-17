@@ -25,7 +25,7 @@ class phpmyadmin extends VersionCrawler
                 if (version_compare($version, $this->registry['phpmyadmin']['latest']['version'], '>=') === true) {
                     return array(
                         'version' => $version,
-                        'url' => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/'.$version.'/phpMyAdmin-'.$version.'-english.zip'
+                        'url'     => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/' . $version . '/phpMyAdmin-' . $version . '-english.zip',
                     );
                 }
             }

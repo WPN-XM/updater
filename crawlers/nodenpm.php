@@ -25,7 +25,7 @@ class nodenpm extends VersionCrawler
                 if (version_compare($matches[1], $this->registry['nodenpm']['latest']['version'], '>=') === true) {
                     return array(
                         'version' => $matches[1],
-                        'url' => 'http://nodejs.org/dist/npm/npm-' . $matches[1] . '.zip'
+                        'url'     => 'http://nodejs.org/dist/npm/npm-' . $matches[1] . '.zip',
                     );
                 }
             }

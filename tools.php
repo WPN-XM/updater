@@ -24,9 +24,9 @@ use GuzzleHttp\Pool;
 class RegistryUpdater
 {
     public $guzzleClient;
-    public $crawlers = array();
-    public $urls     = array();
-    public $results  = array();
+    public $crawlers     = array();
+    public $urls         = array();
+    public $results      = array();
     public $registry     = array();
     public $old_registry = array();
 
@@ -53,7 +53,7 @@ class RegistryUpdater
     {
         if (isset($single_component) === true) {
             $crawler_file = str_replace('-', '_', $single_component);
-            $crawlers = glob(__DIR__ . '\crawlers\\' . $crawler_file . '.php');
+            $crawlers     = glob(__DIR__ . '\crawlers\\' . $crawler_file . '.php');
         } else {
             $crawlers = glob(__DIR__ . '\crawlers\*.php');
         }
@@ -68,7 +68,7 @@ class RegistryUpdater
             include $file;
             $component = str_replace(array('-', '.'), array('_', '_'), strtolower(pathinfo($file, PATHINFO_FILENAME)));
             $classname = 'WPNXM\Updater\Crawler\\' . ucfirst($component);
-            $crawler   = new $classname;
+            $crawler   = new $classname();
 
             #echo $component . ' - ' . $file;
 
@@ -93,7 +93,7 @@ class RegistryUpdater
     {
         $requests = array();
 
-        foreach($this->urls as $idx => $url) {
+        foreach ($this->urls as $idx => $url) {
             // guzzle does not accept an array of URLs anymore
             // now Urls must be objects implementing the \GuzzleHttp\Message\RequestInterface
             $requests[] = $this->guzzleClient->createRequest('GET', $url, ['allow_redirects' => true]);
@@ -116,7 +116,6 @@ class RegistryUpdater
         // Retrieve all successful responses
         // iterate through responses and insert them in the crawler objects
         foreach ($this->results->getSuccessful() as $response) {
-
             $new_version = $old_version = '';
 
             // set the response to the version crawler object
@@ -128,7 +127,7 @@ class RegistryUpdater
 
             $this->registry = Registry::addLatestVersionToRegistry($component, $latestVersion, $this->old_registry);
 
-            /**
+            /*
              * After Insert Event - to apply further changes to the registry.
              *
              * For instance, rewriting old URLs to take file movements into account,
@@ -145,7 +144,7 @@ class RegistryUpdater
 
             $new_version = $this->registry[$component]['latest']['version'];
 
-            if(Version::compare($component, $old_version, $new_version) === true) {
+            if (Version::compare($component, $old_version, $new_version) === true) {
                 // write a temporary component registry, for later registry insertion
                 Registry::writeRegistrySubset($component, $this->registry[$component]);
             }
@@ -163,12 +162,10 @@ class RegistryUpdater
     {
         $this->registry = $registry;
     }
-
 }
 
 class Version
 {
-
     /**
      * Welcome in Version Compare Hell!
      * Some software components need their own version compare handling.
@@ -177,30 +174,31 @@ class Version
     {
         switch ($component) {
             case 'openssl':
-                if(strcmp($oldVersion, $newVersion) < 0) {
+                if (strcmp($oldVersion, $newVersion) < 0) {
                     return true;
                 }
             case 'phpmyadmin':
-                if(version_compare($oldVersion, $newVersion, '<') === true || (strcmp($oldVersion, $newVersion) < 0)) {
+                if (version_compare($oldVersion, $newVersion, '<') === true || (strcmp($oldVersion, $newVersion) < 0)) {
                     return true;
                 }
             case  'imagick':
-                if(Version::cmpImagick($oldVersion, $newVersion) === true) {
+                if (Version::cmpImagick($oldVersion, $newVersion) === true) {
                     return true;
                 }
             default:
-                if(version_compare($oldVersion, $newVersion, '<') === true) {
+                if (version_compare($oldVersion, $newVersion, '<') === true) {
                     return true;
                 }
         }
+
         return false;
     }
 
     /**
      * Compare an Imagick version number.
      *
-     * @param string $oldVersion
-     * @param string $newVersion
+     * @param  string  $oldVersion
+     * @param  string  $newVersion
      * @return boolean True, if newVersion is higher then oldVersion.
      */
     public static function cmpImagick($oldVersion, $newVersion)
@@ -217,7 +215,7 @@ class Viewhelper
     /**
      * Render a table row.
      *
-     * @param string $component Component
+     * @param string $component   Component
      * @param string $old_version Old Version
      * @param string $new_version New Version
      */
@@ -229,7 +227,7 @@ class Viewhelper
         $html .= '<td>' . $component . '</td>';
         $html .= '<td>' . $old_version . '</td>';
         $html .= '<td>' . self::printUpdatedSign($old_version, $new_version, $component) . '</td>';
-        $html .= '<td>' . self::renderAnchorButton($link, 'Scan'). '</td>';
+        $html .= '<td>' . self::renderAnchorButton($link, 'Scan') . '</td>';
         $html .= '</tr>';
 
         return $html;
@@ -240,7 +238,7 @@ class Viewhelper
      *
      * @param string $old_version Old version.
      * @param string $new_version New version.
-     * @param string $component Component
+     * @param string $component   Component
      */
     public static function printUpdatedSign($old_version, $new_version, $component)
     {
@@ -265,7 +263,6 @@ class Viewhelper
     {
         return '<a class="btn btn-default btn-xs" href="' . $link . '">' . $text . '</a>';
     }
-
 }
 
 class Registry
@@ -323,14 +320,14 @@ class Registry
                 'name'    => $component,
                 'website' => $website,
                 $version  => array(
-                    $phpversion => $url
+                    $phpversion => $url,
                 ),
                 'latest'  => array(
                     'version' => $version,
                     'url'     => array(
-                        $phpversion => $url
-                    )
-                )
+                        $phpversion => $url,
+                    ),
+                ),
             );
         }
 
@@ -340,8 +337,8 @@ class Registry
             $version  => $url,
             'latest'  => array(
                 'version' => $version,
-                'url'     => $url
-            )
+                'url'     => $url,
+            ),
         );
     }
 
@@ -435,8 +432,9 @@ class Registry
             if (isset($forComponent) && ($forComponent === $component)) {
                 printf('Adding Scan/Subset for "%s"' . PHP_EOL, $component);
                 $registry[$component] = $subset;
+
                 return $registry;
-            } elseif (isset($forComponent) && ($forComponent != $component)) {
+            } elseif (isset($forComponent) && ($forComponent !== $component)) {
                 // skip to the next component, if forComponent is used, but not found yet
                 continue;
             } else {
@@ -493,7 +491,7 @@ class Registry
     /**
      * This works on the array and moves the key to the top.
      *
-     * @param array $array
+     * @param array  $array
      * @param string $key
      */
     private static function move_to_top(array &$array, $key)
@@ -508,7 +506,7 @@ class Registry
     /**
      * This works on the array and moves the key to the bottom.
      *
-     * @param array $array
+     * @param array  $array
      * @param string $key
      */
     private static function move_to_bottom(array &$array, $key)
@@ -523,7 +521,7 @@ class Registry
     /**
      * Pretty prints the registry.
      *
-     * @param array $registry
+     * @param  array  $registry
      * @return string
      */
     public static function prettyPrint(array $registry)
@@ -557,7 +555,7 @@ class Registry
         //exec('git add .; git add -u .');
 
         echo PHP_EOL . 'Commit current changes "' . $commitMessage . '"' . PHP_EOL;
-        echo exec('git commit -m "'. $commitMessage .'" -- wpnxm-software-registry.php');
+        echo exec('git commit -m "' . $commitMessage . '" -- wpnxm-software-registry.php');
 
         echo PHP_EOL . 'You might push now.' . PHP_EOL;
         //echo PHP_EOL . 'Push commit to remote server' . PHP_EOL;
@@ -569,17 +567,16 @@ class Registry
 
     public static function healthCheck(array $registry)
     {
-        foreach ($registry as $software => $component)
-        {
-            if(!isset($component['name'])) {
+        foreach ($registry as $software => $component) {
+            if (!isset($component['name'])) {
                 echo 'The registry is missing the key "name" for Component "' . $software . '".';
             }
 
-            if(!isset($component['website'])) {
+            if (!isset($component['website'])) {
                 echo 'The registry is missing the key "website" for Component "' . $software . '".';
             }
 
-            if(!isset($component['latest'])) {
+            if (!isset($component['latest'])) {
                 echo 'The registry is missing the key "latest" for Component "' . $software . '".';
             }
         }
@@ -593,7 +590,7 @@ class ArrayTool
     /**
      * Unsets null values and removes duplicates.
      *
-     * @param array $array
+     * @param  array $array
      * @return array
      */
     public static function clean(array $array)
@@ -648,7 +645,6 @@ class ArrayTool
 
         return $content;
     }
-
 }
 
 class InstallerRegistry
@@ -657,7 +653,7 @@ class InstallerRegistry
      * Writes the registry as JSON to the installer registry file.
      *
      * @param string $file
-     * @param array $registry
+     * @param array  $registry
      */
     public static function write($file, $registry)
     {
@@ -679,7 +675,7 @@ class JsonHelper
      * Returns compacted, pretty printed JSON data.
      * Yes, there is JSON_PRETTY_PRINT, but it is odd at printing compact.
      *
-     * @param string $json The unpretty JSON encoded string.
+     * @param  string $json The unpretty JSON encoded string.
      * @return string Pretty printed JSON.
      */
     public static function jsonPrettyPrintCompact($json)
@@ -692,7 +688,6 @@ class JsonHelper
         $k     = strlen($space) ? strlen($space) : 1;
 
         for ($i = 0; $i <= $len; $i++) {
-
             $char = substr($json, $i, 1);
 
             if ($char === '}' || $char === ']') {
@@ -722,7 +717,7 @@ class JsonHelper
      * Like "tab separated value" (TSV) format, BUT with spaces :)
      * Aligns values correctly underneath each other.
      *
-     * @param string $json
+     * @param  string $json
      * @return string
      */
     public static function jsonPrettyPrintTableFormat($json)
@@ -749,6 +744,7 @@ class JsonHelper
             for ($i = 0; $i <= $num; $i++) {
                 $string .= ' ';
             }
+
             return $string;
         };
 
@@ -809,7 +805,6 @@ class JsonHelper
 
         return $lines;
     }
-
 }
 
 class StatusRequest
@@ -821,7 +816,7 @@ class StatusRequest
      *
      * http://wpn-xm.org/get.php?s=%software%&p=%phpversion%&bitsize=%bitsize%
      *
-     * @param type $registry
+     * @param  type  $registry
      * @return array
      */
     public static function getUrlsToCrawl($registry)
@@ -855,7 +850,7 @@ class StatusRequest
     /**
      * Returns the HTTP Status Code for a URL
      *
-     * @param string $url URL
+     * @param  string $url URL
      * @return string
      */
     public static function getHttpStatusCode($url)
@@ -890,7 +885,7 @@ class StatusRequest
             CURLOPT_SSLVERSION     => 3,
             CURLOPT_ENCODING       => '', // !important
             CURLOPT_AUTOREFERER    => true,
-            CURLOPT_USERAGENT, 'WPN-XM Server Stack - Registry Status Tool - http://wpn-xm.org/'
+            CURLOPT_USERAGENT, 'WPN-XM Server Stack - Registry Status Tool - http://wpn-xm.org/',
         );
 
         $mh = curl_multi_init();
@@ -920,12 +915,11 @@ class StatusRequest
             //echo $targetUrls[$i];
             //var_dump($responses[$i]);
             // Response: HTTP Status Code
-            $responses[$i] = curl_getinfo($ch[$i], CURLINFO_HTTP_CODE) == 200; // check if HTTP OK
+            $responses[$i] = curl_getinfo($ch[$i], CURLINFO_HTTP_CODE) === 200; // check if HTTP OK
         }
 
         curl_multi_close($mh);
 
         return $responses;
     }
-
 }

@@ -25,7 +25,7 @@ class mongodb_x64 extends VersionCrawler
     {
         return $this->filter('a')->each(function ($node) {
 
-            /**
+            /*
              * 1. We don't take RC versions into account
              * 2. RegExp switched from "64-bit legacy" (v0.9.0) to "64-bit 2008 plus" (v0.9.1)
              *    The 64-bit legacy build lacks newer features of Windows that enhance performance.
@@ -38,7 +38,7 @@ class mongodb_x64 extends VersionCrawler
                     return array(
                         'version' => $version,
                         # http://downloads.mongodb.org/win32/mongodb-win32-x86_64-2008plus-2.2.0.zip
-                        'url' => 'http://downloads.mongodb.org/win32/mongodb-win32-x86_64-2008plus-' . $version . '.zip'
+                        'url' => 'http://downloads.mongodb.org/win32/mongodb-win32-x86_64-2008plus-' . $version . '.zip',
                     );
                 }
             }

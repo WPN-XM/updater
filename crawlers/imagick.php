@@ -29,7 +29,7 @@ class imagick extends VersionCrawler
                     if (version_compare($version, $this->registry['imagick']['latest']['version'], '>=') === true) {
                         return array(
                             'version' => $version,
-                            'url' => 'http://www.imagemagick.org/download/binaries/ImageMagick-'.$version.'-Q16-x86-windows.zip',
+                            'url'     => 'http://www.imagemagick.org/download/binaries/ImageMagick-' . $version . '-Q16-x86-windows.zip',
                         );
                     }
                 }

@@ -24,9 +24,9 @@ class openssl extends VersionCrawler
 
     public function crawlVersion()
     {
-        return $this->filter('a')->each( function ($node) {
+        return $this->filter('a')->each(function ($node) {
 
-            /**
+            /*
              * The regexp must take the following cases into account:
              *
              * http://indy.fulgan.com/SSL/openssl-0.9.8ze-i386-win32.zip - two chars lowercase
@@ -35,13 +35,12 @@ class openssl extends VersionCrawler
              */
 
             if (preg_match("/openssl-(\d+\.\d+\.\d+[A-Za-z]*)-i386-win32.zip$/i", $node->attr('href'), $matches)) {
-
                 $version = $matches[1];
 
                 if (strcmp($this->registry['openssl']['latest']['version'], $version) < 0) {
                     return array(
                         'version' => $version,
-                        'url' => 'http://indy.fulgan.com/SSL/openssl-'.$version.'-i386-win32.zip'
+                        'url'     => 'http://indy.fulgan.com/SSL/openssl-' . $version . '-i386-win32.zip',
                     );
                 }
             }

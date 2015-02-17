@@ -21,7 +21,7 @@ class postgresql extends VersionCrawler
 
     public function crawlVersion()
     {
-        /**
+        /*
          * We scrape the "text above the link images".
          *
          * "Binaries from installer version 9.4 beta Release 1"   9.4.0-beta1-1
@@ -37,7 +37,6 @@ class postgresql extends VersionCrawler
             $value = strtolower($node->text());
 
             if (preg_match("/(\d+\.\d+(\.\d+)*)(.(RC|beta(\d+)))?/i", $value, $matches) && false === strpos($value, 'beta')) {
-
                 $download_version = '';
 
                 if (isset($matches[3]) === true) { // more as 3 = we have a "release candidate" or "beta"
@@ -51,7 +50,7 @@ class postgresql extends VersionCrawler
                 } else {
                     $version = $matches[0]; // just 1.2.3
 
-                    if(3 === substr_count($version, '.')) { // 9.3.5.1
+                    if (3 === substr_count($version, '.')) { // 9.3.5.1
                         $version = substr($version, 0, -2); // 9.3.5    WTF? WHY?
                     }
 
@@ -64,7 +63,7 @@ class postgresql extends VersionCrawler
                         // x86-64: http://get.enterprisedb.com/postgresql/postgresql-9.3.0-beta2-1-windows-x64-binaries.zip
                         // x86-32: http://get.enterprisedb.com/postgresql/postgresql-9.3.0-beta2-1-windows-binaries.zip
                         // http://get.enterprisedb.com/postgresql/postgresql-9.4.0-1-windows-binaries.zip
-                        'url' => 'http://get.enterprisedb.com/postgresql/postgresql-' . $download_version . '-windows-binaries.zip'
+                        'url' => 'http://get.enterprisedb.com/postgresql/postgresql-' . $download_version . '-windows-binaries.zip',
                     );
                 }
             }

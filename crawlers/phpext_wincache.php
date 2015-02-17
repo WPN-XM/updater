@@ -27,7 +27,7 @@ class phpext_wincache extends VersionCrawler
                 if (version_compare($version, $this->registry['phpext_wincache']['latest']['version'], '>=') === true) {
                     return array(
                         'version' => $version,
-                        'url' => $this->createPhpVersionsArrayForExtension($version, $this->url_template)
+                        'url'     => $this->createPhpVersionsArrayForExtension($version, $this->url_template),
                     );
                 }
             }

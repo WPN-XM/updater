@@ -27,11 +27,10 @@ class yuicompressor extends VersionCrawler
                         return array(
                             'version' => $version,
                             // https://github.com/yui/yuicompressor/releases/download/v2.4.8/yuicompressor-2.4.8.jar
-                            'url'     => 'https://github.com/yui/yuicompressor/releases/download/v' . $version . '/yuicompressor-' . $version . '.jar'
+                            'url'     => 'https://github.com/yui/yuicompressor/releases/download/v' . $version . '/yuicompressor-' . $version . '.jar',
                         );
                     }
                 }
             });
     }
-
 }

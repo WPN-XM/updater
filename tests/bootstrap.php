@@ -4,13 +4,13 @@ error_reporting(E_ALL | E_STRICT);
 ini_set('display_errors', '1');
 
 // add "subject under test" and "tests" to the include path
-$sut  = realpath(dirname(__DIR__));
+$sut   = realpath(dirname(__DIR__));
 $tests = realpath(__DIR__ . '/../tests');
 
 $paths = array(
     $sut,
     $tests,
-    get_include_path() // attach original include paths
+    get_include_path(), // attach original include paths
 );
 set_include_path(implode(PATH_SEPARATOR, $paths));
 

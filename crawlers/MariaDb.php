@@ -15,7 +15,6 @@ namespace WPNXM\Updater\Crawler;
  */
 class MariaDb extends VersionCrawler
 {
-
     public $url = 'http://archive.mariadb.org/';
 
     public function crawlVersion()
@@ -29,7 +28,7 @@ class MariaDb extends VersionCrawler
                         $version = '0.0.0';
                     };
 
-                    /**
+                    /*
                      *   *** WARNING ***
                      *
                      * The links are not consistent, because of folder and filename changes in the
@@ -58,7 +57,7 @@ class MariaDb extends VersionCrawler
                         $folder = 'win32-packages';
                     }
 
-                    /**
+                    /*
                      * Download Mirrors
                      *
                      * http://archive.mariadb.org/mariadb-5.5.38/win32-packages/mariadb-5.5.38-win32.zip
@@ -69,11 +68,10 @@ class MariaDb extends VersionCrawler
                     if (version_compare($version, $this->registry['mariadb']['latest']['version'], '>=') === true) {
                         return array(
                             'version' => $version,
-                            'url'     => 'http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-' . $version . '/' . $folder . '/' . $filename
+                            'url'     => 'http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-' . $version . '/' . $folder . '/' . $filename,
                         );
                     }
                 }
             });
     }
-
 }

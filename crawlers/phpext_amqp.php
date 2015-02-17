@@ -15,7 +15,6 @@ namespace WPNXM\Updater\Crawler;
  */
 class phpext_amqp extends VersionCrawler
 {
-
     public $url = 'http://windows.php.net/downloads/pecl/releases/amqp/';
 
     // http://windows.php.net/downloads/pecl/releases/amqp/1.4.0/php_amqp-1.4.0-5.6-ts-vc11-x86.zip
@@ -30,11 +29,10 @@ class phpext_amqp extends VersionCrawler
                     if (version_compare($version, $this->registry['phpext_amqp']['latest']['version'], '>=') === true) {
                         return array(
                             'version' => $version,
-                            'url'     => $this->createPhpVersionsArrayForExtension($version, $this->url_template)
+                            'url'     => $this->createPhpVersionsArrayForExtension($version, $this->url_template),
                         );
                     }
                 }
             });
     }
-
 }

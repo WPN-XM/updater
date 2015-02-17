@@ -24,7 +24,7 @@ class Nginx extends VersionCrawler
                 if (version_compare($matches[1], $this->registry['nginx']['latest']['version'], '>=') === true) {
                     return array(
                         'version' => $matches[1],
-                        'url' => 'http://nginx.org/download/' . $node->text()
+                        'url'     => 'http://nginx.org/download/' . $node->text(),
                     );
                 }
             }

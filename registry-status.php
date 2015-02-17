@@ -20,7 +20,6 @@
  *      This link is a get request to the server and uses the registry on the server.
  *      Forwarding links are used in the innosetup scripts of the web installation wizards.
  */
-
 $start = microtime(true);
 set_time_limit(180); // 60*3
 date_default_timezone_set('UTC');
@@ -37,8 +36,8 @@ $registry  = Registry::load();
 
 $urls      = StatusRequest::getUrlsToCrawl($registry);
 
-$before = microtime(true);
-$responses = StatusRequest::getHttpStatusCodesInParallel($urls);
+$before       = microtime(true);
+$responses    = StatusRequest::getHttpStatusCodesInParallel($urls);
 $crawlingTime = round((microtime(true) - $before), 2);
 
 // build a lookup array: url => http status code 200
@@ -47,7 +46,8 @@ $urlsHttpStatus = array_combine($urls, $responses);
 function renderTd($url)
 {
     $color = isAvailable($url) === true ? 'green' : 'red';
-    return '<td><a style="color:'.$color.';" href="'.$url.'">'.$url.'</a></td>';
+
+    return '<td><a style="color:' . $color . ';" href="' . $url . '">' . $url . '</a></td>';
 }
 
 function isAvailable($url)
@@ -62,6 +62,7 @@ function isAvailable($url)
         false !== strpos($url, 'microsoft')) {
         return (bool) StatusRequest::getHttpStatusCode($url);
     }
+
     return $urlsHttpStatus[$url];
 }
 
@@ -80,17 +81,21 @@ function isAvailable($url)
 // test forwarding links
 
 foreach ($registry as $software => $keys) {
-    echo '<tr><td style="padding: 1px 5px;"><b>'. $software .'</b></td>';
+    echo '<tr><td style="padding: 1px 5px;"><b>' . $software . '</b></td>';
 
     // if software is a PHP Extension, we have a latest version with URLs for multiple PHP versions
     if (strpos($software, 'phpext_') !== false) {
-        $bitsizes = $keys['latest']['url'];
+        $bitsizes    = $keys['latest']['url'];
         $skipFirstTd = true;
         foreach ($bitsizes as $bitsize => $phpversions) {
             foreach ($phpversions as $phpversion => $url) {
-                if($skipFirstTd === false) { echo '<td>&nbsp;</td>'; } else { $skipFirstTd = false; }
+                if ($skipFirstTd === false) {
+                    echo '<td>&nbsp;</td>';
+                } else {
+                    $skipFirstTd = false;
+                }
                 echo '<td>' . $keys['latest']['version'] . ' - ' . $phpversion . ' - ' . $bitsize . '</td>' . renderTd($url);
-                echo renderTd('http://wpn-xm.org/get.php?s=' . $software . '&p=' . $phpversion . '&bitsize='. $bitsize);
+                echo renderTd('http://wpn-xm.org/get.php?s=' . $software . '&p=' . $phpversion . '&bitsize=' . $bitsize);
                 echo '</tr>';
             }
         }

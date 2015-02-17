@@ -28,7 +28,7 @@ class mongodb extends VersionCrawler
                 if (version_compare($version, $this->registry['mongodb']['latest']['version'], '>=') === true) {
                     return array(
                         'version' => $version,
-                        'url' => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-' . $version . '.zip'
+                        'url'     => 'http://downloads.mongodb.org/win32/mongodb-win32-i386-' . $version . '.zip',
                     );
                 }
             }

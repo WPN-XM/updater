@@ -28,7 +28,7 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
      * @var boolean
      */
     public $needsOnlyRegistrySubset = true;
-    public $needsGuzzle = true;
+    public $needsGuzzle             = true;
 
     /**
      * Set the request URL for the version crawler.
@@ -47,7 +47,7 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
      */
     public function setGuzzle($guzzle)
     {
-        if($this->needsGuzzle === true) {
+        if ($this->needsGuzzle === true) {
             $this->guzzle = $guzzle;
         }
     }
@@ -58,7 +58,7 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
     public function setRegistry($registry, $component = null)
     {
         // set only the component relevant subset of the software registry
-        if($this->needsOnlyRegistrySubset === true && isset($registry[$component]) === true) {
+        if ($this->needsOnlyRegistrySubset === true && isset($registry[$component]) === true) {
             $this->registry = array($component => $registry[$component]);
         } else {
             $this->registry = $registry;
@@ -73,7 +73,7 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
      */
     public function getName()
     {
-        if(isset($this->name)) {
+        if (isset($this->name)) {
             return $this->name;
         }
 
@@ -85,8 +85,8 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
     /**
      * Checks, if URL exists via header evaluation.
      *
-     * @param string $url
-     * @return bool Returns true, if URL exists, otherwise false.
+     * @param  string $url
+     * @return bool   Returns true, if URL exists, otherwise false.
      */
     public function fileExistsOnServer($url)
     {
@@ -137,8 +137,8 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
      *  ),
      * )
      *
-     * @param string $url PHP Extension URL with placeholders.
-     * @param string $version
+     * @param  string $url     PHP Extension URL with placeholders.
+     * @param  string $version
      * @return array
      */
     public function createPhpVersionsArrayForExtension($version, $url, $skipURLcheck = false)
@@ -155,7 +155,7 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
 
                 $replacedUrl = str_replace(array('%compiler%', '%phpversion%', '%bitsize%'), array($compiler, $phpversion, $bitsize), $url);
 
-                if($skipURLcheck === true) {
+                if ($skipURLcheck === true) {
                     $urls[$bitsize][$phpversion] = $replacedUrl;
                 } elseif ($this->fileExistsOnServer($replacedUrl) === true) {
                     $urls[$bitsize][$phpversion] = $replacedUrl;

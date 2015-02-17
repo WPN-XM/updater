@@ -13,7 +13,6 @@
  *
  * This scripts generates a changelog by comparing two installer registries.
  */
-
 echo getChangelog('bigpack-0.7.0-w32', 'full-0.8.0-php5.4-w32');
 
 echo getChangelog('allinone-0.7.0-w32', 'standard-0.8.0-php5.4-w32');
@@ -65,7 +64,7 @@ function diffRegistries($registryA, $registryB)
             //$diff[$component] = '';
         }
 
-        /**
+        /*
          * Version A higher Version B
          *
          * this shouldn't happen at all.
@@ -101,6 +100,7 @@ function reindexArrayComponentNamed($array)
     foreach ($array as $key => $values) {
         $result[$values[0]] = $values;
     }
+
     return $result;
 }
 
@@ -120,15 +120,15 @@ function getClosedIssuesForMilestone($milestone)
 {
     $url = 'https://api.github.com/repos/WPN-XM/WPN-XM/issues?milestone=' . $milestone . '&state=closed';
 
-    $options  = array('http' => array('user_agent'=> $_SERVER['HTTP_USER_AGENT']));
+    $options  = array('http' => array('user_agent' => $_SERVER['HTTP_USER_AGENT']));
     $context  = stream_context_create($options);
-    $json = file_get_contents($url, false, $context);
+    $json     = file_get_contents($url, false, $context);
 
     $array = json_decode($json, true);
 
     $log = '';
 
-    foreach($array as $key => $values) {
+    foreach ($array as $key => $values) {
         $log .= '      #' . $values['number'] . '    ' . $values['html_url'] . '  ' . $values['title'] . "\n";
     }
 

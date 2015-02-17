@@ -34,13 +34,13 @@ class phpext_mongo extends VersionCrawler
 
     public function crawlVersion()
     {
-        return $this->filter('a')->each( function ($node) {
+        return $this->filter('a')->each(function ($node) {
             if (preg_match("#(\d+\.\d+(\.\d+)*)$#", $node->text(), $matches)) {
                 $version = $matches[1]; // 1.2.3
                 if (version_compare($version, $this->registry['phpext_mongo']['latest']['version'], '>=') === true) {
                     return array(
                         'version' => $version,
-                        'url' => $this->createPhpVersionsArrayForExtension($version, $this->url_template)
+                        'url'     => $this->createPhpVersionsArrayForExtension($version, $this->url_template),
                     );
                 }
             }

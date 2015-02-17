@@ -25,12 +25,12 @@ class phpext_rar extends VersionCrawler
             if (preg_match("#(\d+\.\d+(\.\d+)*)#", $node->text(), $matches)) {
                 $version = $matches[0];
 
-                $url = 'http://windows.php.net/downloads/pecl/releases/rar/'.$version.'/php_rar-'.$version.'-5.4-nts-vc9-x86.zip';
+                $url = 'http://windows.php.net/downloads/pecl/releases/rar/' . $version . '/php_rar-' . $version . '-5.4-nts-vc9-x86.zip';
 
                 if ((version_compare($version, $this->registry['phpext_rar']['latest']['version'], '>=') === true) and $this->fileExistsOnServer($url)) {
                     return array(
                         'version' => $version,
-                        'url' => $this->createPhpVersionsArrayForExtension($version, $this->url_template)
+                        'url'     => $this->createPhpVersionsArrayForExtension($version, $this->url_template),
                     );
                 }
             }

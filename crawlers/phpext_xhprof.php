@@ -24,9 +24,10 @@ class phpext_xhprof extends VersionCrawler
         return $this->filter('a')->each(function ($node) {
             if (preg_match("#(\d+\.\d+(\.\d+)*)#", $node->text(), $matches)) {
                 $version = $matches[0];
+
                 return array(
                     'version' => $version,
-                    'url' => $this->createPhpVersionsArrayForExtension($version, $this->url_template)
+                    'url'     => $this->createPhpVersionsArrayForExtension($version, $this->url_template),
                 );
             }
         });

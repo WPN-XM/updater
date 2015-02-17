@@ -24,17 +24,16 @@ class PHP_x86 extends VersionCrawler
         return $this->filter('a')->each(function ($node) {
             // VC9 for PHP
             if (preg_match("#php-(\d+\.\d+(\.\d+)*)-nts-Win32-(VC9|VC11)-x86.zip$#", $node->text(), $matches)) {
-
                 $version = $matches[1];
 
-                if(false !== strpos($version, '5.3')) {
+                if (false !== strpos($version, '5.3')) {
                     return;
                 }
 
                 if ((version_compare($version, $this->registry['php']['latest']['version'], '>=') === true) or isset($this->registry['php'][$version]) === false) {
                     return array(
                         'version' => $version,
-                        'url' => 'http://windows.php.net/downloads/releases/' . $node->text()
+                        'url'     => 'http://windows.php.net/downloads/releases/' . $node->text(),
                     );
                 }
             }
@@ -50,9 +49,13 @@ class PHP_x86 extends VersionCrawler
     {
         foreach ($registry['php'] as $version => $url) {
             // do not modify array key "latest"
-            if( $version === 'latest') continue;
+            if ($version === 'latest') {
+                continue;
+            }
             // do not modify array key with latest version number - it must point to "/releases".
-            if( $version === $registry['php']['latest']['version']) continue;
+            if ($version === $registry['php']['latest']['version']) {
+                continue;
+            }
             // replace the path on any other version
             $new_url = str_replace('php.net/downloads/releases/php', 'php.net/downloads/releases/archives/php', $url);
             // insert at old array position, overwriting the old url

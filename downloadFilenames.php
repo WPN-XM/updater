@@ -25,6 +25,7 @@ return array(
     'msysgit'               => 'msysgit.7z', // ! 7zip file
     'nginx'                 => 'nginx.zip',
     'node'                  => 'node.exe', // ! exe file
+    'node-x64'              => 'node.exe', // ! exe file
     'nodenpm'               => 'nodenpm.zip',
     'openssl'               => 'openssl.zip',
     'openssl-x64'           => 'openssl.zip',

@@ -11,11 +11,11 @@
 namespace WPNXM\Updater\Crawler;
 
 /**
- * PostgreSQL x86 - Version Crawler
+ * PostgreSQL x64 - Version Crawler
  */
-class postgresql extends VersionCrawler
+class postgresql_x64 extends VersionCrawler
 {
-    public $name = 'postgresql';
+    public $name = 'postgresql-x64';
 
     // do not use  http://www.enterprisedb.com/products-services-training/pgdownload
     // because beta versions are only listed on the following page:
@@ -62,10 +62,9 @@ class postgresql extends VersionCrawler
                 if (version_compare($version, $this->registry['postgresql']['latest']['version'], '>=') === true) {
                     return array(
                         'version' => $version,
-                        // x86-64: http://get.enterprisedb.com/postgresql/postgresql-9.3.0-beta2-1-windows-x64-binaries.zip
-                        // x86-32: http://get.enterprisedb.com/postgresql/postgresql-9.3.0-beta2-1-windows-binaries.zip
                         // http://get.enterprisedb.com/postgresql/postgresql-9.4.0-1-windows-binaries.zip
-                        'url' => 'http://get.enterprisedb.com/postgresql/postgresql-' . $download_version . '-windows-binaries.zip',
+                        // http://get.enterprisedb.com/postgresql/postgresql-9.4.1-1-windows-x64-binaries.zip
+                        'url' => 'http://get.enterprisedb.com/postgresql/postgresql-' . $download_version . '-windows-x64-binaries.zip',
                     );
                 }
             }

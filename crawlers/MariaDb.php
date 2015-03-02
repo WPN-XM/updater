@@ -31,9 +31,11 @@ class MariaDb extends VersionCrawler
                     /*
                      *   *** WARNING ***
                      *
-                     * The links are not consistent, because of folder and filename changes in the
-                     * release archive. Also some versions are missing in their archive.
-                     * Windows releases are available from v5.1.49
+                     * The links are not consistent, because of folder and filename changes in the release archive.
+                     * Some versions are missing in their archive.
+                     * Windows releases are only available from v5.1.49
+                     *
+                     * Examples:
                      *
                      * - http://archive.mariadb.org/mariadb-5.1.49/kvm-zip-winxp-x86/mariadb-noinstall-....
                      * - http://archive.mariadb.org/mariadb-5.2.6/win2008r2-vs2010-i386/mariadb-5.2.6-win32.zip

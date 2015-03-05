@@ -885,6 +885,7 @@ class StatusRequest
             CURLOPT_ENCODING       => '', // !important
             CURLOPT_AUTOREFERER    => true,
             CURLOPT_USERAGENT, 'WPN-XM Server Stack - Registry Status Tool - http://wpn-xm.org/',
+            CURLOPT_CUSTOMREQUEST  => 'HEAD' // do only HEAD requests
         );
 
         $mh = curl_multi_init();

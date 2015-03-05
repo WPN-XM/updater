@@ -28,7 +28,7 @@ class Gogs_x64 extends VersionCrawler
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
-                if (preg_match("#v(\d+\.\d+.\d+)#", $node->text(), $matches)) {
+                if (preg_match("#https://github.com/gogits/gogs/releases/download/v(\d+\.\d+.\d+)/windows_amd64.zip#", $node->text(), $matches)) {
                     $version = $matches[1];
 
                     // CDNs
@@ -38,8 +38,7 @@ class Gogs_x64 extends VersionCrawler
 
                     $download_file = 'https://github.com/gogits/gogs/releases/download/v' . $version . '/windows_amd64.zip';
 
-                    if (version_compare($version, $this->registry['gogs-x64']['latest']['version'], '>=') === true
-                        /*&& $this->fileExistsOnServer($download_file) === true*/) {
+                    if (version_compare($version, $this->registry['gogs-x64']['latest']['version'], '>=') === true) {
                         return array(
                             'version' => $version,
                             'url'     => $download_file,

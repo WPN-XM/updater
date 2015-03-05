@@ -53,7 +53,7 @@ return array(
     'phpext_varnish'        => 'phpext_varnish.zip',
     'phpext_wincache'       => 'phpext_wincache.exe', // ! exe file
     'phpext_xcache'         => 'phpext_xcache.zip',
-    'phpext_xdebug'         => 'phpext_xdebug.dll', // ! dll file
+    'phpext_xdebug'         => 'phpext_xdebug.zip',
     'phpext_xhprof'         => 'phpext_xhprof.zip',
     'phpext_zmq'            => 'phpext_zmq.zip',
     'phpmemcachedadmin'     => 'phpmemcachedadmin.zip',
@@ -70,6 +70,7 @@ return array(
     // vcredist_x86.exe (do not delete this comment, its for easier comparison with the .iss file)
     'webgrind'              => 'webgrind.zip',
     'wpnxmscp'              => 'wpnxmscp.zip',
+    'wpnxmscp-x64'          => 'wpnxmscp.zip',
     'xhprof'                => 'xhprof.zip',
     'yuicompressor'         => 'yuicompressor.jar', // ! jar file
 );

@@ -53,12 +53,9 @@ function renderTd($url)
 function isAvailable($url)
 {
     global $urlsHttpStatus;
-    // special handling for googlecode, because they don't like /HEAD requests via curl
-    if (false !== strpos($url, 'googlecode') or
-        false !== strpos($url, 'phpmemcachedadmin') or
-        false !== strpos($url, 'webgrind') or
+    // special handling for googlecode (now dl.google.com), because they don't like /HEAD requests via curl
+    if (false !== strpos($url, 'google') or
         false !== strpos($url, 'github') or
-        false !== strpos($url, 'codeload') or
         false !== strpos($url, 'microsoft')) {
         return (bool) StatusRequest::getHttpStatusCode($url);
     }

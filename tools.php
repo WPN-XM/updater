@@ -850,13 +850,47 @@ class StatusRequest
      * Returns the HTTP Status Code for a URL
      *
      * @param  string $url URL
-     * @return string
+     * @return string 3-digit status code
      */
     public static function getHttpStatusCode($url)
     {
-        $headers = get_headers($url, 0);
+        if(false !== strpos($url, 'googlecode')) {
+            $method = 'GET';
+        } else {
+            $method = 'HEAD';
+        }
 
-        return substr($headers[0], 9, 3);
+        stream_context_set_default(array(
+            'http' => array(
+                'method' => $method
+            )
+        ));
+
+        $headers = get_headers($url, 1);
+
+        if ($headers !== false && isset($headers['Status'])) {
+            $statusCode = $headers['Status'];
+        } else {
+            $statusCode = $headers[0];
+        }
+
+        #var_dump($statusCode);
+
+        #if($statusCode === 'HTTP/1.0 404 Not Found') {
+        #    var_dump($url);
+        #}
+
+        $code = 0;
+
+        if($statusCode === '302 Found') {
+            $code = substr($statusCode, 0, 6);
+        }
+
+        if($statusCode === 'HTTP/1.0 200 OK' or $statusCode === 'HTTP/1.1 200 OK') {
+            $code = substr($statusCode, 9, 3);
+        }
+
+        return $code;
     }
 
     /*

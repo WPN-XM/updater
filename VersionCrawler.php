@@ -91,9 +91,25 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
      */
     public function fileExistsOnServer($url)
     {
-        $headers = get_headers($url);
+        $curl = curl_init();
 
-        return ($headers[0] === 'HTTP/1.1 200 OK') ? true : false;
+        $options = array(
+            CURLOPT_HEADER => true,
+            CURLOPT_NOBODY => true,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_SSL_VERIFYHOST => false,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_CUSTOMREQUEST => 'HEAD' // do only HEAD requests
+        );
+
+        curl_setopt_array($curl, $options);
+        curl_exec($curl);
+        $response_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+
+        return ($response_code === 200) ? true : false;
     }
 
     /**

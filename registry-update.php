@@ -250,18 +250,18 @@ if (isset($action) && $action === 'update-installer-registry') {
     foreach ($installerRegistry as $component => $version) {
         $url = 'http://wpn-xm.org/get.php?s=' . $component . '&v=' . $version;
 
-    // special handling for PHP - 'php', 'php-x64', 'php-qa-x64', 'php-qa'
-    if (false !== strpos($component, 'php') && false === strpos($component, 'phpext_')) {
-        $php_version = substr($installerRegistry[$component], 0, 3); // get only major.minor, e.g. "5.4", not "5.4.2"
+        // special handling for PHP - 'php', 'php-x64', 'php-qa-x64', 'php-qa'
+        if (false !== strpos($component, 'php') && false === strpos($component, 'phpext_')) {
+            $php_version = substr($installerRegistry[$component], 0, 3); // get only major.minor, e.g. "5.4", not "5.4.2"
 
-        $bitsize = (false !== strpos($component, 'x64')) ? 'x64' : ''; // empty bitsize defaults to x86, see website "get.php"
-    }
+            $bitsize = (false !== strpos($component, 'x64')) ? 'x64' : ''; // empty bitsize defaults to x86, see website "get.php"
+        }
 
-    // special handling for PHP Extensions (which depend on a specific PHP version and bitsize)
-    if (false !== strpos($component, 'phpext_')) {
-        $url .= '&p=' . $php_version;
-        $url .= ($bitsize !== '') ? '&bitsize=' . $bitsize : '';
-    }
+        // special handling for PHP Extensions (which depend on a specific PHP version and bitsize)
+        if (false !== strpos($component, 'phpext_')) {
+            $url .= '&p=' . $php_version;
+            $url .= ($bitsize !== '') ? '&bitsize=' . $bitsize : '';
+        }
 
         $downloadFilename = $downloadFilenames[$component];
 
@@ -285,6 +285,8 @@ if (isset($action) && $action === 'update-components') {
 
     echo 'Update all components to their latest version.<br>';
 
+    $downloadFilenames = include __DIR__ . '\downloadFilenames.php';
+
     foreach ($nextRegistries as $file) {
         $filename = basename($file);
         echo '<br>Processing Installer: "' . $filename . '":<br>';
@@ -292,15 +294,27 @@ if (isset($action) && $action === 'update-components') {
         $version_updated = false;
         for ($i = 0; $i < count($components); ++$i) {
             $componentName = $components[$i][0];
-            $version       = $components[$i][3];
             $url           = $components[$i][1];
+            $version       = $components[$i][3];
+
+            if(!isset($downloadFilenames[$componentName])) {
+                 echo 'The download description file has no value for the Component "' . $componentName . '"<br>';
+            } else {
+              // update the download filename with the value of the download description file
+              // in case the registry contains a different (old) value
+              $downloadFilename = $downloadFilenames[$componentName];
+
+              if($components[$i][2] !== $downloadFilename) {
+                   $components[$i][2] = $downloadFilename;
+              }
+            }
 
             $latestVersion = getLatestVersionForComponent($componentName, $filename);
 
             if (version_compare($version, $latestVersion, '<') === true) {
                 $components[$i][3] = $latestVersion;
                 if (false !== strpos($url, $version)) { // if the url has a version appended, update it too
-              $components[$i][1] = str_replace($version, $latestVersion, $url);
+                    $components[$i][1] = str_replace($version, $latestVersion, $url);
                 }
                 echo 'Updated "' . $componentName . '" from v' . $version . ' to v' . $latestVersion . '.<br>';
                 $version_updated = true;

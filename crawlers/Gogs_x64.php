@@ -39,7 +39,7 @@ class Gogs_x64 extends VersionCrawler
                     $download_file = 'https://github.com/gogits/gogs/releases/download/v' . $version . '/windows_amd64.zip';
 
                     if (version_compare($version, $this->registry['gogs-x64']['latest']['version'], '>=') === true
-                        && $this->fileExistsOnServer($download_file) === true) {
+                        /*&& $this->fileExistsOnServer($download_file) === true*/) {
                         return array(
                             'version' => $version,
                             'url'     => $download_file,

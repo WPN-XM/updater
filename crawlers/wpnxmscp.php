@@ -27,13 +27,14 @@ class wpnxmscp extends VersionCrawler
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
+                // https://github.com/WPN-XM/server-control-panel/releases/download/0.8.1/wpnxm-scp-x86_boxed.zip
                 if (preg_match("#(\d+\.\d+.\d+)#", $node->text(), $matches)) {
                     $version = $matches[1];
 
                     if (version_compare($version, $this->registry['wpnxmscp']['latest']['version'], '>=') === true) {
                         return array(
                             'version' => $version,
-                            'url'     => 'https://github.com/WPN-XM/server-control-panel/releases/download/' . $version . '/wpnxm-scp-x86.zip',
+                            'url'     => 'https://github.com/WPN-XM/server-control-panel/releases/download/' . $version . '/wpnxm-scp-x86_boxed.zip',
                         );
                     }
                 }

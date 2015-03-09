@@ -12,8 +12,8 @@ return array(
     'adminer'               => 'adminer.php', // ! php file
     'closure-compiler'      => 'closure-compiler.zip',
     'composer'              => 'composer.phar', // ! phar file
-    'gogs-x86'              => 'gotgitservice.zip',
-    'gogs-x64'              => 'gotgitservice.zip',
+    'gogs-x86'              => 'gogitservice.zip',
+    'gogs-x64'              => 'gogitservice.zip',
     'imagick'               => 'imagick.zip',
     'junction'              => 'junction.zip',
     'mariadb'               => 'mariadb.zip',
@@ -51,7 +51,7 @@ return array(
     'phpext_uploadprogress' => 'phpext_uploadprogress.zip',
     'phpext_uprofiler'      => 'phpext_uprofiler.zip',
     'phpext_varnish'        => 'phpext_varnish.zip',
-    'phpext_wincache'       => 'phpext_wincache.exe', // ! exe file
+    'phpext_wincache'       => 'phpext_wincache.zip',
     'phpext_xcache'         => 'phpext_xcache.zip',
     'phpext_xdebug'         => 'phpext_xdebug.zip',
     'phpext_xhprof'         => 'phpext_xhprof.zip',

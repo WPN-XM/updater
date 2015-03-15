@@ -20,7 +20,13 @@ class phpmyadmin extends VersionCrawler
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
-            if (preg_match("#(\d+\.\d+(\.\d+)*)(?:[._-]?(beta|b|rc|alpha|a|patch|pl|p)?(\d+)(?:[.-]?(\d+))?)?([.-]?dev)?#i", $node->text(), $matches)) {
+            /**
+             * The old regexp includes alpha and beta releases, too
+             * #(\d+\.\d+(\.\d+)*)(?:[._-]?(beta|b|rc|alpha|a|patch|pl|p)?(\d+)(?:[.-]?(\d+))?)?([.-]?dev)?#i
+             * The problem is that these files are released and then deleted, when a new stable version is released.
+             * We are switching to stable releases only, so that all the links to files remain valid in our registry.
+             */
+            if (preg_match("#(\d+\.\d+(\.\d+)*)?#i", $node->text(), $matches)) {
                 $version = $matches[0];
                 if (version_compare($version, $this->registry['phpmyadmin']['latest']['version'], '>=') === true) {
                     return array(

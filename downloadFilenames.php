@@ -64,6 +64,7 @@ return array(
     'rabbitmq'              => 'rabbitmq.zip',
     'redis'                 => 'redis.zip',
     'rockmongo'             => 'rockmongo.zip',
+    'robomongo'             => 'robomongo.zip',
     'sendmail'              => 'sendmail.zip',
     'uprofiler'             => 'uprofiler.zip',
     'varnish'               => 'varnish.zip',

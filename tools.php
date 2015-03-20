@@ -173,6 +173,7 @@ class Version
     {
         switch ($component) {
             case 'openssl':
+            case 'openssl-x64':
                 if (strcmp($oldVersion, $newVersion) < 0) {
                     return true;
                 }
@@ -180,7 +181,7 @@ class Version
                 if (version_compare($oldVersion, $newVersion, '<') === true || (strcmp($oldVersion, $newVersion) < 0)) {
                     return true;
                 }
-            case  'imagick':
+            case 'imagick':
                 if (Version::cmpImagick($oldVersion, $newVersion) === true) {
                     return true;
                 }

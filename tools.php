@@ -430,7 +430,7 @@ class Registry
 
             // add the registry subset only for a specific component
             if (isset($forComponent) && ($forComponent === $component)) {
-                printf('Adding Scan/Subset for "%s"' . PHP_EOL, $component);
+                printf('Adding Scan/Subset for "%s".' . PHP_EOL, $component);
                 $registry[$component] = $subset;
 
                 return $registry;
@@ -548,21 +548,25 @@ class Registry
         // switch to the git submodule "registry"
         chdir(__DIR__ . '/registry');
 
-        echo 'Pull possible changes' . PHP_EOL;
+        echo '<pre>';
+
+        echo PHP_EOL . 'Pulling possible changes.' . PHP_EOL;
         echo exec('git pull');
 
         //echo PHP_EOL . 'Staging current changes' . PHP_EOL;
         //exec('git add .; git add -u .');
 
-        echo PHP_EOL . 'Commit current changes "' . $commitMessage . '"' . PHP_EOL;
+        echo PHP_EOL . 'Committing current changes "' . $commitMessage . '"' . PHP_EOL;
         echo exec('git commit -m "' . $commitMessage . '" -- wpnxm-software-registry.php');
 
-        echo PHP_EOL . 'You might push now.' . PHP_EOL;
+        echo PHP_EOL . 'You might "git push" now.' . PHP_EOL;
         //echo PHP_EOL . 'Push commit to remote server' . PHP_EOL;
         //echo exec('git push');
 
         //echo '<a href="#" class="btn btn-lg btn-primary">'
         //   . '<span class="glyphicon glyphicon-save"></span> Git Push</a>';
+
+        echo '</pre>';
     }
 
     public static function healthCheck(array $registry)

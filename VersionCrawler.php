@@ -170,7 +170,11 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
             foreach ($phpversions as $phpversion) {
                 $compiler = ($phpversion === '5.4') ? 'VC9' : 'VC11';
 
-                $replacedUrl = str_replace(array('%compiler%', '%phpversion%', '%bitsize%'), array($compiler, $phpversion, $bitsize), $url);
+                $replacedUrl = str_replace(
+                    array('%compiler%', '%phpversion%', '%bitsize%'),
+                    array($compiler, $phpversion, $bitsize),
+                    $url
+                );
 
                 if ($skipURLcheck === true) {
                     $urls[$bitsize][$phpversion] = $replacedUrl;

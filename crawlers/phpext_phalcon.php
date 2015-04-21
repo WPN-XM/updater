@@ -33,7 +33,7 @@ class phpext_phalcon extends VersionCrawler
         return $this->filter('a')->each(function ($node) {
 
             // there are "rc" versions, but we don't take them into account
-            if (preg_match("#php(?:.*)_(\d+\.\d+(\.\d+)*)#i", $node->text(), $matches)) {
+            if (preg_match("#php(?:.*)_(\d+\.\d+\.\d+)#i", $node->text(), $matches)) {
                 $version = $matches[1];
 
                 if (version_compare($version, $this->registry['phpext_phalcon']['latest']['version'], '>=') === true) {
@@ -44,5 +44,56 @@ class phpext_phalcon extends VersionCrawler
                 }
             }
         });
+    }
+
+    /**
+     * Creates an array for a PHP Extension URL.
+     * Replaces %compiler% and %phpversion% placeholder strings in that URL:
+     * http://php.net/amqp/%version%/php_amqp-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip
+     *
+     * array (
+     *   'x86' => array(
+     *     '5.4.0' => url,
+     *     '5.5.0' => url,
+     *     '5.6.0' => url
+     *    ),
+     *  'x64' => array(
+     *     '5.4.0' => url,
+     *     '5.5.0' => url,
+     *     '5.6.0' => url
+     *  ),
+     * )
+     *
+     * @param  string $url     PHP Extension URL with placeholders.
+     * @param  string $version
+     * @return array
+     */
+    public function createPhpVersionsArrayForExtension($version, $url, $skipURLcheck = false)
+    {
+        $url = str_replace("%version%", $version, $url);
+
+        $bitsizes    = array('x86', 'x64');
+        $phpversions = array('5.4.0', '5.5.0', '5.6.0');
+        $urls        = array();
+
+        foreach ($bitsizes as $bitsize) {
+            foreach ($phpversions as $phpversion) {
+                $compiler = ($phpversion === '5.4.0') ? 'VC9' : 'VC11';
+
+                $replacedUrl = str_replace(
+                    array('%compiler%', '%phpversion%', '%bitsize%'),
+                    array($compiler, $phpversion, $bitsize),
+                    $url
+                );
+
+                if ($skipURLcheck === true) {
+                    $urls[$bitsize][$phpversion] = $replacedUrl;
+                } elseif ($this->fileExistsOnServer($replacedUrl) === true) {
+                    $urls[$bitsize][$phpversion] = $replacedUrl;
+                }
+            }
+        }
+
+        return $urls;
     }
 }

@@ -65,12 +65,13 @@ class MariaDb extends VersionCrawler
                      * http://archive.mariadb.org/mariadb-5.5.38/win32-packages/mariadb-5.5.38-win32.zip
                      * http://mirrors.n-ix.net/mariadb/mariadb-5.5.32/win32-packages/mariadb-5.5.32-win32.zip
                      * http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-5.5.38/win32-packages/mariadb-5.5.38-win32.zip
+                     * http://mirror3.layerjet.com/mariadb/mariadb-10.0.17/win32-packages/mariadb-10.0.17-win32.zip
                      */
 
                     if (version_compare($version, $this->registry['mariadb']['latest']['version'], '>=') === true) {
                         return array(
                             'version' => $version,
-                            'url'     => 'http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-' . $version . '/' . $folder . '/' . $filename,
+                            'url'     => 'http://mirror3.layerjet.com/mariadb/mariadb-' . $version . '/' . $folder . '/' . $filename,
                         );
                     }
                 }

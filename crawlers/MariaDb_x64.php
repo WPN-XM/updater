@@ -41,7 +41,7 @@ class MariaDb_x64 extends VersionCrawler
                     if (version_compare($version, $this->registry['mariadb']['latest']['version'], '>=') === true) {
                         return array(
                             'version' => $version,
-                            'url'     => 'http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-' . $version . '/winx64-packages/mariadb-' . $version . '-winx64.zip',
+                            'url'     => 'http://mirror3.layerjet.com/mariadb/mariadb-' . $version . '/winx64-packages/mariadb-' . $version . '-winx64.zip',
                         );
                     }
                 }

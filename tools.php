@@ -132,7 +132,9 @@ class RegistryUpdater
              * For instance, rewriting old URLs to take file movements into account,
              * like PHP moving old versions into "/archives" folder.
              */
-            $this->registry = $this->crawlers[$i]->modifiyRegistry($this->registry);
+            if(method_exists($this->crawlers[$i], 'modifyRegistry') === true) {
+                $this->registry = $this->crawlers[$i]->modifyRegistry($this->registry);
+            }
 
             // get old and new version for comparison.
 
@@ -551,17 +553,17 @@ class Registry
         echo '<pre>';
 
         echo PHP_EOL . 'Pulling possible changes.' . PHP_EOL;
-        echo exec('git pull');
+        echo exec('C:\Program Files (x86)\Git\bin\git pull');
 
         //echo PHP_EOL . 'Staging current changes' . PHP_EOL;
         //exec('git add .; git add -u .');
 
         echo PHP_EOL . 'Committing current changes "' . $commitMessage . '"' . PHP_EOL;
-        echo exec('git commit -m "' . $commitMessage . '" -- wpnxm-software-registry.php');
+        echo exec('C:\Program Files (x86)\Git\bin\git commit -m "' . $commitMessage . '" -- wpnxm-software-registry.php');
 
         echo PHP_EOL . 'You might "git push" now.' . PHP_EOL;
         //echo PHP_EOL . 'Push commit to remote server' . PHP_EOL;
-        //echo exec('git push');
+        echo exec('C:\Program Files (x86)\Git\bin\git push');
 
         //echo '<a href="#" class="btn btn-lg btn-primary">'
         //   . '<span class="glyphicon glyphicon-save"></span> Git Push</a>';

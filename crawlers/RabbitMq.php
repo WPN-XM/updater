@@ -50,13 +50,13 @@ class RabbitMq extends VersionCrawler
             if ($version === 'latest') {
                 continue;
             }
-            // do not modify array key with latest version number - it must point to "/releases".
+            // do not modify array key with "latest version" number
             if ($version === $registry['rabbitmq']['latest']['version']) {
                 continue;
             }
             // replace the path on any other version
-            $new_url = str_replace('rabbitmq.com/releases/rabbitmq-server/current/', 'rabbitmq.com/releases/rabbitmq-server/v' . $version . '/', $url);
-            // insert at old array position, overwriting the old url
+            $new_url = str_replace('releases/rabbitmq-server/current/', 'releases/rabbitmq-server/v' . $version . '/', $url);
+            // insert at old array position = overwrite old url
             $registry['rabbitmq'][$version] = $new_url;
         }
 

@@ -13,6 +13,7 @@ return array(
     'adminer'               => 'adminer.php', // ! php file
     'closure-compiler'      => 'closure-compiler.zip',
     'composer'              => 'composer.phar', // ! phar file
+    'conemu'                => 'conemu.7z',
     'gogs-x86'              => 'gogitservice.zip',
     'gogs-x64'              => 'gogitservice.zip',
     'imagick'               => 'imagick.zip',

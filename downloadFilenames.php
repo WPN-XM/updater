@@ -1,11 +1,12 @@
 <?php
 
 /**
- * download filenames
+ * Download Filenames
  * ------------------
  *
  * The array defines the relationship between
- * a "component" in the registry (array key) and it's "filename" in the downloads directory.
+ * a "component" in the registry (array key) and
+ * it's "filename" in the downloads directory.
  * The filename is used by the installation wizards.
  */
 return array(

@@ -326,6 +326,8 @@ if (isset($action) && $action === 'update-components') {
             echo 'The installer registry is up-to-date.<br>';
         }
     }
+
+    echo '<pre>You might "git commit/push":<br>updated installer registries of "next" version</pre>';
 } // end action "update-all-next-registries"
 
 /**

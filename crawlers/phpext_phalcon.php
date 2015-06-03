@@ -17,9 +17,9 @@ class phpext_phalcon extends VersionCrawler
 {
     /**
      * http://phalconphp.com/en/download/windows
-     * http://static.phalconphp.com/files/
+     * http://static.phalconphp.com/files/ - now forbidden - thanks a lot.
      */
-    public $url = 'http://static.phalconphp.com/files/';
+    public $url = 'http://phalconphp.com/en/download/windows';
 
     // http://static.phalconphp.com/files/phalcon_x86_VC9_php5.4.0_1.3.1_nts.zip
     private $url_template = 'http://static.phalconphp.com/files/phalcon_%bitsize%_%compiler%_php%phpversion%_%version%_nts.zip';

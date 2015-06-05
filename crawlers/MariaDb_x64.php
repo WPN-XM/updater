@@ -33,15 +33,23 @@ class MariaDb_x64 extends VersionCrawler
                     /*
                      * Download Mirrors
                      *
+                     * Archive Server:
                      * http://archive.mariadb.org/mariadb-5.5.38/win32-packages/mariadb-5.5.38-win32.zip
-                     * http://mirror3.layerjet.com/mariadb/mariadb-10.1.3/winx64-packages/mariadb-10.1.3-winx64.zip
-                     * http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-10.1.3/winx64-packages/mariadb-10.1.3-winx64.zip
+                     *
+                     * Mirror Origin:
+                     * http://ftp.osuosl.org/pub/mariadb/*
+                     *
+                     * Mirrors:
+                     * http://mirrors.n-ix.net/mariadb/mariadb-5.5.32/win32-packages/mariadb-5.5.32-win32.zip
+                     * http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-5.5.38/win32-packages/mariadb-5.5.38-win32.zip
+                     * http://mirror3.layerjet.com/mariadb/mariadb-10.0.17/win32-packages/mariadb-10.0.17-win32.zip
+                     * http://ams2.mirrors.digitalocean.com/mariadb/mariadb-10.1.5/win32-packages/mariadb-10.1.5-win32.zip
                      */
 
                     if (version_compare($version, $this->registry['mariadb']['latest']['version'], '>=') === true) {
                         return array(
                             'version' => $version,
-                            'url'     => 'http://mirrors.n-ix.net/mariadb/mariadb-' . $version . '/winx64-packages/mariadb-' . $version . '-winx64.zip',
+                            'url'     => 'http://ams2.mirrors.digitalocean.com/mariadb/mariadb-' . $version . '/winx64-packages/mariadb-' . $version . '-winx64.zip',
                         );
                     }
                 }

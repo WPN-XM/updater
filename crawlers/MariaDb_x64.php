@@ -44,12 +44,13 @@ class MariaDb_x64 extends VersionCrawler
                      * http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-5.5.38/win32-packages/mariadb-5.5.38-win32.zip
                      * http://mirror3.layerjet.com/mariadb/mariadb-10.0.17/win32-packages/mariadb-10.0.17-win32.zip
                      * http://ams2.mirrors.digitalocean.com/mariadb/mariadb-10.1.5/win32-packages/mariadb-10.1.5-win32.zip
+                     * SF: http://mirror.jmu.edu/pub/mariadb/*
                      */
 
                     if (version_compare($version, $this->registry['mariadb']['latest']['version'], '>=') === true) {
                         return array(
                             'version' => $version,
-                            'url'     => 'http://ams2.mirrors.digitalocean.com/mariadb/mariadb-' . $version . '/winx64-packages/mariadb-' . $version . '-winx64.zip',
+                            'url'     => 'http://mirror.jmu.edu/pub/mariadb/mariadb-' . $version . '/winx64-packages/mariadb-' . $version . '-winx64.zip',
                         );
                     }
                 }

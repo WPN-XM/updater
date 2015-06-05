@@ -71,7 +71,7 @@ class MariaDb extends VersionCrawler
                     if (version_compare($version, $this->registry['mariadb']['latest']['version'], '>=') === true) {
                         return array(
                             'version' => $version,
-                            'url'     => 'http://mirror3.layerjet.com/mariadb/mariadb-' . $version . '/' . $folder . '/' . $filename,
+                            'url'     => 'http://mirrors.n-ix.net/mariadb/mariadb-' . $version . '/' . $folder . '/' . $filename,
                         );
                     }
                 }

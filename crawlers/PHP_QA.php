@@ -22,12 +22,8 @@ class PHP_QA extends VersionCrawler
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
-            if (preg_match("#php-(\d+\.\d+(\.\d+)(RC\d+)*)-nts-Win32-VC11-x86.zip$#", $node->text(), $matches)) {
+            if (preg_match("#php-(\d+\.\d+(\.\d+)*(alpha|beta|RC)(\d+))-nts-Win32-(VC(11|14))-x86.zip$#", $node->text(), $matches)) {
                 $version = $matches[1];
-
-                if (false !== strpos($version, '5.3')) {
-                    return;
-                }
 
                 if (version_compare($version, $this->registry['php']['latest']['version'], '>=') === true) {
                     return array(

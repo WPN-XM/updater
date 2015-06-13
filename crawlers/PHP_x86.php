@@ -22,7 +22,12 @@ class PHP_x86 extends VersionCrawler
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
-            // VC9 for PHP
+            /**
+             * Notes for the Regular Expression:
+             * "VC9"  is needed for PHP 5.4. We can drop it, when 5.4 is EOL.
+             * "VC11" is needed for PHP 5.5 & 5.6.
+             * "VC14" is needed for PHP 7.
+             */
             if (preg_match("#php-(\d+\.\d+(\.\d+)*)-nts-Win32-(VC9|VC11)-x86.zip$#", $node->text(), $matches)) {
                 $version = $matches[1];
 
@@ -48,16 +53,20 @@ class PHP_x86 extends VersionCrawler
     public function modifyRegistry($registry)
     {
         foreach ($registry['php'] as $version => $url) {
-            // do not modify array key "latest"
-            if ($version === 'latest') {
+
+            // skip "name", "website", "latest"
+            if(in_array($version, ['name', 'website', 'latest'])) {
                 continue;
             }
+
             // do not modify array key with latest version number - it must point to "/releases".
             if ($version === $registry['php']['latest']['version']) {
                 continue;
             }
+
             // replace the path on any other version
             $new_url = str_replace('php.net/downloads/releases/php', 'php.net/downloads/releases/archives/php', $url);
+
             // insert at old array position, overwriting the old url
             $registry['php'][$version] = $new_url;
         }

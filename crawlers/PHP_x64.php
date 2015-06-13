@@ -47,16 +47,20 @@ class PHP_x64 extends VersionCrawler
     public function modifyRegistry($registry)
     {
         foreach ($registry['php-x64'] as $version => $url) {
-            // do not modify array key "latest"
-            if ($version === 'latest') {
+
+            // skip "name", "website", "latest"
+            if(in_array($version, ['name', 'website', 'latest'])) {
                 continue;
             }
+
             // do not modify array key with latest version number - it must point to "/releases".
             if ($version === $registry['php-x64']['latest']['version']) {
                 continue;
             }
+
             // replace the path on any other version
             $new_url = str_replace('php.net/downloads/releases/php', 'php.net/downloads/releases/archives/php', $url);
+
             // insert at old array position, overwriting the old url
             $registry['php-x64'][$version] = $new_url;
         }

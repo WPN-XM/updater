@@ -955,8 +955,10 @@ class StatusRequest
             //$responses[$i] = curl_multi_getcontent($ch[$i]);
             //echo $targetUrls[$i];
             //var_dump($responses[$i]);
+
             // Response: HTTP Status Code
-            $responses[$i] = curl_getinfo($ch[$i], CURLINFO_HTTP_CODE) === 200; // check if HTTP OK
+            $code = curl_getinfo($ch[$i], CURLINFO_HTTP_CODE);
+            $responses[$i] = ($code === 200 or $code === 302) ? true : false;
         }
 
         curl_multi_close($mh);

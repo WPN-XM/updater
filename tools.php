@@ -48,14 +48,27 @@ class RegistryUpdater
         $goutteClient->setClient($this->guzzleClient);
     }
 
+    /**
+     * Returns array with one or more crawler file names.
+     *
+     * @param string $component
+     * @return array
+     */
+    public function getCrawlers($component = null)
+    {
+        // return single crawler
+        if (isset($component) === true) {
+            $file = str_replace('-', '_', $component);
+            return glob(__DIR__ . '\crawlers\\' . $file . '.php');
+        }
+
+        // return all crawlers
+        return glob(__DIR__ . '\crawlers\*.php');
+    }
+
     public function getUrlsToCrawl($single_component = null)
     {
-        if (isset($single_component) === true) {
-            $crawler_file = str_replace('-', '_', $single_component);
-            $crawlers     = glob(__DIR__ . '\crawlers\\' . $crawler_file . '.php');
-        } else {
-            $crawlers = glob(__DIR__ . '\crawlers\*.php');
-        }
+        $crawlers = $this->getCrawlers($single_component);
 
         include __DIR__ . '/VersionCrawler.php';
 

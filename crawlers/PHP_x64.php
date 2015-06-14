@@ -22,14 +22,16 @@ class PHP_x64 extends VersionCrawler
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
-            if (preg_match("#php-(\d+\.\d+(\.\d+)*)-nts-Win32-VC11-x64.zip$#", $node->text(), $matches)) {
+            /**
+             * Notes for the Regular Expression:
+             * "VC11" is needed for PHP 5.5 & 5.6.
+             * "VC14" is needed for PHP 7.
+             */
+            if (preg_match("#php-(\d+\.\d+(\.\d+)*)-nts-Win32-VC(11|14)-x64.zip$#", $node->text(), $matches)) {
                 $version = $matches[1];
 
-                if (false !== strpos($version, '5.3')) {
-                    return;
-                }
-
-                if ((version_compare($version, $this->registry['php-x64']['latest']['version'], '>=')  === true) or isset($this->registry['php'][$version]) === false) {
+                if ((version_compare($version, $this->registry['php-x64']['latest']['version'], '>=')  === true)
+                    or isset($this->registry['php'][$version]) === false) {
                     return array(
                         'version' => $version,
                         'url'     => 'http://windows.php.net/downloads/releases/' . $node->text(),
@@ -57,6 +59,8 @@ class PHP_x64 extends VersionCrawler
             if ($version === $registry['php-x64']['latest']['version']) {
                 continue;
             }
+
+            // @todo: do not modify the highest version of each "major.minor" release
 
             // replace the path on any other version
             $new_url = str_replace('php.net/downloads/releases/php', 'php.net/downloads/releases/archives/php', $url);

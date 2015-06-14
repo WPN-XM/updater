@@ -22,7 +22,12 @@ class PHP_QA extends VersionCrawler
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
-            if (preg_match("#php-(\d+\.\d+(\.\d+)*(alpha|beta|RC)(\d+))-nts-Win32-(VC(11|14))-x86.zip$#", $node->text(), $matches)) {
+            /**
+             * Notes for the Regular Expression:
+             * "VC11" is needed for PHP 5.5 & 5.6.
+             * "VC14" is needed for PHP 7.
+             */
+            if (preg_match("#php-(\d+\.\d+(\.\d+)*(alpha|beta|RC)(\d+))-nts-Win32-VC(11|14)-x86.zip$#", $node->text(), $matches)) {
                 $version = $matches[1];
 
                 if (version_compare($version, $this->registry['php']['latest']['version'], '>=') === true) {

@@ -19,10 +19,10 @@ class phpext_phalcon extends VersionCrawler
      * http://phalconphp.com/en/download/windows
      * http://static.phalconphp.com/files/ - now forbidden - thanks a lot.
      */
-    public $url = 'http://phalconphp.com/en/download/windows';
+    public $url = 'https://phalconphp.com/en/download/windows';
 
     // http://static.phalconphp.com/files/phalcon_x86_VC9_php5.4.0_1.3.1_nts.zip
-    private $url_template = 'http://static.phalconphp.com/files/phalcon_%bitsize%_%compiler%_php%phpversion%_%version%_nts.zip';
+    private $url_template = 'https://static.phalconphp.com/files/phalcon_%bitsize%_%compiler%_php%phpversion%_%version%_nts.zip';
 
     public $needsOnlyRegistrySubset = false;
 
@@ -33,8 +33,10 @@ class phpext_phalcon extends VersionCrawler
         return $this->filter('a')->each(function ($node) {
 
             // there are "rc" versions, but we don't take them into account
-            if (preg_match("#php(?:.*)_(\d+\.\d+\.\d+)#i", $node->text(), $matches)) {
-                $version = $matches[1];
+            if (preg_match("#_php(\d+\.\d+\.\d+)_(\d+\.\d+\.\d+)#i", $node->attr('href'), $matches)) {
+
+                $phpversion = $matches[2];
+                $version = $matches[2];
 
                 if (version_compare($version, $this->registry['phpext_phalcon']['latest']['version'], '>=') === true) {
                     return array(
@@ -78,7 +80,7 @@ class phpext_phalcon extends VersionCrawler
 
         foreach ($bitsizes as $bitsize) {
             foreach ($phpversions as $phpversion) {
-                $compiler = ($phpversion === '5.4.0') ? 'VC9' : 'VC11';
+                $compiler = ($phpversion === '5.4.0') ? 'VC9' : 'vc11';
 
                 $replacedUrl = str_replace(
                     array('%compiler%', '%phpversion%', '%bitsize%'),
@@ -86,11 +88,11 @@ class phpext_phalcon extends VersionCrawler
                     $url
                 );
 
-                if ($skipURLcheck === true) {
+                #if ($skipURLcheck === true) {
                     $urls[$bitsize][$phpversion] = $replacedUrl;
-                } elseif ($this->fileExistsOnServer($replacedUrl) === true) {
-                    $urls[$bitsize][$phpversion] = $replacedUrl;
-                }
+                #} elseif($this->fileExistsOnServer($replacedUrl) === true) {
+                #    $urls[$bitsize][$phpversion] = $replacedUrl;
+                #}
             }
         }
 

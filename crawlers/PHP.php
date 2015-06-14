@@ -13,7 +13,7 @@ namespace WPNXM\Updater\Crawler;
 /**
  * PHP x86 - Version Crawler
  */
-class PHP_x86 extends VersionCrawler
+class PHP extends VersionCrawler
 {
     public $name = 'php';
 
@@ -28,14 +28,11 @@ class PHP_x86 extends VersionCrawler
              * "VC11" is needed for PHP 5.5 & 5.6.
              * "VC14" is needed for PHP 7.
              */
-            if (preg_match("#php-(\d+\.\d+(\.\d+)*)-nts-Win32-(VC9|VC11)-x86.zip$#", $node->text(), $matches)) {
+            if (preg_match("#php-(\d+\.\d+(\.\d+)*)-nts-Win32-VC(9|11|14)-x86.zip$#", $node->text(), $matches)) {
                 $version = $matches[1];
 
-                if (false !== strpos($version, '5.3')) {
-                    return;
-                }
-
-                if ((version_compare($version, $this->registry['php']['latest']['version'], '>=') === true) or isset($this->registry['php'][$version]) === false) {
+                if ((version_compare($version, $this->registry['php']['latest']['version'], '>=') === true)
+                    or isset($this->registry['php'][$version]) === false) {
                     return array(
                         'version' => $version,
                         'url'     => 'http://windows.php.net/downloads/releases/' . $node->text(),
@@ -50,7 +47,7 @@ class PHP_x86 extends VersionCrawler
      * That means, latest version must point to "/releases".
      * Every other version points to "/releases/archives".
      */
-    public function modifyRegistry($registry)
+    public function onAfterVersionInsert($registry)
     {
         foreach ($registry['php'] as $version => $url) {
 
@@ -61,6 +58,12 @@ class PHP_x86 extends VersionCrawler
 
             // do not modify array key with latest version number - it must point to "/releases".
             if ($version === $registry['php']['latest']['version']) {
+                continue;
+            }
+
+            // do not modify the highest version of each "major.minor" release
+            if ($version === $this->isHighestMajorMinorVersion($version, $registry['php']))
+            {
                 continue;
             }
 

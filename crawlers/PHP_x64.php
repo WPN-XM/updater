@@ -30,8 +30,13 @@ class PHP_x64 extends VersionCrawler
             if (preg_match("#php-(\d+\.\d+(\.\d+)*)-nts-Win32-VC(11|14)-x64.zip$#", $node->text(), $matches)) {
                 $version = $matches[1];
 
-                if ((version_compare($version, $this->registry['php-x64']['latest']['version'], '>=')  === true)
-                    or isset($this->registry['php'][$version]) === false) {
+                /**
+                 * return version array, if
+                 * 1) version is a "new" latest version
+                 * 2) version doesn't exist, yet. mostly bugfix releases of "major.minor" version.
+                 */
+                if ((version_compare($version, $this->registry['php-x64']['latest']['version'], '>=') === true)
+                    or isset($this->registry['php-x64'][$version]) === false) {
                     return array(
                         'version' => $version,
                         'url'     => 'http://windows.php.net/downloads/releases/' . $node->text(),
@@ -46,7 +51,7 @@ class PHP_x64 extends VersionCrawler
      * That means, latest version must point to "/releases".
      * Every other version points to "/releases/archives".
      */
-    public function modifyRegistry($registry)
+    public function onAfterVersionInsert($registry)
     {
         foreach ($registry['php-x64'] as $version => $url) {
 
@@ -60,7 +65,11 @@ class PHP_x64 extends VersionCrawler
                 continue;
             }
 
-            // @todo: do not modify the highest version of each "major.minor" release
+            // do not modify the highest version of each "major.minor" release
+            if ($version === $this->isHighestMajorMinorVersion($version, $registry['php-x64']))
+            {
+                continue;
+            }
 
             // replace the path on any other version
             $new_url = str_replace('php.net/downloads/releases/php', 'php.net/downloads/releases/archives/php', $url);

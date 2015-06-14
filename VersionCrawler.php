@@ -186,4 +186,54 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
 
         return $urls;
     }
+
+        /**
+     * Returns the latest version of a component inside a min/max version range.
+     *
+     * Example: fetch the "latest patch version" of a given "major.minor" version (5.4.*).
+     * getLatestVersion('php', '5.4.1', '5.4.99') = "5.4.30".
+     *
+     * @param array Only the versions array for this component from the registry.
+     * @param string A version number, setting the minimum (>=).
+     * @param string A version number, setting the maximum (<).
+     *
+     * @return string Returns the latest version of a component given a min max version constraint.
+     */
+    public function getLatestVersionOfRange($versions, $minConstraint = null, $maxConstraint = null)
+    {
+        // get rid of (version => url) and use (idx => version)
+        $versions = array_keys($versions);
+
+        // reverse array, in order to have the highest version number on top
+        $versions = array_reverse($versions);
+
+        // reduce array to values in constraint range
+        foreach ($versions as $idx => $version) {
+
+            // fix "5.y" to "5.y.1"
+            if (strlen($version) === 3) {
+                $version = $version . '.1';
+            }
+
+            if (version_compare($version, $minConstraint, '>=') === true && version_compare($version, $maxConstraint, '<') === true) {
+                #echo 'Version v' . $version . ' is greater v' . $minConstraint . '(MinConstraint) and smaller v' . $maxConstraint . '(MaxConstraint).<br>';
+            } else {
+                unset($versions[$idx]);
+            }
+        }
+
+        // pop off the first element
+        $latestVersion = array_shift($versions);
+
+        return $latestVersion;
+    }
+
+    public function isHighestMajorMinorVersion($version, $registry_subset)
+    {
+        if (2 === substr_count($version, '.')) { // 1.2.3
+            $phpVersion = substr($version, 0, -2);
+        }
+
+        return $this->getLatestVersionOfRange($registry_subset, $phpVersion . '.0', $phpVersion . '.99');
+    }
 }

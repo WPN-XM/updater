@@ -45,7 +45,7 @@ class PHP_QA_x64 extends VersionCrawler
      * That means, latest version must point to "/releases".
      * Every other version points to "/releases/archives".
      */
-    public function modifyRegistry($registry)
+    public function onAfterVersionInsert($registry)
     {
         foreach ($registry['php-x64'] as $version => $url) {
 

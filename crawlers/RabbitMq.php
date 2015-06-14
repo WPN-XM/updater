@@ -43,7 +43,7 @@ class RabbitMq extends VersionCrawler
      * That means, latest version must point to "/releases/rabbitmq-server/current/".
      * Every other version points to "/releases/rabbitmq-server/v{$version}/".
      */
-    public function modifyRegistry($registry)
+    public function onAfterVersionInsert($registry)
     {
         foreach ($registry['rabbitmq'] as $version => $url) {
             // do not modify array key "latest"

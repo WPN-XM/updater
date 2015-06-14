@@ -84,7 +84,7 @@ class RegistryUpdater
 
             #echo $component . ' - ' . $file;
 
-            /* set registry and crawling client to version crawler */
+            // set registry and component name to crawler
             $crawler->setRegistry($this->registry, $component);
 
             // store crawler object in crawlers array
@@ -137,34 +137,60 @@ class RegistryUpdater
             $latestVersion = $this->crawlers[$i]->crawlVersion();
             $latestVersion = ArrayTool::clean($latestVersion);
 
+            /**
+             * Add (new) latest version (array) for this component to the registry.
+             */
             $this->registry = Registry::addLatestVersionToRegistry($component, $latestVersion, $this->old_registry);
 
-            /*
-             * After Insert Event - to apply further changes to the registry.
+            /**
+             * onAfterVersionInsert Event
              *
-             * For instance, rewriting old URLs to take file movements into account,
-             * like PHP moving old versions into "/archives" folder.
+             * This event allows executing custom functionality after the version was inserted.
+             * One might apply further changes, like rewriting the registry, for instance,
+             * to rewrite and update old URLs, when file movements of the download files occured.
+             * For example, like "PHP" moves old versions into the download "/archives" folder.
              */
-            if(method_exists($this->crawlers[$i], 'modifyRegistry') === true) {
-                $this->registry = $this->crawlers[$i]->modifyRegistry($this->registry);
+            if(method_exists($this->crawlers[$i], 'onAfterVersionInsert') === true) {
+                $this->registry = $this->crawlers[$i]->onAfterVersionInsert($this->registry);
             }
 
             // get old and new version for comparison.
 
-            // if crawler is new and component not in registry, use 0.0.0
+            /**
+             * get old version
+             * use 0.0.0, in case the component is not in the registry, yet (newly added crawler)
+             */
             $old_version = isset($this->old_registry[$component]['latest']['version'])
                 ? $this->old_registry[$component]['latest']['version']
                 : '0.0.0';
 
+
             $new_version = $this->registry[$component]['latest']['version'];
 
+            /**
+             * Latest Version
+             */
             if (Version::compare($component, $old_version, $new_version) === true) {
                 // write a temporary component registry, for later registry insertion
                 Registry::writeRegistrySubset($component, $this->registry[$component]);
+
+                // render a table row (version comparison display)
+                $html .= Viewhelper::renderTableRow($component, $old_version, $new_version);
             }
 
-            // render a table row for version comparison
-            $html .= Viewhelper::renderTableRow($component, $old_version, $new_version);
+            /**
+             * A missing version
+             */
+            if (Version::notInRegistry($latestVersion, $this->old_registry[$component]) === true) {
+                // write a temporary component registry, for later registry insertion
+                Registry::writeRegistrySubset($component, $this->registry[$component]);
+
+                // missing version number
+                $new_version = Version::notInRegistry($latestVersion, $this->old_registry[$component], true);
+
+                //render a table row (version comparison display)
+                $html .= Viewhelper::renderTableRow($component, $old_version, $new_version);
+            }
 
             $i++;
         }
@@ -223,6 +249,25 @@ class Version
 
         return version_compare($rNewVersion, $rOldVersion, '>');
     }
+
+    public static function notInRegistry($version, $registry, $returnVersion = false)
+    {
+        if(is_array($version)) {
+            // re-index the array
+            $versions = array_values($version);
+
+            // if one out of multiple version is missing.. return true.
+            foreach($version as $v) {
+                if(isset($registry[$v['version']]) === false) {
+                    return ($returnVersion === true) ? $v['version'] : true;
+                }
+            }
+        }
+
+        if(isset($registry[$version]) === false) {
+            return ($returnVersion === true) ? $version : true;
+        }
+    }
 }
 
 class Viewhelper
@@ -257,7 +302,7 @@ class Viewhelper
      */
     public static function printUpdatedSign($old_version, $new_version, $component)
     {
-        if (Version::compare($component, $old_version, $new_version) === true) {
+        #if (Version::compare($component, $old_version, $new_version) === true) {
             $link =  'registry-update.php?action=update-component&component=' . $component;
 
             $html = '<span class="badge alert-success">' . $new_version . '</span>';
@@ -265,7 +310,7 @@ class Viewhelper
             $html .= self::renderAnchorButton($link, 'Commit & Push');
 
             return $html;
-        }
+        #}
     }
 
     /**

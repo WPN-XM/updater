@@ -175,21 +175,24 @@ class RegistryUpdater
                 Registry::writeRegistrySubset($component, $this->registry[$component]);
 
                 // render a table row (version comparison display)
-                $html .= Viewhelper::renderTableRow($component, $old_version, $new_version);
+                $html .= Viewhelper::renderTableRow($component, $old_version, $new_version, 'latest-version');
             }
-
             /**
              * A missing version
              */
-            if (Version::notInRegistry($latestVersion, $this->old_registry[$component]) === true) {
+            elseif (Version::notInRegistry($latestVersion, $this->old_registry[$component]) === true)
+            {
                 // write a temporary component registry, for later registry insertion
                 Registry::writeRegistrySubset($component, $this->registry[$component]);
 
                 // missing version number
                 $new_version = Version::notInRegistry($latestVersion, $this->old_registry[$component], true);
 
-                //render a table row (version comparison display)
-                $html .= Viewhelper::renderTableRow($component, $old_version, $new_version);
+                // render a table row (version comparison display)
+                $html .= Viewhelper::renderTableRow($component, $old_version, $new_version, 'missing-version');
+            } else {
+                // render a table row (version comparison display)
+                $html .= Viewhelper::renderTableRow($component, $old_version, $new_version, false);
             }
 
             $i++;
@@ -262,9 +265,7 @@ class Version
                     return ($returnVersion === true) ? $v['version'] : true;
                 }
             }
-        }
-
-        if(isset($registry[$version]) === false) {
+        } elseif(isset($registry[$version]) === false) {
             return ($returnVersion === true) ? $version : true;
         }
     }
@@ -279,14 +280,18 @@ class Viewhelper
      * @param string $old_version Old Version
      * @param string $new_version New Version
      */
-    public static function renderTableRow($component, $old_version, $new_version)
+    public static function renderTableRow($component, $old_version, $new_version, $update = false)
     {
         $link =  'registry-update.php?action=scan&component=' . $component;
 
         $html = '<tr>';
         $html .= '<td>' . $component . '</td>';
         $html .= '<td>' . $old_version . '</td>';
-        $html .= '<td>' . self::printUpdatedSign($old_version, $new_version, $component) . '</td>';
+
+        $html .= ($update === true)
+            ? '<td>' . self::printUpdatedSign($new_version, $component) . '</td>'
+            : '<td>&nbsp;</td>';
+
         $html .= '<td>' . self::renderAnchorButton($link, 'Scan') . '</td>';
         $html .= '</tr>';
 
@@ -294,23 +299,20 @@ class Viewhelper
     }
 
     /**
-     * Print an update symbol, if old_version is lower than new_version.
+     * Print an update symbol for the new_version.
      *
-     * @param string $old_version Old version.
      * @param string $new_version New version.
      * @param string $component   Component
      */
-    public static function printUpdatedSign($old_version, $new_version, $component)
+    public static function printUpdatedSign($new_version, $component)
     {
-        #if (Version::compare($component, $old_version, $new_version) === true) {
-            $link =  'registry-update.php?action=update-component&component=' . $component;
+        $link =  'registry-update.php?action=update-component&component=' . $component;
 
-            $html = '<span class="badge alert-success">' . $new_version . '</span>';
-            $html .= '<span style="color:green; font-size: 16px">&nbsp;&#x25B2;&nbsp;</span>';
-            $html .= self::renderAnchorButton($link, 'Commit & Push');
+        $html = '<span class="badge alert-success">' . $new_version . '</span>';
+        $html .= '<span style="color:green; font-size: 16px">&nbsp;&#x25B2;&nbsp;</span>';
+        $html .= self::renderAnchorButton($link, 'Commit & Push');
 
-            return $html;
-        #}
+        return $html;
     }
 
     /**

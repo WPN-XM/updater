@@ -232,8 +232,9 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
     {
         if (2 === substr_count($version, '.')) { // 1.2.3
             $phpVersion = substr($version, 0, -2);
+            return $this->getLatestVersionOfRange($registry_subset, $phpVersion . '.0', $phpVersion . '.99');
         }
 
-        return $this->getLatestVersionOfRange($registry_subset, $phpVersion . '.0', $phpVersion . '.99');
+        return $version;
     }
 }

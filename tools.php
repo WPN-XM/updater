@@ -288,7 +288,7 @@ class Viewhelper
         $html .= '<td>' . $component . '</td>';
         $html .= '<td>' . $old_version . '</td>';
 
-        $html .= ($update === true)
+        $html .= ((bool)$update === true)
             ? '<td>' . self::printUpdatedSign($new_version, $component) . '</td>'
             : '<td>&nbsp;</td>';
 

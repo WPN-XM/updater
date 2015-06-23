@@ -26,12 +26,18 @@ class phpmyadmin extends VersionCrawler
              * The problem is that these files are released and then deleted, when a new stable version is released.
              * We are switching to stable releases only, so that all the links to files remain valid in our registry.
              */
-            if (preg_match("#(\d+\.\d+(\.\d+)*)?#i", $node->text(), $matches)) {
+
+            if (preg_match("#(\d+\.\d+(\.\d+)*)#", $node->text(), $matches)) {
                 $version = $matches[0];
+
+                // Website: https://files.phpmyadmin.net/phpMyAdmin/4.4.10/phpMyAdmin-4.4.10-english.zip
+                // SF Mirrors Main: http://sourceforge.net/projects/phpmyadmin/files/phpMyAdmin/4.4.10/phpMyAdmin-4.4.10-english.7z/download
+                // 'http://sourceforge.net/projects/phpmyadmin/files/phpMyAdmin/' . $version . '/phpMyAdmin-' . $version . '-english.7z/download'
+
                 if (version_compare($version, $this->registry['phpmyadmin']['latest']['version'], '>=') === true) {
                     return array(
                         'version' => $version,
-                        'url'     => 'http://switch.dl.sourceforge.net/project/phpmyadmin/phpMyAdmin/' . $version . '/phpMyAdmin-' . $version . '-english.zip',
+                        'url'     => 'https://files.phpmyadmin.net/phpMyAdmin/' . $version . '/phpMyAdmin-' . $version . '-english.zip',
                     );
                 }
             }

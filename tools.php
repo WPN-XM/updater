@@ -530,8 +530,8 @@ class Registry
         // maintain "name" and "website" keys on top, then versions, then "latest" key on bottom.
         foreach ($registry as $component => $array) {
             // sort by version number
-            // but version_compare does not seem to work on x.y.z{alpha} version numbers
-            if ($component === 'openssl') {
+            // but version_compare does not seem to work on x.y.z{alpha} version numbers (1.2.3c)
+            if ($component === 'openssl' or $component === 'openssl-x64') {
                 uksort($array, 'strnatcmp');
             } else {
                 uksort($array, 'version_compare');

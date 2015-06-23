@@ -34,7 +34,7 @@ class node_x64 extends VersionCrawler
                     return array(
                         'version' => $matches[1],
                         // http://nodejs.org/dist/v0.11.9/x64/node.exe
-                        'url' => 'http://nodejs.org/dist/v' . $matches[1] . '/node.exe',
+                        'url' => 'http://nodejs.org/dist/v' . $matches[1] . '/x64/node.exe',
                     );
                 }
             }

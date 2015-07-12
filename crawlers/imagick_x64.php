@@ -11,11 +11,11 @@
 namespace WPNXM\Updater\Crawler;
 
 /**
- * ImageMagick x86 - Version Crawler
+ * ImageMagick x64 - Version Crawler
  */
-class imagick extends VersionCrawler
+class Imagick_x64 extends VersionCrawler
 {
-    public $name = 'imagick';
+    public $name = 'imagick-x64';
 
     // http://www.imagemagick.org/download/windows/
     // http://www.imagemagick.org/script/binary-releases.php
@@ -26,18 +26,18 @@ class imagick extends VersionCrawler
         return $this->filter('a')->each(function ($node) {
 
                 /**
-                 * http://www.imagemagick.org/download/binaries/ImageMagick-6.9.1-8-portable-Q16-x86.zip
+                 * http://www.imagemagick.org/download/binaries/ImageMagick-7.0.0-0-portable-Q16-x64.zip
                  *
                  * Version is "6.8.8-1", where "-1" might indicate an pre-release version, but i think its not semver.
                  * They also adhere to a standard, where archived versions have a "-10" suffix, e.g. "6.8.8-10".
                  */
 
-                if (preg_match("#(\d+\.\d+(\.\d+)*-\d+)-portable-Q16-x86.zip$#", $node->attr('href'), $matches)) {
+                if (preg_match("#(\d+\.\d+(\.\d+)*-\d+)-portable-Q16-x64.zip$#", $node->attr('href'), $matches)) {
                     $version = $matches[1];
-                    if (version_compare($version, $this->registry['imagick']['latest']['version'], '>=') === true) {
+                    if (version_compare($version, $this->registry['imagick-x64']['latest']['version'], '>=') === true) {
                         return array(
                             'version' => $version,
-                            'url'     => 'http://www.imagemagick.org/download/binaries/ImageMagick-' . $version . '-portable-Q16-x86.zip',
+                            'url'     => 'http://www.imagemagick.org/download/binaries/ImageMagick-' . $version . '-portable-Q16-x64.zip',
                         );
                     }
                 }

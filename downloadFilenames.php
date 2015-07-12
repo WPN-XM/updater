@@ -17,6 +17,7 @@ return array(
     'gogs-x86'              => 'gogitservice.zip',
     'gogs-x64'              => 'gogitservice.zip',
     'imagick'               => 'imagick.zip',
+    'imagick-x64'           => 'imagick.zip',
     'junction'              => 'junction.zip',
     'mariadb'               => 'mariadb.zip',
     'mariadb-x64'           => 'mariadb.zip',

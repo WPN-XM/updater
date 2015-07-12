@@ -22,7 +22,7 @@ class phpext_phalcon extends VersionCrawler
     public $url = 'https://phalconphp.com/en/download/windows';
 
     // http://static.phalconphp.com/files/phalcon_x86_VC9_php5.4.0_1.3.1_nts.zip
-    private $url_template = 'https://static.phalconphp.com/files/phalcon_%bitsize%_%compiler%_php%phpversion%_%version%_nts.zip';
+    private $url_template = 'https://static.phalconphp.com/www/files/phalcon_%bitsize%_%compiler%_php%phpversion%_%version%_nts.zip';
 
     public $needsOnlyRegistrySubset = false;
 

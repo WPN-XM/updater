@@ -28,14 +28,14 @@ class Redis extends VersionCrawler
         return $this->filter('a')->each(function ($node) {
             /**
              * The download URL for a file looks like this:
-             * https://github.com/MSOpenTech/redis/releases/download/win-2.8.21/redis-2.8.21.zip
+             * https://github.com/MSOpenTech/redis/releases/download/win-2.8.21/redis-x64-2.8.21.zip
              */
             if (preg_match("#download/win-(\d+\.\d+.\d+)/redis-(\d+\.\d+.\d+).zip#", $node->attr('href'), $matches)) {
                 $version = $matches[1];
                 if (version_compare($version, $this->registry['redis']['latest']['version'], '>=') === true) {
                     return array(
                         'version' => $version,
-                        'url' => 'https://github.com/MSOpenTech/redis/releases/download/win-' . $version . '/redis-' . $version . '.zip',
+                        'url' => 'https://github.com/MSOpenTech/redis/releases/download/win-' . $version . '/redis-x64-' . $version . '.zip',
                     );
                 }
             }

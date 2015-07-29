@@ -62,7 +62,7 @@ class postgresql_x64 extends VersionCrawler
                     $download_version = $version . '-1'; // wtf? "-1" means "not beta" or "stable release", or what?
                 }
 
-                if (version_compare($version, $this->registry['postgresql']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->registry['postgresql-x64']['latest']['version'], '>=') === true) {
                     return array(
                         'version' => $version,
                         // http://get.enterprisedb.com/postgresql/postgresql-9.4.0-1-windows-binaries.zip

@@ -29,10 +29,10 @@
         "ext-json"        : "*"
     },
     "autoload": {
-        "psr-0": { "": "./" }
+        "psr-4": { "WPNXM\\Updater\\": "./src/" }
     },
     "autoload-dev": {
-        "psr-0": { "Tests\\": "tests/" }
+        "psr-4": { "Tests\\": "./tests/" }
     },
     "config": {
         "bin-dir": "bin/",

@@ -63,7 +63,7 @@ class ToolsTest extends \PHPUnit_Framework_TestCase
     {
         $json     = $this->getJson1();
         $expected = $this->getJsonPrettyPrintCompact1();
-        $string   = \JsonHelper::jsonPrettyPrintCompact($json);
+        $string   = \Json::prettyPrintCompact($json);
         $this->assertSame($expected, $string);
     }
 
@@ -71,16 +71,16 @@ class ToolsTest extends \PHPUnit_Framework_TestCase
     {
         $json     = $this->getJson2();
         $expected = $this->getJsonPrettyPrintCompact2();
-        $string   = \JsonHelper::jsonPrettyPrintCompact($json);
+        $string   = \Json::prettyPrintCompact($json);
         $this->assertSame($expected, $string);
     }
 
     public function testJsonPrettyPrintTableFormat()
     {
         $json        = $this->getJson2();
-        $jsonCompact = \JsonHelper::jsonPrettyPrintCompact($json);
+        $jsonCompact = \Json::prettyPrintCompact($json);
         $expected    = $this->getJsonPrettyPrintTableFormatResult();
-        $string      = \JsonHelper::jsonPrettyPrintTableFormat($jsonCompact);
+        $string      = \Json::prettyPrintTableFormat($jsonCompact);
         $this->assertEquals($expected, $string);
     }
 }

@@ -24,3 +24,6 @@ notifications:
     channels:
       - "irc.freenode.org#koch"
     use_notice: true
+
+git:
+  depth: 10

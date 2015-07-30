@@ -1,6 +1,7 @@
 <?php
+
 /**
- * WPИ-XM Server Stack
+ * WPИ-XM Server Stack - Updater
  * Copyright © 2010 - 2015 Jens-André Koch <jakoch@web.de>
  * http://wpn-xm.org/
  *

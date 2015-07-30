@@ -25,9 +25,13 @@ class Application
         $className = implode('', array_map('ucfirst', explode('-', $actionName)));
         $class = 'WPNXM\Updater\Action\\' . $className;
             
-        // load and instantiate class 
+        // load and instantiate action class         
+        $actionFile = __DIR__ . '/action/' . $className . '.php';
+        if (!is_file($actionFile)) {
+            throw new \Exception('Action not found: '. $className);
+        }
         require __DIR__ . '/ActionBase.php';
-        require __DIR__ . '/action/' . $className . '.php';
+        require $actionFile;
         $action = new $class;
 
         // then call class as function. you need __invoke() in your actions.

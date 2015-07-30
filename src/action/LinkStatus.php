@@ -12,6 +12,8 @@ namespace WPNXM\Updater\Action;
 
 use WPNXM\Updater\ActionBase;
 use WPNXM\Updater\View;
+use WPNXM\Updater\Registry;
+use WPNXM\Updater\StatusRequest;
 
 /**
  * Registry Link Status
@@ -27,7 +29,6 @@ use WPNXM\Updater\View;
  */
 class LinkStatus extends ActionBase
 {
-
     private $registry;
 
     function __construct()
@@ -36,12 +37,9 @@ class LinkStatus extends ActionBase
             exit('Error: PHP Extension cURL required.');
         }
 
-        require dirname(__DIR__) . '\Registry.php';
         $this->registry = Registry::load();
 
         Registry::healthCheck($this->registry);
-
-        require dirname(__DIR__) . '\StatusRequest.php';
     }
 
     function __invoke()

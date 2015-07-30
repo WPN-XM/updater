@@ -50,11 +50,8 @@ class StatusRequest
      */
     public static function getHttpStatusCode($url)
     {
-        if(false !== strpos($url, 'googlecode')) {
-            $method = 'GET';
-        } else {
-            $method = 'HEAD';
-        }
+        // switch request method for "googlecode" to GET
+        $method = (false !== strpos($url, 'googlecode')) ? 'GET' : 'HEAD';
 
         stream_context_set_default(array(
             'http' => array(
@@ -70,20 +67,14 @@ class StatusRequest
             $statusCode = $headers[0];
         }
 
-        #var_dump($statusCode);
-
-        #if($statusCode === 'HTTP/1.0 404 Not Found') {
-        #    var_dump($url);
-        #}
-
         $code = 0;
 
         if($statusCode === '302 Found') {
-            $code = substr($statusCode, 0, 6);
+            $code = 302;
         }
 
         if($statusCode === 'HTTP/1.0 200 OK' or $statusCode === 'HTTP/1.1 200 OK') {
-            $code = substr($statusCode, 9, 3);
+            $code = 200;
         }
 
         return $code;
@@ -141,9 +132,9 @@ class StatusRequest
             curl_multi_remove_handle($mh, $ch[$i]);
 
             // Response: Content
-            //$responses[$i] = curl_multi_getcontent($ch[$i]);
-            //echo $targetUrls[$i];
-            //var_dump($responses[$i]);
+            $responses[$i] = curl_multi_getcontent($ch[$i]);
+            echo $targetUrls[$i];
+            var_dump($responses[$i]);
 
             // Response: HTTP Status Code
             $code = curl_getinfo($ch[$i], CURLINFO_HTTP_CODE);

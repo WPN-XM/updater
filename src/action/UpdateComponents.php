@@ -74,7 +74,7 @@ class UpdateComponents extends ActionBase
                 }
             }
             if ($version_updated === true) {
-                InstallerRegistry::write($file, $components);
+                Registry::write($file, $components);
             } else {
                 echo 'The installer registry is up-to-date.<br>';
             }

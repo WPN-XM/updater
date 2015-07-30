@@ -21,7 +21,7 @@ function isAvailable($url)
     if (false !== strpos($url, 'google') or
         false !== strpos($url, 'github') or
         false !== strpos($url, 'microsoft')) {
-        return (bool) StatusRequest::getHttpStatusCode($url);
+        return (bool) \WPNXM\Updater\StatusRequest::getHttpStatusCode($url);
     }
 
     return $urlsHttpStatus[$url];

@@ -2,7 +2,7 @@
 
 namespace WPNXM\Updater;
 
-class Json
+class JsonUtil
 {
     /**
      * Returns compacted, pretty printed JSON data.

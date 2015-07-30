@@ -2,17 +2,16 @@
 
 namespace tests;
 
-class RegistryTest extends \PHPUnit_Framework_TestCase
+class RegistryDataTest extends \PHPUnit_Framework_TestCase
 {
     public $registry = array();
 
     /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
+     * This test ensures that the git submodule "registry" and the registry itself is available.
      */
     protected function setUp()
     {
-        $this->registry = include dirname(__DIR__) . '/registry/wpnxm-software-registry.php';
+        $this->registry = include dirname(__DIR__) . '/data/registry/wpnxm-software-registry.php';
     }
 
     public function testRegistryIsValidArray()

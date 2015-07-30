@@ -2,14 +2,16 @@
 
 namespace tests;
 
-class ToolsTest extends \PHPUnit_Framework_TestCase
+use WPNXM\Updater\JsonUtil;
+
+class JsonUtilTest extends \PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {
-        include_once dirname(__DIR__) . '/tools.php';
+        // JsonUtil contains only static methods.
     }
 
-    protected function getJson1()
+    protected function getJsonExampleData1()
     {
         $array =  array(
           'composer' => array(
@@ -33,7 +35,7 @@ class ToolsTest extends \PHPUnit_Framework_TestCase
                '}';
     }
 
-    protected function getJson2()
+    protected function getJsonExampleData2()
     {
         $array = array(
             0 => array('adminer', 'http://wpn-xm.org/get.php?s=adminer&v=4.1.0', 'adminer.php', '4.1.0'),
@@ -61,26 +63,26 @@ class ToolsTest extends \PHPUnit_Framework_TestCase
 
     public function testjsonPrettyPrintCompact1()
     {
-        $json     = $this->getJson1();
+        $json     = $this->getJsonExampleData1();
         $expected = $this->getJsonPrettyPrintCompact1();
-        $string   = \Json::prettyPrintCompact($json);
+        $string   = JsonUtil::prettyPrintCompact($json);
         $this->assertSame($expected, $string);
     }
 
     public function testjsonPrettyPrintCompact2()
     {
-        $json     = $this->getJson2();
+        $json     = $this->getJsonExampleData2();
         $expected = $this->getJsonPrettyPrintCompact2();
-        $string   = \Json::prettyPrintCompact($json);
+        $string   = JsonUtil::prettyPrintCompact($json);
         $this->assertSame($expected, $string);
     }
 
     public function testJsonPrettyPrintTableFormat()
     {
-        $json        = $this->getJson2();
-        $jsonCompact = \Json::prettyPrintCompact($json);
+        $json        = $this->getJsonExampleData2();
+        $jsonCompact = JsonUtil::prettyPrintCompact($json);
         $expected    = $this->getJsonPrettyPrintTableFormatResult();
-        $string      = \Json::prettyPrintTableFormat($jsonCompact);
+        $string      = JsonUtil::prettyPrintTableFormat($jsonCompact);
         $this->assertEquals($expected, $string);
     }
 }

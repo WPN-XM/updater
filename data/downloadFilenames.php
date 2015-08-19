@@ -25,7 +25,8 @@ return array(
     'memcached'             => 'memcached.zip',
     'mongodb'               => 'mongodb.zip',
     'mongodb-x64'           => 'mongodb.zip',
-    'msysgit'               => 'msysgit.7z', // ! 7zip file
+    'msysgit'               => 'msysgit.exe', // ! 7zip sfx - exe file
+    'msysgit-x64'           => 'msysgit.exe', // ! 7zip sfx - exe file
     'nginx'                 => 'nginx.zip',
     'node'                  => 'node.exe', // ! exe file
     'node-x64'              => 'node.exe', // ! exe file

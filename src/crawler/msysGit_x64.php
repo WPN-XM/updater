@@ -16,9 +16,9 @@ use WPNXM\Updater\VersionCrawler;
 /**
  * Git for Windows (PortableGit) - Version Crawler
  */
-class msysgit extends VersionCrawler
+class msysgit_x64 extends VersionCrawler
 {
-    public $name = 'msysgit';
+    public $name = 'msysgit-x64';
 
     public $url = 'https://github.com/git-for-windows/git/releases/latest';
 
@@ -27,15 +27,14 @@ class msysgit extends VersionCrawler
         return $this->filter('a')->each(function ($node) {
 
             # https://github.com/git-for-windows/git/releases/tag/v2.5.0.windows.1
-            # https://github.com/git-for-windows/git/releases/download/v2.5.0.windows.1/PortableGit-2.5.0-32-bit.7z.exe
+            # https://github.com/git-for-windows/git/releases/download/v2.5.0.windows.1/PortableGit-2.5.0-64-bit.7z.exe
 
-            if (preg_match("#PortableGit-(\d+\.\d+.\d+)-32-bit.7z.exe#", $node->text(), $matches)) {
+            if (preg_match("#PortableGit-(\d+\.\d+.\d+)-64-bit.7z.exe#i", $node->text(), $matches)) {
                 $version = $matches[1];
-                var_dump($matches);
-                if (version_compare($version, $this->registry['msysgit']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->registry['msysgit-x64']['latest']['version'], '>=') === true) {
                     return array(
                         'version' => $version,
-                        'url' => 'https://github.com/git-for-windows/git/releases/download/v'.$version.'.windows.1/PortableGit-'.$version.'-32-bit.7z.exe',
+                        'url' => 'https://github.com/git-for-windows/git/releases/download/v'.$version.'.windows.1/PortableGit-'.$version.'-64-bit.7z.exe',
                     );
                 }
             }

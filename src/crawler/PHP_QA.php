@@ -49,7 +49,7 @@ class PHP_QA extends VersionCrawler
      */
     public function onAfterVersionInsert($registry)
     {
-        foreach ($registry['php'] as $version => $url) {
+        foreach ($registry['php-qa'] as $version => $url) {
 
             // skip "name", "website", "latest"
             if(in_array($version, ['name', 'website', 'latest'])) {
@@ -65,7 +65,7 @@ class PHP_QA extends VersionCrawler
             $new_url = str_replace('php.net/downloads/qa', 'php.net/downloads/qa/archives', $url);
 
             // insert at old array position, overwriting the old url
-            $registry['php'][$version] = $new_url;
+            $registry['php-qa'][$version] = $new_url;
         }
 
         return $registry;

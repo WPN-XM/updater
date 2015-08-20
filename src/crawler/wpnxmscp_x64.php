@@ -32,13 +32,15 @@ class wpnxmscp_x64 extends VersionCrawler
     {
         return $this->filter('a')->each(function ($node) {
                 // https://github.com/WPN-XM/server-control-panel/releases/download/0.8.1/wpnxm-scp-x86_64_boxed.zip
+                // since 0.8.5 with version in filename:
+                // https://github.com/WPN-XM/server-control-panel/releases/download/0.8.5/wpnxm-scp-0.8.5-x86_64_boxed.zip
                 if (preg_match("#(\d+\.\d+.\d+)#", $node->text(), $matches)) {
                     $version = $matches[1];
 
                     if (version_compare($version, $this->registry['wpnxmscp-x64']['latest']['version'], '>=') === true) {
                         return array(
                             'version' => $version,
-                            'url'     => 'https://github.com/WPN-XM/server-control-panel/releases/download/' . $version . '/wpnxm-scp-x86_64_boxed.zip',
+                            'url'     => 'https://github.com/WPN-XM/server-control-panel/releases/download/' . $version . '/wpnxm-scp-' . $version . '-x86_64_boxed.zip',
                         );
                     }
                 }

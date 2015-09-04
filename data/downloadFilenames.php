@@ -11,11 +11,13 @@
  */
 return array(
     'adminer'               => 'adminer.php', // ! php file
+    'apache-benchmark'      => 'ab.zip',
     'closure-compiler'      => 'closure-compiler.zip',
     'composer'              => 'composer.phar', // ! phar file
     'conemu'                => 'conemu.7z',
     'gogs-x86'              => 'gogitservice.zip',
     'gogs-x64'              => 'gogitservice.zip',
+    'heidisql'              => 'heidisql.zip',
     'imagick'               => 'imagick.zip',
     'imagick-x64'           => 'imagick.zip',
     'junction'              => 'junction.zip',
@@ -36,6 +38,7 @@ return array(
     'pear'                  => 'go-pear.phar', // ! phar file
     'perl'                  => 'perl.zip',
     'perl-x64'              => 'perl.zip',
+    'phantomjs'             => 'phantomjs.zip',
     'php'                   => 'php.zip',
     'php-cs-fixer'          => 'php-cs-fixer.phar', // ! phar file
     'php-qa'                => 'php.zip',
@@ -77,6 +80,7 @@ return array(
     'webgrind'              => 'webgrind.zip',
     'wpnxmscp'              => 'wpnxmscp.zip',
     'wpnxmscp-x64'          => 'wpnxmscp.zip',
+    'wpnxm-benchmark'       => 'wpnxm-benchmark.zip',
     'xhprof'                => 'xhprof.zip',
     'yuicompressor'         => 'yuicompressor.jar', // ! jar file
 );

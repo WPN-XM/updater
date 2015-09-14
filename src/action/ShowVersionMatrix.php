@@ -40,11 +40,12 @@ class ShowVersionMatrix extends ActionBase
             exit('No JSON registries found.');
         }
 
-        $wizardRegistries = array();
+        $wizardRegistries = [];
+               
         foreach ($wizardFiles as $file) {
             $name = basename($file, '.json');
 
-            $parts = array();
+            $parts = [];
 
             if (substr_count($name, '-') === 2) {
                 preg_match('/(?<installer>.*)-(?<version>.*)-(?<bitsize>.*)/i', $name, $parts);
@@ -59,10 +60,11 @@ class ShowVersionMatrix extends ActionBase
 
             try {
                 // finding errors in JSON files is tedious
-                // let's use JSON lint, it's slower, but we get exceptions thrown on syntax errors
+                // let's use JSON lint, it's slower, but we get exceptions thrown on syntax errors  
                 $parser                              = new JsonParser();
                 $registryContent                     = $this->issetOrDefault($parser->parse(file_get_contents($file)), array());
                 $wizardRegistries[$name]['registry'] = $this->fixArraySoftwareAsKey($registryContent);
+                unset($parser, $registryContent);
             } catch (Exception $e) {
                 throw new Exception('Error while parsing "' . $file . '".' . $e->getMessage());
             }
@@ -110,7 +112,7 @@ class ShowVersionMatrix extends ActionBase
 
         foreach ($registries as $registry) {
             if ($registry['constraints']['version'] === 'next') {
-                $cnt = $cnt + 1;
+                $cnt++;
             }
         }
 
@@ -213,7 +215,8 @@ class ShowVersionMatrix extends ActionBase
         foreach ($wizardRegistries as $wizardName => $wizardRegistry) {
             // normal versions
             if (isset($wizardRegistry['registry'][$software]) === true) {
-                $cells .= '<td class="version-number">' . $wizardRegistry['registry'][$software] . '</td>';
+                $tooltip = 'data-rel="tooltip" data-placement="top" data-html="true" data-container="body" title="' . $wizardName . '<br>' . $software . '"';
+                $cells .= '<td class="version-number" ' . $tooltip . '>' . $wizardRegistry['registry'][$software] . '</td>';
             } else {
                 $cells .= '<td>&nbsp;</td>';
             }

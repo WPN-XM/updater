@@ -97,7 +97,6 @@ tools:
             excluded_paths:
                 - 'vendor/*'
             paths: {  }
-        path_configs: {  }
 build_failure_conditions: {  }
 application:
     type: none

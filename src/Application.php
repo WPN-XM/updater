@@ -20,7 +20,7 @@ class Application
         if ($actionName === null) {
             throw new \Exception('No action given.');
         }
-        
+
         // action to classname
         $className = implode('', array_map('ucfirst', explode('-', $actionName)));
         $class = 'WPNXM\Updater\Action\\' . $className;

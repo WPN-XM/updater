@@ -23,14 +23,13 @@
               <table class="table table-condensed table-hover table-striped table-bordered" style="font-size: 12px;">
               <thead><tr><th style="width: 220px">Software Component</th><th>Version</th><th>Action</th></tr></thead>
               <tbody>
-                <?php foreach ($registry as $item => $component) {
-    echo '<tr>';
-    echo '<td>' . $component['name'] . '</td>';
-    echo '<td>' . $component['latest']['version'] . '</td>';
-    echo '<td><a class="btn btn-info btn-xs" href="index.php?action=scanComponent&amp;component=' . $item . '">Scan</a></td>';
-    echo '</tr>';
-}
-    ?>
+              <?php foreach ($registry as $item => $component) { ?>
+              <tr>
+                <td><?=$component['name']?></td>
+                <td><?=$component['latest']['version']?></td>
+                <td><a class="btn btn-info btn-xs" href="index.php?action=scanComponent&amp;component=<?=$item?>">Scan</a></td>';
+              </tr>
+              <?php } ?>
               </tbody>
               </table>
             </div>

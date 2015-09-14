@@ -4,7 +4,6 @@
         <th>Software Components (<?=$numberOfComponents?>)</th><th>(Old) Latest Version</th><th>(New) Latest Version</th><th>Action</th>
     </tr>
 </thead>
-<?php echo $tableHtml;
-?>
+<?php echo $tableHtml; ?>
 </table>
 Used a total of <?=round((microtime(true) - TIME_STARTED), 2)?> seconds for crawling <?=$numberOfComponents?> URLs.

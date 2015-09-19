@@ -66,7 +66,7 @@
       }
     </style>
 
-    <link rel="shortcut icon" href="public/assets/ico/favicon.ico">
+    <link rel="shortcut icon" href="public/assets/ico/favicon.ico"/>
   </head>
 
   <body>
@@ -87,7 +87,7 @@
                 Update
               </a>
             </li>
-          </ul>
+          </ul>          
         </div><!--/.nav-collapse -->
       </div>
     </div>
@@ -99,11 +99,11 @@
     <!-- The modal windows with Ajax Loading Indicator - hidden, but loaded with the main page / top-level position -->
     <div id="myModal" class="modal bootstrap-dialog type-primary size-normal fade in"
          tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
+      <div class="modal-dialog" role="document">
         <div class="modal-content">
 
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h3 class="modal-title">Scanning URLs... Please wait...</h3>
           </div>
           <div class="modal-body center">
@@ -140,12 +140,13 @@
               }
           });
 
+          //if(!$.getUrlVar('_') || !$.getUrlVar('XDEBUG_SESSION_START')) {
+          //doGetRequestIfServerIsRunning('index.php?action=overview');
+          //}
+
           // init modal window and hide it
           $('#myModal').modal({show: false});
 
-          if(!getUrlVar('_') || !getUrlVar('XDEBUG_SESSION_START')) {
-            doGetRequestIfServerIsRunning('index.php?action=overview');
-          }
 
           // bind "submit" button on the modal window
           $('#myModal button[type="submit"]').on("click", function (event) {
@@ -156,6 +157,7 @@
                   url: form.attr('action'),
                   data: form.serializeArray(),
                   cache: false,
+                  async: true,
                   success: function (response) {
                       $('#myModal .modal-body').html(response);
                   }
@@ -167,11 +169,9 @@
           // with a click on a link in the top navi, do the following
           $("#menu li a").on("click", function (event) {
               href = $(this).attr('href'); // get click target href
-              if (href == '.')
-                  return; // skip version scanner link
-
               event.preventDefault(); // stop the click from causing navigation
-              doGetRequestIfServerIsRunning(href);
+              doGetRequest(href);
+              //doGetRequestIfServerIsRunning(href);
               return false; // stop clicking from causing navigation
           });
 
@@ -189,6 +189,7 @@
                   type: "HEAD",
                   timeout: 500, // set timeout to 0,5 sec
                   cache: false,
+                  async: true,
                   statusCode: {
                       200: function (response) {
                           doGetRequest(href);
@@ -222,11 +223,11 @@
                   // hide modal, insert content on target
                   $('#myModal').modal('hide');
                   $("#ajax-container").empty().append(html);
-                  
+
                   // enable tooltips on all elements with "data-rel" property set to "tooltip"
                   $('[data-rel=tooltip]').tooltip();
               });
-              
+
               return;
           }
 
@@ -253,7 +254,7 @@
                   var version = td.html();
 
                   // select this version number at the version DropDown box in the same row
-                   if (typeof version !== 'undefined') {
+                  if (typeof version !== 'undefined') {
                       if (version === '&nbsp;') {
                           var selectOption = td.closest("tr").find("option[value='do-not-include']");
                       } else {

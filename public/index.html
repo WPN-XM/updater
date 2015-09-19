@@ -216,12 +216,18 @@
               $.ajax({
                   url: href,
                   cache: false,
-                  timeout: 99999
+                  timeout: 99999,
+                  async: true
               }).done(function (html) {
                   // hide modal, insert content on target
                   $('#myModal').modal('hide');
                   $("#ajax-container").empty().append(html);
+                  
+                  // enable tooltips on all elements with "data-rel" property set to "tooltip"
+                  $('[data-rel=tooltip]').tooltip();
               });
+              
+              return;
           }
 
           // event binding for the version comparision matrix
@@ -247,8 +253,8 @@
                   var version = td.html();
 
                   // select this version number at the version DropDown box in the same row
-                  if (typeof version != 'undefined') {
-                      if (version == '&nbsp;') {
+                   if (typeof version !== 'undefined') {
+                      if (version === '&nbsp;') {
                           var selectOption = td.closest("tr").find("option[value='do-not-include']");
                       } else {
                           var selectOption = td.closest("tr").find("option[value='" + version + "']");

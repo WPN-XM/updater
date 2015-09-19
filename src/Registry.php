@@ -107,7 +107,7 @@ class Registry
 
             unset($latestVersion);
         } else {
-            
+
             // if there are multiple versions, sort version numbers from low to high
             if(count($latestVersion) > 1) {
                 $latestVersion = static::sortArrayByVersion($latestVersion);
@@ -338,7 +338,7 @@ class Registry
 
         return true;
     }
-    
+
     /**
      * Writes the registry as JSON to the installer registry file.
      *

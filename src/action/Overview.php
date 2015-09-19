@@ -1,40 +1,39 @@
-<?php
+<!-- Table -->
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+              <span class="glyphicon glyphicon-list"></span>&nbsp; Version Crawler
+              <span class="pull-right">
+                <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal" href="index.php?action=add">
+                  <span class="glyphicon glyphicon-plus"></span>
+                  Add Component
+                </button>
+                <button class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal" href="index.php?action=update">
+                  <span class="glyphicon glyphicon-search"></span>
+                  Merge Scans into Registry
+                </button>
+                <button class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal" href="index.php?action=scanComponent">
+                  <span class="glyphicon glyphicon-search"></span>
+                  Scan All
+                </button>
+              </span>
+            </div>
+            <div class="panel-body">
+              <table class="table table-condensed table-hover table-striped table-bordered" style="font-size: 12px;">
+              <thead><tr><th style="width: 220px">Software Component</th><th>Version</th><th>Action</th></tr></thead>
+              <tbody>
+              <?php foreach ($registry as $item => $component) { ?>
+              <tr>
+                <td><?=$component['name']?></td>
+                <td><?=$component['latest']['version']?></td>
+                <td><a class="btn btn-info btn-xs" href="index.php?action=scanComponent&amp;component=<?=$item?>">Scan</a></td>';
+              </tr>
+              <?php } ?>
+              </tbody>
+              </table>
+            </div>
+        </div>
+    </div>
+</div>
 
-/**
- * WPИ-XM Server Stack - Updater
- * Copyright © 2010 - 2015 Jens-André Koch <jakoch@web.de>
- * http://wpn-xm.org/
- *
- * This source file is subject to the terms of the MIT license.
- * For full copyright and license information, view the bundled LICENSE file.
- */
-
-namespace WPNXM\Updater\Action;
-
-use WPNXM\Updater\ActionBase;
-use WPNXM\Updater\Registry;
-use WPNXM\Updater\View;
-
-class Overview extends ActionBase
-{
-    private $registry;
-    
-    function __construct()
-    {
-        if (!extension_loaded('curl')) {
-            exit('Error: PHP Extension cURL required.');
-        }
-
-        $this->registry = Registry::load();
-        
-        Registry::healthCheck($this->registry);
-    }
-
-    function __invoke()
-    {
-        $view = new View();
-        $view->data['registry'] = $this->registry;
-        $view->render();
-    }
-
-}

@@ -62,7 +62,7 @@ class PHP_QA extends VersionCrawler
             }
 
             // replace the path on any other version
-            $new_url = str_replace('php.net/downloads/qa', 'php.net/downloads/qa/archives', $url);
+            $new_url = str_replace('php.net/downloads/qa/php-', 'php.net/downloads/qa/archives/php-', $url);
 
             // insert at old array position, overwriting the old url
             $registry['php-qa'][$version] = $new_url;

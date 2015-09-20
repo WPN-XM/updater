@@ -75,7 +75,7 @@ class PHP_x64 extends VersionCrawler
             }
 
             // replace the path on any other version
-            $new_url = str_replace('php.net/downloads/releases/php', 'php.net/downloads/releases/archives/php', $url);
+            $new_url = str_replace('php.net/downloads/releases/php-', 'php.net/downloads/releases/archives/php-', $url);
 
             // insert at old array position, overwriting the old url
             $registry['php-x64'][$version] = $new_url;

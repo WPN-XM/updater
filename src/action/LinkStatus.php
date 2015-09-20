@@ -50,13 +50,18 @@ class LinkStatus extends ActionBase
         $responses    = StatusRequest::getHttpStatusCodesInParallel($urls);
         $crawlingTime = round((microtime(true) - $before), 2);
 
-        // build a lookup array with the relation of "url" => "http status code" 200
+        // build a lookup array with the relation of "url" => "http status code" (true, false)
         $urlsHttpStatus = array_combine($urls, $responses);
 
-        $view = new View();        
+        // define a closure (as viewhelper) for the lookup (inherit array by-reference)
+        $isAvailable = function($url) use(&$urlsHttpStatus) {
+            return $urlsHttpStatus[$url];
+        };
+
+        $view = new View();
         $view->data['before']         = $before;
         $view->data['crawlingTime']   = $crawlingTime;
-        $view->data['urlsHttpStatus'] = $urlsHttpStatus;
+        $view->data['isAvailable']    = $isAvailable;
         $view->data['registry']       = $this->registry;
         $view->data['numberOfUrls']   = count($urls);
         $view->render();

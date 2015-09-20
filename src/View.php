@@ -20,7 +20,7 @@ class View
      */
     public $data = [];
 
-    function render($template = '')
+    public function render($template = '')
     {
         // fetch template by name
         if (empty($template)) {

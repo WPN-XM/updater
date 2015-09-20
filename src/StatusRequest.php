@@ -100,23 +100,27 @@ class StatusRequest
         // get number of urls
         $count = count($targetUrls);
 
-        $options = array(
-            CURLOPT_HEADER         => true,
-            CURLOPT_RETURNTRANSFER => true, // do not output to browser
-            CURLOPT_NOPROGRESS     => true,
+        // add additional curl options here
+        $options = [
             //CURLOPT_URL => $url,
-            CURLOPT_NOBODY         => true, // do HEAD request only, exclude the body from output
-            CURLOPT_TIMEOUT        => $timeout,
+            CURLOPT_AUTOREFERER    => true,
+            CURLOPT_CUSTOMREQUEST  => 'HEAD', // do only HEAD requests
+            CURLOPT_ENCODING       => '', // !important
+            #CURLOPT_FAILONERROR    => true
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_FORBID_REUSE   => false,
-            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_HEADER         => false,
+            CURLOPT_MAXREDIRS      => 5,
+            CURLOPT_NOBODY         => true, // do HEAD request only, exclude the body from output
+            CURLOPT_NOPROGRESS     => true,
+            CURLOPT_POSTREDIR      => 3,
+            CURLOPT_RETURNTRANSFER => true, // do not output to browser
             CURLOPT_SSL_VERIFYHOST => 2,
-            CURLOPT_SSLVERSION     => 3,
-            CURLOPT_ENCODING       => '', // !important
-            CURLOPT_AUTOREFERER    => true,
-            CURLOPT_USERAGENT, 'WPN-XM Server Stack - Registry Status Tool - http://wpn-xm.org/',
-            CURLOPT_CUSTOMREQUEST  => 'HEAD' // do only HEAD requests
-        );
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_SSLVERSION     => 4,
+            CURLOPT_TIMEOUT        => $timeout,
+            CURLOPT_USERAGENT      => 'WPN-XM Server Stack - Registry Status Tool - http://wpn-xm.org/',
+        ];
 
         $mh = curl_multi_init();
 
@@ -141,13 +145,19 @@ class StatusRequest
             curl_multi_remove_handle($mh, $ch[$i]);
 
             // Response: Content
-            $responses[$i] = curl_multi_getcontent($ch[$i]);
-            echo $targetUrls[$i];
-            var_dump($responses[$i]);
+            //$responses[$i] = curl_multi_getcontent($ch[$i]);
 
             // Response: HTTP Status Code
             $code = curl_getinfo($ch[$i], CURLINFO_HTTP_CODE);
-            $responses[$i] = ($code === 200 or $code === 302) ? true : false;
+
+            //var_dump($targetUrls[$i], $code, curl_getinfo($ch[$i]));
+
+            // Check for errors and display the error message
+            if($error_message = curl_error($ch[$i])) {
+                echo sprintf('<p class="bg-danger">[cURL Error] %s</p>\n', $error_message);
+            }
+
+            $responses[$i] = ($code === 200 or $code === 302 or $code === 403) ? true : false;
         }
 
         curl_multi_close($mh);

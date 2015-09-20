@@ -7,29 +7,14 @@
 
 <?php
 
-function renderTd($url)
-{
-    $color = isAvailable($url) === true ? 'green' : 'red';
-
+// view helper to render table cell
+$renderTd = function($url) use($isAvailable) {
+    $color = ($isAvailable($url) === true) ? 'green' : 'red';
     return '<td><a style="color:' . $color . ';" href="' . $url . '">' . $url . '</a></td>';
-}
-
-function isAvailable($url)
-{
-    global $urlsHttpStatus;
-    // special handling for googlecode (now dl.google.com), because they don't like /HEAD requests via curl
-    if (false !== strpos($url, 'google') or
-        false !== strpos($url, 'github') or
-        false !== strpos($url, 'microsoft')) {
-        return (bool) \WPNXM\Updater\StatusRequest::getHttpStatusCode($url);
-    }
-
-    return $urlsHttpStatus[$url];
-}
+};
 
 // test latest version links (and not every version url)
 // test forwarding links
-
 foreach ($registry as $software => $keys) {
     echo '<tr><td style="padding: 1px 5px;"><b>' . $software . '</b></td>';
 
@@ -44,14 +29,17 @@ foreach ($registry as $software => $keys) {
                 } else {
                     $skipFirstTd = false;
                 }
-                echo '<td>' . $keys['latest']['version'] . ' - ' . $phpversion . ' - ' . $bitsize . '</td>' . renderTd($url);
-                echo renderTd('http://wpn-xm.org/get.php?s=' . $software . '&p=' . $phpversion . '&bitsize=' . $bitsize);
+                echo '<td>' . $keys['latest']['version'] . ' - ' . $phpversion . ' - ' . $bitsize . '</td>';
+                echo $renderTd($url);
+                echo $renderTd('http://wpn-xm.org/get.php?s=' . $software . '&p=' . $phpversion . '&bitsize=' . $bitsize);
                 echo '</tr>';
             }
         }
     } else {
-        echo '<td>' . $keys['latest']['version'] . '</td>' . renderTd($keys['latest']['url']);
-        echo renderTd('http://wpn-xm.org/get.php?s=' . $software);
+        // normal software component (without any version constraints)
+        echo '<td>' . $keys['latest']['version'] . '</td>';
+        echo $renderTd($keys['latest']['url']);
+        echo $renderTd('http://wpn-xm.org/get.php?s=' . $software);
         echo '</tr>';
     }
 }

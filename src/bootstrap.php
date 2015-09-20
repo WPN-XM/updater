@@ -21,6 +21,7 @@ ini_set('display_errors', '1');
 define('DATA_DIR', dirname(__DIR__) . '/data/');
 define('REGISTRY_DIR', DATA_DIR . 'registry/');
 define('VENDOR_DIR', dirname(__DIR__) . '/vendor/');
+define('NL', "\n");
 
 // Register Composer Autoloader
 if (!is_file(VENDOR_DIR . 'autoload.php')) {
@@ -33,4 +34,4 @@ require VENDOR_DIR . 'autoload.php';
 
 // Start Application
 require __DIR__ . '/Application.php';
-WPNXM\Updater\Application::run();  
+WPNXM\Updater\Application::run();

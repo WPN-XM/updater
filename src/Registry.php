@@ -296,23 +296,30 @@ class Registry
      */
     public static function gitCommitAndPush($commitMessage = '')
     {
-        // switch to the git submodule "registry"
-        chdir(DATA_DIR . 'registry');
+        // setup path to git
+        $git = '"C:\Program Files (x86)\Git\bin\git" ';
+        //passthru($git . '--version');
 
         echo '<pre>';
 
-        echo PHP_EOL . 'Pulling possible changes.' . PHP_EOL;
-        echo exec('C:\Program Files (x86)\Git\bin\git pull');
+        // switch to the git submodule "registry"
+        chdir(DATA_DIR . 'registry');
+        //echo 'Switched to Registry folder: ' . getcwd() . NL;
 
-        //echo PHP_EOL . 'Staging current changes' . PHP_EOL;
-        //exec('git add .; git add -u .');
+        echo NL . 'Pulling possible changes:' . NL;
+        passthru($git . 'pull');
 
-        echo PHP_EOL . 'Committing current changes "' . $commitMessage . '"' . PHP_EOL;
-        echo exec('C:\Program Files (x86)\Git\bin\git commit -m "' . $commitMessage . '" -- wpnxm-software-registry.php');
+        //echo NL . 'Staging current changes' . NL;
+        //exec("git add .; git add -u .");
 
-        echo PHP_EOL . 'You might "git push" now.' . PHP_EOL;
-        //echo PHP_EOL . 'Push commit to remote server' . PHP_EOL;
-        echo exec('C:\Program Files (x86)\Git\bin\git push');
+        echo NL . 'Committing current changes "' . $commitMessage . '"' . NL;
+        passthru($git . 'commit -m "' . $commitMessage . '" -- wpnxm-software-registry.php');
+
+        echo NL . 'You might "git push" now.' . NL;
+
+
+        //echo NL . 'Push commit to remote server' . NL;
+        //passthru($git . 'push');
 
         //echo '<a href="#" class="btn btn-lg btn-primary">'
         //   . '<span class="glyphicon glyphicon-save"></span> Git Push</a>';

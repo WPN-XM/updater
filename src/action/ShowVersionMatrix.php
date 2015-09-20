@@ -15,6 +15,7 @@ use Seld\JsonLint\JsonParser;
 
 use WPNXM\Updater\ActionBase;
 use WPNXM\Updater\View;
+use WPNXM\Updater\Registry;
 
 /*
  * Show Installation Wizard Registries
@@ -41,7 +42,7 @@ class ShowVersionMatrix extends ActionBase
         }
 
         $wizardRegistries = [];
-               
+
         foreach ($wizardFiles as $file) {
             $name = basename($file, '.json');
 
@@ -60,7 +61,7 @@ class ShowVersionMatrix extends ActionBase
 
             try {
                 // finding errors in JSON files is tedious
-                // let's use JSON lint, it's slower, but we get exceptions thrown on syntax errors  
+                // let's use JSON lint, it's slower, but we get exceptions thrown on syntax errors
                 $parser                              = new JsonParser();
                 $registryContent                     = $this->issetOrDefault($parser->parse(file_get_contents($file)), array());
                 $wizardRegistries[$name]['registry'] = $this->fixArraySoftwareAsKey($registryContent);
@@ -73,12 +74,12 @@ class ShowVersionMatrix extends ActionBase
         $wizardRegistries = $this->sortWizardRegistries($wizardRegistries);
 
         /* -- View -- */
-        
+
         $view = new View();
         $view->data['totalRegistries'] = count($this->registry);
         $view->data['registries']      = $wizardRegistries;
         $view->data['tableHeader']     = $this->renderTableHeader($wizardRegistries);
-        $view->data['tableBody']       = $this->renderTableBody($this->registry, $wizardRegistries); 
+        $view->data['tableBody']       = $this->renderTableBody($this->registry, $wizardRegistries);
         $view->render();
     }
 
@@ -160,17 +161,17 @@ class ShowVersionMatrix extends ActionBase
     function renderTableBody(array $registry, array $wizardRegistries)
     {
         $html = '';
-        
-        foreach ($registry as $software => $data) {            
-            $versions = $this->reduceArrayToContainOnlyVersions($data);
-            
+
+        foreach ($registry as $software => $data) {
+            $versions = Registry::reduceArrayToContainOnlyVersions($data);
+
             $html .= '<tr>';
             $html .= '<td>' . $software . '</td>';
             $html .= $this->renderTableCells($wizardRegistries, $software);
             $html .= $this->renderVersionDropdown($software, $versions);
             $html .= '</tr>';
         }
-        
+
         return $html;
     }
 
@@ -223,13 +224,6 @@ class ShowVersionMatrix extends ActionBase
         }
 
         return $cells;
-    }
-
-    function reduceArrayToContainOnlyVersions($array)
-    {
-        unset($array['website'], $array['latest'], $array['name']);
-        $array = array_reverse($array); // latest version first
-        return $array;
     }
 
     function renderVersionDropdown($software, $versions)

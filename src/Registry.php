@@ -364,4 +364,11 @@ class Registry
 
         echo 'Updated or Created Installer Registry "' . $file . '"<br />';
     }
+
+    public static function reduceArrayToContainOnlyVersions($array)
+    {
+        unset($array['website'], $array['latest'], $array['name']);
+        $array = array_reverse($array); // latest version first
+        return $array;
+    }
 }

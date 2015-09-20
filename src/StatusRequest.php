@@ -102,18 +102,15 @@ class StatusRequest
 
         // add additional curl options here
         $options = [
-            //CURLOPT_URL => $url,
             CURLOPT_AUTOREFERER    => true,
             CURLOPT_CUSTOMREQUEST  => 'HEAD', // do only HEAD requests
             CURLOPT_ENCODING       => '', // !important
-            #CURLOPT_FAILONERROR    => true
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_FORBID_REUSE   => false,
-            CURLOPT_HEADER         => false,
+            CURLOPT_HEADER         => true,
             CURLOPT_MAXREDIRS      => 5,
             CURLOPT_NOBODY         => true, // do HEAD request only, exclude the body from output
             CURLOPT_NOPROGRESS     => true,
-            CURLOPT_POSTREDIR      => 3,
             CURLOPT_RETURNTRANSFER => true, // do not output to browser
             CURLOPT_SSL_VERIFYHOST => 2,
             CURLOPT_SSL_VERIFYPEER => false,
@@ -150,11 +147,11 @@ class StatusRequest
             // Response: HTTP Status Code
             $code = curl_getinfo($ch[$i], CURLINFO_HTTP_CODE);
 
-            //var_dump($targetUrls[$i], $code, curl_getinfo($ch[$i]));
+            #var_dump($targetUrls[$i], $code, curl_getinfo($ch[$i]));
 
             // Check for errors and display the error message
             if($error_message = curl_error($ch[$i])) {
-                echo sprintf('<p class="bg-danger">[cURL Error] %s</p>\n', $error_message);
+                echo sprintf('<p class="bg-danger">[cURL Error] %s</p>', $error_message);
             }
 
             $responses[$i] = ($code === 200 or $code === 302 or $code === 403) ? true : false;

@@ -1,9 +1,14 @@
 
-<h5>WPN-XM Software Registry - Status<span class="pull-right"><?=date(DATE_RFC822)?></span></h5>
+<h5>WPN-XM Software Registry - Status <span class="pull-right"><?=date(DATE_RFC822)?></span></h5>
 <h5>Components (<?=count($registry)?>)</h5>
 <table class="table table-condensed table-hover" style="font-size: 12px; width: 1480px;">
-<tr><th>Software Component</th><th>Version</th><th>Download URL<br/>(local wpnxm-software-registry.php)</th>
-<th>Forwarding URL<br/>(server wpnxm-software-registry.php)</th></tr>
+<tr>
+    <th>Software Component</th>
+    <th>Version</th>
+    <th>Download URL<br/>(local wpnxm-software-registry.php)</th>
+    <th>Forwarding URL<br/>(server wpnxm-software-registry.php)</th>
+    <th>Action</th>
+</tr>
 
 <?php
 
@@ -16,6 +21,10 @@ $renderTd = function($url) use($isAvailable) {
 // test latest version links (and not every version url)
 // test forwarding links
 foreach ($registry as $software => $keys) {
+
+    // link for single component scan
+    $link = '<a class="btn btn-info btn-xs" href="index.php?action=link-status-component&software='.$software.'">Scan</a>';
+
     echo '<tr><td style="padding: 1px 5px;"><b>' . $software . '</b></td>';
 
     // if software is a PHP Extension, we have a latest version with URLs for multiple PHP versions
@@ -32,6 +41,7 @@ foreach ($registry as $software => $keys) {
                 echo '<td>' . $keys['latest']['version'] . ' - ' . $phpversion . ' - ' . $bitsize . '</td>';
                 echo $renderTd($url);
                 echo $renderTd('http://wpn-xm.org/get.php?s=' . $software . '&p=' . $phpversion . '&bitsize=' . $bitsize);
+                echo '<td>'.$link.'</td>';
                 echo '</tr>';
             }
         }
@@ -40,6 +50,7 @@ foreach ($registry as $software => $keys) {
         echo '<td>' . $keys['latest']['version'] . '</td>';
         echo $renderTd($keys['latest']['url']);
         echo $renderTd('http://wpn-xm.org/get.php?s=' . $software);
+        echo '<td>'.$link.'</td>';
         echo '</tr>';
     }
 }

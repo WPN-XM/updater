@@ -122,7 +122,7 @@ class Registry
         }
 
         // added remaining versions (array items); if any, as pure [version] => [url] relationships.
-        if (count($latestVersion) > 0) {
+        if (isset($latestVersion) && count($latestVersion) > 0) {
             foreach ($latestVersion as $new_version_entry) {
                 $registry[$name][$new_version_entry['version']] = $new_version_entry['url'];
             }

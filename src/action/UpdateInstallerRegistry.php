@@ -12,27 +12,20 @@
 namespace WPNXM\Updater\Action;
 
 use WPNXM\Updater\ActionBase;
-use WPNXM\Updater\View;
+use WPNXM\Updater\Registry;
 
 class UpdateInstallerRegistry extends ActionBase
 {
-
-    function __construct()
-    {
-        
-    }
 
     function __invoke()
     {
         $installer    = filter_input(INPUT_POST, 'installer', FILTER_SANITIZE_STRING);
         $registryJson = filter_input(INPUT_POST, 'registry-json', FILTER_SANITIZE_STRING);
 
+        $file              = DATA_DIR . '\registry\\' . $installer . '.json';
         $registryJson      = html_entity_decode($registryJson, ENT_COMPAT, 'UTF-8'); // fix the JSON.stringify quotes &#34;
         $installerRegistry = json_decode($registryJson, true);
-
-        $file = __DIR__ . '\registry\\' . $installer . '.json';
-
-        $downloadFilenames = include __DIR__ . '\downloadFilenames.php';
+        $downloadFilenames = include DATA_DIR . '\downloadFilenames.php';
 
         $data = array();
 
@@ -60,7 +53,7 @@ class UpdateInstallerRegistry extends ActionBase
 
         #var_dump($installer, $registryJson, $installerRegistry, $file, $data);
 
-        InstallerRegistry::write($file, $data);
+        return Registry::write($file, $data);
     }
 
 }

@@ -33,8 +33,8 @@ class UpdateInstallerRegistry extends ActionBase
         {
             $url = 'http://wpn-xm.org/get.php?s=' . $component . '&v=' . $version;
 
-            // special handling for PHP - 'php', 'php-x64', 'php-qa-x64', 'php-qa'
-            if (false !== strpos($component, 'php') && false === strpos($component, 'phpext_')) {
+            // special handling for PHP components
+            if (in_array($component, ['php', 'php-x64', 'php-qa-x64', 'php-qa']) === true) {
                 $php_version = substr($installerRegistry[$component], 0, 3); // get only major.minor, e.g. "5.4", not "5.4.2"
 
                 $bitsize = (false !== strpos($component, 'x64')) ? 'x64' : ''; // empty bitsize defaults to x86, see website "get.php"

@@ -23,13 +23,6 @@ tools:
         filter:
             excluded_paths:
                 - 'vendor/*'
-    external_code_coverage:
-        timeout: 600
-        runs: 3
-        enabled: true
-        filter:
-            excluded_paths:
-                - 'vendor/*'
     php_pdepend:
         enabled: true
         configuration_file: null

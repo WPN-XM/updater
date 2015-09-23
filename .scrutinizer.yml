@@ -6,7 +6,6 @@
 filter:
     excluded_paths:
         - 'vendor/*'
-    paths: {  }
 before_commands:
     - 'composer self-update'
 tools:
@@ -24,7 +23,6 @@ tools:
         filter:
             excluded_paths:
                 - 'vendor/*'
-            paths: {  }
     external_code_coverage:
         timeout: 600
         runs: 3
@@ -32,23 +30,19 @@ tools:
         filter:
             excluded_paths:
                 - 'vendor/*'
-            paths: {  }
     php_pdepend:
         enabled: true
         configuration_file: null
         suffixes:
             - php
-        excluded_dirs: {  }
         filter:
             excluded_paths:
                 - 'vendor/*'
-            paths: {  }
     php_analyzer:
         enabled: true
         config:
             metrics_coupling:
                 enabled: true
-                stable_code: { namespace_prefixes: {  }, classes: {  } }
             metrics_lack_of_cohesion_methods:
                 enabled: true
             use_statement_fixes:
@@ -65,12 +59,9 @@ tools:
                 missing_abstract_methods: true
         extensions:
             - php
-        dependency_paths: {  }
         filter:
             excluded_paths:
                 - 'vendor/*'
-            paths: {  }
-        path_configs: {  }
     php_cs_fixer:
         enabled: true
         config:
@@ -96,7 +87,3 @@ tools:
         filter:
             excluded_paths:
                 - 'vendor/*'
-            paths: {  }
-build_failure_conditions: {  }
-application:
-    type: none

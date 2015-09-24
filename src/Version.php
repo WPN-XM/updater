@@ -60,17 +60,12 @@ class Version
     public static function notInRegistry($version, $registry, $returnVersion = false)
     {
         // check registry, using multiple version to url relations
-        if(is_array($version) && count($version) > 2) {
+        if(is_array($version)) {
             // if one out of multiple version is missing.. return true.
             foreach($version as $v) {
                 if(isset($registry[$v['version']]) === false) {
                     return ($returnVersion === true) ? $v['version'] : true;
                 }
-            }
-        // check registry, using a single version to url relation
-        } elseif(is_array($version) && count($version) > 1) {
-            if(isset($registry[$version['version']]) === false) {
-                return ($returnVersion === true) ? $version['version'] : true;
             }
         // check registry, using just a version number
         } elseif(isset($registry[$version]) === false) {

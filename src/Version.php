@@ -57,6 +57,9 @@ class Version
         return version_compare($rNewVersion, $rOldVersion, '>');
     }
 
+    /**
+     * @return string
+     */
     public static function notInRegistry($version, $registry, $returnVersion = false)
     {
         // check registry, using multiple version to url relations

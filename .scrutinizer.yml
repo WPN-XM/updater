@@ -11,6 +11,7 @@ before_commands:
 tools:
     # disable copy paste detector and simliarity analyzer
     # because huge number of false-positives and no real value
+    external_code_coverage: true
     php_cpd: false
     php_sim: false
     php_changetracking:
@@ -23,14 +24,7 @@ tools:
         filter:
             excluded_paths:
                 - 'vendor/*'
-    php_pdepend:
-        enabled: true
-        configuration_file: null
-        suffixes:
-            - php
-        filter:
-            excluded_paths:
-                - 'vendor/*'
+    php_pdepend: true
     php_analyzer:
         enabled: true
         config:

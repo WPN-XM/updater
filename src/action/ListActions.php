@@ -27,6 +27,9 @@ class ListActions extends ActionBase
         }
     }
 
+    /**
+     * @param string $string
+     */
     function addHtmlPreTag($string)
     {
         echo '<pre>' . $string . '</pre>';

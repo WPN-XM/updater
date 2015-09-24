@@ -99,6 +99,7 @@ class UpdateComponents extends ActionBase
      * Return the PHP version of a registry file.
      *
      * @param string  A filename, e.g. registry filename, like "full-next-php5.6-w64.json".
+     * @param string $file
      * @return string PHP Version.
      */
     function getPHPVersionFromFilename($file)
@@ -129,6 +130,11 @@ class UpdateComponents extends ActionBase
         return $this->getLatestVersion($component);
     }
 
+    /**
+     * @param string $component
+     * @param string $minConstraint
+     * @param string $maxConstraint
+     */
     function getLatestVersion($component, $minConstraint = null, $maxConstraint = null)
     {
         if (isset($component) === false) {

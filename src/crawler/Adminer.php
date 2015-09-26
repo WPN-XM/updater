@@ -28,7 +28,7 @@ class Adminer extends VersionCrawler
 
                 return array(
                     'version' => $version,
-                    'url'     => 'http://garr.dl.sourceforge.net/project/adminer/Adminer/Adminer%20' . $version . '/adminer-' . $version . '.php',
+                    'url'     => 'https://www.adminer.org/static/download/' . $version . '/adminer-' . $version . '.php',
                 );
             }
         });

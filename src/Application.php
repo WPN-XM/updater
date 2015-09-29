@@ -11,21 +11,21 @@
 
 namespace WPNXM\Updater;
 
-class Application 
-{    
-    static function run()
+class Application
+{
+    public static function run()
     {
         // determine action to call
         $actionName = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
         if ($actionName === null) {
             throw new \Exception('No action given.');
         }
-        
+
         // action to classname
         $className = implode('', array_map('ucfirst', explode('-', $actionName)));
         $class = 'WPNXM\Updater\Action\\' . $className;
-            
-        // load and instantiate action class         
+
+        // load and instantiate action class
         $actionFile = __DIR__ . '/action/' . $className . '.php';
         if (!is_file($actionFile)) {
             throw new \Exception('Action not found: '. $className);

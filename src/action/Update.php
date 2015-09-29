@@ -19,13 +19,13 @@ use WPNXM\Updater\View;
  */
 class Update extends ActionBase
 {
-    function __invoke()
+    public function __invoke()
     {
         require dirname(__DIR__) . '\Registry.php';
         $registry = Registry::load();
-        
+
         $registry = Registry::addLatestVersionScansIntoRegistry($registry);
-        
+
         if (is_array($registry) === true) {
             Registry::writeRegistry($registry);
             echo 'The registry was updated.';

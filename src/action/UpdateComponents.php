@@ -21,15 +21,15 @@ use WPNXM\Updater\Registry;
 class UpdateComponents extends ActionBase
 {
     public $registry;
-    
-    function __construct()
-    {    
-        $this->registry = Registry::load();   
-        
+
+    public function __construct()
+    {
+        $this->registry = Registry::load();
+
         Registry::clearOldScans();
     }
 
-    function __invoke()
+    public function __invoke()
     {
         $nextRegistries = glob(REGISTRY_DIR . '*-next-*.json');
 
@@ -83,15 +83,15 @@ class UpdateComponents extends ActionBase
 
         echo '<pre>You might "git commit/push":<br>updated installer registries of "next" version</pre>';
     }
-    
-    function loadDownloadDescriptionFile()
+
+    public function loadDownloadDescriptionFile()
     {
         $descriptionFile = DATA_DIR . 'downloadFilenames.php';
-        
+
         if(!is_file($descriptionFile)) {
             throw new RuntimeException('The download description file "'.$descriptionFile.'" was not found.');
         }
-        
+
         return include $descriptionFile;
     }
 
@@ -102,7 +102,7 @@ class UpdateComponents extends ActionBase
      * @param string $file
      * @return string PHP Version.
      */
-    function getPHPVersionFromFilename($file)
+    public function getPHPVersionFromFilename($file)
     {
         preg_match("/-php(.*)-/", $file, $matches);
 
@@ -117,7 +117,7 @@ class UpdateComponents extends ActionBase
      * @param string $filename
      * @return string version
      */
-    function getLatestVersionForComponent($component, $filename)
+    public function getLatestVersionForComponent($component, $filename)
     {
         // latest version of PHP means "latest version for PHP5.4, PHP5.5, PHP5.6"
         // we have to raise the PHP version, respecting the major.minor version constraint
@@ -135,7 +135,7 @@ class UpdateComponents extends ActionBase
      * @param string $minConstraint
      * @param string $maxConstraint
      */
-    function getLatestVersion($component, $minConstraint = null, $maxConstraint = null)
+    public function getLatestVersion($component, $minConstraint = null, $maxConstraint = null)
     {
         if (isset($component) === false) {
             throw new RuntimeException('No component provided.');

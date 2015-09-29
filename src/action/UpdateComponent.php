@@ -20,15 +20,15 @@ use WPNXM\Updater\Registry;
 // - shows a git push reminder
 class UpdateComponent extends ActionBase
 {
-    function __construct()
+    public function __construct()
     {
-       //Registry::clearOldScans(); 
+       //Registry::clearOldScans();
     }
-    
-    function __invoke()
+
+    public function __invoke()
     {
         $registry = Registry::load();
-        
+
         $component = filter_input(INPUT_GET, 'component', FILTER_SANITIZE_STRING);
 
         // fix alternative registry shorthand
@@ -37,7 +37,7 @@ class UpdateComponent extends ActionBase
         }
 
         $registry = Registry::addLatestVersionScansIntoRegistry($registry, $component);
-        
+
         if (is_array($registry) === true) {
             Registry::writeRegistry($registry);
             echo 'The registry was updated. Component "' . $component . '" inserted.';

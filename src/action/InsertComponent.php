@@ -16,12 +16,12 @@ use WPNXM\Updater\ActionBase;
 class InsertComponent extends ActionBase
 {
 
-    function __construct()
+    public function __construct()
     {
-        
+
     }
 
-    function __invoke()
+    public function __invoke()
     {
         $component  = filter_input(INPUT_POST, 'software', FILTER_SANITIZE_STRING);
         $shorthand  = filter_input(INPUT_POST, 'shorthand', FILTER_SANITIZE_STRING);
@@ -32,9 +32,9 @@ class InsertComponent extends ActionBase
 
         // compose new array, write a new registry scan, insert scan into registry
         $array       = Registry::getArrayForNewComponent($component, $url, $version, $website, $phpversion);
-        
+
         Registry::writeRegistrySubset($shorthand, $array);
-        
+
         $newRegistry = Registry::addLatestVersionScansIntoRegistry($registry, $component);
         if ($newRegistry !== false) {
             $result = Registry::writeRegistry($newRegistry);

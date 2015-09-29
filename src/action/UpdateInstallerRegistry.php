@@ -17,7 +17,7 @@ use WPNXM\Updater\Registry;
 class UpdateInstallerRegistry extends ActionBase
 {
 
-    function __invoke()
+    public function __invoke()
     {
         $installer    = filter_input(INPUT_POST, 'installer', FILTER_SANITIZE_STRING);
         $registryJson = filter_input(INPUT_POST, 'registry-json', FILTER_SANITIZE_STRING);

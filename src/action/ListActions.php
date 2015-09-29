@@ -17,7 +17,7 @@ use WPNXM\Updater\View;
 class ListActions extends ActionBase
 {
 
-    function __invoke()
+    public function __invoke()
     {
         echo __CLASS__ . ' invoked';
 
@@ -30,7 +30,7 @@ class ListActions extends ActionBase
     /**
      * @param string $string
      */
-    function addHtmlPreTag($string)
+    public function addHtmlPreTag($string)
     {
         echo '<pre>' . $string . '</pre>';
     }

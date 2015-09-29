@@ -31,7 +31,7 @@ class LinkStatusComponent extends ActionBase
         $this->registry = Registry::load();
     }
 
-    function __invoke()
+    public function __invoke()
     {
     	$software = filter_var($_GET['software'], FILTER_SANITIZE_STRING);
     	$componentArray = Registry::reduceArrayToContainOnlyVersions($this->registry[$software]);

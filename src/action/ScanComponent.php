@@ -19,12 +19,12 @@ use WPNXM\Updater\RegistryUpdater;
 class ScanComponent extends ActionBase
 {
 
-    function __construct()
+    public function __construct()
     {
         Registry::clearOldScans();
     }
 
-    function __invoke()
+    public function __invoke()
     {
         $registry = Registry::load();
 

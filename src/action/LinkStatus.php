@@ -32,7 +32,7 @@ class LinkStatus extends ActionBase
 {
     private $registry;
 
-    function __construct()
+    public function __construct()
     {
         if (!extension_loaded('curl')) {
             exit('Error: PHP Extension cURL required.');
@@ -43,7 +43,7 @@ class LinkStatus extends ActionBase
         Registry::healthCheck($this->registry);
     }
 
-    function __invoke()
+    public function __invoke()
     {
         $before       = microtime(true);
         $urls         = StatusRequest::getUrlsToCrawl($this->registry);

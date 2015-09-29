@@ -27,13 +27,13 @@ use WPNXM\Updater\Registry;
 class ShowVersionMatrix extends ActionBase
 {
 
-    function __construct()
+    public function __construct()
     {
         // WPN-XM Software Registry
         $this->registry = include REGISTRY_DIR . 'wpnxm-software-registry.php';
     }
 
-    function __invoke()
+    public function __invoke()
     {
         $wizardFiles = glob(REGISTRY_DIR . '*.json');
 
@@ -87,7 +87,7 @@ class ShowVersionMatrix extends ActionBase
      * Sort Wizard registries from low to high version number,
      * with -next- registries at the bottom.
      */
-    function sortWizardRegistries($wizardRegistries)
+    public function sortWizardRegistries($wizardRegistries)
     {
         uasort($wizardRegistries, "self::versionCompare");
 
@@ -107,7 +107,7 @@ class ShowVersionMatrix extends ActionBase
         return $wizardRegistries;
     }
 
-    function countNextRegistries($registries)
+    public function countNextRegistries($registries)
     {
         $cnt = 0;
 
@@ -120,12 +120,12 @@ class ShowVersionMatrix extends ActionBase
         return $cnt;
     }
 
-    function versionCompare($a, $b)
+    public function versionCompare($a, $b)
     {
         return version_compare($a['constraints']['version'], $b['constraints']['version'], '>=');
     }
 
-    function dropNumericKeys(array $array)
+    public function dropNumericKeys(array $array)
     {
         foreach ($array as $key => $value) {
             if (is_int($key) === true) {
@@ -136,17 +136,17 @@ class ShowVersionMatrix extends ActionBase
         return $array;
     }
 
-    function issetOrDefault($var, $defaultValue = null)
+    public function issetOrDefault($var, $defaultValue = null)
     {
         return (isset($var) === true) ? $var : $defaultValue;
     }
 
-    function issetArrayKeyOrDefault(array $array, $key, $defaultValue = null)
+    public function issetArrayKeyOrDefault(array $array, $key, $defaultValue = null)
     {
         return (isset($array[$key]) === true) ? $array[$key] : $defaultValue;
     }
 
-    function fixArraySoftwareAsKey(array $array)
+    public function fixArraySoftwareAsKey(array $array)
     {
         $out = array();
         foreach ($array as $key => $values) {
@@ -158,7 +158,7 @@ class ShowVersionMatrix extends ActionBase
         return $out;
     }
 
-    function renderTableBody(array $registry, array $wizardRegistries)
+    public function renderTableBody(array $registry, array $wizardRegistries)
     {
         $html = '';
 
@@ -175,7 +175,7 @@ class ShowVersionMatrix extends ActionBase
         return $html;
     }
 
-    function renderTableHeader(array $wizardRegistries)
+    public function renderTableHeader(array $wizardRegistries)
     {
         $header = '';
         $i      = 0;
@@ -210,7 +210,7 @@ class ShowVersionMatrix extends ActionBase
         return $header;
     }
 
-    function renderTableCells(array $wizardRegistries, $software)
+    public function renderTableCells(array $wizardRegistries, $software)
     {
         $cells = '';
         foreach ($wizardRegistries as $wizardName => $wizardRegistry) {
@@ -226,7 +226,7 @@ class ShowVersionMatrix extends ActionBase
         return $cells;
     }
 
-    function renderVersionDropdown($software, $versions)
+    public function renderVersionDropdown($software, $versions)
     {
         /*
          * handle "is always latest version" edge cases:

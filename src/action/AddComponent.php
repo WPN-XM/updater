@@ -19,12 +19,12 @@ use WPNXM\Updater\View;
 class AddComponent extends ActionBase
 {
 
-    function __construct()
+    public function __construct()
     {
-        
+
     }
 
-    function __invoke()
+    public function __invoke()
     {
         $view = new View();
         $view->render();

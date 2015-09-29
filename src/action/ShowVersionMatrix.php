@@ -26,6 +26,7 @@ use WPNXM\Updater\Registry;
 
 class ShowVersionMatrix extends ActionBase
 {
+    public $registry = array();
 
     public function __construct()
     {

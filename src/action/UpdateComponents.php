@@ -46,7 +46,9 @@ class UpdateComponents extends ActionBase
             echo '<br>Processing Installer: "' . $filename . '":<br>';
             $components      = json_decode(file_get_contents($file), true);
             $version_updated = false;
-            for ($i = 0; $i < count($components); ++$i) {
+            $number_of_components = count($components);
+
+            for ($i = 0; $i < $number_of_components; ++$i) {
                 $componentName = $components[$i][0];
                 $url           = $components[$i][1];
                 $version       = $components[$i][3];
@@ -74,6 +76,7 @@ class UpdateComponents extends ActionBase
                     $version_updated = true;
                 }
             }
+
             if ($version_updated === true) {
                 Registry::write($file, $components);
             } else {

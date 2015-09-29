@@ -21,8 +21,9 @@ use WPNXM\Updater\StatusRequest;
  */
 class LinkStatusComponent extends ActionBase
 {
+    private $registry = array();
 
-	function __construct()
+	public function __construct()
     {
     	if (!extension_loaded('curl')) {
             exit('Error: PHP Extension cURL required.');

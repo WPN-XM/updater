@@ -67,8 +67,8 @@ class ShowVersionMatrix extends ActionBase
                 $registryContent                     = $this->issetOrDefault($parser->parse(file_get_contents($file)), array());
                 $wizardRegistries[$name]['registry'] = $this->fixArraySoftwareAsKey($registryContent);
                 unset($parser, $registryContent);
-            } catch (Exception $e) {
-                throw new Exception('Error while parsing "' . $file . '".' . $e->getMessage());
+            } catch (\Exception $e) {
+                throw new \Exception('Error while parsing "' . $file . '".' . $e->getMessage());
             }
         }
 

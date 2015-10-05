@@ -59,6 +59,9 @@ class JsonUtil
      * Like "tab separated value" (TSV) format, BUT with spaces :)
      * Aligns values correctly underneath each other.
      *
+     * This is inspired by the "Elastic Tabstops" algorithm described at
+     * http://nickgravgaard.com/elastictabstops/index.html
+     *
      * @param  string $json
      * @return string
      */

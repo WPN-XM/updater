@@ -56,8 +56,8 @@ class JsonUtil
 
     /**
      * JSON Table Format
-     * Like "tab separated value" (TSV) format, BUT with spaces :)
-     * Aligns values correctly underneath each other.
+     * Translates a JSON input into a JSON output with correctly aligned columns.
+     * Its like "tab separated value" (TSV) format, BUT with spaces.
      *
      * This is inspired by the "Elastic Tabstops" algorithm described at
      * http://nickgravgaard.com/elastictabstops/index.html

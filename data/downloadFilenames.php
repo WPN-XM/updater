@@ -48,6 +48,7 @@ return array(
     'phpext_apc'            => 'phpext_apc.zip',
     'phpext_apcu'           => 'phpext_apcu.zip',
     'phpext_imagick'        => 'phpext_imagick.zip',
+    'phpext_ioncube'        => 'phpext_ioncube.zip',
     'phpext_jsond'          => 'phpext_jsond.zip',
     'phpext_mailparse'      => 'phpext_mailparse.zip',
     'phpext_memcache'       => 'phpext_memcache.zip', // without D

@@ -39,7 +39,6 @@ class phpext_phalcon extends VersionCrawler
             // there are "rc" versions, but we don't take them into account
             if (preg_match("#_php(\d+\.\d+\.\d+)_(\d+\.\d+\.\d+)#i", $node->attr('href'), $matches)) {
 
-                $phpversion = $matches[2];
                 $version = $matches[2];
 
                 if (version_compare($version, $this->registry['phpext_phalcon']['latest']['version'], '>=') === true) {

@@ -1,4 +1,4 @@
-<table class="table table-condensed table-hover table-striped table-bordered">
+<table class="table table-sm table-hover table-striped table-bordered">
 <thead>
     <tr>
         <th>Software Components (<?=$numberOfComponents?>)</th><th>(Old) Latest Version</th><th>(New) Latest Version</th><th>Action</th>

@@ -1,4 +1,4 @@
-<table id="version-matrix" class="table table-condensed table-bordered table-version-matrix" style="width: auto !important; padding: 0px; vertical-align: middle;">
+<table id="version-matrix" class="table table-sm table-bordered table-version-matrix" style="width: auto !important; padding: 0px; vertical-align: middle;">
   <thead>
     <tr>
       <th>Software Components (<?=$totalRegistries?>)</th>

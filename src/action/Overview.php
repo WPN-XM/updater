@@ -20,7 +20,7 @@
               </span>
             </div>
             <div class="panel-body">
-              <table class="table table-condensed table-hover table-striped table-bordered" style="font-size: 12px;">
+              <table class="table table-sm table-hover table-striped table-bordered" style="font-size: 12px;">
               <thead><tr><th style="width: 220px">Software Component</th><th>Version</th><th>Action</th></tr></thead>
               <tbody>
               <?php foreach ($registry as $item => $component) { ?>

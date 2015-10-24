@@ -330,6 +330,10 @@ class Registry
     public static function healthCheck(array $registry)
     {
         foreach ($registry as $software => $component) {
+
+            // Check for Keys
+            // the following array keys have to exist for each component
+
             if (!isset($component['name'])) {
                 echo 'The registry is missing the key "name" for Component "' . $software . '".';
             }
@@ -340,6 +344,25 @@ class Registry
 
             if (!isset($component['latest'])) {
                 echo 'The registry is missing the key "latest" for Component "' . $software . '".';
+            }
+
+            if (!isset($component['latest']['url'])) {
+                echo 'The registry is missing the key "url" of the "latest" array for Component "' . $software . '".';
+            }
+
+            if (!isset($component['latest']['version'])) {
+                echo 'The registry is missing the key "url" of the "latest" array for Component "' . $software . '".';
+            }
+
+            // Check for Values
+            // the following arrays must not be empty
+
+            if (empty($component['latest']['url']) === true) {
+                echo 'The registry is missing the values for ["latest"]["url"] array for Component "' . $software . '".';
+            }
+
+            if (empty($component['latest']['version']) === true) {
+                echo 'The registry is missing the values for ["latest"]["version"] array for Component "' . $software . '".';
             }
         }
 

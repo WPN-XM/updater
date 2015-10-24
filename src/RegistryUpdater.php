@@ -22,7 +22,7 @@ class RegistryUpdater
     public $results      = array();
     public $registry     = array();
     public $old_registry = array();
-    
+
     const USER_AGENT = 'WPN-XM Server Stack - Software Registry Update Tool - http://wpn-xm.org/';
 
     public function __construct($registry)
@@ -69,13 +69,13 @@ class RegistryUpdater
         $i = 0;
 
         foreach ($crawlers as $i => $file) {
-           
+
             // instantiate version crawler
             include $file;
             $component = str_replace(array('-', '.'), array('_', '_'), strtolower(pathinfo($file, PATHINFO_FILENAME)));
             $classname = 'WPNXM\Updater\Crawler\\' . ucfirst($component);
             $crawler   = new $classname();
-            
+
             // use the registry shorthand from the crawler and the component as fallback
             $registryShorthand = isset($crawler->name) ? $crawler->name : $component;
 
@@ -170,7 +170,7 @@ class RegistryUpdater
                 Registry::writeRegistrySubset($component, $this->registry[$component]);
 
                 // render a table row (version comparison display)
-                $html .= ViewHelper::renderTableRow($component, $old_version, $new_version, 'latest-version');
+                $html .= ViewHelper::renderTableRow($component, $old_version, $new_version, (bool) 'latest-version');
             }
             /**
              * A missing version
@@ -184,7 +184,7 @@ class RegistryUpdater
                 $new_version = Version::notInRegistry($latestVersion, $this->old_registry[$component], true);
 
                 // render a table row (version comparison display)
-                $html .= ViewHelper::renderTableRow($component, $old_version, $new_version, 'missing-version');
+                $html .= ViewHelper::renderTableRow($component, $old_version, $new_version, (bool) 'missing-version');
             } else {
                 // render a table row (version comparison display)
                 $html .= ViewHelper::renderTableRow($component, $old_version, $new_version, false);

@@ -165,7 +165,7 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
         $url = str_replace("%version%", $version, $url);
 
         $bitsizes    = array('x86', 'x64');
-        $phpversions = array('5.4', '5.5', '5.6');
+        $phpversions = array('5.4', '5.5', '5.6', '7.0');
         $urls        = array();
 
         foreach ($bitsizes as $bitsize) {

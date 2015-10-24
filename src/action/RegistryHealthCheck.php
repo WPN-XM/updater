@@ -13,6 +13,7 @@ namespace WPNXM\Updater\Action;
 use WPNXM\Updater\ActionBase;
 use WPNXM\Updater\View;
 use WPNXM\Updater\Registry;
+use WPNXM\Updater\RegistryHealth;
 
 /**
  * Check the health of the registry (data structure).
@@ -24,7 +25,7 @@ class RegistryHealthCheck extends ActionBase
     {
     	$registry = Registry::load();
 
-    	Registry::healthCheck($registry);
+    	RegistryHealth::check($registry);
     }
 
     public function __invoke()

@@ -14,6 +14,7 @@ namespace WPNXM\Updater\Action;
 use WPNXM\Updater\ActionBase;
 use WPNXM\Updater\View;
 use WPNXM\Updater\Registry;
+use WPNXM\Updater\RegistryHealth;
 use WPNXM\Updater\StatusRequest;
 
 /**
@@ -40,7 +41,7 @@ class LinkStatus extends ActionBase
 
         $this->registry = Registry::load();
 
-        Registry::healthCheck($this->registry);
+        RegistryHealth::check($this->registry);
     }
 
     public function __invoke()

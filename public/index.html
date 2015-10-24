@@ -76,35 +76,30 @@
         <div class="navbar-header">
           <a class="navbar-brand" href="#">WPN-XM Software Registry - Update Tool</a>
         </div>
-        <div class="nav-collapse">
-          <ul id="menu" class="nav navbar-nav">
-            <li class="nav-item"><a class="nav-link" href="index.php?action=link-status">Link Status</a></li>
-            <li class="nav-item active"><a class="nav-link" href="index.php?action=scan-component">Version Scanner</a></li>
-            <li class="nav-item"><a class="navbar-brand" href="#">Installation Wizard Registries</a></li>
-            <li class="nav-item"><a class="nav-link" href="index.php?action=show-version-matrix">Show Version Matrix</a></li>
-            <li class="nav-item"><a class="nav-link" href="index.php?action=update-components"
-                   title="Raise the version of all Components, of all 'next' Installation Registries to their latest version.">
-                Update
-              </a>
+          <ul id="menu" class="nav nav-pills">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Registry</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="index.php?action=scan-component">Scan for new Versions</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="index.php?action=link-status">Check Registry Link Status</a>
+                <a class="dropdown-item" href="index.php?action=registry-health-check">Check Registry Health</a>
+              </div>
             </li>
-            <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li class="nav-item"><a class="nav-link" href="index.php?action=add-component">Add Component</a></li>
-            <li class="nav-item"><a class="nav-link" href="index.php?action=registry-health-check">Registry Health Check</a></li>
-            <!--
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
-            -->
-          </ul>
-        </li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </div>
+            <li class="nav-item"><a class="navbar-brand" href="#">Installation Wizard Registries</a></li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Registries</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="index.php?action=show-version-matrix">Show Version Matrix</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="index.php?action=update-components"
+                   title="Raise the version of all Components, of all 'next' Installation Registries to their latest version.">Update</a>
+                <a class="dropdown-item" href="index.php?action=add-component">Add Component</a>
+              </div>
+            </li>
+          </ul><!--/#menu-->
+      </div><!--/.nav-collapse -->
+    </nav>
 
     <div id="ajax-container" class="container">
       <!-- This is where the precious Ajax Content goes... -->
@@ -184,14 +179,12 @@
           });
 
           // with a click on a link in the top navi, do the following
-          $("#menu li a").on("click", function (event) {
-              if($(this).hasClass('dropdown-toggle') === false) { // filter out clicks on bootstrap dropdown-toggles
+          $("#menu a.dropdown-item").on("click", function (event) {
                 event.preventDefault(); // stop the click from causing navigation
                 href = $(this).attr('href'); // get click target href
                 doGetRequest(href);
                 //doGetRequestIfServerIsRunning(href);
                 return false; // stop clicking from causing navigation
-              }
           });
 
           // remove the old modal content on hide event
@@ -229,8 +222,8 @@
               $('#myModal').modal('show');
 
               // set new active element on top nav
-              $("#menu li").removeClass('active');
-              $(this).parent('li').addClass('active');
+              $("#menu .dropdown-item").removeClass('active');
+              $(this).parent('a').addClass('active');
 
               // ajax call to the PHP scripts
               $.ajax({

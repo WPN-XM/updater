@@ -16,22 +16,24 @@ use WPNXM\Updater\Registry;
 use WPNXM\Updater\RegistryHealth;
 
 /**
- * Check the health of the registry (data structure).
+ * Check the health of the registry.
  */
 class RegistryHealthCheck extends ActionBase
 {
+    private $registryHealth;
 
     public function __construct()
     {
     	$registry = Registry::load();
-
-    	RegistryHealth::check($registry);
+        $this->registryHealth = new RegistryHealth($registry);
     }
 
     public function __invoke()
     {
-        $view = new View();
+        $this->registryHealth->check();
+
+        $view = new View;
+        $view->data['health'] = $this->registryHealth->getErrors();
         $view->render();
     }
-
 }

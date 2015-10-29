@@ -170,7 +170,7 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
 
         foreach ($bitsizes as $bitsize) {
             foreach ($phpversions as $phpversion) {
-                $compiler = ($phpversion === '5.4') ? 'VC9' : 'VC11';
+                $compiler = $this->getCompilerByPHPVersion($phpversion);
 
                 $replacedUrl = str_replace(
                     array('%compiler%', '%phpversion%', '%bitsize%'),
@@ -187,6 +187,14 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
         }
 
         return $urls;
+    }
+
+    public static function getCompilerByPHPVersion($phpversion)
+    {
+        if($phpversion === '5.4') { return 'VC9'; }
+        if($phpversion === '5.5' || $phpversion === '5.6') { return 'VC11'; }
+        if($phpversion === '7.0') { return 'VC14'; }
+        throw new \Exception('Can\'t find Compiler version for this PHP version: ' . $phpversion);
     }
 
         /**

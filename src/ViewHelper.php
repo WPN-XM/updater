@@ -63,6 +63,6 @@ class ViewHelper
      */
     public static function renderAnchorButton($link, $text)
     {
-        return '<a class="btn btn-default btn-xs" href="' . $link . '">' . $text . '</a>';
+        return '<a class="btn btn-secondary-outline btn-sm" href="' . $link . '">' . $text . '</a>';
     }
 }

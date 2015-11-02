@@ -20,6 +20,11 @@ class PHP extends VersionCrawler
 {
     public $name = 'php';
 
+    /**
+     * Alternative: JSON GET
+     * - http://php.net/releases/index.php?json&version=5&max=10
+     * - http://php.net/releases/active.php
+     */
     public $url = 'http://windows.php.net/downloads/releases/';
 
     public function crawlVersion()

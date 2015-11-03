@@ -36,8 +36,6 @@ return array(
     'openssl'               => 'openssl.zip',
     'openssl-x64'           => 'openssl.zip',
     'pear'                  => 'go-pear.phar', // ! phar file
-    'perl'                  => 'perl.zip',
-    'perl-x64'              => 'perl.zip',
     'phantomjs'             => 'phantomjs.zip',
     'php'                   => 'php.zip',
     'php-cs-fixer'          => 'php-cs-fixer.phar', // ! phar file

@@ -50,7 +50,6 @@ return array(
     'phpext_jsond'          => 'phpext_jsond.zip',
     'phpext_mailparse'      => 'phpext_mailparse.zip',
     'phpext_memcache'       => 'phpext_memcache.zip', // without D
-    'phpext_mongo'          => 'phpext_mongo.zip', // legacy/deprecated
     'phpext_mongodb'        => 'phpext_mongodb.zip',
     'phpext_msgpack'        => 'phpext_msgpack.zip',
     'phpext_phalcon'        => 'phpext_phalcon.zip',

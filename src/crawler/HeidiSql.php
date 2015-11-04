@@ -15,6 +15,10 @@ use WPNXM\Updater\VersionCrawler;
 
 /**
  * HeidiSQL - Version Crawler
+ * 
+ * Website:         http://heidisql.com/
+ * Downloads:       http://www.heidisql.com/download.php?download=portable
+ * Direct Download: http://www.heidisql.com/downloads/releases/HeidiSQL_9.3_Portable.zip
  */
 class HeidiSql extends VersionCrawler
 {
@@ -23,9 +27,6 @@ class HeidiSql extends VersionCrawler
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
-
-            // http://www.heidisql.com/downloads/releases/HeidiSQL_9.3_Portable.zip
-
             if (preg_match("#HeidiSQL_(\d+\.\d+(\.\d+)*)_Portable.zip#", $node->attr('href'), $matches)) {
                 $version = $matches[1];
                 if (version_compare($version, $this->registry['heidisql']['latest']['version'], '>=') === true) {

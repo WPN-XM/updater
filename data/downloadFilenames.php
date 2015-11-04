@@ -36,8 +36,6 @@ return array(
     'openssl'               => 'openssl.zip',
     'openssl-x64'           => 'openssl.zip',
     'pear'                  => 'go-pear.phar', // ! phar file
-    'perl'                  => 'perl.zip',
-    'perl-x64'              => 'perl.zip',
     'phantomjs'             => 'phantomjs.zip',
     'php'                   => 'php.zip',
     'php-cs-fixer'          => 'php-cs-fixer.phar', // ! phar file
@@ -52,7 +50,7 @@ return array(
     'phpext_jsond'          => 'phpext_jsond.zip',
     'phpext_mailparse'      => 'phpext_mailparse.zip',
     'phpext_memcache'       => 'phpext_memcache.zip', // without D
-    'phpext_mongo'          => 'phpext_mongo.zip',
+    'phpext_mongodb'        => 'phpext_mongodb.zip',
     'phpext_msgpack'        => 'phpext_msgpack.zip',
     'phpext_phalcon'        => 'phpext_phalcon.zip',
     'phpext_rar'            => 'phpext_rar.zip',

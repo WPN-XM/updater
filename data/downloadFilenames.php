@@ -54,6 +54,7 @@ return array(
     'phpext_msgpack'        => 'phpext_msgpack.zip',
     'phpext_phalcon'        => 'phpext_phalcon.zip',
     'phpext_rar'            => 'phpext_rar.zip',
+    'phpext_stats'          => 'phpext_stats',
     'phpext_trader'         => 'phpext_trader.zip',
     'phpext_uploadprogress' => 'phpext_uploadprogress.zip',
     'phpext_uprofiler'      => 'phpext_uprofiler.zip',

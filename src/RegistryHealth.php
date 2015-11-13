@@ -59,6 +59,11 @@ class RegistryHealth
             if (empty($component['latest']['version']) === true) {
                 $this->errors[] = 'The registry is missing the values for ["latest"]["version"] array for Component "' . $software . '".';
             }
+
+            // the following version entry should not exist
+            if(isset($component['0.0.0']) === true) {
+                $this->errors[] = 'The registry has an invalid version entry (0.0.0) for Component "' . $software . '".';
+            }
         }
 
         return (bool) count($this->errors);

@@ -18,54 +18,9 @@
     <title>WPN-XM Software Registry - Update Tool</title>
     <meta name="description" content="WPN-XM Software Registry Update Tool" />
     <meta name="author" content="Jens-Andre Koch" />
-
-    <!-- Le styles -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
     <link href="public/assets/css/bootstrap.min.css" rel="stylesheet"/>
-    <style>
-      body { padding-top: 60px; } /* 60px to make the container go all the way to the bottom of the topbar */
-      .navbar { border-top: 4px solid #D73D3D; }
-      .navbar .brand { font-size: 18px; }
-      .container { font-size: 14px; width: auto; }
-      .center { text-align: center; }
-      h1, h2, h3, h4, h5 {
-          color: #555555;
-          font-family: 'Open Sans',sans-serif !important;
-          font-weight: normal !important;
-          margin-top: 5px;
-          text-shadow: 0 0 1px #F6F6F6;
-          text-rendering: optimizeLegibility;
-      }
-      h3 {
-          font-size: 24.5px;
-      }
-      select {
-          -webkit-appearance: none;
-          background-color: transparent;
-      }
-      select.updated {
-          background-color: yellow;
-          transition: background-color 2s;
-          -moz-transition: background-color 2s;
-          -webkit-transition: background-color 2s;
-          -o-transition: background-color 2s;
-      }
-      .table-version-matrix > thead > tr > th,
-      .table-version-matrix > tbody > tr > th,
-      .table-version-matrix > tfoot > tr > th,
-      .table-version-matrix > thead > tr > td,
-      .table-version-matrix > tbody > tr > td,
-      .table-version-matrix > tfoot > tr > td {
-          padding: 0.1em;
-          text-align: center;
-          vertical-align: middle;
-      }
-      .version-number {
-          background-color: #dff0d8;
-          color: #006400;
-      }
-    </style>
-
+    <link href="public/assets/css/style.css" rel="stylesheet"/>
     <link rel="shortcut icon" href="public/assets/ico/favicon.ico"/>
   </head>
 
@@ -136,13 +91,6 @@
     <script type="text/javascript">
       $(document).ready(function () {
 
-          //if(!$.getUrlVar('_') || !$.getUrlVar('XDEBUG_SESSION_START')) {
-          //doGetRequestIfServerIsRunning('index.php?action=overview');
-          //}
-
-          // init modal window and hide it
-          $('#myModal').modal({show: false});
-
           // bind "submit" button on the modal window
           $('#myModal button[type="submit"]').on("click", function (event) {
               var form = $("#myModal .modal-body form");
@@ -173,7 +121,6 @@
           // remove the old modal content on hide event
           $('body').on('hidden.bs.modal', '.modal', function () {
               $(this).removeData('bs.modal');
-
           });
 
           // test, if script on the server is available with a timeout request

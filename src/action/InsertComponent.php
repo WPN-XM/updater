@@ -30,12 +30,16 @@ class InsertComponent extends ActionBase
         $website    = filter_input(INPUT_POST, 'website', FILTER_SANITIZE_STRING);
         $phpversion = ($phpversion = filter_input(INPUT_POST, 'phpversion', FILTER_SANITIZE_STRING)) ? $phpversion : '';
 
-        // compose new array, write a new registry scan, insert scan into registry
-        $array       = Registry::getArrayForNewComponent($component, $url, $version, $website, $phpversion);
+        // create a registry entry for the component (array)
+        $array = Registry::getArrayForNewComponent($component, $url, $version, $website, $phpversion);
 
+        // write array as new "registry scan"
         Registry::writeRegistrySubset($shorthand, $array);
 
+        // insert into registry
         $newRegistry = Registry::addLatestVersionScansIntoRegistry($registry, $component);
+
+        // write registry
         if ($newRegistry !== false) {
             $result = Registry::writeRegistry($newRegistry);
         }

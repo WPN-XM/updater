@@ -31,7 +31,7 @@ class Gogs_x86 extends VersionCrawler
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
-                if (preg_match("#https://github.com/gogits/gogs/releases/download/v(\d+\.\d+.\d+)/windows_386.zip#", $node->text(), $matches)) {
+                if (preg_match("#/gogits/gogs/releases/download/v(\d+\.\d+.\d+)/windows_386.zip#", $node->attr('href'), $matches)) {
                     $version = $matches[1];
 
                     // CDNs

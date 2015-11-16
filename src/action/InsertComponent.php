@@ -12,6 +12,7 @@
 namespace WPNXM\Updater\Action;
 
 use WPNXM\Updater\ActionBase;
+use WPNXM\Updater\Registry;
 
 class InsertComponent extends ActionBase
 {
@@ -28,13 +29,15 @@ class InsertComponent extends ActionBase
         $url        = filter_input(INPUT_POST, 'url', FILTER_SANITIZE_STRING);
         $version    = filter_input(INPUT_POST, 'version', FILTER_SANITIZE_STRING);
         $website    = filter_input(INPUT_POST, 'website', FILTER_SANITIZE_STRING);
-        $phpversion = ($phpversion = filter_input(INPUT_POST, 'phpversion', FILTER_SANITIZE_STRING)) ? $phpversion : '';
+        $phpversion = ($phpversion = filter_input(INPUT_POST, 'phpversion', FILTER_SANITIZE_STRING)) ? $phpversion : '5.5';
 
         // create a registry entry for the component (array)
-        $array = Registry::getArrayForNewComponent($component, $url, $version, $website, $phpversion);
+        $array = Registry::getArrayForNewComponent($component, $shorthand, $url, $version, $website, $phpversion);
 
         // write array as new "registry scan"
         Registry::writeRegistrySubset($shorthand, $array);
+
+        $registry = Registry::load();
 
         // insert into registry
         $newRegistry = Registry::addLatestVersionScansIntoRegistry($registry, $component);

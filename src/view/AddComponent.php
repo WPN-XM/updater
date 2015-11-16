@@ -3,7 +3,7 @@
   <h4 class="modal-title">Add Component To Software Registry</h4>
 </div>
 <div class="modal-body">
-  <form class="form-horizontal" action="index.php?action=insert" method="post">
+  <form class="form-horizontal" action="index.php?action=insert-component" method="post">
     <fieldset>
       <!-- Text input-->
       <div class="form-group">

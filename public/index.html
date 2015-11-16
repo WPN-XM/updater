@@ -49,7 +49,8 @@
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="index.php?action=update-components"
                    title="Raise the version of all Components, of all 'next' Installation Registries to their latest version.">Update</a>
-                <a class="dropdown-item" href="index.php?action=add-component">Add Component</a>
+                <a class="dropdown-item" href="index.php?action=add-component"
+                   id="add-component">Add Component</a>
               </div>
             </li>
           </ul><!--/#menu-->
@@ -91,23 +92,27 @@
     <script type="text/javascript">
       $(document).ready(function () {
 
-          // bind "submit" button on the modal window
-          $('#myModal button[type="submit"]').on("click", function (event) {
-              var form = $("#myModal .modal-body form");
+          // we need to rebind, when we pull in new modal content
+          function bindModalSubmitButton() {
+            // bind "submit" button on the modal window
+            $('#myModal button[type="submit"]').on("click", function (event) {
+                var form = $("#myModal .modal-body form");
 
-              $.ajax({
-                  type: form.attr('method'),
-                  url: form.attr('action'),
-                  data: form.serializeArray(),
-                  cache: false,
-                  async: true,
-                  success: function (response) {
-                      $('#myModal .modal-body').html(response);
-                  }
-              });
+                $.ajax({
+                    type: form.attr('method'),
+                    url: form.attr('action'),
+                    data: form.serializeArray(),
+                    cache: false,
+                    async: true,
+                    success: function (response) {
+                        $('#myModal .modal-body').html(response);
+                    }
+                });
 
-              event.preventDefault();
-          });
+                event.preventDefault();
+            });
+          }
+          bindModalSubmitButton();
 
           // with a click on a link in the top navi, do the following
           $("#menu a.dropdown-item").on("click", function (event) {
@@ -116,11 +121,6 @@
                 doGetRequest(href);
                 //doGetRequestIfServerIsRunning(href);
                 return false; // stop clicking from causing navigation
-          });
-
-          // remove the old modal content on hide event
-          $('body').on('hidden.bs.modal', '.modal', function () {
-              $(this).removeData('bs.modal');
           });
 
           // test, if script on the server is available with a timeout request
@@ -162,12 +162,18 @@
                   timeout: 99999,
                   async: true
               }).done(function (html) {
-                  // hide modal, insert content on target
-                  $('#myModal').modal('hide');
-                  $("#ajax-container").empty().append(html);
+                  // fetch content into modal
+                  if(href === "index.php?action=add-component") {
+                    $('#myModal .modal-content').empty().append(html);
+                    bindModalSubmitButton();
+                  } else {
+                    // hide modal, insert content on target
+                    $('#myModal').modal('hide');
+                    $("#ajax-container").empty().append(html);
 
-                  // enable tooltips on all elements with "data-rel" property set to "tooltip"
-                  $('[data-rel=tooltip]').tooltip();
+                    // enable tooltips on all incoming elements with "data-rel" property set to "tooltip"
+                    $('[data-rel=tooltip]').tooltip();
+                  }
               });
 
               return;

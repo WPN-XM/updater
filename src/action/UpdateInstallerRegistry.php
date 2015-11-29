@@ -14,6 +14,9 @@ namespace WPNXM\Updater\Action;
 use WPNXM\Updater\ActionBase;
 use WPNXM\Updater\Registry;
 
+/**
+ * This accepts a POST request from ShowVersionMatrix with new registry data in JSON format.
+ */
 class UpdateInstallerRegistry extends ActionBase
 {
 

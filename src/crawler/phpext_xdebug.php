@@ -25,8 +25,8 @@ class phpext_xdebug extends VersionCrawler
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
-            if (preg_match("#(\d+\.\d+(\.\d+)*)$#", $node->text(), $matches)) {
-                $version = $matches[1];
+            if (preg_match("#(\d+\.\d+(\.\d+)*)(?:(alpha|beta|RC)(\d+))$#i", $node->text(), $matches)) {
+                $version = $matches[0];
                 if (version_compare($version, $this->registry['phpext_xdebug']['latest']['version'], '>=') === true) {
                     return array(
                         'version' => $version,

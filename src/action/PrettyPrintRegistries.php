@@ -31,8 +31,7 @@ class PrettyPrintRegistries extends ActionBase
 
     public function __invoke()
     {
-        $nextRegistries    = $this->getInstallerRegistriesOfNextVersion();
-        $downloadFilenames = $this->loadDownloadDescriptionFile();
+        $nextRegistries = $this->getInstallerRegistriesOfNextVersion();
 
         echo 'Pretty printing all installation wizard registries.<br>';
 
@@ -46,23 +45,12 @@ class PrettyPrintRegistries extends ActionBase
         echo '<pre>You might "git commit/push":<br>pretty printed registries</pre>';
     }
 
-    public function loadDownloadDescriptionFile()
-    {
-        $descriptionFile = DATA_DIR . 'downloadFilenames.php';
-
-        if(!is_file($descriptionFile)) {
-            throw new RuntimeException('The download description file "'.$descriptionFile.'" was not found.');
-        }
-
-        return include $descriptionFile;
-    }
-
     public function getInstallerRegistriesOfNextVersion()
     {
         $nextRegistries = glob(REGISTRY_DIR . '*-next-*.json');
 
         if (empty($nextRegistries) === true) {
-            exit('No "next" JSON registries found. Create installers for the next version.');
+            throw new \Exception('No "next" JSON registries found. Create installers for the next version.');
         }
 
         return $nextRegistries;

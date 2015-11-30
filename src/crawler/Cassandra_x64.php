@@ -44,13 +44,13 @@ class Cassandra_x64 extends VersionCrawler
 
             if (preg_match("#datastax-community-64bit_(\d+\.\d+\.\d+).msi#i", $node->attr('href'), $matches)) {
                 $version = $matches[1];
-            }
 
-            if (version_compare($version, $this->registry['cassandra-x64']['latest']['version'], '>=') === true) {
-                return array(
-                    'version' => $version,
-                    'url'     => 'http://downloads.datastax.com/community/datastax-community-64bit_' . $version . '.msi',
-                );
+                if (version_compare($version, $this->registry['cassandra-x64']['latest']['version'], '>=') === true) {
+                    return array(
+                        'version' => $version,
+                        'url'     => 'http://downloads.datastax.com/community/datastax-community-64bit_' . $version . '.msi',
+                    );
+                }
             }
         });
     }

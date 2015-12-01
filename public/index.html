@@ -18,54 +18,9 @@
     <title>WPN-XM Software Registry - Update Tool</title>
     <meta name="description" content="WPN-XM Software Registry Update Tool" />
     <meta name="author" content="Jens-Andre Koch" />
-
-    <!-- Le styles -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
     <link href="public/assets/css/bootstrap.min.css" rel="stylesheet"/>
-    <style>
-      body { padding-top: 60px; } /* 60px to make the container go all the way to the bottom of the topbar */
-      .navbar { border-top: 4px solid #D73D3D; }
-      .navbar .brand { font-size: 18px; }
-      .container { font-size: 14px; width: auto; }
-      .center { text-align: center; }
-      h1, h2, h3, h4, h5 {
-          color: #555555;
-          font-family: 'Open Sans',sans-serif !important;
-          font-weight: normal !important;
-          margin-top: 5px;
-          text-shadow: 0 0 1px #F6F6F6;
-          text-rendering: optimizeLegibility;
-      }
-      h3 {
-          font-size: 24.5px;
-      }
-      select {
-          -webkit-appearance: none;
-          background-color: transparent;
-      }
-      select.updated {
-          background-color: yellow;
-          transition: background-color 2s;
-          -moz-transition: background-color 2s;
-          -webkit-transition: background-color 2s;
-          -o-transition: background-color 2s;
-      }
-      .table-version-matrix > thead > tr > th,
-      .table-version-matrix > tbody > tr > th,
-      .table-version-matrix > tfoot > tr > th,
-      .table-version-matrix > thead > tr > td,
-      .table-version-matrix > tbody > tr > td,
-      .table-version-matrix > tfoot > tr > td {
-          padding: 0.1em;
-          text-align: center;
-          vertical-align: middle;
-      }
-      .version-number {
-          background-color: #dff0d8;
-          color: #006400;
-      }
-    </style>
-
+    <link href="public/assets/css/style.css" rel="stylesheet"/>
     <link rel="shortcut icon" href="public/assets/ico/favicon.ico"/>
   </head>
 
@@ -94,7 +49,10 @@
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="index.php?action=update-components"
                    title="Raise the version of all Components, of all 'next' Installation Registries to their latest version.">Update</a>
-                <a class="dropdown-item" href="index.php?action=add-component">Add Component</a>
+                <a class="dropdown-item" href="index.php?action=add-component"
+                   id="add-component">Add Component</a>
+                <a class="dropdown-item" href="index.php?action=pretty-print-registries"
+                   id="pretty-print-registries">Pretty Print Next Registries</a>
               </div>
             </li>
           </ul><!--/#menu-->
@@ -136,30 +94,27 @@
     <script type="text/javascript">
       $(document).ready(function () {
 
-          //if(!$.getUrlVar('_') || !$.getUrlVar('XDEBUG_SESSION_START')) {
-          //doGetRequestIfServerIsRunning('index.php?action=overview');
-          //}
+          // we need to rebind, when we pull in new modal content
+          function bindModalSubmitButton() {
+            // bind "submit" button on the modal window
+            $('#myModal button[type="submit"]').on("click", function (event) {
+                var form = $("#myModal .modal-body form");
 
-          // init modal window and hide it
-          $('#myModal').modal({show: false});
+                $.ajax({
+                    type: form.attr('method'),
+                    url: form.attr('action'),
+                    data: form.serializeArray(),
+                    cache: false,
+                    async: true,
+                    success: function (response) {
+                        $('#myModal .modal-body').html(response);
+                    }
+                });
 
-          // bind "submit" button on the modal window
-          $('#myModal button[type="submit"]').on("click", function (event) {
-              var form = $("#myModal .modal-body form");
-
-              $.ajax({
-                  type: form.attr('method'),
-                  url: form.attr('action'),
-                  data: form.serializeArray(),
-                  cache: false,
-                  async: true,
-                  success: function (response) {
-                      $('#myModal .modal-body').html(response);
-                  }
-              });
-
-              event.preventDefault();
-          });
+                event.preventDefault();
+            });
+          }
+          bindModalSubmitButton();
 
           // with a click on a link in the top navi, do the following
           $("#menu a.dropdown-item").on("click", function (event) {
@@ -168,12 +123,6 @@
                 doGetRequest(href);
                 //doGetRequestIfServerIsRunning(href);
                 return false; // stop clicking from causing navigation
-          });
-
-          // remove the old modal content on hide event
-          $('body').on('hidden.bs.modal', '.modal', function () {
-              $(this).removeData('bs.modal');
-
           });
 
           // test, if script on the server is available with a timeout request
@@ -215,74 +164,22 @@
                   timeout: 99999,
                   async: true
               }).done(function (html) {
-                  // hide modal, insert content on target
-                  $('#myModal').modal('hide');
-                  $("#ajax-container").empty().append(html);
+                  // fetch content into modal
+                  if(href === "index.php?action=add-component") {
+                    $('#myModal .modal-content').empty().append(html);
+                    bindModalSubmitButton();
+                  } else {
+                    // hide modal, insert content on target
+                    $('#myModal').modal('hide');
+                    $("#ajax-container").empty().append(html);
 
-                  // enable tooltips on all elements with "data-rel" property set to "tooltip"
-                  $('[data-rel=tooltip]').tooltip();
+                    // enable tooltips on all incoming elements with "data-rel" property set to "tooltip"
+                    $('[data-rel=tooltip]').tooltip();
+                  }
               });
 
               return;
           }
-
-          // event binding for the version comparision matrix
-          $("body").on("click", '[id^=syncDropDownsButton]', function () {
-
-              // find cell, where we clicked "syncDropDownButton"
-              var column = $(this).parent().parent().children().index(this.parentNode);
-
-              // get table
-              var table = $(this).closest('table').find('tr');
-
-              // fetch installer name from column header
-              var installer = table.find("th").eq(column).html();
-
-              // set installer name to input field
-              $('input[name="new-registry-name"]').val(installer);
-
-              // for each table row
-              table.each(function () {
-                  // get td element of current column
-                  var td = $(this).find("td").eq(column);
-                  // get version number
-                  var version = td.html();
-
-                  // select this version number at the version DropDown box in the same row
-                  if (typeof version !== 'undefined') {
-                      if (version === '&nbsp;') {
-                          var selectOption = td.closest("tr").find("option[value='do-not-include']");
-                      } else {
-                          var selectOption = td.closest("tr").find("option[value='" + version + "']");
-                      }
-
-                      selectOption.attr("selected", "selected");
-
-                      // add some color highlighting to indicate the change
-                      selectOption.parent().addClass("updated");
-
-                      setTimeout(function () { // toggle back after 1 second
-                          selectOption.parent().removeClass("updated");
-                      }, 1000);
-                  }
-              });
-          });
-
-          // event binding for the version comparision matrix
-          $("body").on("click", '[id^=syncInstallerNameButton]', function () {
-              // find cell, where we clicked "syncInstallerNameButton"
-              var column = $(this).parent().parent().children().index(this.parentNode);
-
-              // get table
-              var table = $(this).closest('table').find('tr');
-
-              // fetch installer name from column header
-              var installer = table.find("th").eq(column).html();
-
-              // set installer name to input field
-              $('input[name="new-registry-name"]').val(installer);
-          });
-
       }); // document.read end
     </script>
   </body>

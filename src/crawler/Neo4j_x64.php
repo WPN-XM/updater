@@ -13,25 +13,28 @@ namespace WPNXM\Updater\Crawler;
 
 use WPNXM\Updater\VersionCrawler;
 
-
 /**
- * Msgpack (PHP Extension) - Version Crawler
+ * Neo4j - Version Crawler
+ *
+ * Neo4j is a Graph Database.
+ *
+ * Website: https://neo4j.com/
  */
-class phpext_msgpack extends VersionCrawler
+class neo4j_x64 extends VersionCrawler
 {
-    public $url = 'http://windows.php.net/downloads/pecl/releases/msgpack/';
+    public $name = 'neo4j-x64';
 
-    private $url_template = 'http://windows.php.net/downloads/pecl/releases/msgpack/%version%/php_msgpack-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
+    public $url = 'http://neo4j.com/download/other-releases/';
 
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
-            if (preg_match("#(\d+\.\d+(\.\d+)*)$#", $node->text(), $matches)) {
+            if (preg_match("#release=(\d+\.\d+.\d+)&architecture=x64#i", $node->attr('href'), $matches)) {
                 $version = $matches[1];
-                if (version_compare($version, $this->registry['phpext_msgpack']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->registry['neo4j-x64']['latest']['version'], '>=') === true) {
                     return array(
                         'version' => $version,
-                        'url'     => $this->createPhpVersionsArrayForExtension($version, $this->url_template),
+                        'url'     => 'http://neo4j.com/artifact.php?name=neo4j-community-' . $version . '-windows.zip',
                     );
                 }
             }

@@ -54,6 +54,8 @@ return array(
     'phpext_msgpack'        => 'phpext_msgpack.zip',
     'phpext_phalcon'        => 'phpext_phalcon.zip',
     'phpext_rar'            => 'phpext_rar.zip',
+    'phpext_stats'          => 'phpext_stats',
+    'phpext_sphinx'         => 'phpext_sphinx',
     'phpext_trader'         => 'phpext_trader.zip',
     'phpext_uploadprogress' => 'phpext_uploadprogress.zip',
     'phpext_uprofiler'      => 'phpext_uprofiler.zip',
@@ -73,6 +75,8 @@ return array(
     'rockmongo'             => 'rockmongo.zip',
     'robomongo'             => 'robomongo.zip',
     'sendmail'              => 'sendmail.zip',
+    'sphinx'                => 'sphinx.zip',
+    'sphinx-x64'            => 'sphinx.zip',
     'uprofiler'             => 'uprofiler.zip',
     'varnish'               => 'varnish.zip',
     // vcredist_x86.exe (do not delete this comment, its for easier comparison with the .iss file)

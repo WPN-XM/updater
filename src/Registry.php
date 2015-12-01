@@ -56,22 +56,26 @@ class Registry
         return (bool) file_put_contents(DATA_DIR . 'registry/wpnxm-software-registry.php', $content);
     }
 
-    public static function getArrayForNewComponent($component, $url, $version, $website, $phpversion)
+    public static function getArrayForNewComponent($component, $shorthand, $url, $version, $website, $phpversion)
     {
         $version = (string) $version;
 
-        // array structure for PHP Extensions must take PHP Versions into account
-        if (strpos($component, 'phpext_') !== false) {
+        // array structure for PHP Extensions must take "PHP Version" and "Bitsize" into account
+        if (strpos($shorthand, 'phpext_') !== false) {
             return array(
                 'name'    => $component,
                 'website' => $website,
                 $version  => array(
-                    $phpversion => $url,
+                    $bitsize => array(
+                        $phpversion => $url,
+                    ),
                 ),
                 'latest'  => array(
                     'version' => $version,
                     'url'     => array(
-                        $phpversion => $url,
+                        $bitsize => array(
+                            $phpversion => $url,
+                        ),
                     ),
                 ),
             );
@@ -158,7 +162,7 @@ class Registry
     public static function writeRegistrySubset($component, $registry)
     {
         return (bool) file_put_contents(
-            DATA_DIR . 'scans\latest-version-' . $component . '.php',
+            DATA_DIR . 'scans\latest-version-' . strtolower($component) . '.php',
             sprintf("<?php\nreturn %s;", self::prettyPrint($registry))
         );
     }
@@ -172,9 +176,11 @@ class Registry
             return false;
         }
 
+        $forComponent = strtolower($forComponent);
+
         foreach ($scans as $i => $file) {
             $subset    = include $file;
-            preg_match('/latest-version-(.*).php/', $file, $matches);
+            preg_match('#latest-version-(.*).php#i', $file, $matches);
             $component = $matches[1];
 
             // add the registry subset only for a specific component

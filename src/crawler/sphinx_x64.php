@@ -38,7 +38,7 @@ class sphinx_x64 extends VersionCrawler
         return $this->filter('a')->each(function ($node) {
             if (preg_match("#sphinx-(\d+\.\d+\.\d+[A-Za-z]*)-release-win64-full.zip#i", $node->attr('href'), $matches)) {
                 $version = $matches[1];
-                if (version_compare($matches[1], $this->registry['sphinx']['latest']['version'], '>=') === true) {
+                if (version_compare($matches[1], $this->registry['sphinx-x64']['latest']['version'], '>=') === true) {
                     return array(
                         'version' => $version,
                         'url'     => 'http://sphinxsearch.com/files/sphinx-' . $version . '-release-win64-full.zip',

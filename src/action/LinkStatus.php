@@ -41,7 +41,12 @@ class LinkStatus extends ActionBase
 
         $this->registry = Registry::load();
 
-        RegistryHealth::check($this->registry);
+        $registryHealth = new RegistryHealth($this->registry);
+
+        if($registryHealth->check() === true) {
+            $errors = implode($registryHealth->getErrors(), ',');
+            throw new \RuntimeException($errors);
+        }
     }
 
     public function __invoke()

@@ -33,9 +33,10 @@ class phpext_ioncube extends VersionCrawler
          *
          * This expression grabs the version number from the first table row containing "Windows".
          */
-        $xPathExpression = "//html/body/div/table[contains(@class, 'loader_download')][1]/tbody/tr[contains(.,'Windows')][1]/td[6]";
-        
+        $xPathExpression = "//html/body/div/table[contains(@class, 'loader_download')][1]/tbody/tr[contains(.,'Windows')][1]/td[5]";
+
         $version = $this->filterXPath($xPathExpression)->text();
+        $version = trim($version);
 
         if (version_compare($version, $this->registry['phpext_ioncube']['latest']['version'], '>=') === true) {
             return array(

@@ -2,7 +2,9 @@
 
 <?php
 if(count($health) === 0) {
-	echo '<button class="btn btn-success">OK</button>';
+	echo '<span class="label label-success">OK</span>';
+} else {
+	echo '<span class="label label-danger">ERROR</span>';
 }
 ?>
 

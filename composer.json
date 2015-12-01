@@ -22,7 +22,7 @@
     "require-dev": {
         "phpunit/phpunit"                 : "4.3.*@dev",
         "fabpot/php-cs-fixer"             : "dev-master",
-        "seld/jsonlint"                   : "dev-master"
+        "seld/jsonlint"                   : "^1.4"
     },
     "suggest": {
         "ext-curl"        : "*",

@@ -171,7 +171,7 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
         foreach ($bitsizes as $bitsize) {
             foreach ($phpversions as $phpversion) {
 
-                $url = self::getPHPExtensionURL($url, $phpversion, $bitsize);
+                $url = self::getPHPExtensionURL($url, $version, $phpversion, $bitsize);
 
                 if ($skipURLcheck === true) {
                     $urls[$bitsize][$phpversion] = $url;

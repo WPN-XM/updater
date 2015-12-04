@@ -60,16 +60,32 @@ class ShowVersionMatrix extends ActionBase
             $wizardRegistries[$name]['constraints'] = $this->dropNumericKeys($parts);
             unset($parts);
 
+            /**
+             * Finding errors in JSON files manually is tedious.
+             * Let's use JSON lint instead.
+             *
+             * Due to parsing and check the overall process is slower,
+             * but we get exceptions thrown on syntax errors.
+             * I've also enabled the duplicate key check.
+             */
+            $parser = new JsonParser();
             try {
-                // finding errors in JSON files is tedious
-                // let's use JSON lint, it's slower, but we get exceptions thrown on syntax errors
-                $parser                              = new JsonParser();
-                $registryContent                     = $this->issetOrDefault($parser->parse(file_get_contents($file)), array());
-                $wizardRegistries[$name]['registry'] = $this->fixArraySoftwareAsKey($registryContent);
-                unset($parser, $registryContent);
+                $json = $parser->parse(file_get_contents($file), JsonParser::DETECT_KEY_CONFLICTS);
             } catch (\Exception $e) {
-                throw new \Exception('Error while parsing "' . $file . '".' . $e->getMessage());
+                if($e instanceOf \Seld\JsonLint\DuplicateKeyException) {
+                    // duplicate key exception
+                    $details = $e->getDetails();
+                    throw new \Exception('Key ' . $details['key'] . ' is a duplicate in ' . $localConfig . ' at line ' . $details['line']);
+                } else {
+                    // parsing exception
+                    throw new \Exception('Error while parsing "' . $file . '".' . $e->getMessage());
+                }
             }
+
+            $registryContent = $this->issetOrDefault($json, array());
+            $wizardRegistries[$name]['registry'] = $this->fixArraySoftwareAsKey($registryContent);
+
+            unset($parser, $registryContent);
         }
 
         $wizardRegistries = $this->sortWizardRegistries($wizardRegistries);

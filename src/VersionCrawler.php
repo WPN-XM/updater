@@ -170,23 +170,35 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
 
         foreach ($bitsizes as $bitsize) {
             foreach ($phpversions as $phpversion) {
-                $compiler = $this->getCompilerByPHPVersion($phpversion);
 
-                $replacedUrl = str_replace(
-                    array('%compiler%', '%phpversion%', '%bitsize%'),
-                    array($compiler, $phpversion, $bitsize),
-                    $url
-                );
+                $url = self::getPHPExtensionURL($url, $phpversion, $bitsize);
 
                 if ($skipURLcheck === true) {
-                    $urls[$bitsize][$phpversion] = $replacedUrl;
-                } elseif ($this->fileExistsOnServer($replacedUrl) === true) {
-                    $urls[$bitsize][$phpversion] = $replacedUrl;
+                    $urls[$bitsize][$phpversion] = $url;
+                } elseif ($this->fileExistsOnServer($url) === true) {
+                    $urls[$bitsize][$phpversion] = $url;
                 }
             }
         }
 
         return $urls;
+    }
+
+    /**
+     * get PHP Extension URL from placeholder string
+     *
+     * @param  $url A string with placeholders for the PHP extension.
+     * @return string URL of PHP extension.
+     */
+    public static function getPHPExtensionURL($url, $version, $phpversion, $bitsize)
+    {
+        $compiler = self::getCompilerByPHPVersion($phpversion);
+
+        return str_replace(
+            array('%version%', '%compiler%', '%phpversion%', '%bitsize%'),
+            array($version, $compiler, $phpversion, $bitsize),
+            $url
+        );
     }
 
     public static function getCompilerByPHPVersion($phpversion)

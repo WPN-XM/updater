@@ -14,6 +14,7 @@ namespace WPNXM\Updater\Action;
 use WPNXM\Updater\ActionBase;
 use WPNXM\Updater\View;
 use WPNXM\Updater\Registry;
+use WPNXM\Updater\Version;
 
 /**
  * This updates all components of all installation registry to their latest version.
@@ -54,20 +55,19 @@ class UpdateComponents extends ActionBase
                 $version       = $components[$i][3];
 
                 if (!isset($downloadFilenames[$componentName])) {
-                    echo 'The download description file has no value for the Component "' . $componentName . '"<br>';
-                } else {
-                    // update the download filename with the value of the download description file
-                    // in case the registry contains a different (old) value
-                    $downloadFilename = $downloadFilenames[$componentName];
+                    throw new \Exception('The download description file has no value for the Component "' . $componentName . '"<br>');
+                }
 
-                    if ($components[$i][2] !== $downloadFilename) {
-                        $components[$i][2] = $downloadFilename;
-                    }
+                // update the download filename with the value of the download description file
+                // in case the registry contains a different (old) value
+                $downloadFilename = $downloadFilenames[$componentName];
+                if ($components[$i][2] !== $downloadFilename) {
+                    $components[$i][2] = $downloadFilename;
                 }
 
                 $latestVersion = $this->getLatestVersionForComponent($componentName, $filename);
 
-                if (version_compare($version, $latestVersion, '<') === true) {
+                if (Version::compare($componentName, $version, $latestVersion) === true) {
                     $components[$i][3] = $latestVersion;
                     if (false !== strpos($url, $version)) { // if the url has a version appended, update it too
                         $components[$i][1] = str_replace($version, $latestVersion, $url);

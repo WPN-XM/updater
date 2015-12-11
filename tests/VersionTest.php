@@ -20,6 +20,14 @@ class VersionTest extends \PHPUnit_Framework_TestCase
        /* Version contains only static methods. */
     }
 
+    public function test_version_compare_openssl()
+    {
+        $oldVersion = '1.0.0a';
+        $newVersion = '1.0.0z';
+        $this->assertTrue(Version::version('openssl', $oldVersion, $newVersion));
+        $this->assertTrue(Version::version('openssl-x64', $oldVersion, $newVersion));
+    }
+
     public function test_version_compare_imagick()
     {
         $oldVersion = '6.8.9-0';

@@ -24,8 +24,8 @@ class VersionTest extends \PHPUnit_Framework_TestCase
     {
         $oldVersion = '1.0.0a';
         $newVersion = '1.0.0z';
-        $this->assertTrue(Version::version('openssl', $oldVersion, $newVersion));
-        $this->assertTrue(Version::version('openssl-x64', $oldVersion, $newVersion));
+        $this->assertTrue(Version::compare('openssl', $oldVersion, $newVersion));
+        $this->assertTrue(Version::compare('openssl-x64', $oldVersion, $newVersion));
     }
 
     public function test_version_compare_imagick()

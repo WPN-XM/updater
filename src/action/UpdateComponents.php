@@ -59,20 +59,29 @@ class UpdateComponents extends ActionBase
                     throw new \Exception('The download description file has no value for the Component "' . $componentName . '"<br>');
                 }
 
-                // update the download filename with the value of the download description file
-                // in case the registry contains a different (old) value
+                /**
+                 * Synchronize the "download filename" (registry key)
+                 * with the value of the download description file (/data/downloadFilenames.php),
+                 * but only in case the registry contains a different (old) value.
+                 */
                 $downloadFilename = $downloadFilenames[$componentName];
                 if ($components[$i][2] !== $downloadFilename) {
                     $components[$i][2] = $downloadFilename;
                 }
 
+                /**
+                 * Raise version to latest version
+                 */
                 $latestVersion = $this->getLatestVersionForComponent($componentName, $filename);
 
                 if (Version::compare($componentName, $version, $latestVersion) === true) {
+                    // update the version number (idx 3)
                     $components[$i][3] = $latestVersion;
-                    if (false !== strpos($url, $version)) { // if the url has a version appended, update it too
+                    // if the url (idx 1) has a version appended, update it too
+                    if (false !== strpos($url, $version)) { // o
                         $components[$i][1] = str_replace($version, $latestVersion, $url);
                     }
+
                     echo '<br>Updated "' . $componentName . '" from v' . $version . ' to v' . $latestVersion . '.';
                     $version_updated = true;
                 }
@@ -102,6 +111,8 @@ class UpdateComponents extends ActionBase
         return include $descriptionFile;
     }
 
+
+
     /**
      * Return the PHP version of a registry file.
      *
@@ -126,8 +137,8 @@ class UpdateComponents extends ActionBase
      */
     public function getLatestVersionForComponent($component, $filename)
     {
-        // latest version of PHP means "latest version for PHP5.4, PHP5.5, PHP5.6"
-        // we have to raise the PHP version, respecting the major.minor version constraint
+        // For all PHP components we determine the latest version of the minor release series,
+        // by using the major.minor version number and a min/max patch level range.
         if ($component === 'php' || $component === 'php-x64' || $component === "php-qa" || $component === "php-qa-x64") {
             $minVersionConstraint = $this->getPHPVersionFromFilename($filename); // 5.4, 5.5
             $maxVersionConstraint = $minVersionConstraint . '.99'; // 5.4.99, 5.5.99

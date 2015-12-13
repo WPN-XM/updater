@@ -16,12 +16,15 @@ use WPNXM\Updater\VersionCrawler;
 
 /**
  * Version Crawler for
- * RoboMongo - A Shell-centric cross-platform MongoDB management tool
- * http://robomongo.org/
+ *
+ * RoboMongo - A Shell-centric cross-platform MongoDB management tool.
+ *
+ * Website: http://robomongo.org/
  */
 class robomongo extends VersionCrawler
 {
-    public $url = 'http://robomongo.org/download.html';
+    // formerly http://robomongo.org/download.html
+    public $url = 'http://app.robomongo.org/download.html';
 
     public function crawlVersion()
     {

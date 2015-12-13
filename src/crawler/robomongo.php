@@ -29,13 +29,13 @@ class robomongo extends VersionCrawler
     public function crawlVersion()
     {
         return $this->filter('table a')->each(function ($node) {
-            if (preg_match("#(\d+\.\d+.\d+)#", $node->attr('href'), $matches)) {
+            if (preg_match("#Robomongo-(\d+\.\d+.\d+)-i386.zip#i", $node->attr('href'), $matches)) {
                 $version = $matches[0];
                 if (version_compare($version, $this->registry['robomongo']['latest']['version'], '>=') === true) {
                     return array(
                         'version' => $version,
-                        // http://robomongo.org/files/windows/Robomongo-0.8.4-i386.zip
-                        'url' => 'http://robomongo.org/files/windows/Robomongo-' . $version . '-i386.zip',
+                        // http://app.robomongo.org/files/windows/Robomongo-0.8.4-i386.zip
+                        'url' => 'http://app.robomongo.org/files/windows/Robomongo-' . $version . '-i386.zip',
                     );
                 }
             }

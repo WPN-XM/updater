@@ -38,13 +38,14 @@ class UpdateComponents extends ActionBase
             exit('No "next" JSON registries found. Create installers for the next version.');
         }
 
-        echo 'Update all components to their latest version.<br>';
+        echo '<h3>Update all software components to their latest version.</h3>';
+        echo '<small>Raises the versions of all software components of all installation wizards of the next release automatically.</small>';
 
         $downloadFilenames = $this->loadDownloadDescriptionFile();
 
         foreach ($nextRegistries as $file) {
             $filename        = basename($file);
-            echo '<br>Processing Installer: "' . $filename . '":<br>';
+            echo '<br>Processing Installer <strong>' . $filename . '</strong>:&nbsp;';
             $components      = json_decode(file_get_contents($file), true);
             $version_updated = false;
             $number_of_components = count($components);
@@ -72,7 +73,7 @@ class UpdateComponents extends ActionBase
                     if (false !== strpos($url, $version)) { // if the url has a version appended, update it too
                         $components[$i][1] = str_replace($version, $latestVersion, $url);
                     }
-                    echo 'Updated "' . $componentName . '" from v' . $version . ' to v' . $latestVersion . '.<br>';
+                    echo '<br>Updated "' . $componentName . '" from v' . $version . ' to v' . $latestVersion . '.';
                     $version_updated = true;
                 }
             }
@@ -80,11 +81,14 @@ class UpdateComponents extends ActionBase
             if ($version_updated === true) {
                 Registry::write($file, $components);
             } else {
-                echo 'The installer registry is up-to-date.<br>';
+                echo 'The installer registry is up-to-date.';
             }
         }
 
-        echo '<pre>You might "git commit/push":<br>updated installer registries of "next" version</pre>';
+        $html = '<div class="alert alert-success" role="alert">';
+        $html .= 'You might "git commit/push" now:<br><b>updated installer registries of "next" version</b>';
+        $html .= '</div>';
+        echo $html;
     }
 
     public function loadDownloadDescriptionFile()

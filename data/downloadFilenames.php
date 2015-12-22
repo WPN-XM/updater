@@ -45,6 +45,7 @@ return array(
     'phpext_amqp'           => 'phpext_amqp.zip',
     'phpext_apc'            => 'phpext_apc.zip',
     'phpext_apcu'           => 'phpext_apcu.zip',
+    'phpext_ice'            => 'phpext_ice.zip',
     'phpext_imagick'        => 'phpext_imagick.zip',
     'phpext_ioncube'        => 'phpext_ioncube.zip',
     'phpext_jsond'          => 'phpext_jsond.zip',

@@ -42,22 +42,23 @@ class postgresql_x64 extends VersionCrawler
 
             $value = strtolower($node->text());
 
-            if (preg_match("/(\d+\.\d+(\.\d+)*)(.(RC|beta(\d+)))?/i", $value, $matches) && false === strpos($value, 'beta')) {
+            if (preg_match("/(\d+\.\d+(\.\d+)*)(.(RC|beta)(\d+))?/i", $value, $matches) && false === strpos($value, 'beta')) {
                 $download_version = '';
 
-                if (isset($matches[3]) === true) { // more as 3 = we have a "release candidate" or "beta"
-                    $version = $matches[1];
-                    $pre_release_version = $matches[4];
-                    // it's a "release candidate"
-                    if ($matches[4] === 'rc') {
-                        $download_version = $version . '-' . $pre_release_version . '-1';
-                        $version  = $matches[1] . $matches[4]; // 1.2.3rc
-                    }
+                // is it a "release candidate"?
+                if (isset($matches[4]) === true && $matches[4] === 'rc')
+                {
+                    // build a semver version number for the registry: "9.5.0 rc1" => "9.5.0.rc.1"
+                    $version  = $matches[1] . '.' . $matches[4] . '.' . $matches[5];
+
+                    // build the version number for the DL link: "9.5.0 rc1" => "9.5.0-rc1"
+                    $download_version = $matches[1] . '-' . $matches[4] . '' . $matches[5];
+
                 } else {
                     $version = $matches[0]; // just 1.2.3
 
                     if (3 === substr_count($version, '.')) { // 9.3.5.1
-                        $version = substr($version, 0, -2); // 9.3.5    WTF? WHY?
+                        $version = substr($version, 0, -2); // 9.3.5    WTF? Why shorten version number for the DL link?
                     }
 
                     $download_version = $version . '-1'; // wtf? "-1" means "not beta" or "stable release", or what?

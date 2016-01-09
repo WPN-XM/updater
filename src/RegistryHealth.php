@@ -27,18 +27,12 @@ class RegistryHealth
         foreach ($this->registry as $software => $component) {
 
             // Check for Keys
-            // the following array keys have to exist for each component
+            // the following array keys are required on each component
 
-            if (!isset($component['name'])) {
-                $this->errors[] = 'The registry is missing the key "name" for Component "' . $software . '".';
-            }
-
-            if (!isset($component['website'])) {
-                $this->errors[] = 'The registry is missing the key "website" for Component "' . $software . '".';
-            }
-
-            if (!isset($component['latest'])) {
-                $this->errors[] = 'The registry is missing the key "latest" for Component "' . $software . '".';
+            foreach (array('name', 'website', 'latest') as $key) {
+                if (!isset($component[$key])) {
+                    $this->errors[] = sprintf('The registry is missing the key "%s" for Component "%s".', $key, $software);
+                }
             }
 
             if (!isset($component['latest']['url'])) {

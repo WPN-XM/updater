@@ -64,6 +64,12 @@ class RegistryHealth
             if(isset($component['0.0.0']) === true) {
                 $this->errors[] = 'The registry has an invalid version entry (0.0.0) for Component "' . $software . '".';
             }
+
+            foreach($component as $version => $urls) {
+                if(is_array($urls) && empty($urls)) {
+                    $this->errors[] = 'The registry has an invalid version entry (empty) '.$version.' for Component "' . $software . '".';
+                }
+            }
         }
 
         return (bool) count($this->errors);

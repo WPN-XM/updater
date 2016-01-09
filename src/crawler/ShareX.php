@@ -28,7 +28,7 @@ use WPNXM\Updater\VersionCrawler;
  */
 class ShareX extends VersionCrawler
 {
-    public $name = 'ShareX';
+    public $name = 'sharex';
 
     public $url = 'https://github.com/ShareX/ShareX/releases/latest';
 

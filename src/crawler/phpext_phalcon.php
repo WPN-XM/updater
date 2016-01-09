@@ -40,11 +40,17 @@ class phpext_phalcon extends VersionCrawler
             if (preg_match("#_php(\d+\.\d+\.\d+)_(\d+\.\d+\.\d+)#i", $node->attr('href'), $matches)) {
 
                 $version = $matches[2];
-
+ 
                 if (version_compare($version, $this->registry['phpext_phalcon']['latest']['version'], '>=') === true) {
+					
+					$urls = $this->createPhpVersionsArrayForExtension($version, $this->url_template);
+					if(empty($urls)) {
+						return;
+					}
+				
                     return array(
                         'version' => $version,
-                        'url'     => $this->createPhpVersionsArrayForExtension($version, $this->url_template),
+                        'url'     => $urls,
                     );
                 }
             }

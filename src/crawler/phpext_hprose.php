@@ -36,9 +36,17 @@ class phpext_hprose extends VersionCrawler
                 $version = $matches[0];
 
                 if (version_compare($version, $this->registry['phpext_hprose']['latest']['version'], '>=') === true) {
+					
+					
+                $urls = $this->createPhpVersionsArrayForExtension($version, $this->url_template);
+                if(empty($urls)) {
+                    return;
+                }
+
+				
                     return array(
                         'version' => $version,
-                        'url'     => $this->createPhpVersionsArrayForExtension($version, $this->url_template),
+                        'url'     => $urls,
                     );
                 }
             }

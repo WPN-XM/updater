@@ -27,10 +27,17 @@ class phpext_xdebug extends VersionCrawler
         return $this->filter('a')->each(function ($node) {
             if (preg_match("#(\d+\.\d+(\.\d+)*)(?:(alpha|beta|RC)(\d+))$#i", $node->text(), $matches)) {
                 $version = $matches[0];
+
                 if (version_compare($version, $this->registry['phpext_xdebug']['latest']['version'], '>=') === true) {
+             
+                    $urls = $this->createPhpVersionsArrayForExtension($version, $this->url_template);
+                    if(empty($urls)) {
+                        return;
+                    }
+
                     return array(
                         'version' => $version,
-                        'url'     => $this->createPhpVersionsArrayForExtension($version, $this->url_template),
+                        'url'     => $urls,
                     );
                 }
             }

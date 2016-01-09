@@ -15,10 +15,10 @@ use WPNXM\Updater\VersionCrawler;
 
 /**
  * PHP Extension "sphinx" - Version Crawler
- * 
+ *
  * Client extension for Sphinx - opensource SQL full-text search engine
  * This extension provides bindings for libsphinxclient, client library for Sphinx.
- * 
+ *
  * Website:   https://pecl.php.net/package/sphinx
  * Downloads: http://windows.php.net/downloads/pecl/releases/sphinx/
  */
@@ -33,10 +33,17 @@ class phpext_sphinx extends VersionCrawler
         return $this->filter('a')->each(function ($node) {
             if (preg_match("#(\d+\.\d+(\.\d+)*)#", $node->text(), $matches)) {
                 $version = $matches[0];
+
                 if (version_compare($version, $this->registry['phpext_sphinx']['latest']['version'], '>=') === true) {
+					
+					$urls = $this->createPhpVersionsArrayForExtension($version, $this->url_template);
+					if(empty($urls)) {
+						return;
+					}
+				
                     return array(
                         'version' => $version,
-                        'url'     => $this->createPhpVersionsArrayForExtension($version, $this->url_template),
+                        'url'     => $urls,
                     );
                 }
             }

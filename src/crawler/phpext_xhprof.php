@@ -29,10 +29,18 @@ class phpext_xhprof extends VersionCrawler
             if (preg_match("#(\d+\.\d+(\.\d+)*)#", $node->text(), $matches)) {
                 $version = $matches[0];
 
-                return array(
-                    'version' => $version,
-                    'url'     => $this->createPhpVersionsArrayForExtension($version, $this->url_template),
-                );
+                if (version_compare($version, $this->registry['phpext_xhprof']['latest']['version'], '>=') === true) {
+
+					                $urls = $this->createPhpVersionsArrayForExtension($version, $this->url_template);
+                if(empty($urls)) {
+                    return;
+                }
+
+                    return array(
+                        'version' => $version,
+                        'url'     => $urls,
+                    );
+                }
             }
         });
     }

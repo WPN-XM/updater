@@ -28,10 +28,18 @@ class phpext_apcu extends VersionCrawler
         return $this->filter('a')->each(function ($node) {
             if (preg_match("#(\d+\.\d+(\.\d+)*)$#", $node->text(), $matches)) {
                 $version = $matches[1];
+
                 if (version_compare($version, $this->registry['phpext_apcu']['latest']['version'], '>=') === true) {
+					
+					
+                $urls = $this->createPhpVersionsArrayForExtension($version, $this->url_template);
+                if(empty($urls)) {
+                    return;
+                }
+
                     return array(
                        'version' => $version,
-                       'url'     => $this->createPhpVersionsArrayForExtension($version, $this->url_template),
+                       'url'     => $urls,
                     );
                 }
             }

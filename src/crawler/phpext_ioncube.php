@@ -38,10 +38,18 @@ class phpext_ioncube extends VersionCrawler
         $version = $this->filterXPath($xPathExpression)->text();
         $version = trim($version);
 
+
         if (version_compare($version, $this->registry['phpext_ioncube']['latest']['version'], '>=') === true) {
+			
+			        $urls = $this->createPhpVersionsArrayForExtension($version, $this->url_template);
+        if(empty($urls)) {
+            return;
+        }
+
+		
             return array(
                 'version' => $version,
-                'url'     => $this->createPhpVersionsArrayForExtension($version, $this->url_template),
+                'url'     => $urls,
             );
         }
     }

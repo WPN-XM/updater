@@ -16,11 +16,11 @@ use WPNXM\Updater\VersionCrawler;
 
 /**
  * PHP Extension for MongoDB - Version Crawler
- * 
+ *
  * The purpose of this driver is to provide exceptionally thin glue between MongoDB
  * and PHP, implementing only fundemental and performance-critical components
  * necessary to build a fully-functional MongoDB driver.
- * 
+ *
  * Website: https://pecl.php.net/package/mongodb
  * Github:  http://mongodb.github.io/mongo-php-driver
  */
@@ -35,10 +35,17 @@ class phpext_mongodb extends VersionCrawler
         return $this->filter('a')->each(function ($node) {
             if (preg_match("#(\d+\.\d+(\.\d+)*)$#", $node->text(), $matches)) {
                 $version = $matches[1];
+
                 if (version_compare($version, $this->registry['phpext_mongodb']['latest']['version'], '>=') === true) {
+					
+					$urls = $this->createPhpVersionsArrayForExtension($version, $this->url_template);
+					if(empty($urls)) {
+						return;
+					}
+
                     return array(
                         'version' => $version,
-                        'url'     => $this->createPhpVersionsArrayForExtension($version, $this->url_template),
+                        'url'     => $urls,
                     );
                 }
             }

@@ -162,8 +162,6 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
      */
     public function createPhpVersionsArrayForExtension($version, $url, $skipURLcheck = false)
     {
-        $url = str_replace("%version%", $version, $url);
-
         $bitsizes    = array('x86', 'x64');
         $phpversions = array('5.4', '5.5', '5.6', '7.0');
         $urls        = array();
@@ -171,12 +169,12 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
         foreach ($bitsizes as $bitsize) {
             foreach ($phpversions as $phpversion) {
 
-                $url = self::getPHPExtensionURL($url, $version, $phpversion, $bitsize);
+                $extUrl = self::getPHPExtensionURL($url, $version, $phpversion, $bitsize);
 
                 if ($skipURLcheck === true) {
-                    $urls[$bitsize][$phpversion] = $url;
-                } elseif ($this->fileExistsOnServer($url) === true) {
-                    $urls[$bitsize][$phpversion] = $url;
+                    $urls[$bitsize][$phpversion] = $extUrl;
+                } elseif ($this->fileExistsOnServer($extUrl) === true) {
+                    $urls[$bitsize][$phpversion] = $extUrl;
                 }
             }
         }

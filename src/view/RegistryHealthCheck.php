@@ -4,8 +4,7 @@
 if(count($health) === 0) {
 	echo '<span class="label label-success">OK</span>';
 } else {
-	echo '<span class="label label-danger">ERROR</span>';
+	$errorMsg = '<span class="label label-danger">ERROR</span> ';
+    echo implode($health, '<br/>' . $errorMsg);
 }
 ?>
-
-<?php echo implode($health, '<br/>'); ?>

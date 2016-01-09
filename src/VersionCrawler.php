@@ -203,9 +203,15 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
 
     public static function getCompilerByPHPVersion($phpversion)
     {
-        if($phpversion === '5.4') { return 'VC9'; }
-        if($phpversion === '5.5' || $phpversion === '5.6') { return 'VC11'; }
-        if($phpversion === '7.0') { return 'VC14'; }
+        $map = [
+            '5.4' => 'VC9',
+            '5.5' => 'VC11',
+            '5.6' => 'VC11',
+            '7.0' => 'VC14'
+        ];
+
+        if(isset($map[$phpversion])) { return $map[$phpversion]; }
+
         throw new \Exception('Can\'t find Compiler version for this PHP version: ' . $phpversion);
     }
 

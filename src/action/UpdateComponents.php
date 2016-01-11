@@ -177,7 +177,7 @@ class UpdateComponents extends ActionBase
         if (stristr($component, 'phpext_') !== false) {
             $constraints = self::getConstraintsFromFilename($filename);
 
-            return $this->getLatestVersionOPHPExtension($component, $constraints);
+            return $this->getLatestVersionPHPExtension($component, $constraints);
         }
 
         return $this->getLatestVersion($component);
@@ -227,7 +227,7 @@ class UpdateComponents extends ActionBase
         return $latestVersion;
     }
 
-    public function getLatestVersionOPHPExtension($component, $constraints)
+    public function getLatestVersionPHPExtension($component, $constraints)
     {
         $software = $this->registry[$component];
 

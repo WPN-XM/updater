@@ -124,7 +124,7 @@ class StatusRequest
      * @param array $targetUrls Array of target URLs for cURL
      * @return array cURL Responses
      */
-    public static function getHttpStatusCodesInParallel(array $targetUrls, $timeout = 15)
+    public static function getHttpStatusCodesInParallel(array $targetUrls, $timeout = 30)
     {
         // get number of urls
         $count = count($targetUrls);

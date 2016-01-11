@@ -53,7 +53,9 @@ class LinkStatus extends ActionBase
     {
         $before       = microtime(true);
         $urls         = StatusRequest::getUrlsToCrawl($this->registry);
-        $responses    = StatusRequest::getHttpStatusCodesInParallel($urls);
+        $specialUrls  = StatusRequest::filterSpecialUrls($urls);
+        $responses    = StatusRequest::getHttpStatusCodesInParallel($urls)
+                      + StatusRequest::getHttpStatusCodeOfUrls($specialUrls);
         $crawlingTime = round((microtime(true) - $before), 2);
 
         // build a lookup array with the relation of "url" => "http status code" (true, false)

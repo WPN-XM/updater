@@ -51,6 +51,35 @@ class StatusRequest
         return $urls;
     }
 
+    // filter out the URLs which do not work with HEAD requests
+    public static function filterSpecialUrls($urls)
+    {
+        $specialUrls = [];
+
+        foreach($urls as $idx => $url)
+        {
+            if (strpos($url, 'googlecode') !== false)
+            {
+                $specialUrls[$idx] = $url;
+                unset($urls[$idx]);
+            }
+        }
+
+        return $specialUrls;
+    }
+
+    public static function getHttpStatusCodeOfUrls($urls)
+    {
+        $responses = [];
+
+        foreach($urls as $idx => $url)
+        {
+            $responses[$idx] = self::getHttpStatusCode($url);
+        }
+
+        return $responses;
+    }
+
     /**
      * Returns the HTTP Status Code for a URL
      *

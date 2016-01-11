@@ -74,6 +74,7 @@ class UpdateComponents extends ActionBase
                  */
                 $latestVersion = $this->getLatestVersionForComponent($componentName, $filename);
 
+
                 if (Version::compare($componentName, $version, $latestVersion) === true) {
                     // update the version number (idx 3)
                     $components[$i][3] = $latestVersion;
@@ -82,7 +83,7 @@ class UpdateComponents extends ActionBase
                         $components[$i][1] = str_replace($version, $latestVersion, $url);
                     }
 
-                    echo '<br>Updated "' . $componentName . '" from v' . $version . ' to v' . $latestVersion . '.';
+                    echo 'Updated "' . $componentName . '" from v' . $version . ' to v' . $latestVersion . '.<br>';
                     $version_updated = true;
                 }
             }
@@ -111,8 +112,6 @@ class UpdateComponents extends ActionBase
         return include $descriptionFile;
     }
 
-
-
     /**
      * Return the PHP version of a registry file.
      *
@@ -127,6 +126,34 @@ class UpdateComponents extends ActionBase
         return $matches[1];
     }
 
+    public static function getPartsOfInstallerFilename($file)
+    {
+        $file = basename($file, '.json');
+
+        if (substr_count($file, '-') === 3) {
+            preg_match('/(?<installer>.*)-(?<version>.*)-php(?<phpversion>.*)-(?<bitsize>.*)/i', $file, $parts);
+            return $parts;
+        }
+
+        if (substr_count($file, '-') === 2) {
+            preg_match('/(?<installer>.*)-(?<version>.*)-(?<bitsize>.*)/i', $file, $parts);
+            return $parts;
+        }
+    }
+
+    public static function fixBitsize($bitsize)
+    {
+        $map = ['w32' => 'x86', 'w64' => 'x64'];
+        return $map[$bitsize];
+    }
+
+    public static function getConstraintsFromFilename($file)
+    {
+         $constraints = self::getPartsOfInstallerFilename($file);
+         $constraints['bitsize'] = self::fixBitsize($constraints['bitsize']);
+         return $constraints;
+    }
+
     /**
      * Return the latest version for a component.
      * Takes the PHP major.minor.latest version constraint into account.
@@ -137,12 +164,20 @@ class UpdateComponents extends ActionBase
      */
     public function getLatestVersionForComponent($component, $filename)
     {
-        // For all PHP components we determine the latest version of the minor release series,
+        // For PHP releases, we determine the latest version of the minor release series,
         // by using the major.minor version number and a min/max patch level range.
         if ($component === 'php' || $component === 'php-x64' || $component === "php-qa" || $component === "php-qa-x64") {
             $minVersionConstraint = $this->getPHPVersionFromFilename($filename); // 5.4, 5.5
             $maxVersionConstraint = $minVersionConstraint . '.99'; // 5.4.99, 5.5.99
+
             return $this->getLatestVersion($component, $minVersionConstraint, $maxVersionConstraint);
+        }
+
+        // For PHP extensions, we determine the latest version based on phpversion and bitsize constraints.
+        if (stristr($component, 'phpext_') !== false) {
+            $constraints = self::getConstraintsFromFilename($filename);
+
+            return $this->getLatestVersionOPHPExtension($component, $constraints);
         }
 
         return $this->getLatestVersion($component);
@@ -190,6 +225,28 @@ class UpdateComponents extends ActionBase
         $latestVersion = array_shift($software);
 
         return $latestVersion;
+    }
+
+    public function getLatestVersionOPHPExtension($component, $constraints)
+    {
+        $software = $this->registry[$component];
+
+        // remove all non-version stuff
+        unset($software['name'], $software['latest'], $software['website']);
+
+        // the array is already sorted.
+        // reverse array, in order to have the highest version number on top.
+        $versions = array_reverse($software);
+
+        // reduce array to values in constraint range
+        foreach ($versions as $version => $bitsize) {
+            if(isset($bitsize[ $constraints['bitsize'] ])) {
+                if(isset($bitsize[ $constraints['bitsize'] ][ $constraints['phpversion'] ])) {
+                    //var_dump($component, $constraints, $versions, $version);
+                    return $version;
+                }
+            }
+        }
     }
 
 }

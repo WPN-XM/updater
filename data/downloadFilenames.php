@@ -75,6 +75,7 @@ return array(
     'phpext_xcache'         => 'phpext_xcache.zip',
     'phpext_xdebug'         => 'phpext_xdebug.zip',
     'phpext_xhprof'         => 'phpext_xhprof.zip',
+    'phpext_yaf'            => 'phpext_yaf.zip',
     'phpext_zip'            => 'phpext_zip.zip',
     'phpext_zmq'            => 'phpext_zmq.zip',
     'phpmemcachedadmin'     => 'phpmemcachedadmin.zip',

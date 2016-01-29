@@ -24,11 +24,12 @@ class Nginx extends VersionCrawler
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
-            if (preg_match("#(\d+\.\d+(\.\d+)*)(.zip)$#i", $node->text(), $matches)) {
-                if (version_compare($matches[1], $this->registry['nginx']['latest']['version'], '>=') === true) {
+            if (preg_match("#nginx-(\d+\.\d+(\.\d+)*)(.zip)$#i", $node->attr('href'), $matches)) {
+                $version = $matches[1];
+                if (version_compare($version, $this->registry['nginx']['latest']['version'], '>=') === true) {
                     return array(
-                        'version' => $matches[1],
-                        'url'     => 'http://nginx.org/download/' . $node->text(),
+                        'version' => $version,
+                        'url'     => 'http://nginx.org/download/nginx-' . $version . '.zip',
                     );
                 }
             }

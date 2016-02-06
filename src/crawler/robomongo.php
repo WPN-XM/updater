@@ -19,23 +19,26 @@ use WPNXM\Updater\VersionCrawler;
  *
  * RoboMongo - A Shell-centric cross-platform MongoDB management tool.
  *
- * Website: http://robomongo.org/
+ * Website:   http://robomongo.org/
+ * Downloads: http://download.robomongo.org/
+ *            http://app.robomongo.org/download.html
+ *            formerly http://robomongo.org/download.html
  */
 class robomongo extends VersionCrawler
 {
-    // formerly http://robomongo.org/download.html
     public $url = 'http://app.robomongo.org/download.html';
 
     public function crawlVersion()
     {
         return $this->filter('table a')->each(function ($node) {
-            if (preg_match("#Robomongo-(\d+\.\d+.\d+)-i386.zip#i", $node->attr('href'), $matches)) {
-                $version = $matches[0];
+            // http://download.robomongo.org/0.9.0-rc4/windows/robomongo-0.9.0-rc4-windows-x86_64-8c830b6.exe
+            if (preg_match("#robomongo-((\d+\.\d+.\d+)(?:-rc\d))-windows-x86_64-(.*)\.exe#i", $node->attr('href'), $matches)) {
+                $version = $matches[1];
+                $hash    = $matches[3]; // why did you add a hash?
                 if (version_compare($version, $this->registry['robomongo']['latest']['version'], '>=') === true) {
                     return array(
                         'version' => $version,
-                        // http://app.robomongo.org/files/windows/Robomongo-0.8.4-i386.zip
-                        'url' => 'http://app.robomongo.org/files/windows/Robomongo-' . $version . '-i386.zip',
+                        'url' => 'http://download.robomongo.org/' . $version . '/windows/robomongo-' . $version . '-windows-x86_64-' . $hash . '.exe',
                     );
                 }
             }

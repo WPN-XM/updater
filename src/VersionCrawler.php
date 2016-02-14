@@ -93,6 +93,10 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
      */
     public function fileExistsOnServer($url)
     {
+        if(!extension_loaded('curl')) {
+            throw new \Exception('PHP Extension cURL not loaded.');
+        }
+
         $curl = curl_init();
 
         $options = array(

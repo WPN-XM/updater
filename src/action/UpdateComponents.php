@@ -12,9 +12,11 @@
 namespace WPNXM\Updater\Action;
 
 use WPNXM\Updater\ActionBase;
-use WPNXM\Updater\View;
+use WPNXM\Updater\InstallerRegistries;
+use WPNXM\Updater\DownloadFilenames;
 use WPNXM\Updater\Registry;
 use WPNXM\Updater\Version;
+//use WPNXM\Updater\View;
 
 /**
  * This updates all components of all installation registry to their latest version.
@@ -32,7 +34,7 @@ class UpdateComponents extends ActionBase
 
     public function __invoke()
     {
-        $nextRegistries = glob(REGISTRY_DIR . '*-next-*.json');
+        $nextRegistries = InstallerRegistries::getRegistriesOfNextRelease();
 
         if (empty($nextRegistries) === true) {
             exit('No "next" JSON registries found. Create installers for the next version.');
@@ -41,7 +43,7 @@ class UpdateComponents extends ActionBase
         echo '<h3>Update all software components to their latest version.</h3>';
         echo '<small>Raises the versions of all software components of all installation wizards of the next release automatically.</small>';
 
-        $downloadFilenames = $this->loadDownloadDescriptionFile();
+        $downloadFilenames = DownloadFilenames::load();
 
         foreach ($nextRegistries as $file) {
             $filename        = basename($file);
@@ -61,7 +63,7 @@ class UpdateComponents extends ActionBase
 
                 /**
                  * Synchronize the "download filename" (registry key)
-                 * with the value of the download description file (/data/downloadFilenames.php),
+                 * with the value of the download description file (/registry/downloadFilenames.php),
                  * but only in case the registry contains a different (old) value.
                  */
                 $downloadFilename = $downloadFilenames[$componentName];
@@ -79,7 +81,7 @@ class UpdateComponents extends ActionBase
                     // update the version number (idx 3)
                     $components[$i][3] = $latestVersion;
                     // if the url (idx 1) has a version appended, update it too
-                    if (false !== strpos($url, $version)) { // o
+                    if (false !== strpos($url, $version)) {
                         $components[$i][1] = str_replace($version, $latestVersion, $url);
                     }
 
@@ -101,58 +103,6 @@ class UpdateComponents extends ActionBase
         echo $html;
     }
 
-    public function loadDownloadDescriptionFile()
-    {
-        $descriptionFile = DATA_DIR . 'downloadFilenames.php';
-
-        if(!is_file($descriptionFile)) {
-            throw new RuntimeException('The download description file "'.$descriptionFile.'" was not found.');
-        }
-
-        return include $descriptionFile;
-    }
-
-    /**
-     * Return the PHP version of a registry file.
-     *
-     * @param string  A filename, e.g. registry filename, like "full-next-php5.6-w64.json".
-     * @param string $file
-     * @return string PHP Version.
-     */
-    public function getPHPVersionFromFilename($file)
-    {
-        preg_match("/-php(.*)-/", $file, $matches);
-
-        return $matches[1];
-    }
-
-    public static function getPartsOfInstallerFilename($file)
-    {
-        $file = basename($file, '.json');
-
-        if (substr_count($file, '-') === 3) {
-            preg_match('/(?<installer>.*)-(?<version>.*)-php(?<phpversion>.*)-(?<bitsize>.*)/i', $file, $parts);
-            return $parts;
-        }
-
-        if (substr_count($file, '-') === 2) {
-            preg_match('/(?<installer>.*)-(?<version>.*)-(?<bitsize>.*)/i', $file, $parts);
-            return $parts;
-        }
-    }
-
-    public static function fixBitsize($bitsize)
-    {
-        $map = ['w32' => 'x86', 'w64' => 'x64'];
-        return $map[$bitsize];
-    }
-
-    public static function getConstraintsFromFilename($file)
-    {
-         $constraints = self::getPartsOfInstallerFilename($file);
-         $constraints['bitsize'] = self::fixBitsize($constraints['bitsize']);
-         return $constraints;
-    }
 
     /**
      * Return the latest version for a component.
@@ -167,7 +117,7 @@ class UpdateComponents extends ActionBase
         // For PHP releases, we determine the latest version of the minor release series,
         // by using the major.minor version number and a min/max patch level range.
         if ($component === 'php' || $component === 'php-x64' || $component === "php-qa" || $component === "php-qa-x64") {
-            $minVersionConstraint = $this->getPHPVersionFromFilename($filename); // 5.4, 5.5
+            $minVersionConstraint = InstallerRegistries::getPHPVersionFromFilename($filename); // 5.4, 5.5
             $maxVersionConstraint = $minVersionConstraint . '.99'; // 5.4.99, 5.5.99
 
             return $this->getLatestVersion($component, $minVersionConstraint, $maxVersionConstraint);
@@ -175,7 +125,7 @@ class UpdateComponents extends ActionBase
 
         // For PHP extensions, we determine the latest version based on phpversion and bitsize constraints.
         if (stristr($component, 'phpext_') !== false) {
-            $constraints = self::getConstraintsFromFilename($filename);
+            $constraints = InstallerRegistries::getConstraintsFromFilename($filename);
 
             return $this->getLatestVersionPHPExtension($component, $constraints);
         }

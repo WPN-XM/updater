@@ -18,10 +18,11 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
 // Constants
-define('DATA_DIR', dirname(__DIR__) . '/data/');
-define('REGISTRY_DIR', DATA_DIR . 'registry/');
-define('VENDOR_DIR', dirname(__DIR__) . '/vendor/');
+define('DS', DIRECTORY_SEPARATOR);
 define('NL', "\n");
+define('DATA_DIR', dirname(__DIR__) . '\data' . DS);
+define('VENDOR_DIR', dirname(__DIR__) . '\vendor' . DS);
+define('REGISTRY_DIR', DATA_DIR . 'registry' . DS);
 
 // Register Composer Autoloader
 if (!is_file(VENDOR_DIR . 'autoload.php')) {
@@ -31,7 +32,3 @@ if (!is_file(VENDOR_DIR . 'autoload.php')) {
     );
 }
 require VENDOR_DIR . 'autoload.php';
-
-// Start Application
-require __DIR__ . '/Application.php';
-WPNXM\Updater\Application::run();

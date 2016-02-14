@@ -15,4 +15,4 @@
  */
 return (empty($_GET))
     ? require __DIR__ . '/public/index.html'
-    : require __DIR__ . '/src/bootstrap.php';
+    : require __DIR__ . '/src/Application.php';

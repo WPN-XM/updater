@@ -14,33 +14,29 @@ namespace WPNXM\Updater\Action;
 use Seld\JsonLint\JsonParser;
 
 use WPNXM\Updater\ActionBase;
-use WPNXM\Updater\View;
+use WPNXM\Updater\ArrayUtil;
+use WPNXM\Updater\InstallerRegistries;
 use WPNXM\Updater\Registry;
+use WPNXM\Updater\View;
 
-/*
+/**
  * Show Installation Wizard Registries
  * - fetch the registry files
  * - split filenames to get version constraints (e.g. version, lite, php5.4, w32, w64)
  * - restructure the arrays for better iteration
  */
-
 class ShowVersionMatrix extends ActionBase
 {
     public $registry = array();
 
     public function __construct()
     {
-        // WPN-XM Software Registry
-        $this->registry = include REGISTRY_DIR . 'wpnxm-software-registry.php';
+        $this->registry = Registry::load();
     }
 
     public function __invoke()
     {
-        $wizardFiles = glob(REGISTRY_DIR . '*.json');
-
-        if (empty($wizardFiles) === true) {
-            exit('No JSON registries found.');
-        }
+        $wizardFiles = InstallerRegistries::getAll();
 
         $wizardRegistries = [];
 
@@ -180,7 +176,7 @@ class ShowVersionMatrix extends ActionBase
         $html = '';
 
         foreach ($registry as $software => $data) {
-            $versions = Registry::reduceArrayToContainOnlyVersions($data);
+            $versions = ArrayUtil::reduceArrayToContainOnlyVersions($data);
 
             $html .= '<tr>';
             $html .= '<td>' . $software . '</td>';

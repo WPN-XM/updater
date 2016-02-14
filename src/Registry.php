@@ -22,10 +22,14 @@ class Registry
      */
     public static function writeRegistry(array $registry)
     {
+        if (!is_dir(DATA_DIR . 'registry/backup')) {
+            mkdir(DATA_DIR . 'registry/backup', 0777, true);
+        }
+
         // backup current registry
         rename(
             DATA_DIR . 'registry/wpnxm-software-registry.php',
-            DATA_DIR . 'registry/wpnxm-software-registry-backup-' . date("dmy-His") . '.php'
+            DATA_DIR . 'registry/backup/wpnxm-software-registry-' . date("dmy-His") . '.php'
         );
 
         // registry file header

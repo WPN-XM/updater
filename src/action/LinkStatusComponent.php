@@ -12,9 +12,10 @@
 namespace WPNXM\Updater\Action;
 
 use WPNXM\Updater\ActionBase;
-use WPNXM\Updater\View;
+use WPNXM\Updater\ArrayUtil;
 use WPNXM\Updater\Registry;
 use WPNXM\Updater\StatusRequest;
+use WPNXM\Updater\View;
 
 /**
  * LinkStatus for all links of a Component.
@@ -35,7 +36,7 @@ class LinkStatusComponent extends ActionBase
     public function __invoke()
     {
     	$software = filter_var($_GET['software'], FILTER_SANITIZE_STRING);
-    	$componentArray = Registry::reduceArrayToContainOnlyVersions($this->registry[$software]);
+    	$componentArray = ArrayUtil::reduceArrayToContainOnlyVersions($this->registry[$software]);
 
 		$before       = microtime(true);
         $urls         = array_values($componentArray);

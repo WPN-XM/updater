@@ -12,7 +12,7 @@
 namespace WPNXM\Updater\Action;
 
 use WPNXM\Updater\ActionBase;
-use WPNXM\Updater\View;
+use WPNXM\Updater\InstallerRegistries;
 use WPNXM\Updater\Registry;
 
 /**
@@ -20,18 +20,14 @@ use WPNXM\Updater\Registry;
  */
 class PrettyPrintRegistries extends ActionBase
 {
-    public $registry;
-
     public function __construct()
     {
-        $this->registry = Registry::load();
-
         Registry::clearOldScans();
     }
 
     public function __invoke()
     {
-        $nextRegistries = $this->getInstallerRegistriesOfNextVersion();
+        $nextRegistries = InstallerRegistries::getRegistriesOfNextRelease();
 
         echo 'Pretty printing all installation wizard registries.<br>';
 
@@ -43,16 +39,5 @@ class PrettyPrintRegistries extends ActionBase
         }
 
         echo '<pre>You might "git commit/push":<br>pretty printed registries</pre>';
-    }
-
-    public function getInstallerRegistriesOfNextVersion()
-    {
-        $nextRegistries = glob(REGISTRY_DIR . '*-next-*.json');
-
-        if (empty($nextRegistries) === true) {
-            throw new \Exception('No "next" JSON registries found. Create installers for the next version.');
-        }
-
-        return $nextRegistries;
     }
 }

@@ -31,12 +31,22 @@ class ScanComponent extends ActionBase
         $updater = new RegistryUpdater($registry);
         $updater->setupCrawler();
 
-        // handle $_GET['component'], for single component scans, e.g. index.php?action=scan&component=openssl
+        /**
+         * Scan a single component
+         *
+         * handles $_GET['component'],
+         * e.g. "index.php?action=scan&component=openssl"
+         */
         $component = filter_input(INPUT_GET, 'component', FILTER_SANITIZE_STRING);
 
-        $numberOfComponents = (isset($component) === true) ?
-            $updater->getUrlsToCrawl($component) :
-            $updater->getUrlsToCrawl();
+        if(isset($component) === true) {
+            if(!isset($registry[$component])) {
+                throw new \Exception('Component doesn\'t exist in registry, yet. Correctly spelled? Otherwise, please create an entry.');
+            }
+            $numberOfComponents = $updater->getUrlsToCrawl($component);
+        } else {
+            $numberOfComponents = $updater->getUrlsToCrawl();
+        }
 
         $updater->crawl();
 

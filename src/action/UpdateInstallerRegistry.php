@@ -12,6 +12,8 @@
 namespace WPNXM\Updater\Action;
 
 use WPNXM\Updater\ActionBase;
+use WPNXM\Updater\DownloadFilenames;
+use WPNXM\Updater\InstallerRegistries;
 use WPNXM\Updater\Registry;
 
 /**
@@ -25,10 +27,10 @@ class UpdateInstallerRegistry extends ActionBase
         $installer    = filter_input(INPUT_POST, 'installer', FILTER_SANITIZE_STRING);
         $registryJson = filter_input(INPUT_POST, 'registry-json', FILTER_SANITIZE_STRING);
 
-        $file              = DATA_DIR . '\registry\\' . $installer . '.json';
+        $file              = InstallerRegistries::getFilePath($installer);
         $registryJson      = html_entity_decode($registryJson, ENT_COMPAT, 'UTF-8'); // fix the JSON.stringify quotes &#34;
         $installerRegistry = json_decode($registryJson, true);
-        $downloadFilenames = include DATA_DIR . '\downloadFilenames.php';
+        $downloadFilenames = DownloadFilenames::load();
 
         $data = array();
 
@@ -38,12 +40,14 @@ class UpdateInstallerRegistry extends ActionBase
 
             // special handling for PHP components
             if (in_array($component, ['php', 'php-x64', 'php-qa-x64', 'php-qa']) === true) {
-                $php_version = substr($installerRegistry[$component], 0, 3); // get only major.minor, e.g. "5.4", not "5.4.2"
+                // get only major.minor, e.g. "5.4", not "5.4.2"
+                $php_version = substr($installerRegistry[$component], 0, 3);
 
-                $bitsize = (false !== strpos($component, 'x64')) ? 'x64' : ''; // empty bitsize defaults to x86, see website "get.php"
+                // empty bitsize defaults to x86, see website "get.php"
+                $bitsize = (false !== strpos($component, 'x64')) ? 'x64' : '';
             }
 
-            // special handling for PHP Extensions (which depend on a specific PHP version and bitsize)
+            // special handling for PHP Extensions (they depend on a specific PHP version and bitsize)
             if (false !== strpos($component, 'phpext_')) {
                 $url .= '&p=' . $php_version;
                 $url .= ($bitsize !== '') ? '&bitsize=' . $bitsize : '';

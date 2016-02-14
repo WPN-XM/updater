@@ -130,4 +130,32 @@ class InstallerRegistries
         return $constraints;
     }
 
+    /**
+     * Returns the full path to the installer registry file
+     * given the filename.
+     *
+     * @param  string $filename installer filename, e.g. "literc-next-php7.0-w32"
+     *
+     * @return string  Path to installer.
+     */
+    public static function getFilePath($filename)
+    {
+        $constraints = self::getConstraintsFromFilename($filename);
+        $version     = $constraints['version'];
+
+        /**
+         * The installer reside in versionized folders, e.g. "registries/installer/v1.2.3/",
+         * except for the installers of the next version. They are in "registry/installer/next"!
+         */
+        $versionDir = ($version !== 'next') ? 'v'.$version : $version;
+
+        $file = REGISTRY_DIR.'installer'.DS.$versionDir.DS.$filename.'.json';
+
+        /*if(!file_exists($file)) {
+            throw new \Exception('The installer registry doesn\'t exist.');
+        }*/
+
+        return $file;
+    }
+
 }

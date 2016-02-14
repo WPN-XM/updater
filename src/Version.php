@@ -84,4 +84,20 @@ class Version
             return ($returnVersion === true) ? $version : true;
         }
     }
+
+    /**
+     * Sorts an array by version.
+     *
+     * @param  array  $array versions
+     * @return array  sorted versions
+     */
+    public static function sortByVersion(array $array)
+    {
+        $sort = function ($versionA, $versionB) {
+            return version_compare($versionA['version'], $versionB['version']);
+        };
+        usort($array, $sort);
+
+        return $array;
+    }
 }

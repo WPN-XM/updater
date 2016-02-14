@@ -40,8 +40,8 @@ class Registry
         $content .= "    */\n";
         $content .= "\n";
         $content .= "   /**\n";
-        $content .= "    * WPN-XM Software Registry\n";
-        $content .= "    * ------------------------\n";
+        $content .= "    * WPИ-XM Server Stack - Software Registry\n";
+        $content .= "    * ---------------------------------------\n";
         $content .= "    * Last Update " . date(DATE_RFC2822) . ".\n";
         $content .= "    * Do not edit manually!\n";
         $content .= "    */\n";
@@ -114,7 +114,7 @@ class Registry
 
             // if there are multiple versions, sort version numbers from low to high
             if(count($latestVersion) > 1) {
-                $latestVersion = static::sortArrayByVersion($latestVersion);
+                $latestVersion = Version::sortByVersion($latestVersion);
             }
 
             // add the last array item of multiple elements (the one with the highest version number)
@@ -133,16 +133,6 @@ class Registry
         }
 
         return static::sort($registry);
-    }
-
-    public static function sortArrayByVersion($array)
-    {
-        $sort = function ($versionA, $versionB) {
-            return version_compare($versionA['version'], $versionB['version']);
-        };
-        usort($array, $sort);
-
-        return $array;
     }
 
     public static function clearOldScans()
@@ -203,15 +193,13 @@ class Registry
 
     public static function load()
     {
-        // load software components registry
-        $registry = include dirname(__DIR__) . '\data\registry\wpnxm-software-registry.php';
+        $registryFile = REGISTRY_DIR . '\wpnxm-software-registry.php';
 
-        // ensure registry array is available
-        if (!is_array($registry)) {
-            header("HTTP/1.0 404 Not Found");
+        if(!is_file($registryFile)) {
+            throw new RuntimeException('The software registry file "'.$registryFile.'" was not found.');
         }
 
-        return $registry;
+        return include $registryFile;
     }
 
     public static function sort(array $registry)
@@ -231,48 +219,16 @@ class Registry
                 uksort($array, 'version_compare');
             }
 
-            // move 'latest' to the bottom of the arary
-            self::move_to_bottom($array, 'latest');
+            ArrayUtil::move_key_to_bottom($array, 'latest');
 
-            // move 'name' and 'website' to the top of the array
-            self::move_to_top($array, 'website');
-            self::move_to_top($array, 'name');
+            ArrayUtil::move_key_to_top($array, 'website');
+            ArrayUtil::move_key_to_top($array, 'name');
 
             // reassign the sorted array
             $registry[$component] = $array;
         }
 
         return $registry;
-    }
-
-    /**
-     * This works on the array and moves the key to the top.
-     *
-     * @param array  $array
-     * @param string $key
-     */
-    private static function move_to_top(array &$array, $key)
-    {
-        if (isset($array[$key]) === true) {
-            $temp  = array($key => $array[$key]);
-            unset($array[$key]);
-            $array = $temp + $array;
-        }
-    }
-
-    /**
-     * This works on the array and moves the key to the bottom.
-     *
-     * @param array  $array
-     * @param string $key
-     */
-    private static function move_to_bottom(array &$array, $key)
-    {
-        if (isset($array[$key]) === true) {
-            $value       = $array[$key];
-            unset($array[$key]);
-            $array[$key] = $value;
-        }
     }
 
     /**
@@ -286,9 +242,7 @@ class Registry
         ksort($registry);
 
         $content = var_export($registry, true);
-
         $content = str_replace('array (', 'array(', $content);
-
         $content = preg_replace('/\n\s+array/', 'array', $content);
 
         return ArrayUtil::removeTrailingSpaces($content);
@@ -350,12 +304,5 @@ class Registry
         file_put_contents($file, $json_table);
 
         echo 'Updated or Created Installer Registry "' . $file . '"<br />';
-    }
-
-    public static function reduceArrayToContainOnlyVersions($array)
-    {
-        unset($array['website'], $array['latest'], $array['name']);
-        $array = array_reverse($array); // latest version first
-        return $array;
     }
 }

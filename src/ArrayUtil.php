@@ -71,4 +71,49 @@ class ArrayUtil
 
         return $content;
     }
+
+    /**
+     * This works on the array and moves the key to the top.
+     *
+     * @param array  $array
+     * @param string $key
+     */
+    public static function move_key_to_top(array &$array, $key)
+    {
+        if (isset($array[$key]) === true) {
+            $temp  = array($key => $array[$key]);
+            unset($array[$key]);
+            $array = $temp + $array;
+        }
+    }
+
+    /**
+     * This works on the array and moves the key to the bottom.
+     *
+     * @param array  $array
+     * @param string $key
+     */
+    public static function move_key_to_bottom(array &$array, $key)
+    {
+        if (isset($array[$key]) === true) {
+            $value       = $array[$key];
+            unset($array[$key]);
+            $array[$key] = $value;
+        }
+    }
+    /**
+     * Reduces an "Registry" array to contain only the versions
+     * by dropping all other array keys.
+     *
+     * @param  array $array with multiple keys
+     * @return array array with versions only
+     */
+    public static function reduceArrayToContainOnlyVersions(array $array)
+    {
+        unset($array['website'], $array['latest'], $array['name']);
+
+        $array = array_reverse($array); // latest version first
+
+        return $array;
+    }
 }

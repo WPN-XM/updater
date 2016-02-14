@@ -45,6 +45,7 @@ class ScanComponent extends ActionBase
             }
             $numberOfComponents = $updater->getUrlsToCrawl($component);
         } else {
+            // scan multiple components
             $numberOfComponents = $updater->getUrlsToCrawl();
         }
 

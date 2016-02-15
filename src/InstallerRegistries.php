@@ -70,6 +70,10 @@ class InstallerRegistries
         return $files;
     }
 
+    /**
+     * @param string $folder
+     * @param string $regexp
+     */
     public static function recursiveFind($folder, $regexp)
     {
         $dir = new \RecursiveDirectoryIterator($folder, \RecursiveDirectoryIterator::SKIP_DOTS);
@@ -115,6 +119,9 @@ class InstallerRegistries
         }
     }
 
+    /**
+     * @param string $bitsize
+     */
     public static function fixBitsize($bitsize)
     {
         $map = ['w32' => 'x86', 'w64' => 'x64'];
@@ -122,6 +129,9 @@ class InstallerRegistries
         return $map[$bitsize];
     }
 
+    /**
+     * @param string $file
+     */
     public static function getConstraintsFromFilename($file)
     {
         $constraints = self::getPartsOfInstallerFilename($file);

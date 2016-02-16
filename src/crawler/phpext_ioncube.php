@@ -21,7 +21,8 @@ class phpext_ioncube extends VersionCrawler
 {
     public $url = 'https://www.ioncube.com/loaders.php';
 
-    public $url_template = 'http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_win_nonts_%compiler%_%bitsize%.zip';
+    // http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_win_nonts_vc11_x86-64_5.0.23.zip
+    public $url_template = 'http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_win_nonts_%compiler%_%bitsize%_%version%.zip';
 
     public $needsGuzzle = false;
 
@@ -33,20 +34,21 @@ class phpext_ioncube extends VersionCrawler
          *
          * This expression grabs the version number from the first table row containing "Windows".
          */
-        $xPathExpression = "//html/body/div/table[contains(@class, 'loader_download')][1]/tbody/tr[contains(.,'Windows')][1]/td[5]";
+        $xPathExpression = "//html/body/div/table[contains(@class, 'loader_download')][1]/tbody/tr[contains(.,'Windows')][1]/td[6]";
 
-        $version = $this->filterXPath($xPathExpression)->text();
-        $version = trim($version);
-
+        $versionText = $this->filterXPath($xPathExpression)->text();
+        $versionText = trim($versionText);
+        $version     = substr($versionText, 0, strpos($versionText, ' '));
+        $version     = trim($version);
 
         if (version_compare($version, $this->registry['phpext_ioncube']['latest']['version'], '>=') === true) {
-			
-			        $urls = $this->createPhpVersionsArrayForExtension($version, $this->url_template);
-        if(empty($urls)) {
-            return;
-        }
 
-		
+			$urls = $this->createPhpVersionsArrayForExtension($version, $this->url_template);
+
+            if(empty($urls)) {
+                return;
+            }
+
             return array(
                 'version' => $version,
                 'url'     => $urls,
@@ -58,7 +60,7 @@ class phpext_ioncube extends VersionCrawler
      * Creates the version array for PHP Extension "ionCube".
      *
      * Replaces %compiler% and %bitsize% placeholder strings in the $url_template:
-     * http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_win_nonts_%compiler%_%bitsize%.zip
+     * http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_win_nonts_%compiler%_%bitsize%_%version%.zip
      *
      * array (
      *   'x86' => array(

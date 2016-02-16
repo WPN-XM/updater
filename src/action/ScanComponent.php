@@ -41,7 +41,7 @@ class ScanComponent extends ActionBase
 
         if(isset($component) === true) {
             if(!isset($registry[$component])) {
-                throw new \Exception('Component doesn\'t exist in registry, yet. Correctly spelled? Otherwise, please create an entry.');
+                throw new \Exception('Component "'.$component.'" doesn\'t exist in registry, yet. Correctly spelled? Otherwise, please create an entry.');
             }
             $numberOfComponents = $updater->getUrlsToCrawl($component);
         } else {

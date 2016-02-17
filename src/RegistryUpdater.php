@@ -130,6 +130,11 @@ class RegistryUpdater
 
             $component     = $this->crawlers[$i]->getName();
             $latestVersion = $this->crawlers[$i]->crawlVersion();
+
+            if($latestVersion === null) {
+                echo '[Crawling Error] Version Scan for Component "'.$component.'" returned no version';
+            }
+
             $latestVersion = ArrayUtil::clean($latestVersion);
 
             /**
@@ -170,21 +175,21 @@ class RegistryUpdater
                 Registry::writeRegistrySubset($component, $this->registry[$component]);
 
                 // render a table row (version comparison display)
-                $html .= ViewHelper::renderTableRow($component, $old_version, $new_version, (bool) 'latest-version');
+                $html .= ViewHelper::renderTableRow($component, $old_version, $new_version, true);
             }
             /**
-             * A missing version
+             * Missing version
              */
             elseif (Version::notInRegistry($latestVersion, $this->old_registry[$component]) === true)
             {
                 // write a temporary component registry, for later registry insertion
                 Registry::writeRegistrySubset($component, $this->registry[$component]);
 
-                // missing version number
+                // check, if this is missing version number
                 $new_version = Version::notInRegistry($latestVersion, $this->old_registry[$component], true);
 
                 // render a table row (version comparison display)
-                $html .= ViewHelper::renderTableRow($component, $old_version, $new_version, (bool) 'missing-version');
+                $html .= ViewHelper::renderTableRow($component, $old_version, $new_version, true);
             } else {
                 // render a table row (version comparison display)
                 $html .= ViewHelper::renderTableRow($component, $old_version, $new_version, false);

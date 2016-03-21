@@ -132,7 +132,8 @@ class RegistryUpdater
             $latestVersion = $this->crawlers[$i]->crawlVersion();
 
             if($latestVersion === null) {
-                echo '[Crawling Error] Version Scan for Component "'.$component.'" returned no version';
+                echo '[Crawling Error] Version Scan for Component "'.$component.'" returned no version.';
+                continue;
             }
 
             $latestVersion = ArrayUtil::clean($latestVersion);

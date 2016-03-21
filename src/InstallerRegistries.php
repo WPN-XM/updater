@@ -102,6 +102,9 @@ class InstallerRegistries
         return $matches[1];
     }
 
+    /**
+     * @param string $file
+     */
     public static function getPartsOfInstallerFilename($file)
     {
         $file = basename($file, '.json');

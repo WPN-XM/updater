@@ -93,7 +93,7 @@ class InstallerRegistries
      *
      * @param string  A filename, e.g. registry filename, like "full-next-php5.6-w64.json".
      * @param string $file
-     * @return string PHP Version.
+     * @return string PHP Version, e.g "5.6".
      */
     public static function getPHPVersionFromFilename($file)
     {

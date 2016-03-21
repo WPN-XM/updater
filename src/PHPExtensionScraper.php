@@ -63,6 +63,9 @@ class PHPExtensionScraper
         return $text;
     }
 
+    /**
+     * @param string $html
+     */
     public function scrapeExtensionsHtml($html)
     {
         $regexp = "<a\s[^>]*href=(\"??)([^\" >]*?)\\1[^>]*>(.*)<\/a>";

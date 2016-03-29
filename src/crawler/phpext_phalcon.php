@@ -13,19 +13,16 @@ namespace WPNXM\Updater\Crawler;
 
 use WPNXM\Updater\VersionCrawler;
 
-
 /**
  * Phalcon - Version Crawler
+ *
+ * Website:   http://phalconphp.com/
+ * Downloads: http://phalconphp.com/en/download/windows
  */
 class phpext_phalcon extends VersionCrawler
 {
-    /**
-     * http://phalconphp.com/en/download/windows
-     * http://static.phalconphp.com/files/ - now forbidden - thanks a lot.
-     */
     public $url = 'https://phalconphp.com/en/download/windows';
 
-    // http://static.phalconphp.com/files/phalcon_x86_VC9_php5.4.0_1.3.1_nts.zip
     private $url_template = 'https://static.phalconphp.com/www/files/phalcon_%bitsize%_%compiler%_php%phpversion%_%version%_nts.zip';
 
     public $needsOnlyRegistrySubset = false;
@@ -36,18 +33,19 @@ class phpext_phalcon extends VersionCrawler
     {
         return $this->filter('a')->each(function ($node) {
 
-            // there are "rc" versions, but we don't take them into account
-            if (preg_match("#_php(\d+\.\d+\.\d+)_(\d+\.\d+\.\d+)#i", $node->attr('href'), $matches)) {
+            // we take "rc" versions into account
+            // https://static.phalconphp.com/www/files/phalcon_x64_vc11_php5.6.0_2.1.0.RC1_nts.zip
+            if (preg_match("#_php(\d+\.\d+\.\d+)_(\d+\.\d+\.\d+(.RC\d+)?)_nts#i", $node->attr('href'), $matches)) {
 
                 $version = $matches[2];
- 
+
                 if (version_compare($version, $this->registry['phpext_phalcon']['latest']['version'], '>=') === true) {
-					
+
 					$urls = $this->createPhpVersionsArrayForExtension($version, $this->url_template);
 					if(empty($urls)) {
 						return;
 					}
-				
+
                     return array(
                         'version' => $version,
                         'url'     => $urls,

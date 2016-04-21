@@ -33,7 +33,7 @@ class Redis extends VersionCrawler
              * The download URL for a file looks like this:
              * https://github.com/MSOpenTech/redis/releases/download/win-2.8.21/redis-x64-2.8.21.zip
              */
-            if (preg_match("#download/win-(\d+\.\d+.\d+)/redis-(\d+\.\d+.\d+).zip#", $node->attr('href'), $matches)) {
+            if (preg_match("#download/win-(\d+\.\d+.\d+)/Redis-x64-(\d+\.\d+.\d+).zip#i", $node->attr('href'), $matches)) {
                 $version = $matches[1];
                 if (version_compare($version, $this->registry['redis']['latest']['version'], '>=') === true) {
                     return array(

@@ -28,6 +28,9 @@ class phpext_ioncube extends VersionCrawler
 
     public function crawlVersion()
     {
+        // disabled - @todo fix crawler
+        return;
+
         /**
          * XPath for Chrome Console
          * $x("/html/body/div/table[contains(@class, 'loader_download')][1]/tbody/tr[contains(.,'Windows')]");
@@ -43,7 +46,7 @@ class phpext_ioncube extends VersionCrawler
 
         if (version_compare($version, $this->registry['phpext_ioncube']['latest']['version'], '>=') === true) {
 
-			$urls = $this->createPhpVersionsArrayForExtension($version, $this->url_template);
+			$urls = self::createPhpVersionsArrayForExtension($version, $this->url_template);
 
             if(empty($urls)) {
                 return;
@@ -107,6 +110,8 @@ class phpext_ioncube extends VersionCrawler
                 //}
             }
         }
+
+        var_dump($urls); exit;
 
         return $urls;
     }

@@ -61,7 +61,7 @@ class InstallerRegistries
      */
     public static function getRegistriesOfNextRelease()
     {
-        $files = glob(REGISTRY_DIR.'installers\next\*-next-*.json');
+        $files = glob(REGISTRY_DIR.'installer\next\*-next-*.json');
 
         if (empty($files)) {
             throw new \Exception('No JSON registries found.');

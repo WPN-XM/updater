@@ -29,8 +29,9 @@ class phpext_ice extends VersionCrawler
     {
         return $this->filter('a')->each(function ($node) {
 
-            // ice-1.1.2-php-5.6-nts-vc11-x86.zip
-            if (preg_match("/ice-(\d+\.\d+\.\d+)-php-(\d+\.\d+\.\d+)-nts-vc11-x86.zip$/i", $node->attr('href'), $matches)) {
+            // ice-1.1.2-php-5.6-nts-vc11-x64.zip
+            // ice-1.1.3-php-7.0-nts-vc14-x64.zip
+            if (preg_match("/ice-(\d+\.\d+\.\d+)-php-(\d+\.\d+)-nts-vc\d+-x64\.zip/i", $node->attr('href'), $matches)) {
                 $version = $matches[1];
 
                 if (version_compare($version, $this->registry['phpext_ice']['latest']['version'], '>=') === true)  {

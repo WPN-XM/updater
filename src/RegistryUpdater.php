@@ -140,7 +140,7 @@ class RegistryUpdater
      */
     public function rejectedResponse($reason, $index)
     {
-        //var_dump($reason, $index);
+        echo 'rejectedResponse: '. $reason . 'Index: '. $index;
     }
 
     /**

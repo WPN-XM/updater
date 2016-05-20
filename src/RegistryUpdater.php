@@ -24,6 +24,7 @@ class RegistryUpdater
      * @object \GuzzleHttp\Client
      */
     public $guzzleClient;
+    public $crawlers     = [];
     public $urls         = [];
     public $registry     = [];
     public $old_registry = [];

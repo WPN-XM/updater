@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * WPИ-XM Server Stack - Updater
@@ -151,7 +152,9 @@ class RegistryUpdater
          * We use Symfony/DomCrawler->addContent() to set the content to scrape.
          */
         $body        = $response->getBody();
-        $contentType = $response->getHeader('Content-Type')[0];
+        $contentType = is_array($response->getHeader('Content-Type') 
+                        ? $response->getHeader('Content-Type')[0]; // no clue, why this is an array...
+                        : $response->getHeader('Content-Type');        
         $this->crawlers[$index]->addContent($body, $contentType);
 
         $component     = $this->crawlers[$index]->getName();

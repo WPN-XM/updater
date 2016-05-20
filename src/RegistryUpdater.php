@@ -101,9 +101,7 @@ class RegistryUpdater
      * Crawl several URLs in parallel.
      */
     public function crawl()
-    {
-        $requests = [];
-        
+    {  
         // Prepare Requests Closure.
         // The closure accepts the URLs array, counts the total number of URLs 
         // and creates new Requests for each URL.

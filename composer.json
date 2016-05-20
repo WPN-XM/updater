@@ -17,11 +17,11 @@
     },
     "require": {
         "php"                             : ">=5.4",
-        "fabpot/goutte"                   : "2.0.*",
+        "guzzlehttp/guzzle"               : "^6",
         "seld/jsonlint"                   : "^1.4"
     },
     "require-dev": {
-        "phpunit/phpunit"                 : "4.3.*@dev",
+        "phpunit/phpunit"                 : "^5",
         "fabpot/php-cs-fixer"             : "dev-master"
     },
     "suggest": {

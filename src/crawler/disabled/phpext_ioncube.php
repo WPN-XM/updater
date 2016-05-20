@@ -28,9 +28,6 @@ class phpext_ioncube extends VersionCrawler
 
     public function crawlVersion()
     {
-        // disabled - @todo fix crawler
-        return;
-
         /**
          * XPath for Chrome Console
          * $x("/html/body/div/table[contains(@class, 'loader_download')][1]/tbody/tr[contains(.,'Windows')]");

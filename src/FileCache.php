@@ -16,7 +16,7 @@ namespace WPNXM\Updater;
  */
 class FileCache
 {
-    public static function get($url, $cacheFile, $modificationCallback = false, $cachetime = (3 * 24 * 60 * 60))
+    public static function get($url, $cacheFile, $modificationCallback = null, $cachetime = (3 * 24 * 60 * 60))
     {
         // When the cache file is less then cachetime old (default is 3 days),
         // do not refresh, just use the file as-is.

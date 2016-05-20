@@ -43,8 +43,7 @@ class postgresql extends VersionCrawler
             $value = strtolower($node->text());
 
             if (preg_match("/(\d+\.\d+(\.\d+)*)(.(RC|beta)(\d+))?/i", $value, $matches) && false === strpos($value, 'beta')) {
-                $download_version = '';
-
+                
                 // is it a "release candidate"?
                 if (isset($matches[4]) === true && $matches[4] === 'rc')
                 {

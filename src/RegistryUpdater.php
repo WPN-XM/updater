@@ -154,7 +154,7 @@ class RegistryUpdater
          */
         $body        = $response->getBody();
         $contentType = is_array($response->getHeader('Content-Type') 
-                        ? $response->getHeader('Content-Type')[0]; // no clue, why this is an array...
+                        ? $response->getHeader('Content-Type')[0] // no clue, why this is an array...
                         : $response->getHeader('Content-Type');        
         $this->crawlers[$index]->addContent($body, $contentType);
 

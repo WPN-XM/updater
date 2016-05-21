@@ -12,6 +12,7 @@
 namespace WPNXM\Updater\Action;
 
 use Seld\JsonLint\JsonParser;
+use Seld\JsonLint\DuplicateKeyException;
 
 use WPNXM\Updater\ActionBase;
 use WPNXM\Updater\ArrayUtil;

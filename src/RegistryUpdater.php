@@ -153,7 +153,7 @@ class RegistryUpdater
          * We use Symfony/DomCrawler->addContent() to set the content to scrape.
          */
         $body        = $response->getBody();
-        $contentType = is_array($response->getHeader('Content-Type') 
+        $contentType = is_array($response->getHeader('Content-Type')) 
                         ? $response->getHeader('Content-Type')[0] // no clue, why this is an array...
                         : $response->getHeader('Content-Type');        
         $this->crawlers[$index]->addContent($body, $contentType);

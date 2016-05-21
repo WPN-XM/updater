@@ -258,7 +258,7 @@ class Registry
      *
      * @param string $commitMessage Optional Commit Message
      */
-    public static function gitCommitAndPush($commitMessage = '')
+    public static function gitCommitAndPush($commitMessage = '', $doGitPush = false)
     {
         // setup path to git
         $git = '"C:\Program Files (x86)\Git\bin\git" ';
@@ -285,11 +285,10 @@ class Registry
 
         echo NL . 'You might "git push" now.' . NL;
 
-        //echo NL . 'Push commit to remote server' . NL;
-        //passthru($git . 'push');
-
-        //echo '<a href="#" class="btn btn-lg btn-primary">'
-        //   . '<span class="glyphicon glyphicon-save"></span> Git Push</a>';
+        if($doGitPush === true) {
+            echo NL . 'Pushing commit to remote server:' . NL;
+            passthru($git . 'push');
+        }
 
         echo '</pre>';
     }

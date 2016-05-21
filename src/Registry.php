@@ -270,6 +270,10 @@ class Registry
         chdir(DATA_DIR . 'registry');
         //echo 'Switched to Registry folder: ' . getcwd() . NL;
 
+        // make sure we are on the "master" branch and not in "detached head" state
+        echo NL . 'Switching branch to "master":' . NL;
+        passthru($git . 'checkout master');
+
         echo NL . 'Pulling possible changes:' . NL;
         passthru($git . 'pull');
 
@@ -280,7 +284,6 @@ class Registry
         passthru($git . 'commit -m "' . $commitMessage . '" -- wpnxm-software-registry.php');
 
         echo NL . 'You might "git push" now.' . NL;
-
 
         //echo NL . 'Push commit to remote server' . NL;
         //passthru($git . 'push');

@@ -261,8 +261,8 @@ class Registry
     public static function gitCommitAndPush($commitMessage = '', $doGitPush = false)
     {
         // setup path to git
-        $git = '"C:\Program Files (x86)\Git\bin\git" ';
-        //passthru($git . '--version');
+        $git = '"git" ';
+        passthru($git . '--version');
 
         echo '<pre>';
 
@@ -303,7 +303,7 @@ class Registry
     {
         asort($registry);
 
-        $json        = json_encode($registry);
+        $json        = json_encode($registry);        
         $json_pretty = \WPNXM\Updater\JsonUtil::prettyPrintCompact($json);
         $json_table  = \WPNXM\Updater\JsonUtil::prettyPrintTableFormat($json_pretty);
 

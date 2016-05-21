@@ -44,7 +44,7 @@ class InstallerRegistries
      */
     public static function getByVersion($version)
     {
-        $files = self::glob(REGISTRY_DIR.'installer\\v'.$version, '#^.+\.json#i');
+        $files = self::recursiveFind(REGISTRY_DIR.'installer\\v'.$version, '#^.+\.json#i');
 
         if (empty($files)) {
             throw new \Exception('No JSON registries found.');

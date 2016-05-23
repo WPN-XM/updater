@@ -260,11 +260,11 @@ class Registry
      */
     public static function gitCommitAndPush($commitMessage = '', $doGitPush = false)
     {
+        echo '<pre>';
+
         // setup path to git
         $git = '"git" ';
         passthru($git . '--version');
-
-        echo '<pre>';
 
         // switch to the git submodule "registry"
         chdir(DATA_DIR . 'registry');

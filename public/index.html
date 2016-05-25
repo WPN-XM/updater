@@ -42,76 +42,83 @@
       </div><!--/.nav-collapse -->
     </nav>
 
-    <div class="container">
+    <div id="main" class="container">
+
+      <br>
 
       <div class="card">
-       <div class="card-header"><strong>Version Crawler</strong></div>
+       <div class="card-header clearfix"><strong>Version Crawler</strong></div>
        <div class="card-block"> 
           <a href="http://localhost/updater/index.php?action=scan-component" class="btn btn-secondary btn-sm">Scan for new Versions</a>
-          <a href="http://localhost/updater/index.php?action=scan-component" class="btn btn-secondary btn-sm">Scan Single Component</a> 
+          <a href="http://localhost/updater/index.php?action=scan-component" class="btn btn-danger btn-sm">Scan Single Component</a> 
        </div>
       </div>
     
       <div class="card">
-        <div class="card-header">
+        <div class="card-header clearfix">
             <strong>Installation Wizard Registries</strong>
-            <a href="https://github.com/WPN-XM/registry/tree/master/installer/next" 
-               class="btn btn-secondary btn-sm pull-xs-right"><strong>Unreleased</strong> Installers (next version)</a>
-            <a href="https://github.com/WPN-XM/registry/tree/master/installer"
-               class="btn btn-secondary btn-sm pull-xs-right"><strong>Released</strong> Installers</a>
+            <div class="btn-group pull-xs-right" role="group" aria-label="Basic example">
+              <a href="https://github.com/WPN-XM/registry/tree/master/installer/next" 
+                  class="btn btn-secondary btn-sm"><strong>Unreleased</strong> Installers (next version)</a>
+              <a href="https://github.com/WPN-XM/registry/tree/master/installer"
+                  class="btn btn-secondary btn-sm"><strong>Released</strong> Installers</a>
+            </div>
         </div>
         <div class="card-block">     
-          <a href="http://localhost/updater/index.php?action=update-components" class="btn btn-secondary btn-sm"
-             title="Automatically raise the version of each Component of all 'next' Installation Registries to their latest version.">Update Versions</a>
-          <a href="http://localhost/updater/index.php?action=show-version-matrix" class="btn btn-secondary btn-sm">Show Installer Version Matrix</a>          
-          <a href="http://localhost/updater/index.php?action=pretty-print-registries" class="btn btn-secondary btn-sm">Pretty Print the Registries</a>
+          <a href="http://localhost/updater/index.php?action=update-components" class="btn btn-secondary btn-sm" data-toggle="tooltip"
+             title="Automatically raise the version of each Component in all 'next' Installation Registries to its latest version.">
+             Update Versions</a>
+          <a href="http://localhost/updater/index.php?action=show-version-matrix" class="btn btn-secondary btn-sm" data-toggle="tooltip">
+             Show Installer Version Matrix</a>          
+          <a href="http://localhost/updater/index.php?action=pretty-print-registries" class="btn btn-secondary btn-sm" data-toggle="tooltip">
+             Pretty Print the Registries</a>
         </div>       
       </div>
 
       <div class="card">
-        <div class="card-header">
+        <div class="card-header clearfix">
             <strong>Software Registry</strong>
             <a href="https://github.com/WPN-XM/registry/blob/master/wpnxm-software-registry.php" class="btn btn-secondary btn-sm pull-xs-right">wpnxm-software-registry.php</a>
         </div>
         <div class="card-block">        
-          <a href="http://localhost/updater/index.php?action=add-component" class="btn btn-secondary btn-sm">Add Software</a>
-          <a href="" class="btn btn-secondary btn-sm">Edit Software</a>
+          <a href="http://localhost/updater/index.php?action=add-component" class="btn btn-danger btn-sm">Add Software</a>
+          <a href="" class="btn btn-danger btn-sm">Edit Software</a>
           <a href="http://localhost/updater/index.php?action=registry-health-check" class="btn btn-secondary btn-sm">Lint (schema)</a>
           <a href="http://localhost/updater/index.php?action=link-status" class="btn btn-secondary btn-sm">Check Status of Links (200/404)</a>
         </div>
       </div>    
 
       <div class="card">
-        <div class="card-header">
+        <div class="card-header clearfix">
             <strong>Software Metadata Registry</strong>
             <a href="https://github.com/WPN-XM/registry/blob/master/wpnxm-registry-metadata.php" class="btn btn-secondary btn-sm pull-xs-right">wpnxm-registry-metadata.php</a>
         </div>
         <div class="card-block">
-          <a href="" class="btn btn-secondary btn-sm"
+          <a href="" class="btn btn-danger btn-sm" data-toggle="tooltip"
              title="Lint: Check schema and structure of the registry and synchronization state with the software registry.">Lint (schema) (sync)</a></li>
         </div>
       </div>       
 
       <div class="card">
-        <div class="card-header">
+        <div class="card-header clearfix">
           <strong>PHP Software Registry</strong>
           <a href="https://github.com/WPN-XM/registry/blob/master/wpnxm-php-software-registry.php" class="btn btn-secondary btn-sm pull-xs-right">wpnxm-php-software-registry.php</a>
         </div>
         <div class="card-block">
-          <a href="http://localhost/updater/index.php?action=add-component" class="btn btn-secondary btn-sm" title="Add PHP Software">Add</a>
-          <a href="" class="btn btn-secondary btn-sm" title="Edit PHP Software">Edit</a>
-          <a href="" class="btn btn-secondary btn-sm" title="Lint: Check schema and structure of the registry.">Lint (schema)</a>
+          <a href="http://localhost/updater/index.php?action=add-component" class="btn btn-danger btn-sm" title="Add PHP Software">Add</a>
+          <a href="" class="btn btn-danger btn-sm" title="Edit PHP Software">Edit</a>
+          <a href="" class="btn btn-danger btn-sm" title="Lint: Check schema and structure of the registry.">Lint (schema)</a>
         </div>       
       </div>
 
       <div class="card">
-        <div class="card-header">
+        <div class="card-header clearfix">
             <strong>PHP Extensions on PECL</strong>
             <a href="https://github.com/WPN-XM/registry/blob/master/php-extensions-on-pecl.json" class="btn btn-secondary btn-sm pull-xs-right">php-extensions-on-pecl.json</a>
         </div>
         <div class="card-block">
-        <a href="http://localhost/updater/index.php?action=update-phpextension-list" class="btn btn-secondary btn-sm"
-           title="Scan PECL for new PHP Extensions">Update PHP Extension List</a>         
+        <a href="http://localhost/updater/index.php?action=update-phpextension-list" class="btn btn-secondary btn-sm" data-toggle="tooltip"
+           title="Scan PECL (https://pecl.php.net/) for new PHP Extensions.">Update PHP Extension List</a>         
         </div>
       </div> 
 
@@ -145,8 +152,8 @@
 
     <!-- javascript -->
     <script src="public/assets/js/jquery.min.js"></script>
-    <script src="public/assets/js/bootstrap.min.js"></script>
     <script src="public/assets/js/tether.min.js"></script><!-- tooltip lib -->
+    <script src="public/assets/js/bootstrap.min.js"></script>    
     <script type="text/javascript">
       $(document).ready(function () {
 
@@ -175,8 +182,8 @@
           }
           bindModalSubmitButton();
 
-          // with a click on a link in the top navi, do the following
-          $("#menu a.dropdown-item").on("click", function (event) {
+          // with a click on a link on main div, do the following
+          $("#main a").on("click", function (event) {
                 event.preventDefault(); // stop the click from causing navigation
                 href = $(this).attr('href'); // get click target href
                 doGetRequest(href);
@@ -211,10 +218,6 @@
               // reset target, show modal dlg
               $("#ajax-container").empty();
               $('#myModal').modal('show');
-
-              // set new active element on top nav
-              $("#menu .dropdown-item").removeClass('active');
-              $(this).parent('a').addClass('active');
 
               // ajax call to the PHP scripts
               $.ajax({

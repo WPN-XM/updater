@@ -42,90 +42,99 @@
       </div><!--/.nav-collapse -->
     </nav>
 
-    <div id="main" class="container">
+    <div id="main" class="--container">
 
-      <br>
+    <div class="row row-offcanvas row-offcanvas-left">
 
-      <div class="card">
-       <div class="card-header clearfix"><strong>Version Crawler</strong></div>
-       <div class="card-block"> 
-          <a href="http://localhost/updater/index.php?action=scan-component" class="btn btn-secondary btn-sm">Scan for new Versions</a>
-          <a href="http://localhost/updater/index.php?action=scan-component" class="btn btn-danger btn-sm">Scan Single Component</a> 
-       </div>
-      </div>
-    
-      <div class="card">
-        <div class="card-header clearfix">
-            <strong>Installation Wizard Registries</strong>
-            <div class="btn-group pull-xs-right" role="group" aria-label="Basic example">
-              <a href="https://github.com/WPN-XM/registry/tree/master/installer/next" 
-                  class="btn btn-secondary btn-sm">Unreleased Installers (next version)</a>
-              <a href="https://github.com/WPN-XM/registry/tree/master/installer"
-                  class="btn btn-secondary btn-sm">Released Installers</a>
+        <div class="col-xs-6 col-sm-4 sidebar-offcanvas" style="margin-top: 5px; margin-left:5px;" id="sidebar">          
+
+          <div class="card">
+            <div class="card-header clearfix"><strong>Version Crawler</strong></div>
+            <div class="card-block"> 
+              <a href="http://localhost/updater/index.php?action=scan-component" class="btn btn-secondary btn-sm">Scan for new Versions</a>
+              <a href="http://localhost/updater/index.php?action=scan-component" class="btn btn-danger btn-sm">Scan Single Component</a> 
             </div>
-        </div>
-        <div class="card-block">     
-          <a href="http://localhost/updater/index.php?action=update-components" class="btn btn-secondary btn-sm" data-toggle="tooltip"
-             title="Automatically raise the version of each Component in all 'next' Installation Registries to its latest version.">
-             Update Versions</a>
-          <a href="http://localhost/updater/index.php?action=show-version-matrix" class="btn btn-secondary btn-sm" data-toggle="tooltip">
-             Show Installer Version Matrix</a>          
-          <a href="http://localhost/updater/index.php?action=pretty-print-registries" class="btn btn-secondary btn-sm" data-toggle="tooltip">
-             Pretty Print the Registries</a>
-        </div>       
-      </div>
+          </div>
+        
+          <div class="card">
+            <div class="card-header clearfix">
+                <strong>Installation Wizard Registries</strong>
+                <div class="btn-group pull-xs-right" role="group" aria-label="Basic example">
+                  <a href="https://github.com/WPN-XM/registry/tree/master/installer/next" 
+                      class="btn btn-secondary btn-sm">Unreleased Installers</a>
+                  <a href="https://github.com/WPN-XM/registry/tree/master/installer"
+                      class="btn btn-secondary btn-sm">Released Installers</a>
+                </div>
+            </div>
+            <div class="card-block">         
+                <a href="http://localhost/updater/index.php?action=update-components" class="btn btn-secondary btn-sm" data-toggle="tooltip"
+                   title="Automatically raise the version of each Component in all 'next' Installation Registries to its latest version.">
+                   Update Versions</a>
+                <a href="http://localhost/updater/index.php?action=show-version-matrix" class="btn btn-secondary btn-sm" data-toggle="tooltip">
+                   Show Installer Version Matrix</a>          
+                <a href="http://localhost/updater/index.php?action=pretty-print-registries" class="btn btn-secondary btn-sm" data-toggle="tooltip">
+                   Pretty Print the Registries</a>
+              </div>
+          </div>
 
-      <div class="card">
-        <div class="card-header clearfix">
-            <strong>Software Registry</strong>
-            <a href="https://github.com/WPN-XM/registry/blob/master/wpnxm-software-registry.php" class="btn btn-secondary btn-sm pull-xs-right">wpnxm-software-registry.php</a>
-        </div>
-        <div class="card-block">        
-          <a href="http://localhost/updater/index.php?action=add-component" class="btn btn-danger btn-sm">Add Software</a>
-          <a href="" class="btn btn-danger btn-sm">Edit Software</a>
-          <a href="http://localhost/updater/index.php?action=registry-health-check" class="btn btn-secondary btn-sm">Lint (schema)</a>
-          <a href="http://localhost/updater/index.php?action=link-status" class="btn btn-secondary btn-sm">Check Status of Links (200/404)</a>
-        </div>
-      </div>    
+          <div class="card">
+            <div class="card-header clearfix">
+                <strong>Software Registry</strong>
+                <a href="https://github.com/WPN-XM/registry/blob/master/wpnxm-software-registry.php" class="btn btn-secondary btn-sm pull-xs-right">wpnxm-software-registry.php</a>
+            </div>
+            <div class="card-block">        
+              <a href="http://localhost/updater/index.php?action=add-component" class="btn btn-danger btn-sm">Add Software</a>
+              <a href="" class="btn btn-danger btn-sm">Edit Software</a>
+              <a href="http://localhost/updater/index.php?action=registry-health-check" class="btn btn-secondary btn-sm">Lint (schema)</a>
+              <a href="http://localhost/updater/index.php?action=link-status" class="btn btn-secondary btn-sm">Check Status of Links (200/404)</a>
+            </div>
+          </div>    
 
-      <div class="card">
-        <div class="card-header clearfix">
-            <strong>Software Metadata Registry</strong>
-            <a href="https://github.com/WPN-XM/registry/blob/master/wpnxm-registry-metadata.php" class="btn btn-secondary btn-sm pull-xs-right">wpnxm-registry-metadata.php</a>
-        </div>
-        <div class="card-block">
-          <a href="" class="btn btn-danger btn-sm" data-toggle="tooltip"
-             title="Lint: Check schema and structure of the registry and synchronization state with the software registry.">Lint (schema) (sync)</a></li>
-        </div>
-      </div>       
+          <div class="card">
+            <div class="card-header clearfix">
+                <strong>Software Metadata Registry</strong>
+                <a href="https://github.com/WPN-XM/registry/blob/master/wpnxm-registry-metadata.php" class="btn btn-secondary btn-sm pull-xs-right">wpnxm-registry-metadata.php</a>
+            </div>
+            <div class="card-block">
+              <a href="" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                 title="Lint: Check schema and structure of the registry and synchronization state with the software registry.">Lint (schema) (sync)</a></li>
+            </div>
+          </div>       
 
-      <div class="card">
-        <div class="card-header clearfix">
-          <strong>PHP Software Registry</strong>
-          <a href="https://github.com/WPN-XM/registry/blob/master/wpnxm-php-software-registry.php" class="btn btn-secondary btn-sm pull-xs-right">wpnxm-php-software-registry.php</a>
-        </div>
-        <div class="card-block">
-          <a href="http://localhost/updater/index.php?action=add-component" class="btn btn-danger btn-sm" title="Add PHP Software">Add</a>
-          <a href="" class="btn btn-danger btn-sm" title="Edit PHP Software">Edit</a>
-          <a href="" class="btn btn-danger btn-sm" title="Lint: Check schema and structure of the registry.">Lint (schema)</a>
-        </div>       
-      </div>
+          <div class="card">
+            <div class="card-header clearfix">
+              <strong>PHP Software Registry</strong>
+              <a href="https://github.com/WPN-XM/registry/blob/master/wpnxm-php-software-registry.php" class="btn btn-secondary btn-sm pull-xs-right">wpnxm-php-software-registry.php</a>
+            </div>
+            <div class="card-block">
+              <a href="http://localhost/updater/index.php?action=add-component" class="btn btn-danger btn-sm" title="Add PHP Software">Add</a>
+              <a href="" class="btn btn-danger btn-sm" title="Edit PHP Software">Edit</a>
+              <a href="" class="btn btn-danger btn-sm" title="Lint: Check schema and structure of the registry.">Lint (schema)</a>
+            </div>       
+          </div>
 
-      <div class="card">
-        <div class="card-header clearfix">
-            <strong>PHP Extensions on PECL</strong>
-            <a href="https://github.com/WPN-XM/registry/blob/master/php-extensions-on-pecl.json" class="btn btn-secondary btn-sm pull-xs-right">php-extensions-on-pecl.json</a>
-        </div>
-        <div class="card-block">
-        <a href="http://localhost/updater/index.php?action=update-phpextension-list" class="btn btn-secondary btn-sm" data-toggle="tooltip"
-           title="Scan PECL (https://pecl.php.net/) for new PHP Extensions.">Update PHP Extension List</a>         
-        </div>
-      </div> 
+          <div class="card">
+            <div class="card-header clearfix">
+                <strong>PHP Extensions on PECL</strong>
+                <a href="https://github.com/WPN-XM/registry/blob/master/php-extensions-on-pecl.json" class="btn btn-secondary btn-sm pull-xs-right">php-extensions-on-pecl.json</a>
+            </div>
+            <div class="card-block">
+            <a href="http://localhost/updater/index.php?action=update-phpextension-list" class="btn btn-secondary btn-sm" data-toggle="tooltip"
+               title="Scan PECL (https://pecl.php.net/) for new PHP Extensions.">Update PHP Extension List</a>         
+            </div>
+          </div>
 
-    <div id="ajax-container" class="container">
-      <!-- This is where the precious Ajax Content goes... -->
-    </div> <!-- /ajax-container -->
+        </div><!-- /sidebar -->
 
+        <div class="col-xs-12 col-sm-8">
+
+            <div id="ajax-container">
+              <!-- This is where the precious Ajax Content goes... -->
+            </div> <!-- /ajax-container -->  
+
+        </div><!-- /content -->
+    </div>
+     
     <!-- The modal windows with Ajax Loading Indicator - hidden, but loaded with the main page / top-level position -->
     <div id="myModal" class="modal bootstrap-dialog type-primary size-normal fade in"
          tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

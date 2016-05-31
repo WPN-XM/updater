@@ -51,8 +51,10 @@
           <div class="card">
             <div class="card-header clearfix"><strong>Version Crawler</strong></div>
             <div class="card-block"> 
-              <a href="http://localhost/updater/index.php?action=scan-component" class="btn btn-secondary btn-sm">Scan for new Versions</a>
-              <a href="http://localhost/updater/index.php?action=scan-component" class="btn btn-danger btn-sm">Scan Single Component</a> 
+              <a href="http://localhost/updater/index.php?action=scan-component" class="btn btn-secondary btn-sm" data-toggle="tooltip" 
+                 title="Do a version crawl for all components.">Scan for new Versions</a>
+              <a href="http://localhost/updater/index.php?action=scan-component" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                 title="Do a version crawl for a single component.">Scan Single Component</a> 
             </div>
           </div>
         
@@ -60,20 +62,24 @@
             <div class="card-header clearfix">
                 <strong>Installation Wizard Registries</strong>
                 <div class="btn-group pull-xs-right" role="group" aria-label="Basic example">
-                  <a href="https://github.com/WPN-XM/registry/tree/master/installer/next" 
-                      class="btn btn-secondary btn-sm">Unreleased Installers</a>
-                  <a href="https://github.com/WPN-XM/registry/tree/master/installer"
-                      class="btn btn-secondary btn-sm">Released Installers</a>
+                  <a href="https://github.com/WPN-XM/registry/tree/master/installer/next" data-toggle="tooltip"
+                     title="Go to the folder with the installer registries of the next, but unreleased version."
+                     class="btn btn-secondary btn-sm">Unreleased Installers</a>
+                  <a href="https://github.com/WPN-XM/registry/tree/master/installer" data-toggle="tooltip"
+                     title="Go to the folder with released installer registries."
+                     class="btn btn-secondary btn-sm">Released Installers</a>
                 </div>
             </div>
             <div class="card-block">         
                 <a href="http://localhost/updater/index.php?action=update-components" class="btn btn-secondary btn-sm" data-toggle="tooltip"
-                   title="Automatically raise the version of each Component in all 'next' Installation Registries to its latest version.">
+                   title="Automatically raise the version of each Component to its latest version in all installer registries of the next, but unreleased version.">
                    Update Versions</a>
-                <a href="http://localhost/updater/index.php?action=show-version-matrix" class="btn btn-secondary btn-sm" data-toggle="tooltip">
+                <a href="http://localhost/updater/index.php?action=show-version-matrix" class="btn btn-secondary btn-sm" data-toggle="tooltip"
+                   title="Full overview of all components and versions included in all installers.">
                    Show Installer Version Matrix</a>          
-                <a href="http://localhost/updater/index.php?action=pretty-print-registries" class="btn btn-secondary btn-sm" data-toggle="tooltip">
-                   Pretty Print the Registries</a>
+                <a href="http://localhost/updater/index.php?action=pretty-print-registries" class="btn btn-secondary btn-sm" data-toggle="tooltip"
+                   title="This enables you to prettify the registries after a manual modification.">
+                   Pretty Print Registries</a>
               </div>
           </div>
 
@@ -86,7 +92,7 @@
               <a href="http://localhost/updater/index.php?action=add-component" class="btn btn-danger btn-sm">Add Software</a>
               <a href="" class="btn btn-danger btn-sm">Edit Software</a>
               <a href="http://localhost/updater/index.php?action=registry-health-check" class="btn btn-secondary btn-sm">Lint (schema)</a>
-              <a href="http://localhost/updater/index.php?action=link-status" class="btn btn-secondary btn-sm">Check Status of Links (200/404)</a>
+              <a href="http://localhost/updater/index.php?action=link-status" class="btn btn-secondary btn-sm">Check Links (200/404)</a>
             </div>
           </div>    
 

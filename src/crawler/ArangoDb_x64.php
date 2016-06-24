@@ -44,7 +44,7 @@ class ArangoDb_x64 extends VersionCrawler
         });
     }
 
-    private static function getVersionsFromVersionsFile()
+    /*private function getVersionsFromVersionsFile()
     {
         // lets explode the text (containing the version on each new line)
         $versions = explode(chr(10), $this->text());        
@@ -55,5 +55,5 @@ class ArangoDb_x64 extends VersionCrawler
         // get latest version
         $version = $versions[0];
         return $version;
-    }
+    }*/
 }

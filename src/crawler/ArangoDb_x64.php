@@ -26,27 +26,34 @@ class ArangoDb_x64 extends VersionCrawler
     public $name = 'arangodb-x64';
     
     // https://www.arangodb.com/download/
-    public $url = 'https://www.arangodb.com/repositories/VERSIONS';
+    // https://www.arangodb.com/repositories/VERSIONS
+    public $url = 'https://www.arangodb.com/repositories/download-windows.html';
 
     public function crawlVersion()
     {       
+        return $this->filter('a')->each(function ($node) {
+            if (preg_match("#ArangoDB-(\d+\.\d+.\d+)-win64.zip#i", $node->attr('href'), $matches)) {
+                $version = $matches[1];
+                if (version_compare($version, $this->registry['arangodb-x64']['latest']['version'], '>=') === true) {       
+                    return array(
+                        'version' => $version,
+                        'url'     => 'https://www.arangodb.com/repositories/Windows7/x86_64/ArangoDB-' . $version . '-win64.zip',
+                    );
+                }
+            }
+        });
+    }
+
+    private static function getVersionsFromVersionsFile()
+    {
         // lets explode the text (containing the version on each new line)
-        $versions = explode(chr(10), $this->text());
-        
+        $versions = explode(chr(10), $this->text());        
         // drop empty array values
-        $versions = array_filter($versions, 'strlen');
-        
+        $versions = array_filter($versions, 'strlen');        
         // reverse array to get latest version on top
-        $versions  = array_reverse($versions);
-        
+        $versions  = array_reverse($versions);        
         // get latest version
         $version = $versions[0];
-        
-        if (version_compare($version, $this->registry['arangodb-x64']['latest']['version'], '>=') === true) {       
-            return array(
-                'version' => $version,
-                'url'     => 'https://www.arangodb.com/repositories/Windows7/x86_64/ArangoDB-' . $version . '-win64.zip',
-            );
-        }
+        return $version;
     }
 }

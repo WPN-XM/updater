@@ -31,7 +31,8 @@ class Gogs_x86 extends VersionCrawler
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
-                if (preg_match("#/gogits/gogs/releases/download/v(\d+\.\d+.\d+)/windows_386.zip#", $node->attr('href'), $matches)) {
+                // Note: we are using the MWS builds (with "Microsoft Windows Service" support)
+                if (preg_match("#/gogits/gogs/releases/download/v(\d+\.\d+.\d+)/windows_386_mws.zip#", $node->attr('href'), $matches)) {
                     $version = $matches[1];
 
                     // CDNs
@@ -39,7 +40,7 @@ class Gogs_x86 extends VersionCrawler
                     // http://gobuild3.qiniudn.com/github.com/gogits/gogs/tag-v-v0.5.5/gogs-windows-386.zip
                     // 'https://github.com/gogits/gogs/releases/download/v' . $version . '/windows_386.zip'
 
-                    $download_file = 'https://github.com/gogits/gogs/releases/download/v' . $version . '/windows_386.zip';
+                    $download_file = 'https://github.com/gogits/gogs/releases/download/v' . $version . '/windows_386_mws.zip';
 
                     if (version_compare($version, $this->registry['gogs-x86']['latest']['version'], '>=') === true) {
                         return array(

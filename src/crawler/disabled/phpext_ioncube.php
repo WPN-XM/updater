@@ -108,7 +108,7 @@ class phpext_ioncube extends VersionCrawler
             }
         }
 
-        var_dump($urls); exit;
+        //var_dump($urls); exit;
 
         return $urls;
     }

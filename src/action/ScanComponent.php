@@ -18,18 +18,13 @@ use WPNXM\Updater\RegistryUpdater;
 
 class ScanComponent extends ActionBase
 {
-
-    public function __construct()
-    {
-        Registry::clearOldScans();
-    }
-
     public function __invoke()
     {
+        Registry::clearOldScans();
+
         $registry = Registry::load();
 
         $updater = new RegistryUpdater($registry);
-        $updater->setupCrawler();
 
         /**
          * Scan a single component
@@ -51,11 +46,11 @@ class ScanComponent extends ActionBase
 
         $updater->crawl();
 
-        /* ----- */
+        /* View */
 
         $view                             = new View();
         $view->data['numberOfComponents'] = $numberOfComponents;
-        $view->data['tableHtml']          = $updater->evaluateResponses();
+        $view->data['tableHtml']          = $updater->getHtmlTable();
         $view->render();
     }
 

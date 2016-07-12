@@ -23,7 +23,7 @@ use WPNXM\Updater\VersionCrawler;
  */
 class wpnxmscp extends VersionCrawler
 {
-    public $name = 'wpnxmscp';
+    public $name = 'wpnxm-scp';
 
     // we are scraping the github releases page
     public $url = 'https://github.com/WPN-XM/server-control-panel/releases/latest';
@@ -37,7 +37,7 @@ class wpnxmscp extends VersionCrawler
                 if (preg_match("#(\d+\.\d+.\d+)#", $node->text(), $matches)) {
                     $version = $matches[1];
 
-                    if (version_compare($version, $this->registry['wpnxmscp']['latest']['version'], '>=') === true) {
+                    if (version_compare($version, $this->registry['wpnxm-scp']['latest']['version'], '>=') === true) {
                         return array(
                             'version' => $version,
                             'url'     => 'https://github.com/WPN-XM/server-control-panel/releases/download/' . $version . '/wpnxm-scp-' . $version . '-x86_boxed.zip',

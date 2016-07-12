@@ -258,17 +258,21 @@ class Registry
      *
      * @param string $commitMessage Optional Commit Message
      */
-    public static function gitCommitAndPush($commitMessage = '')
+    public static function gitCommitAndPush($commitMessage = '', $doGitPush = false)
     {
-        // setup path to git
-        $git = '"C:\Program Files (x86)\Git\bin\git" ';
-        //passthru($git . '--version');
-
         echo '<pre>';
+
+        // setup path to git
+        $git = '"git" ';
+        passthru($git . '--version');
 
         // switch to the git submodule "registry"
         chdir(DATA_DIR . 'registry');
         //echo 'Switched to Registry folder: ' . getcwd() . NL;
+
+        // make sure we are on the "master" branch and not in "detached head" state
+        echo NL . 'Switching branch to "master":' . NL;
+        passthru($git . 'checkout master');
 
         echo NL . 'Pulling possible changes:' . NL;
         passthru($git . 'pull');
@@ -281,12 +285,10 @@ class Registry
 
         echo NL . 'You might "git push" now.' . NL;
 
-
-        //echo NL . 'Push commit to remote server' . NL;
-        //passthru($git . 'push');
-
-        //echo '<a href="#" class="btn btn-lg btn-primary">'
-        //   . '<span class="glyphicon glyphicon-save"></span> Git Push</a>';
+        if($doGitPush === true) {
+            echo NL . 'Pushing commit to remote server:' . NL;
+            passthru($git . 'push');
+        }
 
         echo '</pre>';
     }
@@ -301,7 +303,7 @@ class Registry
     {
         asort($registry);
 
-        $json        = json_encode($registry);
+        $json        = json_encode($registry);        
         $json_pretty = \WPNXM\Updater\JsonUtil::prettyPrintCompact($json);
         $json_table  = \WPNXM\Updater\JsonUtil::prettyPrintTableFormat($json_pretty);
 

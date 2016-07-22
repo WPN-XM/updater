@@ -17,8 +17,12 @@ use WPNXM\Updater\FileCache;
  * The purpose of this class is to scrape all available PHP extensions
  * from the offical PECL server
  *
- * This is done by fetching http://windows.php.net/downloads/pecl/releases/
+ * This is done by fetching the directory index of
+*  http://windows.php.net/downloads/pecl/releases/
  * and converting the HTML into a JSON list of all available PHP extensions.
+ *
+ * An alternative to scraping folders is to consume the XML:
+ * http://pecl.php.net/rest/p/packages.xml
  */
 class PHPExtensionScraper
 {

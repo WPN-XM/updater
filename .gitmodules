@@ -1,3 +1,9 @@
 [submodule "registry"]
 	path = data/registry
 	url = git://github.com/WPN-XM/registry.git
+[submodule "data/stack-software"]
+	path = data/stack-software
+	url = git://github.com/WPN-XM/software.git
+[submodule "data/php-software"]
+	path = data/php-software
+	url = git://github.com/WPN-XM/php-software.git

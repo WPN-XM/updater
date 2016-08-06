@@ -17,7 +17,6 @@ use Goutte\Client as GoutteClient;
 use GuzzleHttp\Pool;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Exception\TransferException;
 
 class RegistryUpdater
 {
@@ -104,42 +103,36 @@ class RegistryUpdater
      * Crawl several URLs in parallel.
      */
     public function crawl()
-    {  
-        try {
+    {          
+        // Prepare Requests Closure.
+        // The closure accepts the URLs array, counts the total number of URLs 
+        // and creates new Requests for each URL.
+        $requests = function (array $urls) {
+            $total_num_requests = $this->getTotalNumberOfRequests();
+            for ($i = 0; $i < $total_num_requests; $i++) {
+                yield new Request('GET', $urls[$i]);
+            }
+        };
 
-            // Prepare Requests Closure.
-            // The closure accepts the URLs array, counts the total number of URLs 
-            // and creates new Requests for each URL.
-            $requests = function (array $urls) {
-                $total_num_requests = $this->getTotalNumberOfRequests();
-                for ($i = 0; $i < $total_num_requests; $i++) {
-                    yield new Request('GET', $urls[$i]);
-                }
-            };
+        // Setup Request Pool.
+        // The Requests Closure is inserted as parameter of the Pool.
+        $pool = new Pool($this->guzzleClient, $requests($this->urls), [
+            'concurrency' => 10,
+            'fulfilled' => function ($response, $index) {
+                // this is delivered each successful response
+                $this->fulfilledResponse($response, $index);
+            },
+            'rejected' => function ($reason, $index) {
+                // this is delivered each failed request
+                $this->rejectedResponse($reason, $index);
+            },
+        ]);
 
-            // Setup Request Pool.
-            // The Requests Closure is inserted as parameter of the Pool.
-            $pool = new Pool($this->guzzleClient, $requests($this->urls), [
-                'concurrency' => 10,
-                'fulfilled' => function ($response, $index) {
-                    // this is delivered each successful response
-                    $this->fulfilledResponse($response, $index);
-                },
-                'rejected' => function ($reason, $index) {
-                    // this is delivered each failed request
-                    $this->rejectedResponse($reason, $index);
-                },
-            ]);
+        // Initiate the transfers and create a promise.
+        $promise = $pool->promise();
 
-            // Initiate the transfers and create a promise.
-            $promise = $pool->promise();
-
-            // Wait for Pool of Requests to complete.
-            $promise->wait();
-
-        } catch (\GuzzleHttp\Exception\TransferException $e) {
-            echo $e->getMessage();
-        }
+        // Wait for Pool of Requests to complete.
+        $promise->wait();
     }
 
     /**
@@ -147,7 +140,10 @@ class RegistryUpdater
      */
     public function rejectedResponse($reason, $index)
     {
-        echo 'rejectedResponse: '. $reason . 'Index: '. $index;
+        $message = sprintf("The request at index #%s failed.\nReason: %s.\n", $index, $reason);
+
+        echo (PHP_SAPI !== 'cli') ? '<pre>'.$message.'</pre>' : $message;
+
     }
 
     /**

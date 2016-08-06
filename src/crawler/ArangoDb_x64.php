@@ -27,7 +27,7 @@ class ArangoDb_x64 extends VersionCrawler
     
     // https://www.arangodb.com/download/
     // https://www.arangodb.com/repositories/VERSIONS
-    public $url = 'https://www.arangodb.com/repositories/download-windows.html';
+    public $url = 'https://www.arangodb.com/repositories/download-current/download-windows.html';
 
     public function crawlVersion()
     {       
@@ -43,17 +43,4 @@ class ArangoDb_x64 extends VersionCrawler
             }
         });
     }
-
-    /*private function getVersionsFromVersionsFile()
-    {
-        // lets explode the text (containing the version on each new line)
-        $versions = explode(chr(10), $this->text());        
-        // drop empty array values
-        $versions = array_filter($versions, 'strlen');        
-        // reverse array to get latest version on top
-        $versions  = array_reverse($versions);        
-        // get latest version
-        $version = $versions[0];
-        return $version;
-    }*/
 }

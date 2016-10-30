@@ -35,13 +35,13 @@ class Cayley_x64 extends VersionCrawler
     {
         return $this->filter('a')->each(function ($node)
         {
-            // https://github.com/google/cayley/releases/download/v0.4.1/cayley_0.4.1_windows_amd64.zip
+            // https://github.com/google/cayley/releases/download/v0.4.1/cayley_v0.4.1_windows_amd64.zip
 
             if (preg_match("#/releases/download/v(\d+\.\d+.\d+)/#", $node->attr('href'), $matches))
             {
                 $version = $matches[1];
 
-                $download_file = 'https://github.com/google/cayley/releases/download/v'.$version.'/cayley_'.$version.'_windows_amd64.zip';
+                $download_file = 'https://github.com/google/cayley/releases/download/v'.$version.'/cayley_v'.$version.'_windows_amd64.zip';
 
                 if (version_compare($version, $this->registry['cayley-x64']['latest']['version'], '>=') === true) {
                     return array(

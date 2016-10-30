@@ -27,8 +27,11 @@ class curl_x86 extends VersionCrawler
 {
     public $name = 'curl-x86';
 
-    // we could scrape https://bintray.com/vszakats/generic/curl/#files
-    // but bintray is cool and provides an API including "latest_version", which is superb!
+    /**
+     * we could scrape https://bintray.com/vszakats/generic/curl/#files
+     * or https://dl.bintray.com/vszakats/generic/
+     * but bintray is cool and provides an API including "latest_version", which is superb!
+     */
     public $url = 'https://api.bintray.com/packages/vszakats/generic/curl';
 
     public function crawlVersion()
@@ -46,11 +49,16 @@ class curl_x86 extends VersionCrawler
          */
         $download_file = 'https://dl.bintray.com/vszakats/generic/curl-' . $version . '-win32-mingw-libressl.7z';
 
-        if (version_compare($version, $this->registry['curl-x86']['latest']['version'], '>=') === true) {
-            return array(
-                'version' => $version,
-                'url'     => $download_file,
-            );
+        // the file exists check is needed, because we don't know
+        // if a libressl version was build for latest version number
+        if($this->fileExistsOnServer($download_file) === true)
+        {
+            if (version_compare($version, $this->registry['curl-x86']['latest']['version'], '>=') === true) {
+                return array(
+                    'version' => $version,
+                    'url'     => $download_file,
+                );
+            }
         }
     }
 }

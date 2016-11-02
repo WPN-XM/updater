@@ -24,8 +24,12 @@ class Gogs_x86 extends VersionCrawler
 {
     public $name = 'gogs-x86';
 
-    // we are scraping the github releases page
-    // alternative: http://gogs.io/docs/installation/install_from_binary.html
+    /**
+     * We are scraping the github releases page.
+     * Alternatives: 
+     *  - http://gogs.io/docs/installation/install_from_binary.html
+     *  - https://dl.gogs.io/
+     */
     public $url = 'https://github.com/gogits/gogs/releases/latest';
 
     public function crawlVersion()

@@ -28,6 +28,9 @@ class RegistryUpdater
     public $urls         = [];
     public $registry     = [];
     public $old_registry = [];
+
+    public $output       = 'html';
+    public $results      = [];
     public $html         = '';
 
     const USER_AGENT = 'WPN-XM Server Stack - Software Registry Update Tool - http://wpn-xm.org/';
@@ -50,24 +53,34 @@ class RegistryUpdater
      * @param string $component
      * @return array
      */
-    public function getCrawlers($component = null)
+    public function getCrawlers($components = null)
     {
-        // return single crawler
-        if (isset($component) === true) {
-            $file = str_replace('-', '_', $component);
-            return glob(__DIR__ . '\crawler\\' . $file . '.php');
-        }
+        // return multiple crawlers        
+        if (isset($components)) {
+            $components = (array) $components;
+            $crawlers = [];
+            foreach($components as $component) {
+                $crawlers[] = self::getCrawlerFile($component)[0];
+            }
+            return $crawlers;
+        }       
 
         // return all crawlers
         return glob(__DIR__ . '\crawler\*.php');
     }
 
+    public static function getCrawlerFile($component)
+    {
+        $file = str_replace('-', '_', $component);
+        return glob(__DIR__ . '\crawler\\' . $file . '.php');
+    }
+
     /**
      * @return int The number of URLs to crawl.
      */
-    public function getUrlsToCrawl($single_component = null)
+    public function getUrlsToCrawl($components = null)
     {
-        $crawlers = $this->getCrawlers($single_component);
+        $crawlers = $this->getCrawlers($components);
 
         foreach ($crawlers as $i => $file) {
 
@@ -103,7 +116,7 @@ class RegistryUpdater
      * Crawl several URLs in parallel.
      */
     public function crawl()
-    {          
+    {  
         // Prepare Requests Closure.
         // The closure accepts the URLs array, counts the total number of URLs 
         // and creates new Requests for each URL.
@@ -117,7 +130,7 @@ class RegistryUpdater
         // Setup Request Pool.
         // The Requests Closure is inserted as parameter of the Pool.
         $pool = new Pool($this->guzzleClient, $requests($this->urls), [
-            'concurrency' => 10,
+            'concurrency' => 5,
             'fulfilled' => function ($response, $index) {
                 // this is delivered each successful response
                 $this->fulfilledResponse($response, $index);
@@ -143,7 +156,6 @@ class RegistryUpdater
         $message = sprintf("The request at index #%s failed.\nReason: %s.\n", $index, $reason);
 
         echo (PHP_SAPI !== 'cli') ? '<pre>'.$message.'</pre>' : $message;
-
     }
 
     /**
@@ -206,10 +218,10 @@ class RegistryUpdater
         if (Version::compare($component, $old_version, $new_version) === true) {
             // write a temporary component registry, for later registry insertion
             Registry::writeRegistrySubset($component, $this->registry[$component]);
-
-            // render a table row (version comparison display)
-            $this->html .= ViewHelper::renderTableRow($component, $old_version, $new_version, true);
+            
+            $this->results[] = [$component, $old_version, $new_version, true];
         }
+
         /**
          * Missing version
          *
@@ -223,16 +235,24 @@ class RegistryUpdater
             // check, if this is a missing version number
             $new_version = Version::notInRegistry($latestVersion, $this->old_registry[$component], true);
 
-            // render a table row (version comparison display)
-            $this->html .= ViewHelper::renderTableRow($component, $old_version, $new_version, true);
-        } else {
-            // render a table row (version comparison display)
-            $this->html .= ViewHelper::renderTableRow($component, $old_version, $new_version, false);
-        }
+            $this->results[] = [$component, $old_version, $new_version, true];            
+        } else {            
+            $this->results[] = [$component, $old_version, $new_version, false];
+        }        
     }
 
     public function getHtmlTable()
     {
+        foreach($this->results as $index => $data ) {
+            // render a table row (version comparison display)
+            $this->html .= ViewHelper::renderTableRow($data[0],$data[1], $data[2], $data[3]);
+        }
+
         return $this->html;
+    }
+
+    public function getResults()
+    {
+        return $this->results;
     }
 }

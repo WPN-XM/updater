@@ -45,11 +45,14 @@ class UpdateComponents extends ActionBase
 
         $downloadFilenames = DownloadFilenames::load();
 
-        foreach ($nextRegistries as $file) {
+        foreach ($nextRegistries as $file)
+        {
             $filename        = basename($file);
+
             echo '<br>Processing Installer <strong>' . $filename . '</strong>:&nbsp;';
+            
             $components      = json_decode(file_get_contents($file), true);
-            $version_updated = false;
+            $version_updated = false;            
             $number_of_components = count($components);
 
             for ($i = 0; $i < $number_of_components; ++$i) {

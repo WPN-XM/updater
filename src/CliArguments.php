@@ -33,7 +33,10 @@ class CliArguments
      */
     public function __construct($arguments)
     {
+        // drop the CLI command itself
         array_shift($arguments);
+
+        // parse CLI arguments
         while (count($arguments) > 0) {
             list($key, $value) = $this->parseArgument($arguments);
             $this->assign($key, $value);
@@ -60,6 +63,9 @@ class CliArguments
             return array($matches[1], $this->nextNonFlagElseTrue($arguments));
         }
         if (preg_match('/^--(\w+)=(.+)$/', $argument, $matches)) {
+            return array($matches[1], $matches[2]);
+        }
+        if (preg_match('/^--(\w+\-\w+)=(.+)$/', $argument, $matches)) {
             return array($matches[1], $matches[2]);
         }
         if (preg_match('/^--(\w+)$/', $argument, $matches)) {

@@ -22,6 +22,7 @@ class Update extends ActionBase
     public function __invoke()
     {
         require dirname(__DIR__) . '\Registry.php';
+        
         $registry = Registry::load();
 
         $registry = Registry::addLatestVersionScansIntoRegistry($registry);

@@ -100,7 +100,7 @@ class ScanComponent extends ActionBase
         foreach($results as $result) {
             $string = str_pad($result[0], 25).str_pad($result[1], 20).str_pad($result[2], 20).NL;            
             $color = ($result[3] === true) ? 'brightgreen' : 'brightred'; 
-            echo CliColors::print($string, $color);
+            echo CliColors::write($string, $color);
         }
     }
 }

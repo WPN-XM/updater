@@ -46,7 +46,7 @@ class CliColors
         'white_bg'   => 47
     ];
 
-    public static function print($string, $color)
+    public static function write($string, $color)
     {
         if(!self::hasCliColorSupport()) {
             return $string;

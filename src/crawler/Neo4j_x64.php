@@ -24,16 +24,19 @@ class neo4j_x64 extends VersionCrawler
 {
     public $name = 'neo4j-x64';
 
+    // alternative version scraping location is the release notes page: https://neo4j.com/release-notes/
     public $url = 'http://neo4j.com/download/other-releases/';
 
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
-            if (preg_match("#release=(\d+\.\d+.\d+)&architecture=x64#i", $node->attr('href'), $matches)) {
+            // http://info.neo4j.com/download-thanks.html?edition=community&release=3.0.7&flavour=winzip
+            if (preg_match("/release=(\d+\.\d+\.\d+)&flavour=winzip/i", $node->attr('href'), $matches)) {
                 $version = $matches[1];
                 if (version_compare($version, $this->registry['neo4j-x64']['latest']['version'], '>=') === true) {
                     return array(
-                        'version' => $version,
+                        'version' => $version,  
+                        // https://neo4j.com/artifact.php?name=neo4j-community-3.0.7-windows.zip                                             
                         'url'     => 'http://neo4j.com/artifact.php?name=neo4j-community-' . $version . '-windows.zip',
                     );
                 }

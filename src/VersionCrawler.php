@@ -167,7 +167,7 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
     public function createPhpVersionsArrayForExtension($version, $url, $skipURLcheck = false)
     {
         $bitsizes    = array('x86', 'x64');
-        $phpversions = array('5.4', '5.5', '5.6', '7.0');
+        $phpversions = array('5.6', '7.0', '7.1'); // EOL: 5.4, 5.5
         $urls        = array();
 
         foreach ($bitsizes as $bitsize) {
@@ -209,7 +209,8 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
             '5.4' => 'vc9',
             '5.5' => 'vc11',
             '5.6' => 'vc11',
-            '7.0' => 'vc14'
+            '7.0' => 'vc14',
+            '7.1' => 'vc14'
         ];
 
         if(isset($map[$phpversion])) { return $map[$phpversion]; }

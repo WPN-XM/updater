@@ -27,8 +27,8 @@ class phpext_amqp extends VersionCrawler
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
-                if (preg_match("#(\d+\.\d+(\.\d+)*)$#", $node->text(), $matches)) {
-                    $version = $matches[1];
+                if (preg_match("#(\d+\.\d+(\.\d+)*)(?:(alpha|beta)(\d+))$#", $node->text(), $matches)) {
+                    $version = $matches[0]; // take alpha/beta into account
 
                     if (version_compare($version, $this->registry['phpext_amqp']['latest']['version'], '>=') === true) {
 

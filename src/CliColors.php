@@ -57,7 +57,7 @@ class CliColors
 
     public static function log($message, $color)
     {
-        error_log(self::set($message, $color));
+        error_log(self::write($message, $color));
     }
 
     public static function replace($full_text, $search_regexp, $color)
@@ -65,7 +65,7 @@ class CliColors
         $new_text = preg_replace_callback(
             "/($search_regexp)/",
             function ($matches) use ($color) {
-                return Color::set($matches[1], $color);
+                return Color::write($matches[1], $color);
             },
             $full_text
         );

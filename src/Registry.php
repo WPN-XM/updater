@@ -64,6 +64,10 @@ class Registry
     {
         $version = (string) $version;
 
+        /* TODO support PHP Extension inserts
+
+        $bitsize = (false !== strpos($component, 'x64')) ? 'x64' : '';
+
         // array structure for PHP Extensions must take "PHP Version" and "Bitsize" into account
         if (strpos($shorthand, 'phpext_') !== false) {
             return array(
@@ -83,7 +87,7 @@ class Registry
                     ),
                 ),
             );
-        }
+        }*/
 
         return array(
             'name'    => $component,

@@ -72,10 +72,11 @@ class PHPExtensionScraper
      */
     public function scrapeExtensionsHtml($html)
     {
+        $extensions = [];
+
         $regexp = "<a\s[^>]*href=(\"??)([^\" >]*?)\\1[^>]*>(.*)<\/a>";
 
-        if (preg_match_all("/$regexp/siU", $html, $matches, PREG_SET_ORDER)) {
-            $extensions = [];
+        if (preg_match_all("/$regexp/siU", $html, $matches, PREG_SET_ORDER)) {            
             foreach ($matches as $match) {
                 // $match[2] = link address
                 // $match[3] = link text

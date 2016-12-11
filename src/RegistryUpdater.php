@@ -50,7 +50,7 @@ class RegistryUpdater
     /**
      * Return array with one or more crawler file names.
      *
-     * @param string $component
+     * @param string $components
      * @return array
      */
     public function getCrawlers($components = null)

@@ -94,4 +94,38 @@ class PHPExtensionScraper
     {
         return json_encode($this->scrapeExtensionsHtml($this->getHtml()));
     }
+
+    public function readGoPHP7ExtensionCatalog()
+    {
+        $url = 'https://raw.githubusercontent.com/wiki/gophp7/gophp7-ext/extensions-catalog.md';
+        $text = file_get_contents($url);
+
+        // reduce to text segment: "# Pecl Extensions from other places"
+        $reduced_text = strstr($text, '| aerospike');
+        $lines = explode("\n", $reduced_text);
+
+        // build array by named pattern matching
+        $regexp = '/\|(?<name>.*)\|(?<website>.*)\|(?<maintainers>.*)\|(?<tests>.*)\|(?<docs>.*)';
+                . '\|(?<worksonphp5>.*)\|(?<worksonphp7>.*)\|(?<goodonphp7>.*)\|(?<details>.*)\|/';
+
+        $result = [];
+
+        foreach($lines as $line)
+        {
+            preg_match($regexp, $line, $matches);
+            
+            // remove integer keys and superfluous spaces
+            $matches = array_filter($matches, "is_string", ARRAY_FILTER_USE_KEY);
+            $matches = array_map('trim', $matches);
+
+            // use PHP Extension name as array key
+            $name = $matches['name'];
+            unset($matches['name']);
+
+            $result[$name] = $matches;
+        }
+
+        $json = json_encode($result, JSON_PRETTY_PRINT);
+        file_put_contents(DATA_DIR . 'registry/php-extensions-outside-pecl.json', $json);
+    }
 }

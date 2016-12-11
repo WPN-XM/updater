@@ -28,18 +28,18 @@ class UpdateInstallerRegistry extends ActionBase
         $registryJson = filter_input(INPUT_POST, 'registry-json', FILTER_SANITIZE_STRING);
 
         $file              = InstallerRegistries::getFilePath($installer);
+        $downloadFilenames = DownloadFilenames::load();
         $registryJson      = html_entity_decode($registryJson, ENT_COMPAT, 'UTF-8'); // fix the JSON.stringify quotes &#34;
         $installerRegistry = json_decode($registryJson, true);
-        $downloadFilenames = DownloadFilenames::load();
 
-        $data = array();
+        $data = array(); 
 
         foreach ($installerRegistry as $component => $version)
         {
             $url = 'http://wpn-xm.org/get.php?s=' . $component . '&v=' . $version;
 
             // special handling for PHP components
-            if (in_array($component, ['php', 'php-x64', 'php-qa-x64', 'php-qa']) === true) {
+            if (in_array($component, ['php', 'php-x64', 'php-qa-x64', 'php-qa'])) {
                 // get only major.minor, e.g. "5.4", not "5.4.2"
                 $php_version = substr($installerRegistry[$component], 0, 3);
 
@@ -50,7 +50,7 @@ class UpdateInstallerRegistry extends ActionBase
             // special handling for PHP Extensions (they depend on a specific PHP version and bitsize)
             if (false !== strpos($component, 'phpext_')) {
                 $url .= '&p=' . $php_version;
-                $url .= ($bitsize !== '') ? '&bitsize=' . $bitsize : '';
+                $url .= ($bitsize != '') ? '&bitsize=' . $bitsize : '';
             }
 
             $downloadFilename = $downloadFilenames[$component];

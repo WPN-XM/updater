@@ -61,8 +61,8 @@ class phpext_sqlsrv extends VersionCrawler
      * php_sqlrv_4.0.4_x86.zip
      * = php_sqlrv_%version%_%bitsize%.zip
      *
-     * @param  string $version      Version.
-     * @param  string $url_template PHP Extension URL with placeholders.
+     * @param  string $version       Version.
+     * @param  string $url           PHP Extension URL with placeholders.
      * @param  bool   $skipURLcheck
      * @return array
      */

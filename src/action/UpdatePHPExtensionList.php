@@ -19,6 +19,8 @@ use WPNXM\Updater\PHPExtensionScraper;
  */
 class UpdatePhpExtensionList extends ActionBase
 {
+    private $scraper;
+    
     public function __invoke()
     {
         $this->scraper = new PHPExtensionScraper;

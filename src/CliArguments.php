@@ -80,7 +80,7 @@ class CliArguments
      * @param array $arguments Remaining arguments to be parsed. This variable
      * is modified if there is a value to be extracted.
      *
-     * @return string/boolean The next value unless it's a flag.
+     * @return mixed string/boolean The next value unless it's a flag.
      */
     private function nextNonFlagElseTrue($arguments)
     {
@@ -136,7 +136,7 @@ class CliArguments
      *
      * @param string $key Argument name.
      *
-     * @return string/array/boolean Either false for no value,
+     * @return mixed string/array/boolean Either false for no value,
      *                              the value as a string or
      *                              a list of multiple values if
      *                              the flag had been specified more

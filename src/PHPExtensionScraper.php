@@ -105,7 +105,7 @@ class PHPExtensionScraper
         $lines = explode("\n", $reduced_text);
 
         // build array by named pattern matching
-        $regexp = '/\|(?<name>.*)\|(?<website>.*)\|(?<maintainers>.*)\|(?<tests>.*)\|(?<docs>.*)';
+        $regexp = '/\|(?<name>.*)\|(?<website>.*)\|(?<maintainers>.*)\|(?<tests>.*)\|(?<docs>.*)'
                 . '\|(?<worksonphp5>.*)\|(?<worksonphp7>.*)\|(?<goodonphp7>.*)\|(?<details>.*)\|/';
 
         $result = [];

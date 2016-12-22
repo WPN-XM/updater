@@ -45,9 +45,9 @@ class curl_x64 extends VersionCrawler
          * https://bintray.com/docs/api/#_download_content
          *
          * DL URL:
-         * https://dl.bintray.com/vszakats/generic/curl-7.47.1-win64-mingw-libressl.7z
+         * https://dl.bintray.com/vszakats/generic/curl-7.47.1-win64-mingw.7z
          */
-        $download_file = 'https://dl.bintray.com/vszakats/generic/curl-' . $version . '-win64-mingw-libressl.7z';
+        $download_file = 'https://dl.bintray.com/vszakats/generic/curl-' . $version . '-win64-mingw.7z';
 
         // the file exists check is needed, because we don't know
         // if a libressl version was build for latest version number

@@ -28,7 +28,7 @@ class zeromq_x64 extends VersionCrawler
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
-            if (preg_match("#ZeroMQ-(\d+\.\d+.\d+)~miru1.0-x64.exe#i", $node->text(), $matches)) {
+            if (preg_match("#ZeroMQ-(\d+\.\d+.\d+)~miru1.0-x64.exe#i", $node->attr('href'), $matches)) {
                 $version = $matches[1];
                 if (version_compare($version, $this->registry['zeromq-x64']['latest']['version'], '>=') === true) {
                     return array(

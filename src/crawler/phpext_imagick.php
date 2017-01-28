@@ -26,17 +26,18 @@ class phpext_imagick extends VersionCrawler
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
-            // http://windows.php.net/downloads/pecl/releases/imagick/3.2.0b2/php_imagick-3.2.0b2-5.3-ts-vc9-x86.zip
+            // http://windows.php.net/downloads/pecl/releases/imagick/3.2.0b2/php_imagick-3.2.0b2-5.3-nts-vc9-x86.zip
             if (preg_match("#(\d+\.\d+(\.\d+)*)(?:(b|rc)?(\d+))#", $node->text(), $matches)) {
+
                 $version = $matches[0];
 
                 if (version_compare($version, $this->registry['phpext_imagick']['latest']['version'], '>=') === true) {
-					
-					
-                $urls = $this->createPhpVersionsArrayForExtension($version, $this->url_template);
-                if(empty($urls)) {
-                    return;
-                }
+                		
+                    $urls = $this->createPhpVersionsArrayForExtension($version, $this->url_template);
+
+                    if(empty($urls)) {
+                        return;
+                    }
 
                     return array(
                         'version' => $version,

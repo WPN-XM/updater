@@ -39,12 +39,13 @@ class wkhtmltopdf_x64 extends VersionCrawler
                     $version = $matches[1];
 
                     /**
-                     * Hmm, version number isn't SemVer: "0.12.3.2". Looks like version number in Microsoft-scheme.
-                     * 
-                     * http://download.gna.org/wkhtmltopdf/0.12/0.12.3.2/wkhtmltox-0.12.3.2_msvc2013-win32.exe
-                     * http://download.gna.org/wkhtmltopdf/0.12/0.12.3.2/wkhtmltox-0.12.3.2_msvc2013-win64.exe
+                     * Hmm, version number isn't SemVer: "0.12.3.2". Looks like a version number in Microsoft-scheme.
+                     * - http://download.gna.org/wkhtmltopdf/0.12/0.12.3.2/wkhtmltox-0.12.3.2_msvc2013-win32.exe
+                     * - http://download.gna.org/wkhtmltopdf/0.12/0.12.3.2/wkhtmltox-0.12.3.2_msvc2013-win64.exe
+                     *
+                     * From v0.12.4 "msvc2015" is used.
                      */
-                    $download_file = 'http://download.gna.org/wkhtmltopdf/0.12/' . $version . '/wkhtmltox-' . $version . '_msvc2013-win64.exe';
+                    $download_file = 'http://download.gna.org/wkhtmltopdf/0.12/' . $version . '/wkhtmltox-' . $version . '_msvc2015-win64.exe';
 
                     if (version_compare($version, $this->registry['wkhtmltopdf-x64']['latest']['version'], '>=') === true) {
                         return array(

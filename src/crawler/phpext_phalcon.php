@@ -82,7 +82,7 @@ class phpext_phalcon extends VersionCrawler
         $url = str_replace("%version%", $version, $url);
 
         $bitsizes    = array('x86', 'x64');
-        $phpversions = array('5.4.0', '5.5.0', '5.6.0');
+        $phpversions = array('5.4.0', '5.5.0', '5.6.0', '7.0.0', '7.1.0');
         $urls        = array();
 
         foreach ($bitsizes as $bitsize) {
@@ -95,11 +95,11 @@ class phpext_phalcon extends VersionCrawler
                     $url
                 );
 
-                #if ($skipURLcheck === true) {
+                if ($skipURLcheck === true) {
                     $urls[$bitsize][$phpversion] = $replacedUrl;
-                #} elseif($this->fileExistsOnServer($replacedUrl) === true) {
-                #    $urls[$bitsize][$phpversion] = $replacedUrl;
-                #}
+                } elseif($this->fileExistsOnServer($replacedUrl) === true) {
+                    $urls[$bitsize][$phpversion] = $replacedUrl;
+                }
             }
         }
 

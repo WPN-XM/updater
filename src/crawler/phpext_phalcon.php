@@ -84,17 +84,10 @@ class phpext_phalcon extends VersionCrawler
         $bitsizes    = array('x86', 'x64');
         $phpversions = array('5.4.0', '5.5.0', '5.6.0', '7.0.0', '7.1.0');
         $urls        = array();
-        $compiler    = 'vc14'; // use the PHP7.0 compiler as default fallback
 
         foreach ($bitsizes as $bitsize) {
             foreach ($phpversions as $phpversion) {
-
-                if($phpversion == '5.4.0') {
-                    $compiler = 'VC9';
-                } 
-                if($phpversion == '5.5.0' || $phpversion == '5.6.0') {
-                    $compiler = 'vc11';
-                } 
+                $compiler = self::getCompilerByPHPVersion($phpversion);
 
                 $replacedUrl = str_replace(
                     array('%compiler%', '%phpversion%', '%bitsize%'),

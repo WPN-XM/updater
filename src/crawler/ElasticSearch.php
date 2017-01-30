@@ -37,8 +37,11 @@ class elasticsearch extends VersionCrawler
      * Much improved URL. So amazed. Wow.
      *
      * https://download.elasticsearch.org/elasticsearch/release/org/elasticsearch/distribution/zip/elasticsearch/2.2.1/elasticsearch-2.2.1.zip
+     *
+     * Oh, look: finally a less stupid URL (Jan, 2017).
+     * https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.1.2.zip
      */
-    private $url_template = 'https://download.elasticsearch.org/elasticsearch/release/org/elasticsearch/distribution/zip/elasticsearch/%version%/elasticsearch-%version%.zip';
+    private $url_template = 'https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-%version%.zip';
 
     public function crawlVersion()
     {

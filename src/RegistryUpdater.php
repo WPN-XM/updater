@@ -42,8 +42,8 @@ class RegistryUpdater
 
         // Setup Guzzle Client and set header and curl options for all requests
         $this->guzzleClient = new \GuzzleHttp\Client([
-            'headers' => [ 'User-Agent' => RegistryUpdater::USER_AGENT ],           
-            'curl' => [ CURLOPT_SSL_VERIFYPEER => false ]   
+            'headers' => [ 'User-Agent' => RegistryUpdater::USER_AGENT ]
+            //,'curl' => [ CURLOPT_SSL_VERIFYPEER => false ]   
         ]);
     }
 

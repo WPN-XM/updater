@@ -18,7 +18,7 @@ use WPNXM\Updater\FileCache;
  * from the offical PECL server
  *
  * This is done by fetching the directory index of
-*  http://windows.php.net/downloads/pecl/releases/
+ *  http://windows.php.net/downloads/pecl/releases/
  * and converting the HTML into a JSON list of all available PHP extensions.
  *
  * An alternative to scraping folders is to consume the XML:
@@ -92,7 +92,11 @@ class PHPExtensionScraper
 
     public function getJson()
     {
-        return json_encode($this->scrapeExtensionsHtml($this->getHtml()));
+        $html = $this->getHtml();
+
+        $result = $this->scrapeExtensionsHtml($html);
+
+        return json_encode($result, JSON_PRETTY_PRINT);
     }
 
     public function readGoPHP7ExtensionCatalog()
@@ -127,6 +131,7 @@ class PHPExtensionScraper
         }
 
         $json = json_encode($result, JSON_PRETTY_PRINT);
+
         file_put_contents(DATA_DIR . 'registry/php-extensions-outside-pecl.json', $json);
     }
 }

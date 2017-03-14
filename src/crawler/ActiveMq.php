@@ -30,13 +30,14 @@ class ActiveMQ extends VersionCrawler
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
-            $url = $node->extract('data-url')[0];
-            // http://archive.apache.org/dist/activemq/5.14.3/apache-activemq-5.14.3-bin.zip
-            if (preg_match("#/dist/activemq/(\d+\.\d+.\d+)/apache-activemq-(\d+\.\d+.\d+)-bin.zip#i", $url, $matches)) {
-                $version = $matches[1];
+            $url = $node->text();
+            // http://archive.apache.org/dist/activemq/5.14.4/
+            if (preg_match("#(\d+\.\d+.\d+)#i", $url, $matches)) {
+                $version = $matches[0];
                 if (version_compare($version, $this->registry['activemq']['latest']['version'], '>=') === true) {
                     return array(
                         'version' => $version,
+                        // http://archive.apache.org/dist/activemq/5.14.3/apache-activemq-5.14.3-bin.zip
                         'url'     => 'http://archive.apache.org/dist/activemq/' . $version . '/apache-activemq-' . $version . '-bin.zip'
                     );
                 }

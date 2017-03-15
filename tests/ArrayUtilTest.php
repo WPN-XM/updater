@@ -32,6 +32,32 @@ class ArrayUtilTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayNotHasKey('4', $cleaned_array); // removed by removeDuplicates
     }
 
+    public function testMove_key_to_top()
+    {
+        $array = [
+            'top'    => '1',
+            'middle' => '2',
+            'bottom' => '3'
+        ];
+
+        ArrayUtil::move_key_to_top($array, 'bottom');
+
+        $this->assertArrayHasKey('bottom', $array); // untestable ;)
+    }
+
+    public function testMove_key_to_bottom()
+    {
+        $array = [
+            'top'    => '1',
+            'middle' => '2',
+            'bottom' => '3'
+        ];
+
+        ArrayUtil::move_key_to_bottom($array, 'top');
+
+        $this->assertArrayHasKey('top', $array); // untestable ;)
+    }
+
     public function testRemoveTrailingSpaces()
     {
         $content = "'key' => \n'key' => ";

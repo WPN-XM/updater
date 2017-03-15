@@ -66,7 +66,7 @@ class RegistryHealth
             }
         }
 
-        return (bool) count($this->errors);
+        return ! (bool) count($this->errors);
     }
 
     public function getErrors()

@@ -37,7 +37,8 @@ class RegistryHealthTest extends \PHPUnit_Framework_TestCase
         ];
 
         $registryHealth = new RegistryHealth($registry);
-        $registryHealth->check();
+
+        $this->assertTrue($registryHealth->check());
 
         $errors = $registryHealth->getErrors();
 
@@ -64,7 +65,8 @@ class RegistryHealthTest extends \PHPUnit_Framework_TestCase
         ];
 
         $registryHealth = new RegistryHealth($registry);
-        $registryHealth->check();
+
+        $this->assertFalse($registryHealth->check());
 
         $errors = $registryHealth->getErrors();
 

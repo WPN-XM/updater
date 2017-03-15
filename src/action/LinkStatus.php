@@ -43,7 +43,7 @@ class LinkStatus extends ActionBase
 
         $registryHealth = new RegistryHealth($this->registry);
 
-        if($registryHealth->check() === true) {
+        if($registryHealth->check() == false) {
             $errors = implode($registryHealth->getErrors(), ',');
             throw new \RuntimeException($errors);
         }

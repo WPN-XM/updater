@@ -65,7 +65,7 @@ class ArrayUtil
     {
         $lines = explode("\n", $content);
         foreach ($lines as $idx => $line) {
-            $lines[$idx] = rtrim($line);
+            $lines[$idx] = rtrim($line, " ");
         }
         $content = implode("\n", $lines);
 

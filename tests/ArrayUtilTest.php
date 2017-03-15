@@ -31,4 +31,28 @@ class ArrayUtilTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('3', $cleaned_array);
         $this->assertArrayNotHasKey('4', $cleaned_array); // removed by removeDuplicates
     }
+
+    public function testRemoveTrailingSpaces()
+    {
+        $content = "'key' => \n'key' => ";
+        $result = ArrayUtil::removeTrailingSpaces($content);
+        $this->assertSame($result, "'key' =>\n'key' =>");
+    }
+
+    public function testReduceArrayToContainOnlyVersions()
+    {
+        $array = [
+            'website' => 'website',
+            'name'    => 'name',
+            '1.2.3'   => 'url', // reduce to only this key
+            'latest'  => [
+                'version' => '1.2.3',
+                'url'     => 'url'
+            ]
+        ];
+
+        $result = ArrayUtil::ReduceArrayToContainOnlyVersions($array);
+
+        $this->assertSame($result, ['1.2.3' => 'url']);
+    }
 }

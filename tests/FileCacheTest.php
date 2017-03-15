@@ -17,9 +17,9 @@ class FileCacheTest extends \PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {
-        $this->cacheFile = __DIR__.'\phpunit.xml.dist.cache';
+        $this->cacheFile = __DIR__.'/phpunit.xml.dist.cache';
     }
-    
+
     protected function tearDown()
     {
         unlink($this->cacheFile);
@@ -33,7 +33,7 @@ class FileCacheTest extends \PHPUnit_Framework_TestCase
         };
 
         $result = FileCache::get(
-            __DIR__.'\phpunit.xml.dist',
+            __DIR__.'/phpunit.xml.dist',
             $this->cacheFile,
             $modificationCallback
         );

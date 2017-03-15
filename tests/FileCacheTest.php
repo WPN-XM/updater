@@ -13,7 +13,7 @@ namespace tests;
 
 use WPNXM\Updater\FileCache;
 
-class FileCacheTest extends \PHPUnit_Framework_TestCase
+class FileCacheTest extends PHPUnit\Framework\TestCase
 {
     private $cacheFile = '';
 

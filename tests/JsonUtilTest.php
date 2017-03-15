@@ -13,7 +13,7 @@ namespace tests;
 
 use WPNXM\Updater\JsonUtil;
 
-class JsonUtilTest extends \PHPUnit_Framework_TestCase
+class JsonUtilTest extends PHPUnit\Framework\TestCase
 {
     protected function setUp()
     {

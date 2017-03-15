@@ -13,6 +13,9 @@ namespace tests;
 
 use WPNXM\Updater\CliArguments;
 
+/**
+  * @property mixed $a
+  */
 class TestOfCommandLineArgumentParsing extends \PHPUnit_Framework_TestCase
 {
     public function testNoArgumentsWithJustProgramNameGivesFalseToEveryName()

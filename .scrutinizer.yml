@@ -13,7 +13,7 @@ tools:
     # because huge number of false-positives and no real value
     external_code_coverage:
         timeout: 300
-        runs: 2
+        runs: 1
     php_cpd: false
     php_sim: false
     php_changetracking:

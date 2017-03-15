@@ -11,7 +11,7 @@
 
 namespace tests;
 
-class RegistryDataTest extends PHPUnit\Framework\TestCase
+class RegistryDataTest extends \PHPUnit\Framework\TestCase
 {
     public $registry = array();
 

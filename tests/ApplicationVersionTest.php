@@ -13,7 +13,7 @@ namespace tests;
 
 use WPNXM\Updater\ApplicationVersion;
 
-class ApplicationVersionTest extends PHPUnit\Framework\TestCase
+class ApplicationVersionTest extends \PHPUnit\Framework\TestCase
 {
     public function testGet()
     {

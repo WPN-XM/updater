@@ -16,7 +16,7 @@ use WPNXM\Updater\CliArguments;
 /**
   * @property mixed $a
   */
-class TestOfCommandLineArgumentParsing extends PHPUnit\Framework\TestCase
+class TestOfCommandLineArgumentParsing extends \PHPUnit\Framework\TestCase
 {
     public function testNoArgumentsWithJustProgramNameGivesFalseToEveryName()
     {

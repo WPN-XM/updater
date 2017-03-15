@@ -13,7 +13,7 @@ namespace tests;
 
 use WPNXM\Updater\ArrayUtil;
 
-class ArrayUtilTest extends PHPUnit\Framework\TestCase
+class ArrayUtilTest extends \PHPUnit\Framework\TestCase
 {
     public function testClean()
     {

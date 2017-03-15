@@ -13,7 +13,7 @@ namespace tests;
 
 use WPNXM\Updater\RegistryHealth;
 
-class RegistryHealthTest extends PHPUnit\Framework\TestCase
+class RegistryHealthTest extends \PHPUnit\Framework\TestCase
 {
     public function testCheck()
     {

@@ -42,7 +42,8 @@ class ArrayUtilTest extends \PHPUnit_Framework_TestCase
 
         ArrayUtil::move_key_to_top($array, 'bottom');
 
-        $this->assertArrayHasKey('bottom', $array); // untestable ;)
+        $this->assertArrayHasKey('bottom', $array);
+        $this->assertSame('3-1-2', implode('-', $array));
     }
 
     public function testMove_key_to_bottom()
@@ -55,7 +56,8 @@ class ArrayUtilTest extends \PHPUnit_Framework_TestCase
 
         ArrayUtil::move_key_to_bottom($array, 'top');
 
-        $this->assertArrayHasKey('top', $array); // untestable ;)
+        $this->assertArrayHasKey('top', $array);
+        $this->assertSame('2-3-1', implode('-', $array));
     }
 
     public function testRemoveTrailingSpaces()

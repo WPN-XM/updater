@@ -73,10 +73,11 @@ class PHPExtensionScraper
     public function scrapeExtensionsHtml($html)
     {
         $extensions = [];
+        $matches = [];
 
         $regexp = "<a\s[^>]*href=(\"??)([^\" >]*?)\\1[^>]*>(.*)<\/a>";
 
-        if (preg_match_all("/$regexp/siU", $html, $matches, PREG_SET_ORDER)) {            
+        if (preg_match_all("/$regexp/siU", $html, $matches, PREG_SET_ORDER)) {
             foreach ($matches as $match) {
                 // $match[2] = link address
                 // $match[3] = link text
@@ -84,9 +85,7 @@ class PHPExtensionScraper
             }
         }
 
-        $extensions = array_unique($extensions);
-
-        sort($extensions);
+        sort(array_unique($extensions));
 
         return $extensions;
     }
@@ -110,11 +109,12 @@ class PHPExtensionScraper
                 . '\|(?<worksonphp5>.*)\|(?<worksonphp7>.*)\|(?<goodonphp7>.*)\|(?<details>.*)\|/';
 
         $result = [];
+        $matches = [];
 
         foreach($lines as $line)
         {
             preg_match($regexp, $line, $matches);
-            
+
             // remove integer keys and superfluous spaces
             $matches = array_filter($matches, "is_string", ARRAY_FILTER_USE_KEY);
             $matches = array_map('trim', $matches);

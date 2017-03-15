@@ -144,8 +144,7 @@ class InstallerRegistries
     }
 
     /**
-     * Returns the full path to the installer registry file
-     * given the filename.
+     * Returns the full path to the installer registry file by filename.
      *
      * @param  string $filename installer filename, e.g. "literc-next-php7.0-w32"
      *
@@ -163,10 +162,6 @@ class InstallerRegistries
         $versionDir = ($version !== 'next') ? 'v'.$version : $version;
 
         $file = REGISTRY_DIR.'installer'.DS.$versionDir.DS.$filename.'.json';
-
-        /*if(!file_exists($file)) {
-            throw new \Exception('The installer registry doesn\'t exist.');
-        }*/
 
         return $file;
     }

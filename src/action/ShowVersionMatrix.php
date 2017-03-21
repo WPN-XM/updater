@@ -69,7 +69,7 @@ class ShowVersionMatrix extends ActionBase
             try {
                 $json = $parser->parse(file_get_contents($file), JsonParser::DETECT_KEY_CONFLICTS);
             } catch (\Exception $e) {
-                if($e instanceOf \Seld\JsonLint\DuplicateKeyException) {
+                if($e instanceOf DuplicateKeyException) {
                     // duplicate key exception
                     $details = $e->getDetails();
                     throw new \Exception('Key ' . $details['key'] . ' is a duplicate in ' . $localConfig . ' at line ' . $details['line']);

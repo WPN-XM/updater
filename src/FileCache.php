@@ -2,7 +2,7 @@
 
 /*
  * WPИ-XM Server Stack
- * Copyright © 2010 - 2016, Jens-André Koch <jakoch@web.de>
+ * Copyright (c) Jens A. Koch <jakoch@web.de>
  * https://wpn-xm.org/
  *
  * This source file is subject to the terms of the MIT license.

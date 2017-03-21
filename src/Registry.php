@@ -2,8 +2,8 @@
 
 /**
  * WPИ-XM Server Stack - Updater
- * Copyright © 2010 - 2015 Jens-André Koch <jakoch@web.de>
- * http://wpn-xm.org/
+ * Copyright (c) Jens A. Koch <jakoch@web.de>
+ * https://wpn-xm.org/
  *
  * This source file is subject to the terms of the MIT license.
  * For full copyright and license information, view the bundled LICENSE file.
@@ -37,7 +37,7 @@ class Registry
         $content .= "   /**\n";
         $content .= "    * WPИ-XM Server Stack\n";
         $content .= "    * Copyright © 2010 - " . date("Y") . " Jens-André Koch <jakoch@web.de>\n";
-        $content .= "    * http://wpn-xm.org/\n";
+        $content .= "    * https://wpn-xm.org/\n";
         $content .= "    *\n";
         $content .= "    * This source file is subject to the terms of the MIT license.\n";
         $content .= "    * For full copyright and license information, view the bundled LICENSE file.\n";

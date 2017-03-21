@@ -2,8 +2,8 @@
 
 /**
  * WPИ-XM Server Stack - Updater
- * Copyright © 2010 - 2015 Jens-André Koch <jakoch@web.de>
- * http://wpn-xm.org/
+ * Copyright (c) Jens A. Koch <jakoch@web.de>
+ * https://wpn-xm.org/
  *
  * This source file is subject to the terms of the MIT license.
  * For full copyright and license information, view the bundled LICENSE file.
@@ -16,9 +16,9 @@ class StatusRequest
     /**
      * Builds an array with Download URLs to the WPN-XM Server
      *
-     * http://wpn-xm.org/get.php?s=%software%
+     * https://wpn-xm.org/get.php?s=%software%
      *
-     * http://wpn-xm.org/get.php?s=%software%&p=%phpversion%&bitsize=%bitsize%
+     * https://wpn-xm.org/get.php?s=%software%&p=%phpversion%&bitsize=%bitsize%
      *
      * @param  type  $registry
      * @return array

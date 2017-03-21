@@ -52,6 +52,8 @@ class PHPExtensionScraperGoPHP7
     {
         // reduce to text segment: "# Pecl Extensions from other places"
         $reduced_text = strstr($text, '| aerospike');
+
+        return $reduced_text;
     }
 
     /**

@@ -30,10 +30,8 @@ class CliApplication
             return $this->printHelp();
         }
 
-    	foreach($args as $arg => $value) {
-
-            var_dump($arg, $value);
-
+    	foreach($args as $arg => $value)
+        {
     		// "--help"
     		if($arg == 'help' || $arg == '-h') {
     			return $this->printHelp();

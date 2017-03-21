@@ -12,22 +12,20 @@
 namespace WPNXM\Updater\Action;
 
 use WPNXM\Updater\ActionBase;
-use WPNXM\Updater\PHPExtensionScraper;
+use WPNXM\Updater\PHPExtensionScraperPECL;
+use WPNXM\Updater\PHPExtensionScraperGoPHP7;
 
 /**
- * Fetches all PHP extension names from PECL and save it as a JSON file.
+ * Fetch all PHP extension names from PECL and save them as a JSON file.
  */
 class UpdatePhpExtensionList extends ActionBase
-{
-    private $scraper;
-    
+{    
     public function __invoke()
     {
-        $this->scraper = new PHPExtensionScraper;
-
-        return (bool) file_put_contents(
-            DATA_DIR . 'registry/php-extensions-on-pecl.json',
-            $this->scraper->getJson()
-        );
+        $scraper1 = new PHPExtensionScraperPECL; 
+        $scraper1->updateExtensionList();       
+       
+        $scraper2 = new PHPExtensionScraperGoPHP7;
+        $scraper2->updateExtensionList();
     }
 }

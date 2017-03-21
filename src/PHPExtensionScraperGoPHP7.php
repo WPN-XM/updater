@@ -63,7 +63,7 @@ class PHPExtensionScraperGoPHP7
      */
     private function scrape($text)
     {
-        $lines = explode("\n", $reduced_text);
+        $lines = explode("\n", $text);
 
         // build array by named pattern matching
         $regexp = '/\|(?<name>.*)\|(?<website>.*)\|(?<maintainers>.*)\|(?<tests>.*)\|(?<docs>.*)'

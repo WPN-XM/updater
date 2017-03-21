@@ -20,11 +20,6 @@ use WPNXM\Updater\Registry;
  */
 class PrettyPrintRegistries extends ActionBase
 {
-    public function __construct()
-    {
-        Registry::clearOldScans();
-    }
-
     public function __invoke()
     {
         $nextRegistries = InstallerRegistries::getRegistriesOfNextRelease();

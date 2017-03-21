@@ -24,7 +24,7 @@ class RegistryHealthCheck extends ActionBase
 
     public function __construct()
     {
-    	$registry = Registry::load();
+        $registry = Registry::load();
         $this->registryHealth = new RegistryHealth($registry);
     }
 

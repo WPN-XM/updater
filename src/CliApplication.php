@@ -13,6 +13,7 @@ namespace WPNXM\Updater;
 
 use WPNXM\Updater\ApplicationVersion;
 use WPNXM\Updater\CliArguments;
+use WPNXM\Updater\Action\ScanComponent;
 
 class CliApplication
 {
@@ -31,13 +32,15 @@ class CliApplication
 
     	foreach($args as $arg => $value) {
 
+            var_dump($arg, $value);
+
     		// "--help"
     		if($arg == 'help' || $arg == '-h') {
     			return $this->printHelp();
     		}
     		// "--crawl-version=adminer"
     		// "-c adminer"
-    		if($arg == 'crawl-version' || ($arg == 'c' && is_string($value)) ) {
+    		if($arg == 'crawl-version' || ($arg == 'c' && is_string($value)))  {
     			return $this->crawlVersions($value);
     		}
 
@@ -45,7 +48,7 @@ class CliApplication
 			// "--crawl-version a,b"
 			// "-c"
 			// "-c a,b"
-    		if($arg == 'crawl-versions' || is_bool($value) || is_array($value))  {
+    		if($arg == 'crawl-versions' && is_bool($value) || is_array($value))  {
 				return $this->crawlVersions($value);
     		}
 
@@ -66,8 +69,12 @@ class CliApplication
     public function printHelp()
     {
     	echo $this->printVersion();
-    	echo PHP_EOL;
-        echo '@todo List commands and explain usage...';
+        echo 'Help'. PHP_EOL;
+        echo '----'. PHP_EOL;
+        echo '--version              Show Version'. PHP_EOL;
+        echo '--help                 Show this Help'. PHP_EOL;
+        echo '--crawl-version, -c    Crawl single version'. PHP_EOL;
+        echo '--crawl-versions, -c   Crawl multiple versions'. PHP_EOL;
         echo PHP_EOL;
     }
 
@@ -80,7 +87,7 @@ class CliApplication
 
         $components = explode(',', $arg);
 
-		$crawl = new Action\ScanComponent();
+		$crawl = new ScanComponent();
         $crawl->crawl($components);
     	$crawl->getResults();
     }

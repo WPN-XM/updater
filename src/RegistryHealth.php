@@ -24,8 +24,8 @@ class RegistryHealth
 
 	public function check()
     {
-        foreach ($this->registry as $software => $component) {
-
+        foreach ($this->registry as $software => $component) 
+        {
             // Check for Keys
             // the following array keys are required on each component
 

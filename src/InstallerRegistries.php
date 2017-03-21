@@ -74,7 +74,7 @@ class InstallerRegistries
      * @param string $folder
      * @param string $regexp
      */
-    public static function recursiveFind($folder, $regexp)
+    private static function recursiveFind($folder, $regexp)
     {
         $dir = new \RecursiveDirectoryIterator($folder, \RecursiveDirectoryIterator::SKIP_DOTS);
         $iterator = new \RecursiveIteratorIterator($dir);

@@ -95,7 +95,9 @@ class PHPExtensionScraperPECL
             }
         }
 
-        sort(array_unique($extensions));
+        $extensions = array_unique($extensions);
+        
+        sort($extensions);
 
         return $extensions;
     }

@@ -18,7 +18,7 @@ use WPNXM\Updater\RegistryHealth;
 /**
  * Check the health of the registry.
  */
-class RegistryHealthCheck extends ActionBase
+class HealthCheckRegistry extends ActionBase
 {
     private $registryHealth;
 

@@ -16,15 +16,16 @@
         "issues": "https://github.com/WPN-XM/WPN-XM/issues/"
     },
     "require": {
-        "php":                      ">=5.4",
-        "guzzlehttp/guzzle":        "^6",        
-        "symfony/dom-crawler":      "^3.0", 
-        "symfony/css-selector":     "^3.0",       
-        "seld/jsonlint":            "^1.4"        
+        "php":                       "^5.4",
+        "guzzlehttp/guzzle":         "^6",
+        "symfony/dom-crawler":       "^3.0", 
+        "symfony/css-selector":      "^3.0",
+        "seld/jsonlint":             "^1.4",
+        "justinrainbow/json-schema": "^5.0",
     },
     "require-dev": {
-        "phpunit/phpunit":          "^5",
-        "fabpot/php-cs-fixer":      "dev-master"
+        "phpunit/phpunit":           "^5.0.5",
+        "fabpot/php-cs-fixer":       "dev-master"
     },
     "suggest": {
         "ext-curl": "*",

@@ -24,7 +24,7 @@ use WPNXM\Updater\FileCache;
  * An alternative to scraping folders is to consume the XML:
  * http://pecl.php.net/rest/p/packages.xml
  */
-class PHPExtensionScraper
+class PHPExtensionScraperPECL
 {
     private function getHtml()
     {

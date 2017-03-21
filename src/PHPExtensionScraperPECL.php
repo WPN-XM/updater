@@ -18,7 +18,7 @@ use WPNXM\Updater\FileCache;
  * from the offical PECL server
  *
  * This is done by fetching the directory index of
- *  http://windows.php.net/downloads/pecl/releases/
+*  http://windows.php.net/downloads/pecl/releases/
  * and converting the HTML into a JSON list of all available PHP extensions.
  *
  * An alternative to scraping folders is to consume the XML:
@@ -26,6 +26,14 @@ use WPNXM\Updater\FileCache;
  */
 class PHPExtensionScraperPECL
 {
+    public function updateExtensionList()
+    {
+        $html  = $this->getHtml();
+        $array = $this->scrape($html);
+
+        return $this->writeJson($array);
+    }
+
     private function getHtml()
     {
         // callback to modify the fetched content, before caching it
@@ -68,16 +76,18 @@ class PHPExtensionScraperPECL
     }
 
     /**
-     * @param string $html
+     * Scrape the HTML document containing the extension hrefs.
+     *
+     * @param string $text HTML
      */
-    public function scrapeExtensionsHtml($html)
+    public function scrape($text)
     {
         $extensions = [];
         $matches = [];
 
         $regexp = "<a\s[^>]*href=(\"??)([^\" >]*?)\\1[^>]*>(.*)<\/a>";
 
-        if (preg_match_all("/$regexp/siU", $html, $matches, PREG_SET_ORDER)) {
+        if (preg_match_all("/$regexp/siU", $text, $matches, PREG_SET_ORDER)) {
             foreach ($matches as $match) {
                 // $match[2] = link address
                 // $match[3] = link text
@@ -90,48 +100,11 @@ class PHPExtensionScraperPECL
         return $extensions;
     }
 
-    public function getJson()
+    private function writeJson($array)
     {
-        $html = $this->getHtml();
+        $json  = json_encode($array, JSON_PRETTY_PRINT);
+        $file  = DATA_DIR . 'registry/php-extensions-on-pecl.json';
 
-        $result = $this->scrapeExtensionsHtml($html);
-
-        return json_encode($result, JSON_PRETTY_PRINT);
-    }
-
-    public function readGoPHP7ExtensionCatalog()
-    {
-        $url = 'https://raw.githubusercontent.com/wiki/gophp7/gophp7-ext/extensions-catalog.md';
-        $text = file_get_contents($url);
-
-        // reduce to text segment: "# Pecl Extensions from other places"
-        $reduced_text = strstr($text, '| aerospike');
-        $lines = explode("\n", $reduced_text);
-
-        // build array by named pattern matching
-        $regexp = '/\|(?<name>.*)\|(?<website>.*)\|(?<maintainers>.*)\|(?<tests>.*)\|(?<docs>.*)'
-                . '\|(?<worksonphp5>.*)\|(?<worksonphp7>.*)\|(?<goodonphp7>.*)\|(?<details>.*)\|/';
-
-        $result = [];
-        $matches = [];
-
-        foreach($lines as $line)
-        {
-            preg_match($regexp, $line, $matches);
-
-            // remove integer keys and superfluous spaces
-            $matches = array_filter($matches, "is_string", ARRAY_FILTER_USE_KEY);
-            $matches = array_map('trim', $matches);
-
-            // use PHP Extension name as array key
-            $name = $matches['name'];
-            unset($matches['name']);
-
-            $result[$name] = $matches;
-        }
-
-        $json = json_encode($result, JSON_PRETTY_PRINT);
-
-        file_put_contents(DATA_DIR . 'registry/php-extensions-outside-pecl.json', $json);
+        return (bool) file_put_contents($file, $json);
     }
 }

@@ -16,7 +16,7 @@
         "issues": "https://github.com/WPN-XM/WPN-XM/issues/"
     },
     "require": {
-        "php":                       "^5.4",
+        "php":                       "^7.0",
         "guzzlehttp/guzzle":         "^6",
         "symfony/dom-crawler":       "^3.0", 
         "symfony/css-selector":      "^3.0",

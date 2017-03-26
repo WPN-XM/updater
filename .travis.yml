@@ -5,7 +5,7 @@
 #
 language: php
 
-php: [7.0]
+php: [7.1]
 
 sudo: false
 
@@ -28,8 +28,8 @@ script:
     echo;
     echo "Running PHP lint";
     find . -name \*.php ! -path "./vendor/*" | parallel --gnu php -d display_errors=stderr -l {} > /dev/null \;
-  # PHPUnit
-  - phpunit -c tests/phpunit.xml.dist
+  # PHPUnit (use the composer installed version, not the Travis one)
+  - ./bin/phpunit -c tests/phpunit.xml.dist
 
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar

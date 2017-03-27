@@ -22,16 +22,6 @@ class Registry
      */
     public static function writeRegistry(array $registry)
     {
-        if (!is_dir(DATA_DIR . 'registry/backup')) {
-            mkdir(DATA_DIR . 'registry/backup', 0777, true);
-        }
-
-        // backup current registry
-        rename(
-            DATA_DIR . 'registry/wpnxm-software-registry.php',
-            DATA_DIR . 'registry/backup/wpnxm-software-registry-' . date("dmy-His") . '.php'
-        );
-
         // registry file header
         $content = "<?php\n";
         $content .= "   /**\n";
@@ -307,7 +297,7 @@ class Registry
     {
         asort($registry);
 
-        $json        = json_encode($registry);        
+        $json        = json_encode($registry);
         $json_pretty = \WPNXM\Updater\JsonUtil::prettyPrintCompact($json);
         $json_table  = \WPNXM\Updater\JsonUtil::prettyPrintTableFormat($json_pretty);
 

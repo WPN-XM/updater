@@ -56,6 +56,10 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
 
     /**
      * Set Software Registry (for version_compare).
+     *
+     * @param array Registry
+     * @param string Component Name
+     * @return array Returns registry or, if component name is set the registry subset of component.
      */
     public function setRegistry($registry, $component = null)
     {
@@ -273,5 +277,27 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
         }
 
         return $version;
+    }
+
+    /**
+     * Get Latest Version for Software Component
+     *
+     * @param string Component Name
+     *
+     * @return string Returns the latest version of the software component, otherwise 0.0.0.
+     */
+    public function getLatestVersion($component = '')
+    {
+        if($component == '') {
+            $component = $this->getName();
+        }
+
+        if(isset($this->registry[$component]) 
+            && isset($this->registry[$component]['latest']) 
+            && isset($this->registry[$component]['latest']['version'])) {
+            return $this->registry[$component]['latest']['version'];
+        } 
+
+        return '0.0.0';
     }
 }

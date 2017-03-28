@@ -44,8 +44,8 @@ class UpdateComponent extends ActionBase
                 $commitMessage = 'updated'
             }
 
-            $commitMessage . 'updated software registry - ' . $name . ' v' . $registry[$component]['latest']['version'];
-            
+            $commitMessage . ' software registry - ' . $name . ' v' . $registry[$component]['latest']['version'];
+
             Registry::gitCommitAndPush($commitMessage);
         } else {
             echo 'No version scans found: The registry is up to date.';

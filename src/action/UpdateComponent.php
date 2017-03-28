@@ -35,24 +35,14 @@ class UpdateComponent extends ActionBase
         if (is_array($registry)) {
             Registry::writeRegistry($registry);
             echo 'The registry was updated. Component "' . $component . '" inserted.';
-
-            $name = isset($registry[$component]['name']) ?  $registry[$component]['name'] : $component;
-
-            if(1 == getNumberOfVersionsForComponent($registry, $component)) {
-                $commitMessage = 'added to';
-            } else {
-                $commitMessage = 'updated';
-            }
-
-            $commitMessage . ' software registry - ' . $name . ' v' . $registry[$component]['latest']['version'];
-
+            $commitMessage = getCommitMessage($registry, $component);
             Registry::gitCommitAndPush($commitMessage);
         } else {
             echo 'No version scans found: The registry is up to date.';
         }
     }
 
-    private getNumberOfVersionsForComponent($registry, $component)
+    private function getNumberOfVersionsForComponent($registry, $component)
     {
         // get registry subset for this component
         $r = $registry[$component]; 
@@ -62,6 +52,22 @@ class UpdateComponent extends ActionBase
 
         return count($r);
     }
+
+    private function getName($registry, $component)
+    {
+        return isset($registry[$component]['name']) ?  $registry[$component]['name'] : $component;
+    }
+
+    private function getCommitMessage($registry, $component)
+    {
+        if(1 == getNumberOfVersionsForComponent($registry, $component)) {
+            $commitMessage = 'added to';
+        } else {
+            $commitMessage = 'updated';
+        }
+
+        return $commitMessage . ' software registry - ' . $this->getName($registry, $component) . ' v' . $registry[$component]['latest']['version'];
+    } 
 }
 
 

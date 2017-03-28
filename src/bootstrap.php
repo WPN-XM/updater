@@ -14,6 +14,11 @@ if(!extension_loaded('openssl')) {
     exit(1);
 }
 
+if(!extension_loaded('curl')) {
+    echo 'The PHP extension "cURL" is required.';
+    exit(1);
+}
+
 define('TIME_STARTED', microtime(true));
 
 // Settings for the PHP environment

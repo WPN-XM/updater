@@ -19,6 +19,13 @@ if(!extension_loaded('curl')) {
     exit(1);
 }
 
+if(ini_get('curl.cainfo') == "") {
+    echo 'The PHP extension "cURL" has an SSL certificate problem.<br>'
+       . 'Please add a local issuer certificate<br>'
+       . 'and set the php.ini directive: `curl.cainfo` accordingly.';
+    exit(1);
+}
+
 define('TIME_STARTED', microtime(true));
 
 // Settings for the PHP environment

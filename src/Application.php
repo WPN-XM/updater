@@ -40,5 +40,4 @@ class Application
 
 }
 
-include __DIR__ . '/bootstrap.php';
 Application::run();

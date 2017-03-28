@@ -9,6 +9,11 @@
  * For full copyright and license information, view the bundled LICENSE file.
  */
 
+if(!extension_loaded('openssl')) {
+    echo 'The PHP extension "OpenSSL" is required.';
+    exit(1);
+}
+
 define('TIME_STARTED', microtime(true));
 
 // Settings for the PHP environment

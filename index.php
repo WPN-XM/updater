@@ -9,6 +9,8 @@
  * For full copyright and license information, view the bundled LICENSE file.
  */
 
+include_once __DIR__ . '/src/bootstrap.php';
+
 /**
  * The request to the URL 'http://localhost/updater/' fires up 'index.html'.
  * All subsequent GET requests with variables come from 'index.html' and are routed to the Application.

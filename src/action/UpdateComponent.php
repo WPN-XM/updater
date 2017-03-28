@@ -20,15 +20,8 @@ use WPNXM\Updater\Registry;
 // - shows a git push reminder
 class UpdateComponent extends ActionBase
 {
-    public function __construct()
-    {
-       //Registry::clearOldScans();
-    }
-
     public function __invoke()
     {
-        $registry = Registry::load();
-
         $component = filter_input(INPUT_GET, 'component', FILTER_SANITIZE_STRING);
 
         // fix alternative registry shorthand
@@ -36,19 +29,38 @@ class UpdateComponent extends ActionBase
             $component = 'php';
         }
 
+        $registry = Registry::load();
         $registry = Registry::addLatestVersionScansIntoRegistry($registry, $component);
 
-        if (is_array($registry) === true) {
+        if (is_array($registry)) {
             Registry::writeRegistry($registry);
             echo 'The registry was updated. Component "' . $component . '" inserted.';
 
             $name = isset($registry[$component]['name']) ?  $registry[$component]['name'] : $component;
 
-            $commitMessage = 'updated software registry - ' . $name . ' v' . $registry[$component]['latest']['version'];
+            if(1 == getNumberOfVersionsForComponent($registry, $component)) {
+                $commitMessage = 'added to';
+            } else {
+                $commitMessage = 'updated'
+            }
+
+            $commitMessage . 'updated software registry - ' . $name . ' v' . $registry[$component]['latest']['version'];
+            
             Registry::gitCommitAndPush($commitMessage);
         } else {
             echo 'No version scans found: The registry is up to date.';
         }
+    }
+
+    private getNumberOfVersionsForComponent($registry, $component)
+    {
+        // get registry subset for this component
+        $r = $registry[$component]; 
+
+        // reduce to versions
+        unset($r['name'],$r['website'], $r['latest']);
+
+        return count($r);
     }
 }
 

@@ -69,9 +69,6 @@ class ScanComponent extends ActionBase
 
     public function prepareCrawlingSingleComponent($component)
     {        
-        if(!isset($this->registry[$component])) {
-            throw new \Exception('Component "'.$component.'" doesn\'t exist in registry, yet. Correctly spelled? Otherwise, please create an entry.');
-        }
         $this->numberOfComponentsToCrawl = $this->updater->getUrlsToCrawl($component);
     }
 

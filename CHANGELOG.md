@@ -2,7 +2,8 @@
 
 ## [Unreleased]
 
-- 2017-03-26: added "h2 database" crawler
+- 2017-03-28: added crawler for "netbeans x86" and "netbeans x64"
+- 2017-03-26: added crawler for "h2 database"
 
 ## [0.7.0] - 2014-02-23
 

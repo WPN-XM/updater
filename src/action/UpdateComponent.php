@@ -41,7 +41,7 @@ class UpdateComponent extends ActionBase
             if(1 == getNumberOfVersionsForComponent($registry, $component)) {
                 $commitMessage = 'added to';
             } else {
-                $commitMessage = 'updated'
+                $commitMessage = 'updated';
             }
 
             $commitMessage . ' software registry - ' . $name . ' v' . $registry[$component]['latest']['version'];

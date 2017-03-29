@@ -60,7 +60,7 @@ class UpdateComponent extends ActionBase
 
     private function getCommitMessage($registry, $component)
     {
-        if(1 == getNumberOfVersionsForComponent($registry, $component)) {
+        if(1 == $this->getNumberOfVersionsForComponent($registry, $component)) {
             $commitMessage = 'added to';
         } else {
             $commitMessage = 'updated';

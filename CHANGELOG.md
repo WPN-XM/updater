@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 
+- 2017-03-30: added crawler for "gimp"
 - 2017-03-28: added crawler for "netbeans x86" and "netbeans x64"
 - 2017-03-26: added crawler for "h2 database"
 

@@ -86,16 +86,28 @@ class RegistryUpdater
 
             // load and instantiate version crawler
             include $file;
-            $component = str_replace(array('-', '.'), array('_', '_'), strtolower(pathinfo($file, PATHINFO_FILENAME)));        
-            $classname = 'WPNXM\Updater\Crawler\\' . ucfirst($component);
-            $crawler = new $classname();
+            $classname = str_replace(array('-', '.'), array('_', '_'), strtolower(pathinfo($file, PATHINFO_FILENAME)));        
+            $fqcn = 'WPNXM\Updater\Crawler\\' . ucfirst($classname);
+            $crawler = new $fqcn();
 
-            // use the registry key from the crawler or the component as fallback
-            // TODO find out why $component is needed here (which crawlers do not have a name?)
-            $registryKey = isset($crawler->name) ? $crawler->name : $component;
+            // check, if we have a latest version for this software, insert latest version to crawler object
+            // this saves the array access inside the object
+            $softwareName = $crawler->name;            
+            if(isset($this->registry[$softwareName]) 
+            && isset($this->registry[$softwareName]['latest']) 
+            && isset($this->registry[$softwareName]['latest']['version'])) {
+                $crawler->setLatestVersion($this->registry[$softwareName]['latest']['version']);
+            }
 
-            // set "software registry" and "component name" to crawler
-            $crawler->setRegistry($this->registry, $registryKey);
+            // optionally inject "software registry" (on demand by crawler object)
+            if($crawler->needsRegistry) {
+                $crawler->setRegistry($this->registry);
+            }
+
+            // optionally only inject "software registry subset" for this software component (on demand by crawler object)
+            if ($crawler->needsOnlyRegistrySubset === true && isset($this->registry[$softwareName]) === true) {
+                $crawler->setRegistry(array($softwareName => $this->registry[$softwareName]));
+            }
 
             // store crawler object in crawlers array
             $this->crawlers[$i] = $crawler;

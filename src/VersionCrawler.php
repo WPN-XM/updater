@@ -17,10 +17,13 @@ namespace WPNXM\Updater;
  */
 abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
 {
-    public $url;
-    public $registry;
-    public $guzzle;
+    // Default Version Crawler Properties
+
     public $name;
+    public $url;
+    public $latestVersion = '0.0.0';
+
+    // Toggles for optionally injected Dependencies
 
     /**
      * The variable controls, if this version crawler object gets
@@ -29,8 +32,17 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
      *
      * @var boolean
      */
-    public $needsOnlyRegistrySubset = true;
+    public $needsOnlyRegistrySubset = false;
+    public $needsRegistry           = false;
     public $needsGuzzle             = true;
+
+    // Optionally Injected Dependencies
+
+    /**
+     * @var array The registry array or only the component subset of the registry.
+     */
+    public $registry;
+    public $guzzle;
 
     /**
      * Set the request URL for the version crawler.
@@ -61,14 +73,9 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
      * @param string Component Name
      * @return array Returns registry or, if component name is set the registry subset of component.
      */
-    public function setRegistry($registry, $component = null)
+    public function setRegistry($registry)
     {
-        // set only the component relevant subset of the software registry
-        if ($this->needsOnlyRegistrySubset === true && isset($registry[$component]) === true) {
-            $this->registry = array($component => $registry[$component]);
-        } else {
-            $this->registry = $registry;
-        }
+        $this->registry = $registry;
     }
 
     /**
@@ -84,7 +91,7 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
         }
 
         $classname = get_called_class();
-
+        
         return strtolower(substr($classname, strrpos($classname, '\\')+1));
     }
 
@@ -279,25 +286,18 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
         return $version;
     }
 
+    public function setLatestVersion($latestVersion)
+    {
+        $this->latestVersion = $latestVersion;
+    }
+
     /**
      * Get Latest Version for Software Component
      *
-     * @param string Component Name
-     *
      * @return string Returns the latest version of the software component, otherwise 0.0.0.
      */
-    public function getLatestVersion($component = '')
+    public function getLatestVersion()
     {
-        if($component == '') {
-            $component = $this->getName();
-        }
-
-        if(isset($this->registry[$component]) 
-            && isset($this->registry[$component]['latest']) 
-            && isset($this->registry[$component]['latest']['version'])) {
-            return $this->registry[$component]['latest']['version'];
-        } 
-
-        return '0.0.0';
+        return $this->latestVersion;
     }
 }

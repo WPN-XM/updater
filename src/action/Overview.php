@@ -19,8 +19,6 @@ class Overview extends ActionBase
 {
     public function __invoke()
     {
-        $registry = Registry::load();
-
         /* View */
 
         $view                    = new View();

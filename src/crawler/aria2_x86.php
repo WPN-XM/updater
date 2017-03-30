@@ -46,7 +46,7 @@ class aria2_x86 extends VersionCrawler
 
                     $download_file = 'https://github.com/tatsuhiro-t/aria2/releases/download/release-' . $version . '/aria2-' . $version . '-win-32bit-build1.zip';
 
-                    if (version_compare($version, $this->registry['aria2-x86']['latest']['version'], '>=') === true) {
+                    if (version_compare($version, $this->latestVersion, '>=') === true) {
                         return array(
                             'version' => $version,
                             'url'     => $download_file,

@@ -43,7 +43,7 @@ class Virtuoso_x64 extends VersionCrawler
             if (preg_match("#download/v(\d+\.\d+.\d+)/virtuoso-opensource-win-x64-(\d+).zip#i", $node->attr('href'), $matches)) {
                 $version = $matches[1];
                 $date = $matches[2];            
-                if (version_compare($version, $this->registry['virtuoso-x64']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
                         'url'     => 'https://github.com/openlink/virtuoso-opensource/releases/download/v' . $version . '/virtuoso-opensource-win-x64-' . $date . '.zip',

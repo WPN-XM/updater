@@ -30,7 +30,7 @@ class HeidiSql extends VersionCrawler
         return $this->filter('a')->each(function ($node) {
             if (preg_match("#HeidiSQL_(\d+\.\d+(\.\d+)*)_Portable.zip#", $node->attr('href'), $matches)) {
                 $version = $matches[1];
-                if (version_compare($version, $this->registry['heidisql']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
                         'url'     => 'http://www.heidisql.com/downloads/releases/HeidiSQL_' . $version . '_Portable.zip',

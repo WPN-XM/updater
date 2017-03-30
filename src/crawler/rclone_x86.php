@@ -32,7 +32,7 @@ class RClone_x86 extends VersionCrawler
         return $this->filter('a')->each(function ($node) {            
             if (preg_match("#/ncw/rclone/releases/download/v(\d+\.\d+)/rclone#", $node->attr('href'), $matches)) {               
                 $version = $matches[1];               
-                if (version_compare($version, $this->registry['rclone-x86']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
                         // https://github.com/ncw/rclone/releases/download/v1.36/rclone-v1.36-windows-386.zip

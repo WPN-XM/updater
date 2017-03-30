@@ -36,7 +36,7 @@ class robomongo extends VersionCrawler
             if (preg_match("#robomongo-((\d+\.\d+.\d+)(?:-rc\d))-windows-x86_64-(.*)\.exe#i", $node->attr('href'), $matches)) {
                 $version = $matches[1];
                 $hash    = $matches[3]; // why did you add a hash?
-                if (version_compare($version, $this->registry['robomongo']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
                         'url' => 'http://download.robomongo.org/' . $version . '/windows/robomongo-' . $version . '-windows-x86_64-' . $hash . '.exe',

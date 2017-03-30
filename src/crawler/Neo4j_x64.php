@@ -33,7 +33,7 @@ class neo4j_x64 extends VersionCrawler
             // http://info.neo4j.com/download-thanks.html?edition=community&release=3.0.7&flavour=winzip
             if (preg_match("/release=(\d+\.\d+\.\d+)&flavour=winzip/i", $node->attr('href'), $matches)) {
                 $version = $matches[1];
-                if (version_compare($version, $this->registry['neo4j-x64']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,  
                         // https://neo4j.com/artifact.php?name=neo4j-community-3.0.7-windows.zip                                             

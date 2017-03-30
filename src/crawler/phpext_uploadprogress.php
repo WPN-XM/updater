@@ -30,7 +30,7 @@ class phpext_uploadprogress extends VersionCrawler
             if (preg_match("#(\d+\.\d+(\.\d+)*)$#", $node->text(), $matches)) {
                 $version = $matches[1];
 
-                if (version_compare($version, $this->registry['phpext_uploadprogress']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
 					
 					$urls = $this->createPhpVersionsArrayForExtension($version, $this->url_template);
 					if(empty($urls)) {

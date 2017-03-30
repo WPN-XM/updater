@@ -37,7 +37,7 @@ class imagick extends VersionCrawler
 
                 if (preg_match("#(\d+\.\d+(\.\d+)*-\d+)-portable-Q16-x86.zip$#", $node->attr('href'), $matches)) {
                     $version = $matches[1];
-                    if (version_compare($version, $this->registry['imagick']['latest']['version'], '>=') === true) {
+                    if (version_compare($version, $this->latestVersion, '>=') === true) {
                         return array(
                             'version' => $version,
                             'url'     => 'http://www.imagemagick.org/download/binaries/ImageMagick-' . $version . '-portable-Q16-x86.zip',

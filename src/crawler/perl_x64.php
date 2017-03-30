@@ -28,7 +28,7 @@ class perl_x64 extends VersionCrawler
             // perl-5.4.1.1-64bit.zip
             if (preg_match("#(\d+\.\d+(\.\d+)*)-64bit?#", $node->attr('href'), $matches)) {
                 $version = $matches[1]; // 5.4.1.1
-                if (version_compare($version, $this->registry['perl-x64']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
                         'url'     => 'http://strawberryperl.com/download/' . $version . '/strawberry-perl-' . $version . '-64bit.zip',

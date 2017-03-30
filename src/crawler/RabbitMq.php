@@ -28,7 +28,7 @@ class RabbitMq extends VersionCrawler
             // https://www.rabbitmq.com/releases/rabbitmq-server/current/rabbitmq-server-windows-3.4.3.zip
             if (preg_match("#rabbitmq-server-windows-(\d+\.\d+\.\d+).zip$#", $node->attr('href'), $matches)) {
                 $version = $matches[1];
-                if (version_compare($version, $this->registry['rabbitmq']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
                         'url'     => 'https://www.rabbitmq.com/releases/rabbitmq-server/current/rabbitmq-server-windows-' . $version . '.zip',

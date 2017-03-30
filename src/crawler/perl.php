@@ -27,7 +27,7 @@ class perl extends VersionCrawler
             // perl-5.4.1.1-32bit.zip
             if (preg_match("#(\d+\.\d+(\.\d+)*)-32bit?#", $node->attr('href'), $matches)) {
                 $version = $matches[1]; // 5.4.1.1
-                if (version_compare($version, $this->registry['perl']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
                         'url'     => 'http://strawberryperl.com/download/' . $version . '/strawberry-perl-' . $version . '-32bit.zip',

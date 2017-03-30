@@ -26,7 +26,7 @@ class PhantomJS extends VersionCrawler
         return $this->filter('a')->each(function ($node) {
             if (preg_match("#phantomjs-(\d+\.\d+(\.\d+)*)-windows.zip#", $node->attr('href'), $matches)) {
                 $version = $matches[1];
-                if (version_compare($version, $this->registry['phantomjs']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
                         'url'     => 'https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-' . $version . '-windows.zip',

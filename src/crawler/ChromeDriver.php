@@ -47,7 +47,7 @@ class ChromeDriver extends VersionCrawler
         return $this->filter('body table a')->each(function ($node) {
             if (preg_match("#TOC-Latest-Release:-ChromeDriver-(\d+\.\d+)#i", $node->attr('name'), $matches)) {
                 $version = $matches[1];
-                if (version_compare($version, $this->registry['chromedriver']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
                         'url'     => 'http://chromedriver.storage.googleapis.com/' . $version . '/chromedriver_win32.zip',

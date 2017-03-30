@@ -30,7 +30,7 @@ class H2Database extends VersionCrawler
             // http://www.h2database.com/h2-2017-03-10.zip
             if (preg_match("#h2-(\d+\-\d+\-\d+).zip#", $node->attr('href'), $matches)) {
                 $version = $matches[1];
-                if (version_compare($version, $this->registry['h2database']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
                         'url'     => 'http://www.h2database.com/h2-' . $version . '.zip',

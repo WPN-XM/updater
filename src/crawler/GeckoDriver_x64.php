@@ -39,7 +39,7 @@ class GeckoDriver_x64 extends VersionCrawler
             if (preg_match("#/mozilla/geckodriver/releases/download/v(\d+\.\d+.\d+)/geckodriver-v(\d+\.\d+.\d+)-win64.zip#", $node->attr('href'), $matches)) {
                 $version = $matches[1];
 
-                if (version_compare($version, $this->registry['geckodriver-x64']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,                        
                         'url'     => 'https://github.com/mozilla/geckodriver/releases/download/v' . $version . '/geckodriver-v' . $version . '-win64.zip',

@@ -35,7 +35,7 @@ class Selenium extends VersionCrawler
                 $version = $matches[1];
                 // find last dot and return everything before
                 $version_withoutPatchLevel = substr($version, 0, strripos($version, '.'));
-                if (version_compare($version, $this->registry['selenium']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
                         'url'     => 'http://selenium-release.storage.googleapis.com/'.$version_withoutPatchLevel.'/selenium-server-standalone-' . $version . '.jar'

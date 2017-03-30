@@ -38,7 +38,7 @@ class Osquery extends VersionCrawler
         $this->registerNamespace('m', 'http://schemas.microsoft.com/ado/2007/08/dataservices/metadata');
         $version = $this->filterXPath('//m:properties//d:Version')->text();
 
-        if (version_compare($version, $this->registry['osquery']['latest']['version'], '>=') === true) {
+        if (version_compare($version, $this->latestVersion, '>=') === true) {
             return array(
                 'version' => $version,
                 'url'     => 'https://osquery-packages.s3.amazonaws.com/choco/osquery-'.$version.'.zip',

@@ -35,7 +35,7 @@ class OrientDb extends VersionCrawler
         return $this->filter('a')->each(function ($node) {
             if (preg_match("#orientdb-community-(\d+\.\d+.\d+).zip#i", $node->attr('href'), $matches)) {
                 $version = $matches[1];
-                if (version_compare($version, $this->registry['orientdb']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
                         'url'     => 'http://orientdb.com/download.php?email=unknown@unknown.com&file=orientdb-community-' . $version . '.zip&os=win',

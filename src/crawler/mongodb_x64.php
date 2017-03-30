@@ -37,7 +37,7 @@ class mongodb_x64 extends VersionCrawler
              */
             if (preg_match("#mongodb-win32-x86_64-2008plus-(\d+\.\d+(\.\d+)*).zip$#", $node->attr('href'), $matches)) {
                 $version = $matches[1];
-                if (version_compare($version, $this->registry['mongodb-x64']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
                         # http://downloads.mongodb.org/win32/mongodb-win32-x86_64-2008plus-2.2.0.zip

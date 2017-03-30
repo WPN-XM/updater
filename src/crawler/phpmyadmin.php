@@ -25,7 +25,7 @@ class phpmyadmin extends VersionCrawler
     {
         $version = $this->filterXPath('//Program_Info/Program_Version')->text();
 
-        if(version_compare($version, $this->registry['phpmyadmin']['latest']['version'], '>=') === true) {
+        if(version_compare($version, $this->latestVersion, '>=') === true) {
             return [
                 'version' => $version,
                 'url'     => 'https://files.phpmyadmin.net/phpMyAdmin/' . $version . '/phpMyAdmin-' . $version . '-english.zip',

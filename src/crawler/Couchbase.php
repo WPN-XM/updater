@@ -34,7 +34,7 @@ class Couchbase extends VersionCrawler
             // http://packages.couchbase.com/releases/4.1.0-dp/couchbase-server_4.1.0-dp-windows_x86.exe
             if (preg_match("#/releases/(\d+\.\d+.\d+)-dp/couchbase-server_(\d+\.\d+.\d+)-dp-windows_x86.exe#i", $url, $matches)) {
                 $version = $matches[1];
-                if (version_compare($version, $this->registry['couchbase']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
                         'url'     => 'http://packages.couchbase.com/releases/' . $version . '-dp/couchbase-server_' . $version . '-dp-windows_x86.exe'

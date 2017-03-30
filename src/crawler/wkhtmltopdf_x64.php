@@ -47,7 +47,7 @@ class wkhtmltopdf_x64 extends VersionCrawler
                      */
                     $download_file = 'http://download.gna.org/wkhtmltopdf/0.12/' . $version . '/wkhtmltox-' . $version . '_msvc2015-win64.exe';
 
-                    if (version_compare($version, $this->registry['wkhtmltopdf-x64']['latest']['version'], '>=') === true) {
+                    if (version_compare($version, $this->latestVersion, '>=') === true) {
                         return array(
                             'version' => $version,
                             'url'     => $download_file,

@@ -29,7 +29,7 @@ class zeromq extends VersionCrawler
         return $this->filter('a')->each(function ($node) {
             if (preg_match("#ZeroMQ-(\d+\.\d+.\d+)~miru1.0-x86.exe#i", $node->attr('href'), $matches)) {
                 $version = $matches[1];
-                if (version_compare($version, $this->registry['zeromq']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
                         'url'     => 'http://miru.hk/archive/ZeroMQ-' . $version . '~miru1.0-x86.exe',

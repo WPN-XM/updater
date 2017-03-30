@@ -39,7 +39,7 @@ class wpnxmscp_x64 extends VersionCrawler
                 if (preg_match("#(\d+\.\d+.\d+)#", $node->text(), $matches)) {
                     $version = $matches[1];
 
-                    if (version_compare($version, $this->registry['wpnxm-scp-x64']['latest']['version'], '>=') === true) {
+                    if (version_compare($version, $this->latestVersion, '>=') === true) {
                         return array(
                             'version' => $version,
                             'url'     => 'https://github.com/WPN-XM/server-control-panel/releases/download/v' . $version . '/wpnxm-scp-' . $version . '-x86_64_boxed.zip',

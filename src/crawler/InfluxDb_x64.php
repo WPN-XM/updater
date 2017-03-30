@@ -43,7 +43,7 @@ class InfluxDb_x64 extends VersionCrawler
             if (preg_match("#influxdb_(\d+\.\d+(\.\d+)*)_amd64.msi#i", $node->attr('href'), $matches)) {
                 $version = $matches[1];
 
-                if (version_compare($version, $this->registry['influxdb-x64']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
                         'url'     => 'https://s3.amazonaws.com/influxdb/influxdb_' . $version . '_amd64.msi',

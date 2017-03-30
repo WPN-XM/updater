@@ -44,7 +44,7 @@ class Gimp extends VersionCrawler
             // https://download.gimp.org/pub/gimp/stable/windows/gimp-2.8.20-setup.exe
             if (preg_match("#gimp-(\d+\.\d+(\.\d+)*)-setup.exe$#i", $node->text(), $matches)) {
                 $version = $matches[1];
-                if (version_compare($version, $this->registry['gimp']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
                         'url'     => 'https://download.gimp.org/pub/gimp/stable/windows/gimp-' . $version . '-setup.exe',

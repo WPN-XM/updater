@@ -43,7 +43,7 @@ class wincachegrind extends VersionCrawler
 
                     $download_file = 'https://github.com/ceefour/wincachegrind/releases/download/-' . $version . '/wincachegrind-' . $version . '.zip';
 
-                    if (version_compare($version, $this->registry['wincachegrind']['latest']['version'], '>=') === true) {
+                    if (version_compare($version, $this->latestVersion, '>=') === true) {
                         return array(
                             'version' => $version,
                             'url'     => $download_file,

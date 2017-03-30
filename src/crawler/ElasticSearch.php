@@ -48,7 +48,7 @@ class elasticsearch extends VersionCrawler
         return $this->filter('a')->each(function ($node) {
             if (preg_match("#elasticsearch-(\d+\.\d+.\d+).zip#i", $node->attr('href'), $matches)) {
                 $version = $matches[1];
-                if (version_compare($version, $this->registry['elasticsearch']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
                         'url'     => str_replace('%version%', $version, $this->url_template),

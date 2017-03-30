@@ -39,7 +39,7 @@ class Firebird extends VersionCrawler
             $url = $node->text();
             if (preg_match("#firebird-win32/(\d+\.\d+(.\d|-RC1)+)/Firebird-#i", $url, $matches)) {
                 $version = $matches[1];
-                if (version_compare($version, $this->registry['firebird']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
                         'url'     => $url,

@@ -41,7 +41,7 @@ class phpext_ioncube extends VersionCrawler
         $version     = substr($versionText, 0, strpos($versionText, ' '));
         $version     = trim($version);
 
-        if (version_compare($version, $this->registry['phpext_ioncube']['latest']['version'], '>=') === true) {
+        if (version_compare($version, $this->latestVersion, '>=') === true) {
 
 			$urls = self::createPhpVersionsArrayForExtension($version, $this->url_template);
 

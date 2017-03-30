@@ -38,7 +38,7 @@ class Conemu extends VersionCrawler
             if (preg_match("#download/v(\d+\.\d+.\d+)/ConEmuPack.(\d+).7z#", $node->attr('href'), $matches)) {
                 $version = $matches[1];
                 $versionNoDots = $matches[2];
-                if (version_compare($version, $this->registry['conemu']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
                         'url' => 'https://github.com/Maximus5/ConEmu/releases/download/v' . $version . '/ConEmuPack.' . $versionNoDots . '.7z',

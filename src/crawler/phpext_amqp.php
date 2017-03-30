@@ -31,7 +31,7 @@ class phpext_amqp extends VersionCrawler
                 if (preg_match("#(\d+\.\d+(\.\d+)*)(?:(alpha|beta)(\d+))$#", $node->text(), $matches)) {
                     $version = $matches[0]; // take alpha/beta into account
 
-                    if (version_compare($version, $this->registry['phpext_amqp']['latest']['version'], '>=') === true) {
+                    if (version_compare($version, $this->latestVersion, '>=') === true) {
 
                         $urls = $this->createPhpVersionsArrayForExtension($version, $this->url_template);
                         if(empty($urls)) {

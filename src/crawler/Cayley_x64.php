@@ -43,7 +43,7 @@ class Cayley_x64 extends VersionCrawler
 
                 $download_file = 'https://github.com/google/cayley/releases/download/v'.$version.'/cayley_v'.$version.'_windows_amd64.zip';
 
-                if (version_compare($version, $this->registry['cayley-x64']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
                         'url'     => $download_file,

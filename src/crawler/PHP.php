@@ -39,7 +39,7 @@ class PHP extends VersionCrawler
             if (preg_match("#php-(\d+\.\d+(\.\d+)*)-nts-Win32-VC(9|11|14)-x86.zip$#", $node->text(), $matches)) {
                 $version = $matches[1];
 
-                if ((version_compare($version, $this->registry['php']['latest']['version'], '>=') === true)
+                if ((version_compare($version, $this->latestVersion, '>=') === true)
                     or isset($this->registry['php'][$version]) === false) {
                     return array(
                         'version' => $version,

@@ -50,7 +50,7 @@ class MariaDb_x64 extends VersionCrawler
                      * SF: http://mirror.jmu.edu/pub/mariadb/*
                      */
 
-                    if (version_compare($version, $this->registry['mariadb-x64']['latest']['version'], '>=') === true) {
+                    if (version_compare($version, $this->latestVersion, '>=') === true) {
                         return array(
                             'version' => $version,
                             'url'     => 'http://mirror.jmu.edu/pub/mariadb/mariadb-' . $version . '/winx64-packages/mariadb-' . $version . '-winx64.zip',

@@ -31,7 +31,7 @@ class rockmongo extends VersionCrawler
         return $this->filter('a')->each(function ($node) {
             if (preg_match("#(\d+\.\d+(\.\d+)*)#", $node->text(), $matches)) {
                 $version = $matches[0];
-                if (version_compare($version, $this->registry['rockmongo']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
                         // formerly http://rockmongo.com/release/rockmongo-1.1.3.zip

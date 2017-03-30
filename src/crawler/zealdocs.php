@@ -32,7 +32,7 @@ class zealdocs extends VersionCrawler
         return $this->filter('a')->each(function ($node) {
                 if (preg_match("#zeal-portable-(\d+\.\d+.\d+)-windows-x86.7z#", $node->text(), $matches)) {
                     $version = $matches[1];
-                    if (version_compare($version, $this->registry['zealdocs']['latest']['version'], '>=') === true) {
+                    if (version_compare($version, $this->latestVersion, '>=') === true) {
                         return array(
                             'version' => $version,
                             // https://dl.bintray.com/zealdocs/windows/:zeal-portable-0.3.1-windows-x86.7z

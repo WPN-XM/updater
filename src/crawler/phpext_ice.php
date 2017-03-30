@@ -36,7 +36,7 @@ class phpext_ice extends VersionCrawler
             if (preg_match("/ice-(\d+\.\d+\.\d+)-php-(\d+\.\d+)-nts-vc\d+-x64\.zip/i", $node->attr('href'), $matches)) {
                 $version = $matches[1];
 
-                if (version_compare($version, $this->registry['phpext_ice']['latest']['version'], '>=') === true)  {
+                if (version_compare($version, $this->latestVersion, '>=') === true)  {
 
                     $urls = $this->createPhpVersionsArrayForExtension($version, $this->url_template);
                     if(empty($urls)) {

@@ -35,7 +35,7 @@ class phpmemcachedadmin extends VersionCrawler
             if (preg_match("#(\d+\.\d+(\.\d+)*)(?:[._-]?(r)?(\d+))?#", $node->attr('href'), $matches)) {
                 $version_long = $matches[0]; // 1.2.3-r123
                 $version = $matches[1]; // 1.2.3
-                if (version_compare($version, $this->registry['phpmemcachedadmin']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
                         'url'     => 'http://phpmemcacheadmin.googlecode.com/files/phpMemcachedAdmin-' . $version_long . '.zip',

@@ -44,7 +44,7 @@ class qcachegrind_x64 extends VersionCrawler
 
                     $download_file = 'https://sourceforge.net/projects/qcachegrindwin/files/'.$version.'/qcachegrind'.$undotted_version.'-x64.zip/download';
 
-                    if (version_compare($version, $this->registry['qcachegrind-x64']['latest']['version'], '>=') === true) {
+                    if (version_compare($version, $this->latestVersion, '>=') === true) {
                         return array(
                             'version' => $version,
                             'url'     => $download_file,

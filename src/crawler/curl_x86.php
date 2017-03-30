@@ -53,7 +53,7 @@ class curl_x86 extends VersionCrawler
         // if a libressl version was build for latest version number
         if($this->fileExistsOnServer($download_file) === true)
         {
-            if (version_compare($version, $this->registry['curl-x86']['latest']['version'], '>=') === true) {
+            if (version_compare($version, $this->latestVersion, '>=') === true) {
                 return array(
                     'version' => $version,
                     'url'     => $download_file,

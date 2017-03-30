@@ -32,7 +32,7 @@ class PHP_QA extends VersionCrawler
             if (preg_match("#php-(\d+\.\d+(\.\d+)*(alpha|beta|RC)(\d+))-nts-Win32-VC(11|14)-x86.zip$#", $node->text(), $matches)) {
                 $version = $matches[1];
 
-                if (version_compare($version, $this->registry['php-qa']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
                         'url'     => 'http://windows.php.net/downloads/qa/' . $node->text(),

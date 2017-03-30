@@ -49,7 +49,7 @@ class Netbeans_x64 extends VersionCrawler
                 $page_artifact_location = $matches[1];
                 $version = explode('/', $page_artifact_location)[4];            
 
-                if (version_compare($version, $this->registry['netbeans-x64']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,  
                         // http://download.netbeans.org/netbeans/8.2/final/bundles/netbeans-8.2-php-windows-x64.exe                         

@@ -37,7 +37,7 @@ class RethinkDB_x64 extends VersionCrawler
              */
             if (preg_match("#rethinkdb-(\d+\.\d+.\d+).zip#", $node->attr('href'), $matches)) {               
                 $version = $matches[1];
-                if (version_compare($version, $this->registry['rethinkdb-x64']['latest']['version'], '>=') === true)
+                if (version_compare($version, $this->latestVersion, '>=') === true)
                 {
                     return array(
                         'version' => $version,

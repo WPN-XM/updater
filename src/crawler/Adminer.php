@@ -27,7 +27,7 @@ class Adminer extends VersionCrawler
             if (preg_match("#(\d+\.\d+(\.\d+)*)#", $node->text(), $matches)) {
                 $version = $matches[0];
 
-                if (version_compare($version, $this->registry['adminer']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
                         'url'     => 'https://www.adminer.org/static/download/' . $version . '/adminer-' . $version . '.php',

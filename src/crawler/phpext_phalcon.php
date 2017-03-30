@@ -41,7 +41,7 @@ class phpext_phalcon extends VersionCrawler
 
                 $version = $matches[2];
 
-                if (version_compare($version, $this->registry['phpext_phalcon']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
 
 					$urls = $this->createPhpVersionsArrayForExtension($version, $this->url_template);
 					if(empty($urls)) {

@@ -29,7 +29,7 @@ class yuicompressor extends VersionCrawler
         return $this->filter('a')->each(function ($node) {
                 if (preg_match("#yuicompressor-(\d+\.\d+.\d+).jar#", $node->text(), $matches)) {
                     $version = $matches[1];
-                    if (version_compare($version, $this->registry['yuicompressor']['latest']['version'], '>=') === true) {
+                    if (version_compare($version, $this->latestVersion, '>=') === true) {
                         return array(
                             'version' => $version,
                             // https://github.com/yui/yuicompressor/releases/download/v2.4.8/yuicompressor-2.4.8.jar

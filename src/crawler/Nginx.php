@@ -28,7 +28,7 @@ class Nginx extends VersionCrawler
         return $this->filter('a')->each(function ($node) {
             if (preg_match("#nginx-(\d+\.\d+(\.\d+)*)(.zip)$#i", $node->attr('href'), $matches)) {
                 $version = $matches[1];
-                if (version_compare($version, $this->registry['nginx']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
                         'url'     => 'http://nginx.org/download/nginx-' . $version . '.zip',

@@ -40,7 +40,7 @@ class Composer extends VersionCrawler
         $url 	 = 'https://getcomposer.org'.$versions[$channel][$entry]['path'];
         $version = $versions[$channel][$entry]['version'];
 
-        if (version_compare($version, $this->registry['composer']['latest']['version'], '>=') === true) {
+        if (version_compare($version, $this->latestVersion, '>=') === true) {
             return array(
                 'version' => $version,
                 'url' => $url,

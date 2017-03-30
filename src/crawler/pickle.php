@@ -32,7 +32,7 @@ class pickle extends VersionCrawler
                 if (preg_match("#(\d+\.\d+.\d+)#", $node->text(), $matches)) {
                     $version = $matches[1];
 
-                    if (version_compare($version, $this->registry['pickle']['latest']['version'], '>=') === true) {
+                    if (version_compare($version, $this->latestVersion, '>=') === true) {
                         return array(
                             'version' => $version,
                             'url'     => 'https://github.com/FriendsOfPHP/pickle/releases/download/v' . $version . '/pickle.phar',

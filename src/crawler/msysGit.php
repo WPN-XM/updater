@@ -31,7 +31,7 @@ class msysgit extends VersionCrawler
 
             if (preg_match("#PortableGit-(\d+\.\d+.\d+)-32-bit.7z.exe#", $node->text(), $matches)) {
                 $version = $matches[1];
-                if (version_compare($version, $this->registry['msysgit']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
                         'url' => 'https://github.com/git-for-windows/git/releases/download/v'.$version.'.windows.1/PortableGit-'.$version.'-32-bit.7z.exe',

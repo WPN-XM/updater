@@ -32,7 +32,7 @@ class phpext_imagick extends VersionCrawler
 
                 $version = $matches[0];
 
-                if (version_compare($version, $this->registry['phpext_imagick']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                 		
                     $urls = $this->createPhpVersionsArrayForExtension($version, $this->url_template);
 

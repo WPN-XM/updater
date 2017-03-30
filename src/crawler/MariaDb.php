@@ -59,7 +59,7 @@ class MariaDb extends VersionCrawler
                         $folder = 'win2008r2-vs2010-i386-packages';
                     } elseif (version_compare($version, '5.5.27', '<=') === true) {
                         $folder = 'windows';
-                    } elseif (version_compare($version, '5.5.28', '>=') === true) { // 5.5.28 and above
+                    } elseif (version_compare($version, $this->latestVersion, '>=') === true) { // 5.5.28 and above
                         $folder = 'win32-packages';
                     }
 
@@ -80,7 +80,7 @@ class MariaDb extends VersionCrawler
                      * SF: http://mirror.jmu.edu/pub/mariadb/*
                      */
 
-                    if (version_compare($version, $this->registry['mariadb']['latest']['version'], '>=') === true) {
+                    if (version_compare($version, $this->latestVersion, '>=') === true) {
                         return array(
                             'version' => $version,
                             'url'     => 'http://mirror.jmu.edu/pub/mariadb/mariadb-' . $version . '/' . $folder . '/' . $filename,

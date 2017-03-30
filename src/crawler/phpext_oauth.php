@@ -30,7 +30,7 @@ class phpext_oauth extends VersionCrawler
             if (preg_match("#(\d+\.\d+(\.\d+)*)#", $node->text(), $matches)) {
                 $version = $matches[0];
 
-                if (version_compare($version, $this->registry['phpext_oauth']['latest']['version'], '>=') === true)  {
+                if (version_compare($version, $this->latestVersion, '>=') === true)  {
 
 					$urls = $this->createPhpVersionsArrayForExtension($version, $this->url_template);
 					if(empty($urls)) {

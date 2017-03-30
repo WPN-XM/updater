@@ -38,7 +38,7 @@ class PHP_x64 extends VersionCrawler
                  * 1) version is a "new" latest version
                  * 2) version doesn't exist, yet. mostly bugfix releases of "major.minor" version.
                  */
-                if ((version_compare($version, $this->registry['php-x64']['latest']['version'], '>=') === true)
+                if ((version_compare($version, $this->latestVersion, '>=') === true)
                     or isset($this->registry['php-x64'][$version]) === false) {
                     return array(
                         'version' => $version,

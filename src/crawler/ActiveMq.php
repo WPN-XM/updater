@@ -34,7 +34,7 @@ class ActiveMQ extends VersionCrawler
             // http://archive.apache.org/dist/activemq/5.14.4/
             if (preg_match("#(\d+\.\d+.\d+)#i", $url, $matches)) {
                 $version = $matches[0];
-                if (version_compare($version, $this->registry['activemq']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
                         // http://archive.apache.org/dist/activemq/5.14.3/apache-activemq-5.14.3-bin.zip

@@ -35,7 +35,7 @@ class PrettyPrintRegistries extends ActionBase
             $registry = json_decode($content, true);             
                     
             if(json_last_error() !== JSON_ERROR_NONE) {            
-                throw new \Exception($msg
+                throw new \Exception(
                     sprintf("JSON PARSING ERROR: '%s' in file '%s'.", $file, json_last_error_msg())
                 );
             }   

@@ -52,14 +52,14 @@ class UpdateComponents extends ActionBase
 
             echo '<br>Processing Installer <strong>' . $filename . '</strong>:&nbsp;';
             
-            $components      = json_decode(file_get_contents($file), true);
+            $registry      = json_decode(file_get_contents($file), true);
             $version_updated = false;            
-            $number_of_components = count($components);
+            $number_of_components = count($registry);
 
             for ($i = 0; $i < $number_of_components; ++$i) {
-                $componentName = $components[$i][0];
-                $url           = $components[$i][1];
-                $version       = $components[$i][3];
+                $componentName = $registry[$i][0];
+                $url           = $registry[$i][1];
+                $version       = $registry[$i][3];
 
                 if (!isset($downloadFilenames[$componentName])) {
                     throw new \Exception('The download description file has no value for the Component "' . $componentName . '"<br>');
@@ -71,8 +71,8 @@ class UpdateComponents extends ActionBase
                  * but only in case the registry contains a different (old) value.
                  */
                 $downloadFilename = $downloadFilenames[$componentName];
-                if ($components[$i][2] !== $downloadFilename) {
-                    $components[$i][2] = $downloadFilename;
+                if ($registry[$i][2] !== $downloadFilename) {
+                    $registry[$i][2] = $downloadFilename;
                 }
 
                 /**
@@ -83,10 +83,10 @@ class UpdateComponents extends ActionBase
 
                 if (Version::compare($componentName, $version, $latestVersion) === true) {
                     // update the version number (idx 3)
-                    $components[$i][3] = $latestVersion;
+                    $registry[$i][3] = $latestVersion;
                     // if the url (idx 1) has a version appended, update it too
                     if (false !== strpos($url, $version)) {
-                        $components[$i][1] = str_replace($version, $latestVersion, $url);
+                        $registry[$i][1] = str_replace($version, $latestVersion, $url);
                     }
 
                     echo 'Updated "' . $componentName . '" from v' . $version . ' to v' . $latestVersion . '.<br>';

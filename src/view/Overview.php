@@ -5,15 +5,15 @@
             <div class="panel-heading">
               <span class="glyphicon glyphicon-list"></span>&nbsp; Version Crawler
               <span class="pull-right">
-                <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal" href="index.php?action=add">
+                <button class="btn btn-success btn-xs" href="index.php?action=add">
                   <span class="glyphicon glyphicon-plus"></span>
                   Add Component
                 </button>
-                <button class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal" href="index.php?action=update">
+                <button class="btn btn-info btn-xs" href="index.php?action=update">
                   <span class="glyphicon glyphicon-search"></span>
                   Merge Scans into Registry
                 </button>
-                <button class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal" href="index.php?action=scan-component">
+                <button class="btn btn-info btn-xs" href="index.php?action=scan-component">
                   <span class="glyphicon glyphicon-search"></span>
                   Scan All
                 </button>

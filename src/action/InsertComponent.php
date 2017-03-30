@@ -48,17 +48,12 @@ class InsertComponent extends ActionBase
         }
 
         // check result and send response
-        $js = '<script type="text/javascript">
-            $(document).ready(function () {
-                $(\'#myModal button[type="submit"]\').hide();
-            });
-           </script>';
 
         $response_ok   = '<div class="alert alert-success">Successfully added to registry.</div>';
         $response_fail = '<div class="alert alert-danger">Component was not added to registry.</div>';
         $response = (isset($newRegistry[$component]) === true) ? $response_ok : $response_fail;
 
-        echo $response . $js;
+        echo $response;
     }
 
 }

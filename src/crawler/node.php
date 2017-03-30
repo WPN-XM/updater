@@ -25,10 +25,11 @@ class node extends VersionCrawler
     {
         return $this->filter('a')->each(function ($node) {
             if (preg_match("#v(\d+\.\d+(\.\d+)*)/$#i", $node->text(), $matches)) {
-                if (version_compare($matches[1], $this->registry['node']['latest']['version'], '>=') === true) {
+                $version = $matches[1];
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
-                        'version' => $matches[1],
-                        'url' => 'http://nodejs.org/dist/v' . $matches[1] . '/win-x86/node.exe',
+                        'version' => $version,
+                        'url' => 'http://nodejs.org/dist/v' . $version . '/win-x86/node.exe',
                     );
                 }
             }

@@ -28,6 +28,7 @@ class PHPExtensionScraperGoPHP7
         $content = $this->getMarkdown();
 
         $array = $this->scrape($content);
+        $array = $this->fixData($array);
 
         return $this->writeJson($array);
     }
@@ -66,8 +67,10 @@ class PHPExtensionScraperGoPHP7
         $lines = explode("\n", $text);
 
         // build array by named pattern matching
-        $regexp = '/\|(?<name>.*)\|(?<website>.*)\|(?<maintainers>.*)\|(?<tests>.*)\|(?<docs>.*)'
-                . '\|(?<worksonphp5>.*)\|(?<worksonphp7>.*)\|(?<goodonphp7>.*)\|(?<details>.*)\|/';
+        // "| voltdb |", "| [[wso2|ext-wso2]] |" => name = voltdb, wso2
+        $regexp = '#\|(\s+)\[\[(?<name>.*)\|(?:\w+\-\w+)\]\]\s+\||\|(?<name>.*)' 
+                . '\|(?<website>.*)\|(?<maintainers>.*)\|(?<tests>.*)\|(?<docs>.*)'
+                . '\|(?<worksonphp5>.*)\|(?<worksonphp7>.*)\|(?<goodonphp7>.*)\|(?<details>.*)\|#JU';
 
         $extensions = [];
         $matches = [];
@@ -84,11 +87,34 @@ class PHPExtensionScraperGoPHP7
             $name = $matches['name'];
             unset($matches['name']);
 
+            $matches = $this->fixData($matches);
+
             $extensions[$name] = $matches;
         }
 
         return $extensions;
 
+    }
+
+    private function fixData($array)
+    {
+        /**
+         * skip crap markdown entries
+         */
+        if(!array_key_exists('website', $array)) {
+            return $array;
+        }
+        if(!is_string($array['website'])) { // probably invalid data entry, e.g. (bool) false
+            $array['website'] = '';
+            return $array;
+        }
+
+        // the key website contains a markdown formated link, e.g. [x](link)
+        // let's extract the link 
+        $array['website'] = strstr($array['website'], '(');    // remove everything before (
+        $array['website'] = substr($array['website'], 1, -1);  // remove first char ( and last char )
+
+        return $array;
     }
 
     private function writeJson($array)

@@ -25,7 +25,6 @@ class openssl_x64 extends VersionCrawler
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
-
             /*
              * The regexp must take the following cases into account:
              *
@@ -33,7 +32,6 @@ class openssl_x64 extends VersionCrawler
              * http://indy.fulgan.com/SSL/openssl-1.0.0l-x64_86-win64.zip  - one char lowercase
              * http://indy.fulgan.com/SSL/openssl-1.0.2-x64_86-win64.zip   - version only
              */
-
             if (preg_match("/openssl-(\d+\.\d+\.\d+[A-Za-z]*)-x64_86-win64.zip$/i", $node->attr('href'), $matches)) {
                 $version = $matches[1];
                 if (strcmp($this->latestVersion, $version) < 0) {

@@ -35,7 +35,7 @@ class UpdateComponent extends ActionBase
         if (is_array($registry)) {
             Registry::writeRegistry($registry);
             echo 'The registry was updated. Component "' . $component . '" inserted.';
-            $commitMessage = getCommitMessage($registry, $component);
+            $commitMessage = $this->getCommitMessage($registry, $component);
             Registry::gitCommitAndPush($commitMessage);
         } else {
             echo 'No version scans found: The registry is up to date.';

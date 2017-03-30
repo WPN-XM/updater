@@ -14,6 +14,7 @@ namespace WPNXM\Updater\Action;
 use WPNXM\Updater\ActionBase;
 use WPNXM\Updater\InstallerRegistries;
 use WPNXM\Updater\DownloadFilenames;
+use WPNXM\Updater\InstallerRegistry;
 use WPNXM\Updater\Registry;
 use WPNXM\Updater\Version;
 //use WPNXM\Updater\View;
@@ -94,7 +95,7 @@ class UpdateComponents extends ActionBase
             }
 
             if ($version_updated === true) {
-                Registry::write($file, $components);
+                InstallerRegistry::write($file, $registry);   
             } else {
                 echo 'The installer registry is up-to-date.';
             }

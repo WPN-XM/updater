@@ -13,7 +13,7 @@ namespace WPNXM\Updater\Action;
 
 use WPNXM\Updater\ActionBase;
 use WPNXM\Updater\InstallerRegistries;
-use WPNXM\Updater\Registry;
+use WPNXM\Updater\InstallerRegistry;
 
 /**
  * Pretty prints all installation wizard registries.
@@ -26,11 +26,21 @@ class PrettyPrintRegistries extends ActionBase
 
         echo 'Pretty printing all installation wizard registries.<br>';
 
-        foreach ($nextRegistries as $file) {
-            $filename        = basename($file);
-            echo '<br>Processing Installer: "' . $filename . '":<br>';
-            $components      = json_decode(file_get_contents($file), true);
-            Registry::write($file, $components);
+        foreach ($nextRegistries as $file) 
+        {            
+            echo '<br>Processing Installer: "' . basename($file) . '":<br>';
+
+            $content = file_get_contents($file);
+
+            $registry = json_decode($content, true);             
+                    
+            if(json_last_error() !== JSON_ERROR_NONE) {            
+                throw new \Exception($msg
+                    sprintf("JSON PARSING ERROR: '%s' in file '%s'.", $file, json_last_error_msg())
+                );
+            }   
+
+            InstallerRegistry::write($file, $registry);
         }
 
         echo '<pre>You might "git commit/push":<br>pretty printed registries</pre>';

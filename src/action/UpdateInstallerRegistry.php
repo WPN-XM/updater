@@ -14,7 +14,7 @@ namespace WPNXM\Updater\Action;
 use WPNXM\Updater\ActionBase;
 use WPNXM\Updater\DownloadFilenames;
 use WPNXM\Updater\InstallerRegistries;
-use WPNXM\Updater\Registry;
+use WPNXM\Updater\InstallerRegistry;
 
 /**
  * This accepts a POST request from ShowVersionMatrix with new registry data in JSON format.
@@ -32,7 +32,7 @@ class UpdateInstallerRegistry extends ActionBase
         $registryJson      = html_entity_decode($registryJson, ENT_COMPAT, 'UTF-8'); // fix the JSON.stringify quotes &#34;
         $installerRegistry = json_decode($registryJson, true);
 
-        $data = array(); 
+        $registry = array(); 
 
         foreach ($installerRegistry as $component => $version)
         {
@@ -55,12 +55,12 @@ class UpdateInstallerRegistry extends ActionBase
 
             $downloadFilename = $downloadFilenames[$component];
 
-            $data[] = array($component, $url, $downloadFilename, $version);
+            $registry[] = array($component, $url, $downloadFilename, $version);
         }
 
-        #var_dump($installer, $registryJson, $installerRegistry, $file, $data);
+        #var_dump($installer, $registryJson, $installerRegistry, $file, $registry);
 
-        return Registry::write($file, $data);
+        return InstallerRegistry::write($file, $registry);
     }
 
 }

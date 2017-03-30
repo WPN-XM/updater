@@ -20,6 +20,7 @@ use WPNXM\Updater\VersionCrawler;
  */
 class phpext_stats extends VersionCrawler
 {
+	public $name = 'phpext_stats';
     public $url = 'http://windows.php.net/downloads/pecl/releases/stats/';
 
     private $url_template = 'http://windows.php.net/downloads/pecl/releases/stats/%version%/php_stats-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';

@@ -19,6 +19,8 @@ use WPNXM\Updater\VersionCrawler;
  */
 class phpext_zmq extends VersionCrawler
 {
+	public $name = 'phpext_zmq';
+	
     public $url = 'http://windows.php.net/downloads/pecl/releases/zmq/';
 
     private $url_template = 'http://windows.php.net/downloads/pecl/releases/zmq/%version%/php_zmq-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';

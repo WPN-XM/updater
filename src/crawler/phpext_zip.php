@@ -18,6 +18,8 @@ use WPNXM\Updater\VersionCrawler;
  */
 class phpext_zip extends VersionCrawler
 {
+	public $name = 'phpext_zip';
+	
     public $url = 'http://windows.php.net/downloads/pecl/releases/zip/';
 
     private $url_template = 'http://windows.php.net/downloads/pecl/releases/zip/%version%/php_zip-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';

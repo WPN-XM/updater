@@ -21,6 +21,8 @@ use WPNXM\Updater\VersionCrawler;
  */
 class phpext_phalcon extends VersionCrawler
 {
+	public $name = 'phpext_phalcon';
+	
     public $url = 'https://phalconphp.com/en/download/windows';
 
     private $url_template = 'https://static.phalconphp.com/www/files/phalcon_%bitsize%_%compiler%_php%phpversion%_%version%_nts.zip';

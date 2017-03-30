@@ -24,15 +24,14 @@ use WPNXM\Updater\VersionCrawler;
 class RClone_x64 extends VersionCrawler
 {
     public $name = 'rclone-x64';
-
-    public $url = 'https://github.com/ncw/rclone/releases/latest';
+    public $url  = 'https://github.com/ncw/rclone/releases/latest';
 
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {            
             if (preg_match("#/ncw/rclone/releases/download/v(\d+\.\d+)/rclone#", $node->attr('href'), $matches)) {               
                 $version = $matches[1];
-                if (version_compare($version, $this->registry['rclone-x64']['latest']['version'], '>=') === true) {
+                if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
                         // https://github.com/ncw/rclone/releases/download/v1.36/rclone-v1.36-windows-amd64.zip

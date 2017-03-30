@@ -21,6 +21,7 @@ use WPNXM\Updater\VersionCrawler;
  */
 class zeromq extends VersionCrawler
 {
+    public $name = 'zeromq';
     public $url = 'http://zeromq.org/distro:microsoft-windows';
 
     public function crawlVersion()

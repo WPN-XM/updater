@@ -18,6 +18,8 @@ use WPNXM\Updater\VersionCrawler;
  */
 class phpext_xdebug extends VersionCrawler
 {
+	public $name = 'phpext_xdebug';
+	
     public $url = 'http://windows.php.net/downloads/pecl/releases/xdebug/';
 
     private $url_template = 'http://windows.php.net/downloads/pecl/releases/xdebug/%version%/php_xdebug-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';

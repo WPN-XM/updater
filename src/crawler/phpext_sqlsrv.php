@@ -22,6 +22,7 @@ use WPNXM\Updater\VersionCrawler;
  */
 class phpext_sqlsrv extends VersionCrawler
 {
+	public $name = 'phpext_sqlsrv';
     public $url = 'http://windows.php.net/downloads/pecl/releases/sqlsrv/';
 
     private $url_template = 'http://windows.php.net/downloads/pecl/releases/sqlsrv/%version%/php_sqlsrv-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';

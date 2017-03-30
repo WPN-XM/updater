@@ -19,6 +19,8 @@ use WPNXM\Updater\VersionCrawler;
  */
 class yuicompressor extends VersionCrawler
 {
+    public $name = 'yuicompressor';
+    
     // we are scraping the github releases page
     public $url = 'https://github.com/yui/yuicompressor/releases/latest';
 

@@ -22,6 +22,8 @@ use WPNXM\Updater\VersionCrawler;
  */
 class Gimp extends VersionCrawler
 {
+    public $name = 'gimp';
+    
     /**
      * WTF? 
      * - Static versionized file: 

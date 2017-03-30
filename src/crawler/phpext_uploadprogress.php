@@ -18,6 +18,8 @@ use WPNXM\Updater\VersionCrawler;
  */
 class phpext_uploadprogress extends VersionCrawler
 {
+	public $name = 'phpext_uploadprogress';
+	
     public $url = 'http://windows.php.net/downloads/pecl/releases/uploadprogress/';
 
     private $url_template = 'http://windows.php.net/downloads/pecl/releases/uploadprogress/%version%/php_uploadprogress-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';

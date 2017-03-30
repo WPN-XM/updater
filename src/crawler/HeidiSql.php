@@ -22,6 +22,7 @@ use WPNXM\Updater\VersionCrawler;
  */
 class HeidiSql extends VersionCrawler
 {
+    public $name = 'heidisql';
     public $url = 'http://www.heidisql.com/download.php';
 
     public function crawlVersion()

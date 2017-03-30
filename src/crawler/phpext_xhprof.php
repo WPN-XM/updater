@@ -19,6 +19,8 @@ use WPNXM\Updater\VersionCrawler;
  */
 class phpext_xhprof extends VersionCrawler
 {
+	public $name = 'phpext_xhprof';
+	
     public $url = 'http://windows.php.net/downloads/pecl/releases/xhprof/';
 
     private $url_template = 'http://windows.php.net/downloads/pecl/releases/xhprof/%version%/php_xhprof-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';

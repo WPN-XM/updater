@@ -19,6 +19,8 @@ use WPNXM\Updater\VersionCrawler;
  */
 class phpext_uprofiler extends VersionCrawler
 {
+	public $name = 'phpext_uprofiler';
+	
     public $url = 'http://windows.php.net/downloads/pecl/snaps/uprofiler/';
 
     private $url_template = 'http://windows.php.net/downloads/pecl/snaps/uprofiler/%version%/php_uprofiler-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';

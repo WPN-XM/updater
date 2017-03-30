@@ -26,6 +26,7 @@ use WPNXM\Updater\VersionCrawler;
  */
 class robomongo extends VersionCrawler
 {
+    public $name = 'robomongo';
     public $url = 'http://app.robomongo.org/download.html';
 
     public function crawlVersion()

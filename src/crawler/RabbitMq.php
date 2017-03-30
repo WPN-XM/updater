@@ -18,6 +18,7 @@ use WPNXM\Updater\VersionCrawler;
  */
 class RabbitMq extends VersionCrawler
 {
+    public $name = 'rabbitmq';
     public $url = 'https://www.rabbitmq.com/releases/rabbitmq-server/current/';
 
     public function crawlVersion()

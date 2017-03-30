@@ -25,6 +25,8 @@ use WPNXM\Updater\VersionCrawler;
  */
 class phpext_hprose extends VersionCrawler
 {
+	public $name = 'phpext_hprose';
+	
     public $url = 'http://windows.php.net/downloads/pecl/releases/hprose/';
 
     private $url_template = 'http://windows.php.net/downloads/pecl/releases/hprose/%version%/php_hprose-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';

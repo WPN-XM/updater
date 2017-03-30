@@ -24,6 +24,7 @@ use WPNXM\Updater\VersionCrawler;
  */
 class Redis extends VersionCrawler
 {
+    public $name = 'redis';
     public $url = 'https://github.com/MSOpenTech/redis/releases/latest';
 
     public function crawlVersion()

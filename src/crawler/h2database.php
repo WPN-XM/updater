@@ -21,6 +21,7 @@ use WPNXM\Updater\VersionCrawler;
  */
 class H2Database extends VersionCrawler
 {
+    public $name = 'h2database';
     public $url = 'http://www.h2database.com/html/download.html';
 
     public function crawlVersion()

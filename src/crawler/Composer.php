@@ -21,6 +21,7 @@ use WPNXM\Updater\VersionCrawler;
  */
 class Composer extends VersionCrawler
 {
+    public $name = 'composer';
 	public $url = 'https://getcomposer.org/versions';
 
 	public function crawlVersion()

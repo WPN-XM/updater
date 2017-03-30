@@ -24,6 +24,7 @@ use WPNXM\Updater\VersionCrawler;
  */
 class phpext_sphinx extends VersionCrawler
 {
+	public $name = 'phpext_sphinx';
     public $url = 'http://windows.php.net/downloads/pecl/releases/sphinx/';
 
     private $url_template = 'http://windows.php.net/downloads/pecl/releases/sphinx/%version%/php_sphinx-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';

@@ -18,6 +18,8 @@ use WPNXM\Updater\VersionCrawler;
  */
 class Nginx extends VersionCrawler
 {
+    public $name = 'nginx';
+
     // Download folder listing http://nginx.org/download/
     public $url = 'http://nginx.org/en/download.html';
 

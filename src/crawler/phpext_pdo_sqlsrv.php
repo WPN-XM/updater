@@ -22,6 +22,8 @@ use WPNXM\Updater\VersionCrawler;
  */
 class phpext_pdo_sqlsrv extends VersionCrawler
 {
+	public $name = 'phpext_pdo_sqlsrv';
+	
     public $url = 'http://windows.php.net/downloads/pecl/releases/pdo_sqlsrv/';
 
     private $url_template = 'http://windows.php.net/downloads/pecl/releases/pdo_sqlsrv/%version%/php_pdo_sqlsrv-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';

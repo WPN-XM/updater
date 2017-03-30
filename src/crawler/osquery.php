@@ -30,6 +30,7 @@ use WPNXM\Updater\VersionCrawler;
  */
 class Osquery extends VersionCrawler
 {
+    public $name = 'osquery';
     public $url = 'https://chocolatey.org/api/v2/Packages()?$filter=((Id%20eq%20%27osquery%27)%20and%20(not%20IsPrerelease))%20and%20IsLatestVersion';
 
     public function crawlVersion()

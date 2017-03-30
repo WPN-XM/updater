@@ -18,6 +18,7 @@ use WPNXM\Updater\VersionCrawler;
  */
 class phpext_lzf extends VersionCrawler
 {
+	public $name = 'phpext_lzf';
     public $url = 'http://windows.php.net/downloads/pecl/releases/lzf/';
 
     private $url_template = 'http://windows.php.net/downloads/pecl/releases/lzf/%version%/php_lzf-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';

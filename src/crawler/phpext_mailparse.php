@@ -19,6 +19,7 @@ use WPNXM\Updater\VersionCrawler;
  */
 class phpext_mailparse extends VersionCrawler
 {
+	public $name = 'phpext_mailparse';
     public $url = 'http://windows.php.net/downloads/pecl/releases/mailparse/';
 
     private $url_template = 'http://windows.php.net/downloads/pecl/releases/mailparse/%version%/php_mailparse-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';

@@ -19,6 +19,8 @@ use WPNXM\Updater\VersionCrawler;
  */
 class phpext_rar extends VersionCrawler
 {
+	public $name = 'phpext_rar';
+	
     public $url = 'http://windows.php.net/downloads/pecl/releases/rar/';
 
     private $url_template = 'http://windows.php.net/downloads/pecl/releases/rar/%version%/php_rar-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';

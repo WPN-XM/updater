@@ -22,6 +22,7 @@ use WPNXM\Updater\VersionCrawler;
  */
 class Conemu extends VersionCrawler
 {
+    public $name = 'conemu';
     public $url = 'https://github.com/Maximus5/ConEmu/releases/latest';
 
     public function crawlVersion()

@@ -18,6 +18,8 @@ use WPNXM\Updater\VersionCrawler;
  */
 class phpext_yaf extends VersionCrawler
 {
+	public $name = 'phpext_yaf';
+	
     public $url = 'http://windows.php.net/downloads/pecl/releases/yaf/';
 
     private $url_template = 'http://windows.php.net/downloads/pecl/releases/yaf/%version%/php_yaf-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';

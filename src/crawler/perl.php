@@ -18,6 +18,7 @@ use WPNXM\Updater\VersionCrawler;
  */
 class perl extends VersionCrawler
 {
+    public $name = 'perl';
     public $url = 'http://strawberryperl.com/releases.html';
 
     public function crawlVersion()

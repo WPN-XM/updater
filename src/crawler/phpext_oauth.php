@@ -18,6 +18,8 @@ use WPNXM\Updater\VersionCrawler;
  */
 class phpext_oauth extends VersionCrawler
 {
+	public $name = 'phpext_oauth';
+	
     public $url = 'http://windows.php.net/downloads/pecl/releases/oauth/';
 
     private $url_template = 'http://windows.php.net/downloads/pecl/releases/oauth/%version%/php_oauth-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';

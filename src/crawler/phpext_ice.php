@@ -21,6 +21,8 @@ use WPNXM\Updater\VersionCrawler;
  */
 class phpext_ice extends VersionCrawler
 {
+	public $name = 'phpext_ice';
+	
     public $url = 'http://www.iceframework.org/dll/';
 
     private $url_template = 'http://www.iceframework.org/dll/ice-%version%-php-%phpversion%-nts-%compiler%-%bitsize%.zip';

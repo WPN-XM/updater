@@ -19,6 +19,8 @@ use WPNXM\Updater\VersionCrawler;
  */
 class phpext_varnish extends VersionCrawler
 {
+	public $name = 'phpext_varnish';
+	
     public $url =  'http://windows.php.net/downloads/pecl/releases/varnish/';
 
     private $url_template = 'http://windows.php.net/downloads/pecl/releases/varnish/%version%/php_varnish-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';

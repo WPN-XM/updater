@@ -22,6 +22,8 @@ use WPNXM\Updater\VersionCrawler;
  */
 class zealdocs extends VersionCrawler
 {
+    public $name = 'zealdocs';
+
     // we are scraping the bintray downloads page
     public $url = 'https://dl.bintray.com/zealdocs/windows';
 

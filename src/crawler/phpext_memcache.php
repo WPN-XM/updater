@@ -18,6 +18,7 @@ use WPNXM\Updater\VersionCrawler;
  */
 class phpext_memcache extends VersionCrawler
 {
+	public $name = 'phpext_memcache';
     public $url = 'http://windows.php.net/downloads/pecl/releases/memcache/';
 
     private $url_template = 'http://windows.php.net/downloads/pecl/releases/memcache/%version%/php_memcache-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';

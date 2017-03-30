@@ -19,6 +19,7 @@ use WPNXM\Updater\VersionCrawler;
  */
 class phpext_jsond extends VersionCrawler
 {
+	public $name = 'phpext_jsond';
     public $url = 'http://windows.php.net/downloads/pecl/releases/jsond/';
 
     private $url_template = 'http://windows.php.net/downloads/pecl/releases/jsond/%version%/php_jsond-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';

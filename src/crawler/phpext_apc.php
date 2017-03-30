@@ -18,6 +18,7 @@ use WPNXM\Updater\VersionCrawler;
  */
 class phpext_apc extends VersionCrawler
 {
+    public $name = 'phpext_apc';
     public $url = 'http://windows.php.net/downloads/pecl/releases/apc/';
 
     private $url_template = 'http://windows.php.net/downloads/pecl/releases/apc/%version%/php_apc-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';

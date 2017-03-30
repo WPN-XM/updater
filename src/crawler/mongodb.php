@@ -18,6 +18,8 @@ use WPNXM\Updater\VersionCrawler;
  */
 class mongodb extends VersionCrawler
 {
+    public $name = 'mongodb';
+
     // formerly http://www.mongodb.org/downloads
     // warning: do not use http://dl.mongodb.org/dl/win32/ - use instead: https://www.mongodb.org/dl/win32/
     public $url = 'https://www.mongodb.org/dl/win32/';

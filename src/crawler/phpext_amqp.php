@@ -18,6 +18,7 @@ use WPNXM\Updater\VersionCrawler;
  */
 class phpext_amqp extends VersionCrawler
 {
+    public $name = 'phpext_amqp';
     public $url = 'http://windows.php.net/downloads/pecl/releases/amqp/';
 
     // http://windows.php.net/downloads/pecl/releases/amqp/1.4.0/php_amqp-1.4.0-5.6-ts-vc11-x86.zip

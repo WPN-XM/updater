@@ -18,6 +18,7 @@ use WPNXM\Updater\VersionCrawler;
  */
 class MariaDb extends VersionCrawler
 {
+    public $name = 'mariadb';
     public $url = 'http://archive.mariadb.org/';
 
     public function crawlVersion()

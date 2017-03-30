@@ -19,6 +19,8 @@ use WPNXM\Updater\VersionCrawler;
  */
 class rockmongo extends VersionCrawler
 {
+    public $name = 'rockmongo';
+    
     // fomerly: http://rockmongo.com/downloads
     public $url = 'https://github.com/iwind/rockmongo/releases/latest';
 

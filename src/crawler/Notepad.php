@@ -20,6 +20,7 @@ use WPNXM\Updater\VersionCrawler;
  */
 class Notepad extends VersionCrawler
 {
+    public $name = 'notepad';
     public $url = 'http://nodejs.org/dist/npm/';
 
     public function crawlVersion()

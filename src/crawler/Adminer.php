@@ -18,7 +18,8 @@ use WPNXM\Updater\VersionCrawler;
  */
 class Adminer extends VersionCrawler
 {
-    public $url = 'http://www.adminer.org/#download';
+    public $name = 'adminer';    
+    public $url  = 'http://www.adminer.org/#download';
 
     public function crawlVersion()
     {

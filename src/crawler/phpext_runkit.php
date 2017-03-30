@@ -18,6 +18,8 @@ use WPNXM\Updater\VersionCrawler;
  */
 class phpext_runkit extends VersionCrawler
 {
+	public $name = 'phpext_runkit';
+	
     public $url = 'http://windows.php.net/downloads/pecl/releases/runkit/';
 
     private $url_template = 'http://windows.php.net/downloads/pecl/releases/runkit/%version%/php_runkit-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';

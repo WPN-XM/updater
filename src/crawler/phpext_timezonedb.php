@@ -18,6 +18,8 @@ use WPNXM\Updater\VersionCrawler;
  */
 class phpext_timezonedb extends VersionCrawler
 {
+	public $name = 'phpext_timezonedb';
+	
     public $url = 'http://windows.php.net/downloads/pecl/releases/timezonedb/';
 
     private $url_template = 'http://windows.php.net/downloads/pecl/releases/timezonedb/%version%/php_timezonedb-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';

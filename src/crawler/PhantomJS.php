@@ -18,6 +18,7 @@ use WPNXM\Updater\VersionCrawler;
  */
 class PhantomJS extends VersionCrawler
 {
+    public $name = 'phantomjs';
     public $url = 'https://bitbucket.org/ariya/phantomjs/downloads/';
 
     public function crawlVersion()

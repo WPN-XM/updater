@@ -18,6 +18,7 @@ use WPNXM\Updater\VersionCrawler;
  */
 class phpmyadmin extends VersionCrawler
 {
+    public $name = 'phpmyadmin';
     public $url = 'https://www.phpmyadmin.net/home_page/phpmyadmin.xml';
 
     public function crawlVersion()

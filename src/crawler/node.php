@@ -18,6 +18,7 @@ use WPNXM\Updater\VersionCrawler;
  */
 class node extends VersionCrawler
 {
+    public $name = 'node';
     public $url = 'http://nodejs.org/dist/';
 
     public function crawlVersion()

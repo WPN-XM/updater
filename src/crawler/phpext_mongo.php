@@ -19,6 +19,8 @@ use WPNXM\Updater\VersionCrawler;
  */
 class phpext_mongo extends VersionCrawler
 {
+	public $name = 'phpext_mongo';
+	
     /**
      * WARNING
      * The windows builds got no version listing, because Github stopped their downloads service.

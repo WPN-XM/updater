@@ -36,8 +36,7 @@ class openssl_x64 extends VersionCrawler
 
             if (preg_match("/openssl-(\d+\.\d+\.\d+[A-Za-z]*)-x64_86-win64.zip$/i", $node->attr('href'), $matches)) {
                 $version = $matches[1];
-
-                if (strcmp($this->registry['openssl-x64']['latest']['version'], $version) < 0) {
+                if (strcmp($this->latestVersion, $version) < 0) {
                     return array(
                         'version' => $version,
                         'url'     => 'http://indy.fulgan.com/SSL/openssl-' . $version . '-x64_86-win64.zip',

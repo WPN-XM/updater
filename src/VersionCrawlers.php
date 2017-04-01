@@ -19,7 +19,7 @@ class VersionCrawlers
      * @param string $components
      * @return array
      */
-    public static function get($components = null)
+    public static function getCrawlers($components = null)
     {
         // return multiple crawlers        
         if (isset($components)) {
@@ -42,11 +42,16 @@ class VersionCrawlers
         return glob(__DIR__ . '\crawler\\' . $file . '.php');
     }
 
+    /**
+     * The function returns a list with all "name" properties of all crawlers.
+     *
+     * @return array Array of software names (crawler property "name").
+     */
     public static function getSoftwareNames()
     {
         $softwareNames = [];
 
-        $crawlers = self::getCrawlers($components);
+        $crawlers = self::getCrawlers();
 
         foreach ($crawlers as $i => $file) {
 
@@ -64,5 +69,19 @@ class VersionCrawlers
         }
 
         return $softwareNames;
+    }
+
+    /**
+     * The function returns the "software name" of newly added crawlers.
+     *
+     * @return array Array of software names (crawler property "name").
+     */
+    public static function findCrawlersWithoutRegistryEntry($registry)
+    {
+        $registrySoftwareNames = array_keys($registry);
+        $crawlerSoftwareNames  = self::getSoftwareNames();        
+        $diff = array_diff($crawlerSoftwareNames, $registrySoftwareNames);
+
+        return $diff;
     }
 }

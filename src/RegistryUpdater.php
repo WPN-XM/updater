@@ -54,7 +54,7 @@ class RegistryUpdater
      */
     public function getUrlsToCrawl($components = null)
     {
-        $crawlers = VersionCrawlers::get($components);
+        $crawlers = VersionCrawlers::getCrawlers($components);
 
         foreach ($crawlers as $i => $file) {
 
@@ -182,7 +182,7 @@ class RegistryUpdater
          * to rewrite and update old URLs, when file movements of the download files occured.
          * For example, like "PHP" moves old versions into the download "/archives" folder.
          */
-        if(method_exists($this->crawlers[$index], 'onAfterVersionInsert') === true) {
+        if(method_exists($this->crawlers[$index], 'onAfterVersionInsert')) {
             $this->registry = $this->crawlers[$index]->onAfterVersionInsert($this->registry);
         }
 
@@ -201,7 +201,7 @@ class RegistryUpdater
         /**
          * Latest Version
          */
-        if (Version::compare($component, $old_version, $new_version) === true) {
+        if (Version::compare($component, $old_version, $new_version)) {
             // write a temporary component registry, for later registry insertion
             Registry::writeRegistrySubset($component, $this->registry[$component]);
             
@@ -213,7 +213,8 @@ class RegistryUpdater
          *
          * TODO why are here 2 calls to Version::notInRegistry()?
          */
-        elseif (Version::notInRegistry($latestVersion, $this->old_registry[$component]) === true)
+        elseif(isset($this->old_registry[$component]) 
+            && Version::notInRegistry($latestVersion, $this->old_registry[$component]))
         {
             // write a temporary component registry, for later registry insertion
             Registry::writeRegistrySubset($component, $this->registry[$component]);
@@ -229,7 +230,7 @@ class RegistryUpdater
 
     public function getHtmlTable()
     {
-        foreach($this->results as $index => $data ) {
+        foreach($this->results as $index => $data) {
             // render a table row (version comparison display)
             $this->html .= ViewHelper::renderTableRow($data[0],$data[1], $data[2], $data[3]);
         }

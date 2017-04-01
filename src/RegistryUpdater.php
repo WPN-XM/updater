@@ -12,6 +12,8 @@
 
 namespace WPNXM\Updater;
 
+
+use WPNXM\Updater\VersionCrawlers;
 use Goutte\Client as GoutteClient;
 
 use GuzzleHttp\Pool;
@@ -46,41 +48,13 @@ class RegistryUpdater
             //,'curl' => [ CURLOPT_SSL_VERIFYPEER => false ]   
         ]);
     }
-
-    /**
-     * Return array with one or more crawler file names.
-     *
-     * @param string $components
-     * @return array
-     */
-    public function getCrawlers($components = null)
-    {
-        // return multiple crawlers        
-        if (isset($components)) {
-            $components = (array) $components;
-            $crawlers = [];
-            foreach($components as $component) {
-                $crawlers[] = self::getCrawlerFile($component)[0];
-            }
-            return $crawlers;
-        }       
-
-        // return all crawlers
-        return glob(__DIR__ . '\crawler\*.php');
-    }
-
-    public static function getCrawlerFile($component)
-    {
-        $file = str_replace('-', '_', $component);
-        return glob(__DIR__ . '\crawler\\' . $file . '.php');
-    }
-
+    
     /**
      * @return int The number of URLs to crawl.
      */
     public function getUrlsToCrawl($components = null)
     {
-        $crawlers = $this->getCrawlers($components);
+        $crawlers = VersionCrawlers::get($components);
 
         foreach ($crawlers as $i => $file) {
 

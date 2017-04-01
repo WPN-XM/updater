@@ -42,11 +42,11 @@ class VersionCrawlers
         return glob(__DIR__ . '\crawler\\' . $file . '.php');
     }
 
-    public function getSoftwareNames()
+    public static function getSoftwareNames()
     {
         $softwareNames = [];
 
-        $crawlers = $this->getCrawlers($components);
+        $crawlers = self::getCrawlers($components);
 
         foreach ($crawlers as $i => $file) {
 

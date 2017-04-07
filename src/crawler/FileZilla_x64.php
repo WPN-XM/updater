@@ -24,19 +24,19 @@ class FileZilla_x64 extends VersionCrawler
     public $url = 'https://notepad-plus-plus.org/download/';
 
     public function crawlVersion()
-    {       
+    {
         return $this->filter('a')->each(function ($node) {
             // https://notepad-plus-plus.org/repository/7.x/7.3.3/npp.7.3.3.bin.zip
             if (preg_match("#npp.(\d+\.\d+\.\d+).bin.zip$#i", $node->attr('href'), $matches)) {
-                $version = $matches[1];                
+                $version = $matches[1];
                 if (version_compare($version, $this->latestVersion, '>=') === true) {
                     $folder = $version[0].'.x';
                     return array(
-                        'version' => $version,                        
+                        'version' => $version,
                         'url'     => 'https://notepad-plus-plus.org/repository/' . $folder . '/' . $version . '/npp.' . $version . '.bin.zip',
                     );
                 }
             }
         });
-    }    
+    }
 }

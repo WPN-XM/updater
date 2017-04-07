@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 
+- 2017-04-07: added crawler for "filezilla ftp client x86" + "filezilla ftp client x64"
 - 2017-04-01: added crawler for "notepad plus plus x86" + "notepad plus plus x64" (zip)
 - 2017-03-30: added crawler for "gimp"
 - 2017-03-28: added crawler for "netbeans x86" and "netbeans x64"

@@ -21,19 +21,18 @@ use WPNXM\Updater\VersionCrawler;
 class FileZilla_x64 extends VersionCrawler
 {
     public $name = 'filezilla-x64';
-    public $url = 'https://notepad-plus-plus.org/download/';
+    public $url = 'https://filezilla-project.org/download.php?platform=win64';
 
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
-            // https://notepad-plus-plus.org/repository/7.x/7.3.3/npp.7.3.3.bin.zip
-            if (preg_match("#npp.(\d+\.\d+\.\d+).bin.zip$#i", $node->attr('href'), $matches)) {
+            // https://download.filezilla-project.org/client/FileZilla_3.25.1_win64-setup_bundled2.exe
+            if (preg_match("#FileZilla_(\d+\.\d+\.\d+)_win64-setup#i", $node->attr('href'), $matches)) {
                 $version = $matches[1];
-                if (version_compare($version, $this->latestVersion, '>=') === true) {
-                    $folder = $version[0].'.x';
+                if (version_compare($version, $this->latestVersion, '>=') === true) {                   
                     return array(
                         'version' => $version,
-                        'url'     => 'https://notepad-plus-plus.org/repository/' . $folder . '/' . $version . '/npp.' . $version . '.bin.zip',
+                        'url'     => 'https://download.filezilla-project.org/client/FileZilla_' . $version . '_win64-setup_bundled2.exe',
                     );
                 }
             }

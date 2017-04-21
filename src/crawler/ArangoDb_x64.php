@@ -26,8 +26,8 @@ class ArangoDb_x64 extends VersionCrawler
     public $name = 'arangodb-x64';
     
     // https://www.arangodb.com/download/
-    // https://www.arangodb.com/repositories/VERSIONS
-    public $url = 'https://www.arangodb.com/repositories/download-current/download-windows.html';
+    // https://www.arangodb.com/repositories/VERSIONS   
+    public $url = 'https://www.arangodb.com/repositories/Windows7/x86_64/';
 
     public function crawlVersion()
     {       
@@ -37,7 +37,12 @@ class ArangoDb_x64 extends VersionCrawler
                 if (version_compare($version, $this->latestVersion, '>=') === true) {       
                     return array(
                         'version' => $version,
-                        'url'     => 'https://www.arangodb.com/repositories/Windows7/x86_64/ArangoDB-' . $version . '-win64.zip',
+                        /**
+                         * Stupidity increases... proof:
+                         * https://www.arangodb.com/repositories/Windows7/x86_64/ArangoDB-3.0.9-win64.zip
+                         * https://www.arangodb.com/repositories/Windows7/x86_64/ArangoDB3-3.1.9-1_win64.zip 
+                         */
+                        'url'     => 'https://www.arangodb.com/repositories/Windows7/x86_64/ArangoDB3-' . $version . '-1_win64.zip',
                     );
                 }
             }

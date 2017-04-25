@@ -2,7 +2,8 @@
 
 ## [Unreleased]
 
-- 2017-04-25; added crawler for "graphviz"
+- 2017-04-25: added crawler for "graphviz"
+- 2017-04-25: added crawler for "apache ant"
 - 2017-04-21: fixed crawler for "arangodb x64" (new crawling url + new download url)
 - 2017-04-13: added crawler for "filezilla server x86"
 - 2017-04-07: added crawler for "filezilla ftp client x86" + "filezilla ftp client x64"

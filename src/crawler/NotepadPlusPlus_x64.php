@@ -35,9 +35,9 @@ class NotepadPlusPlus_x64 extends VersionCrawler
         return $this->filter('a')->each(function ($node) {
             // https://notepad-plus-plus.org/repository/7.x/7.3.3/npp.7.3.3.bin.x64.zip
             if (preg_match("#npp.(\d+\.\d+\.\d+).bin.x64.zip$#i", $node->attr('href'), $matches)) {
-                $version = $matches[1];                
+                $version = $matches[1];
                 if (version_compare($version, $this->latestVersion, '>=') === true) {
-                    $folder  = $version{1}.'.x';
+                    $folder  = $version[0].'.x'; 
                     return array(
                         'version' => $version,                        
                         'url'     => 'https://notepad-plus-plus.org/repository/' . $folder . '/' . $version . '/npp.' . $version . '.bin.x64.zip',

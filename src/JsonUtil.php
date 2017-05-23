@@ -69,7 +69,7 @@ class JsonUtil
     {
         $lines = explode(PHP_EOL, $json);
 
-        $array = array();
+        $array = [];
 
         // count lengths and set to array
         foreach ($lines as $line) {
@@ -102,7 +102,7 @@ class JsonUtil
         // build array with longest key lengths
         $elements = $last_nr - 1;
         $num_keys = count($array[1]['lines']) - 1;
-        $longest  = array();
+        $longest  = [];
 
         for ($i = 1; $i <= $elements; $i++) {
             for ($j = 0; $j < $num_keys; $j++) {
@@ -144,7 +144,7 @@ class JsonUtil
         $lines = preg_replace('#\s+\[#i', '[', $lines);
 
         // cleanups
-        $lines = str_replace(array(',,', '],'), array(',', '],' . PHP_EOL), $lines);
+        $lines = str_replace([',,', '", ]', '],'], [',', '" ]', '],' . PHP_EOL], $lines);
 
         $lines = '[' . PHP_EOL . trim($lines) . PHP_EOL . ']';
 

@@ -37,10 +37,6 @@ class UpdateComponents extends ActionBase
     {
         $nextRegistries = InstallerRegistries::getRegistriesOfNextRelease();
 
-        if (empty($nextRegistries) === true) {
-            exit('No "next" JSON registries found. Create installers for the next version.');
-        }
-
         echo '<h3>Update all software components to their latest version.</h3>';
         echo '<small>Raises the versions of all software components of all installation wizards of the next release automatically.</small>';
 
@@ -50,7 +46,7 @@ class UpdateComponents extends ActionBase
         {
             $filename        = basename($file);
 
-            echo '<br>Processing Installer <strong>' . $filename . '</strong>:&nbsp;';
+            echo '<br>Processing Installer <strong>' . $filename . '</strong>:&nbsp;<br>';
             
             $registry      = json_decode(file_get_contents($file), true);
             $version_updated = false;            

@@ -24,7 +24,7 @@ class InstallerRegistry
      */
     public static function write($file, $registry)
     {
-        asort($registry);
+        //asort($registry);
 
         $json        = json_encode($registry);
         $json_pretty = JsonUtil::prettyPrintCompact($json);

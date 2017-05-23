@@ -64,7 +64,7 @@ class InstallerRegistries
         $files = glob(REGISTRY_DIR.'installer\next\*-next-*.json');
 
         if (empty($files)) {
-            throw new \Exception('No JSON registries found.');
+            throw new \Exception('The installer registries of the "next" version were not found.');
         }
 
         return $files;

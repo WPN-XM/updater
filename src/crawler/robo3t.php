@@ -17,7 +17,7 @@ use WPNXM\Updater\VersionCrawler;
 /**
  * Version Crawler for
  *
- * RoboMongo/Robo3t - A Shell-centric cross-platform MongoDB management tool.
+ * Robo3t (formerly RoboMongo) - A Shell-centric cross-platform MongoDB management tool.
  *
  * Website:   http://robomongo.org/
  * Downloads: https://robomongo.org/download 
@@ -25,9 +25,9 @@ use WPNXM\Updater\VersionCrawler;
  *            down - http://download.robomongo.org/
  *            down - http://app.robomongo.org/download.html
  */
-class robomongo extends VersionCrawler
+class robo3t extends VersionCrawler
 {
-    public $name = 'robomongo'; // robo3t
+    public $name = 'robo3t'; // robo3t
     public $url = 'https://robomongo.org/download';
 
     public function crawlVersion()
@@ -38,14 +38,14 @@ class robomongo extends VersionCrawler
             // https://download.robomongo.org/1.0.0/windows/robomongo-1.0.0-windows-x86_64-89f24ea.exe
             // New URL (starting with v1.1)
             // https://download.robomongo.org/1.1.1/windows/robo3t-1.1.1-windows-x86_64-c93c6b0.exe 
-            if (preg_match("#(robomongo|robo3t)-(\d+.\d+.\d+(-rc\d)?)-windows-x86_64-(.*)\.exe#i", $node->attr('href'), $matches)) {
-                $name    = $matches[1];
+            if (preg_match("#robo3t-(\d+.\d+.\d+(-rc\d)?)-windows-x86_64-(.*)\.exe#i", $node->attr('href'), $matches)) {
+                var_dump($matches);
                 $version = $matches[2];
                 $hash    = $matches[4]; // why did you add a hash?
                 if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
-                        'url' => 'https://download.robomongo.org/' . $version . '/windows/' . $name . '-' . $version . '-windows-x86_64-' . $hash . '.exe',
+                        'url' => 'https://download.robomongo.org/' . $version . '/windows/robo3t-' . $version . '-windows-x86_64-' . $hash . '.exe',
                     );
                 }
             }

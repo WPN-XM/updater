@@ -17,29 +17,35 @@ use WPNXM\Updater\VersionCrawler;
 /**
  * Version Crawler for
  *
- * RoboMongo - A Shell-centric cross-platform MongoDB management tool.
+ * RoboMongo/Robo3t - A Shell-centric cross-platform MongoDB management tool.
  *
  * Website:   http://robomongo.org/
- * Downloads: http://download.robomongo.org/
- *            http://app.robomongo.org/download.html
- *            formerly http://robomongo.org/download.html
+ * Downloads: https://robomongo.org/download 
+ *            down - http://robomongo.org/download.html
+ *            down - http://download.robomongo.org/
+ *            down - http://app.robomongo.org/download.html
  */
 class robomongo extends VersionCrawler
 {
-    public $name = 'robomongo';
-    public $url = 'http://app.robomongo.org/download.html';
+    public $name = 'robomongo'; // robo3t
+    public $url = 'https://robomongo.org/download';
 
     public function crawlVersion()
     {
-        return $this->filter('table a')->each(function ($node) {
-            // http://download.robomongo.org/0.9.0-rc4/windows/robomongo-0.9.0-rc4-windows-x86_64-8c830b6.exe
-            if (preg_match("#robomongo-((\d+\.\d+.\d+)(?:-rc\d))-windows-x86_64-(.*)\.exe#i", $node->attr('href'), $matches)) {
-                $version = $matches[1];
-                $hash    = $matches[3]; // why did you add a hash?
+        return $this->filter('a')->each(function ($node) {
+            // Old URLs (up to v1.0.0)
+            // https://download.robomongo.org/0.9.0-rc4/windows/robomongo-0.9.0-rc4-windows-x86_64-8c830b6.exe
+            // https://download.robomongo.org/1.0.0/windows/robomongo-1.0.0-windows-x86_64-89f24ea.exe
+            // New URL (starting with v1.1)
+            // https://download.robomongo.org/1.1.1/windows/robo3t-1.1.1-windows-x86_64-c93c6b0.exe 
+            if (preg_match("#(robomongo|robo3t)-(\d+.\d+.\d+(-rc\d)?)-windows-x86_64-(.*)\.exe#i", $node->attr('href'), $matches)) {
+                $name    = $matches[1];
+                $version = $matches[2];
+                $hash    = $matches[4]; // why did you add a hash?
                 if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
-                        'url' => 'http://download.robomongo.org/' . $version . '/windows/robomongo-' . $version . '-windows-x86_64-' . $hash . '.exe',
+                        'url' => 'https://download.robomongo.org/' . $version . '/windows/' . $name . '-' . $version . '-windows-x86_64-' . $hash . '.exe',
                     );
                 }
             }

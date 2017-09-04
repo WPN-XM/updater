@@ -18,14 +18,16 @@ use WPNXM\Updater\VersionCrawler;
  * ZealDocs - Version Crawler
  * 
  * Website:     http://zealdocs.org/
- * Downloads:   https://bintray.com/zealdocs/windows/zeal
+ * Downloads:   https://zealdocs.org/download.html
+ * Bintray:     https://bintray.com/zealdocs/windows/zeal
+ *              https://dl.bintray.com/zealdocs/windows/
  */
 class zealdocs extends VersionCrawler
 {
     public $name = 'zealdocs';
 
-    // we are scraping the bintray downloads page
-    public $url = 'https://dl.bintray.com/zealdocs/windows';
+    // scrape the bintray downloads page
+    public $url = 'https://dl.bintray.com/zealdocs/windows/';
 
     public function crawlVersion()
     {

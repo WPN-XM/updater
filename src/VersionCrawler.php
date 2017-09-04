@@ -227,7 +227,7 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
             '5.6' => 'vc11',
             '7.0' => 'vc14',
             '7.1' => 'vc14',
-            '7.2' => 'vc14'
+            '7.2' => 'vc15'
         ];
 
         if(isset($map[$phpversion])) { return $map[$phpversion]; }

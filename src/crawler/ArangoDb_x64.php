@@ -26,7 +26,9 @@ class ArangoDb_x64 extends VersionCrawler
     public $name = 'arangodb-x64';
     
     // https://www.arangodb.com/download/
-    // https://www.arangodb.com/repositories/VERSIONS   
+    // https://www.arangodb.com/repositories/VERSIONS
+    // https://www.arangodb.com/download-major/
+    // https://www.arangodb.com/repositories/archive/arangodb31/Windows7/x86_64/
     public $url = 'https://www.arangodb.com/repositories/Windows7/x86_64/';
 
     public function crawlVersion()

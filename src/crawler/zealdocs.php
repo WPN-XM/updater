@@ -35,8 +35,8 @@ class zealdocs extends VersionCrawler
                     if (version_compare($version, $this->latestVersion, '>=') === true) {
                         return array(
                             'version' => $version,
-                            // https://dl.bintray.com/zealdocs/windows/:zeal-portable-0.3.1-windows-x86.7z
-                            'url'     => 'https://dl.bintray.com/zealdocs/windows/:zeal-portable-' . $version . '-windows-x86.7z',
+                            // https://dl.bintray.com/zealdocs/windows/zeal-portable-0.3.1-windows-x86.7z
+                            'url'     => 'https://dl.bintray.com/zealdocs/windows/zeal-portable-' . $version . '-windows-x86.7z',
                         );
                     }
                 }

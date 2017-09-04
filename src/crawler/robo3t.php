@@ -39,9 +39,8 @@ class robo3t extends VersionCrawler
             // New URL (starting with v1.1)
             // https://download.robomongo.org/1.1.1/windows/robo3t-1.1.1-windows-x86_64-c93c6b0.exe 
             if (preg_match("#robo3t-(\d+.\d+.\d+(-rc\d)?)-windows-x86_64-(.*)\.exe#i", $node->attr('href'), $matches)) {
-                var_dump($matches);
                 $version = $matches[2];
-                $hash    = $matches[4]; // why did you add a hash?
+                $hash    = $matches[3]; // why did you add a hash?
                 if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,

@@ -17,6 +17,8 @@ use WPNXM\Updater\VersionCrawler;
  *
  * Website:   https://notepad-plus-plus.org/
  * Downloads: https://notepad-plus-plus.org/download/
+ *            https://download.filezilla-project.org/client/
+ *            https://sourceforge.net/projects/filezilla/files/FileZilla_Client/
  */
 class FileZilla_x86 extends VersionCrawler
 {
@@ -26,13 +28,13 @@ class FileZilla_x86 extends VersionCrawler
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
-            // https://download.filezilla-project.org/client/FileZilla_3.25.1_win32-setup_bundled2.exe
+            // https://download.filezilla-project.org/client/FileZilla_3.27.1_win32.zip
             if (preg_match("#FileZilla_(\d+\.\d+\.\d+)_win32-setup#i", $node->attr('href'), $matches)) {
                 $version = $matches[1];
                 if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
-                        'url'     => 'https://download.filezilla-project.org/client/FileZilla_' . $version . '_win32-setup_bundled2.exe',
+                        'url'     => 'https://download.filezilla-project.org/client/FileZilla_' . $version . '_win32.zip',
                     );
                 }
             }

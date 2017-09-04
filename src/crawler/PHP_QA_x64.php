@@ -29,8 +29,9 @@ class PHP_QA_x64 extends VersionCrawler
              * Notes for the Regular Expression:
              * "VC11" is needed for PHP 5.5 & 5.6.
              * "VC14" is needed for PHP 7.
+             * "VC15" is needed for PHP 7.2.
              */
-            if (preg_match("#php-(\d+\.\d+(\.\d+)*(alpha|beta|RC)(\d+))-nts-Win32-VC(11|14)-x64.zip$#", $node->text(), $matches)) {
+            if (preg_match("#php-(\d+\.\d+(\.\d+)*(alpha|beta|RC)(\d+))-nts-Win32-VC(11|14|15)-x64.zip$#", $node->text(), $matches)) {
                 $version = $matches[1];
 
                 if (version_compare($version, $this->latestVersion, '>=') === true) {

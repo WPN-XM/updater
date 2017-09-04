@@ -32,11 +32,11 @@ class PHP extends VersionCrawler
         return $this->filter('a')->each(function ($node) {
             /**
              * Notes for the Regular Expression:
-             * "VC9"  is needed for PHP 5.4. We can drop it, when 5.4 is EOL.
              * "VC11" is needed for PHP 5.5 & 5.6.
              * "VC14" is needed for PHP 7.
+             * "VC15" is needed for PHP 7.2.
              */
-            if (preg_match("#php-(\d+\.\d+(\.\d+)*)-nts-Win32-VC(9|11|14)-x86.zip$#", $node->text(), $matches)) {
+            if (preg_match("#php-(\d+\.\d+(\.\d+)*)-nts-Win32-VC(11|14|15)-x86.zip$#", $node->text(), $matches)) {
                 $version = $matches[1];
 
                 if ((version_compare($version, $this->latestVersion, '>=') === true)

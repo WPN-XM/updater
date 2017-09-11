@@ -27,7 +27,10 @@ class AddComponent extends ActionBase
 
     public function __invoke()
     {
+        $shorthand  = filter_input(INPUT_GET, 'shorthand', FILTER_SANITIZE_STRING);
+
         $view = new View();
+        $view->data['shorthand'] = $shorthand;
         $view->render();
     }
 

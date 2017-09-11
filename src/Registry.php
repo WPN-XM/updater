@@ -277,11 +277,11 @@ class Registry
         echo NL . 'Committing current changes "' . $commitMessage . '"' . NL;
         passthru($git . 'commit -m "' . $commitMessage . '" -- wpnxm-software-registry.php');
 
-        echo NL . 'You might "git push" now.' . NL;
-
         if($doGitPush === true) {
             echo NL . 'Pushing commit to remote server:' . NL;
             passthru($git . 'push');
+        } else {
+            echo NL . 'You might "git push" now.' . NL;
         }
 
         echo '</pre>';

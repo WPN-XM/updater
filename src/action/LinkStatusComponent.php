@@ -52,7 +52,7 @@ class LinkStatusComponent extends ActionBase
         };
 
 		$view = new View();
-		$view->data['component']      = $software;
+		$view->data['software']       = $software;
         $view->data['before']         = $before;
         $view->data['crawlingTime']   = $crawlingTime;
         $view->data['isAvailable']    = $isAvailable;

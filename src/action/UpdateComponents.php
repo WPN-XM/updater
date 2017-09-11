@@ -98,8 +98,11 @@ class UpdateComponents extends ActionBase
         }
 
         $html = '<div class="alert alert-success" role="alert">';
-        $html .= 'You might "git commit/push" now:<br><b>updated installer registries of "next" version</b>';
+        $html .= 'You might "git commit/push" now!<br> Commit Message: <b>updated installer registries of "next" version</b>';
         $html .= '</div>';
+
+        $html .= '<a class="btn btn-primary" href="index.php?action=GitPushNextVersionRegistries&gitpush=true" role="button">Git Commit, then Push</a>';
+
         echo $html;
     }
 
@@ -197,6 +200,6 @@ class UpdateComponents extends ActionBase
                 }
             }
         }
-    }
+    }   
 
 }

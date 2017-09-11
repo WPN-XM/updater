@@ -38,7 +38,7 @@ class PrettyPrintRegistries extends ActionBase
                 throw new \Exception(
                     sprintf("JSON PARSING ERROR: '%s' in file '%s'.", $file, json_last_error_msg())
                 );
-            }   
+            }
 
             InstallerRegistry::write($file, $registry);
         }

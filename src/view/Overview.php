@@ -16,7 +16,7 @@
                           echo '<td><span class="badge badge-danger">New Crawler</span> ' . $name . '</td>';   
                           echo '<td>Not in registry, yet.</td>';
                           echo '<td><a class="btn btn-info btn-xs" href="index.php?action=scan-component&amp;component=' . $name . '">Scan</a></td>';
-                          echo '<td><a class="btn btn-info btn-xs" href="index.php?action=add-component&amp;component=' . $name . '">Add Registry Entry</a></td>';
+                          echo '<td><a class="btn btn-info btn-xs" href="index.php?action=add-component&amp;shorthand=' . $name . '">Add Registry Entry</a></td>';
                           echo '</tr>';
                       }
                     }
@@ -27,6 +27,7 @@
                         echo '<td>' . $component['name'] . '</td>';   
                         echo '<td>' . $component['latest']['version'] . '</td>';
                         echo '<td><a class="btn btn-info btn-xs" href="index.php?action=scan-component&amp;component=' . $item . '">Scan</a></td>';
+                        echo '<td><a class="btn btn-info btn-xs" href="index.php?action=link-status-component&amp;software=' . $item . '">Check Link Health</a></td>';
                         echo '</tr>';
                     }                
                 ?>

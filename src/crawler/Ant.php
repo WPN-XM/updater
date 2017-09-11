@@ -20,14 +20,16 @@ use WPNXM\Updater\VersionCrawler;
  * whose mission is to drive processes described in build files 
  * as targets and extension points dependent upon each other.
  *
- * Website:       http://ant.apache.org/
+ * Website:  http://ant.apache.org/
  * Download: http://ant.apache.org/bindownload.cgi
+ *           http://archive.apache.org/dist/ant/binaries/
+ *           http://ftp.halifax.rwth-aachen.de/apache/ant/binaries/
  */
 class Ant extends VersionCrawler
 {
     public $name = 'ant';
 
-    public $url = 'http://ftp.halifax.rwth-aachen.de/apache/ant/binaries/';
+    public $url = 'http://archive.apache.org/dist/ant/binaries/';
 
     public function crawlVersion()
     {
@@ -38,8 +40,8 @@ class Ant extends VersionCrawler
                 if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
-                        // http://ftp.halifax.rwth-aachen.de/apache/ant/binaries/apache-ant-1.9.9-bin.zip
-                        'url'     => 'http://ftp.halifax.rwth-aachen.de/apache/ant/binaries/apache-ant-' . $version . '-bin.zip'
+                        // http://archive.apache.org/dist/ant/binaries/apache-ant-1.10.1-bin.zip
+                        'url'     => 'http://archive.apache.org/dist/ant/binaries/apache-ant-' . $version . '-bin.zip'
                     );
                 }
             }

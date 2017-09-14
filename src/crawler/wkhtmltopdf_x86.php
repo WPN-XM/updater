@@ -34,7 +34,7 @@ class wkhtmltopdf_x86 extends VersionCrawler
     {
         return $this->filter('a')->each(function ($node) {
 
-                if (preg_match("#/releases/download/(\d+\.\d+.\d+)/wkhtmltox-(.*)_msvc2015-win86.exe#", $node->attr('href'), $matches)) {
+                if (preg_match("#/releases/download/(\d+\.\d+.\d+)/wkhtmltox-(.*)_msvc2015-win32.exe#", $node->attr('href'), $matches)) {
                     $version = $matches[1];
 
                     /**
@@ -45,9 +45,11 @@ class wkhtmltopdf_x86 extends VersionCrawler
                      * From v0.12.4 "msvc2015" is used. Now also SemVer. Yippie.
                      * - https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_msvc2015-win86.exe
                      * Note: a string split needs two chars - and _. Still Hmm.
+                     * 
+                     * changed from win86 to win32
                      */
                     $download_file = 'https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/';
-                    $download_file .= $version . '/wkhtmltox-' . $version . '_msvc2015-win86.exe';
+                    $download_file .= $version . '/wkhtmltox-' . $version . '_msvc2015-win32.exe';
 
                     if (version_compare($version, $this->latestVersion, '>=') === true) {
                         return array(

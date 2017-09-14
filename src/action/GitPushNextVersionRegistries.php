@@ -72,7 +72,7 @@ class GitPushNextVersionRegistries extends ActionBase
         //exec("git add .; git add -u .");
 
         echo NL . 'Committing current changes "' . $commitMessage . '"' . NL;
-        passthru($git . 'commit -m "' . $commitMessage . '"');
+        passthru($git . 'commit -a -m "' . $commitMessage . '"');
        
         if($doGitPush === true) {
             echo NL . 'Pushing commit(s) to remote server:' . NL;

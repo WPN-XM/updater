@@ -23,13 +23,15 @@ use WPNXM\Updater\VersionCrawler;
 class FileZilla_x64 extends VersionCrawler
 {
     public $name = 'filezilla-x64';
-    public $url = 'https://filezilla-project.org/download.php?platform=win64';
+
+    // https://filezilla-project.org/download.php?platform=win64
+    public $url = 'https://download.filezilla-project.org/client/';
 
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
             // https://download.filezilla-project.org/client/FileZilla_3.27.1_win64.zip
-            if (preg_match("#FileZilla_(\d+\.\d+\.\d+)_win64-setup#i", $node->attr('href'), $matches)) {
+            if (preg_match("#FileZilla_(\d+\.\d+\.\d+)_win64.zip#i", $node->attr('href'), $matches)) {
                 $version = $matches[1];
                 if (version_compare($version, $this->latestVersion, '>=') === true) {                   
                     return array(

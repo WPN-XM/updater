@@ -23,13 +23,15 @@ use WPNXM\Updater\VersionCrawler;
 class FileZilla_x86 extends VersionCrawler
 {
     public $name = 'filezilla-x86';
-    public $url = 'https://filezilla-project.org/download.php?platform=win32';
+
+    // https://filezilla-project.org/download.php?platform=win32
+    public $url = 'https://download.filezilla-project.org/client/';
 
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
             // https://download.filezilla-project.org/client/FileZilla_3.27.1_win32.zip
-            if (preg_match("#FileZilla_(\d+\.\d+\.\d+)_win32-setup#i", $node->attr('href'), $matches)) {
+            if (preg_match("#FileZilla_(\d+\.\d+\.\d+)_win32.zip#i", $node->attr('href'), $matches)) {
                 $version = $matches[1];
                 if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(

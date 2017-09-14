@@ -214,11 +214,16 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
         );
     }
 
-    public static function getCompilerByPHPVersion($phpversion)
+    // remove PATCH LEVEL from version string (5.5.0 => 5.5)
+    public static function removePatchLevelFromVersion($version)
     {
-        // remove PATCH LEVEL from version string
+        return substr($version, 0, -2);
+    }
+
+    public static function getCompilerByPHPVersion($phpversion)
+    {        
         if(strlen($phpversion) == 5) {
-            $phpversion = substr($phpversion, 0, -2);
+            $phpversion = self::removePatchLevelFromVersion($phpversion);
         }
 
         $map = [

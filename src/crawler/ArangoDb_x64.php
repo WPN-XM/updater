@@ -25,11 +25,15 @@ class ArangoDb_x64 extends VersionCrawler
 {
     public $name = 'arangodb-x64';
     
+    //
     // https://www.arangodb.com/download/
     // https://www.arangodb.com/repositories/VERSIONS
     // https://www.arangodb.com/download-major/
     // https://www.arangodb.com/repositories/archive/arangodb31/Windows7/x86_64/
-    public $url = 'https://www.arangodb.com/repositories/Windows7/x86_64/';
+    // https://www.arangodb.com/repositories/Windows7/x86_64/
+    // -> https://download.arangodb.com/Windows7/x86_64/
+    // 
+    public $url = 'https://download.arangodb.com/Windows7/x86_64/';
 
     public function crawlVersion()
     {       
@@ -43,8 +47,11 @@ class ArangoDb_x64 extends VersionCrawler
                          * Stupidity increases... proof:
                          * https://www.arangodb.com/repositories/Windows7/x86_64/ArangoDB-3.0.9-win64.zip
                          * https://www.arangodb.com/repositories/Windows7/x86_64/ArangoDB3-3.1.9-1_win64.zip 
+                         * 
+                         * Oh wow, they changed it :D Thanks.. Now change your fucked up folder structure, too..
+                         * Why "Windows7"? Yeah, 7up. Why not simply Windows?
                          */
-                        'url'     => 'https://www.arangodb.com/repositories/Windows7/x86_64/ArangoDB3-' . $version . '-1_win64.zip',
+                        'url'     => 'https://download.arangodb.com/Windows7/x86_64/ArangoDB-' . $version . '-win64.zip',
                     );
                 }
             }

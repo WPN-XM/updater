@@ -16,16 +16,19 @@ use WPNXM\Updater\VersionCrawler;
 /**
  * Phalcon - Version Crawler
  *
- * Website:   http://phalconphp.com/
- * Downloads: http://phalconphp.com/en/download/windows
+ * Website:         http://phalconphp.com/
+ * Downloads:       http://phalconphp.com/en/download/windows
+ * Github:          https://github.com/phalcon/cphalcon
+ * Github Releases: https://github.com/phalcon/cphalcon/releases
  */
 class phpext_phalcon extends VersionCrawler
 {
-	public $name = 'phpext_phalcon';
-	
-    public $url = 'https://phalconphp.com/en/download/windows';
+    public $name = 'phpext_phalcon';
 
-    private $url_template = 'https://static.phalconphp.com/www/files/phalcon_%bitsize%_%compiler%_php%phpversion%_%version%_nts.zip';
+    public $url = 'https://github.com/phalcon/cphalcon/releases';
+
+    // https://github.com/phalcon/cphalcon/releases/download/v3.2.2/phalcon_x64_vc11_php5.5.0_3.2.2.zip
+    private $url_template = 'https://github.com/phalcon/cphalcon/releases/download/v%version%/phalcon_%bitsize%_%compiler%_php%phpversion%_%version%_nts.zip';
 
     public $needsOnlyRegistrySubset = false;
 
@@ -35,18 +38,16 @@ class phpext_phalcon extends VersionCrawler
     {
         return $this->filter('a')->each(function ($node) {
 
-            // we take "rc" versions into account
-            // https://static.phalconphp.com/www/files/phalcon_x64_vc11_php5.6.0_2.1.0.RC1_nts.zip
-            if (preg_match("#_php(\d+\.\d+\.\d+)_(\d+\.\d+\.\d+(.RC\d+)?)_nts#i", $node->attr('href'), $matches)) {
+            if (preg_match("#phalcon/cphalcon/releases/download/v(\d+\.\d+\.\d+)/#i", $node->attr('href'), $matches)) {
 
-                $version = $matches[2];
+                $version = $matches[1];
 
                 if (version_compare($version, $this->latestVersion, '>=') === true) {
 
-					$urls = $this->createPhpVersionsArrayForExtension($version, $this->url_template);
-					if(empty($urls)) {
-						return;
-					}
+                $urls = $this->createPhpVersionsArrayForExtension($version, $this->url_template, true);
+                    if(empty($urls)) {
+                        return;
+                }
 
                     return array(
                         'version' => $version,
@@ -84,7 +85,7 @@ class phpext_phalcon extends VersionCrawler
         $url = str_replace("%version%", $version, $url);
 
         $bitsizes    = array('x86', 'x64');
-        $phpversions = array('5.4.0', '5.5.0', '5.6.0', '7.0.0', '7.1.0');
+        $phpversions = array('5.5', '5.6', '7.0', '7.1');
         $urls        = array();
 
         foreach ($bitsizes as $bitsize) {

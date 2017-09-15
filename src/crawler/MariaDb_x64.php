@@ -30,7 +30,7 @@ class MariaDb_x64 extends VersionCrawler
                     $version = $matches[1];
 
                     // skip all versions below v5.1.49, because this is the first one with a windows release folder
-                    if (version_compare($version, '5.1.48') <= 0) {
+                    if (version_compare($version, '5.5.28') <= 0) {
                         $version = '0.0.0';
                     };
 

@@ -19,6 +19,8 @@ use WPNXM\Updater\VersionCrawler;
 class MariaDb extends VersionCrawler
 {
     public $name = 'mariadb';
+
+    // http://ftp.hosteurope.de/mirror/archive.mariadb.org/
     public $url = 'http://archive.mariadb.org/';
 
     public function crawlVersion()
@@ -72,18 +74,14 @@ class MariaDb extends VersionCrawler
                      * Mirror Origin:
                      * http://ftp.osuosl.org/pub/mariadb/*
                      *
-                     * Mirrors:
-                     * http://mirrors.n-ix.net/mariadb/mariadb-5.5.32/win32-packages/mariadb-5.5.32-win32.zip
+                     * Mirror:
                      * http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-5.5.38/win32-packages/mariadb-5.5.38-win32.zip
-                     * http://mirror3.layerjet.com/mariadb/mariadb-10.0.17/win32-packages/mariadb-10.0.17-win32.zip
-                     * http://ams2.mirrors.digitalocean.com/mariadb/mariadb-10.1.5/win32-packages/mariadb-10.1.5-win32.zip
-                     * SF: http://mirror.jmu.edu/pub/mariadb/*
-                     */
+                      */
 
                     if (version_compare($version, $this->latestVersion, '>=') === true) {
                         return array(
                             'version' => $version,
-                            'url'     => 'http://mirror.jmu.edu/pub/mariadb/mariadb-' . $version . '/' . $folder . '/' . $filename,
+                            'url'     => 'http://ftp.hosteurope.de/mirror/archive.mariadb.org/mariadb-' . $version . '/' . $folder . '/' . $filename,
                         );
                     }
                 }

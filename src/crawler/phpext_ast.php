@@ -17,7 +17,7 @@ use WPNXM\Updater\VersionCrawler;
 /**
  * ast (PHP Extension) - Version Crawler
  */
-class phpext_apcu extends VersionCrawler
+class phpext_ast extends VersionCrawler
 {
 	public $name = 'phpext_ast';
 	

@@ -34,7 +34,12 @@ class FileCache
                 'method' => 'GET',
                 'header' => "Accept-language: en\r\n".
                 "User-Agent: Mozilla/5.0 (Windows; U; MSIE 7.0; Windows NT 6.0; en-US)\r\n",
-        ], ];
+            ], 
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+            ]
+        ];
 
         $context  = stream_context_create($options);
         $content  = file_get_contents($url, false, $context);

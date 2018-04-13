@@ -42,13 +42,13 @@ class PHPExtensionScraperPECL
         };
 
         $releases = FileCache::get(
-            'http://windows.php.net/downloads/pecl/releases/',
+            'https://windows.php.net/downloads/pecl/releases/',
             DATA_DIR.'pecl-releases.cache.html',
             $modificationCallback
         );
 
         $snaps = FileCache::get(
-            'http://windows.php.net/downloads/pecl/snaps/',
+            'https://windows.php.net/downloads/pecl/snaps/',
             DATA_DIR.'pecl-snaps.cache.html',
             $modificationCallback
         );

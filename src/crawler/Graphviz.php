@@ -19,25 +19,26 @@ use WPNXM\Updater\VersionCrawler;
  * GraphViz - Graph Visualization Software.
  *
  * Website:       http://www.graphviz.org/
- * Downloads: http://www.graphviz.org/Download_windows.php
+ * Downloads:     https://graphviz.gitlab.io/_pages/Download/Download_windows.html
  */
 class GraphViz extends VersionCrawler
 {
     public $name = 'graphviz';
 
-    public $url = 'http://www.graphviz.org/pub/graphviz/stable/windows/';
+    public $url = 'https://graphviz.gitlab.io/_pages/Download/Download_windows.html';
 
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
             $url = $node->text();
-            if (preg_match("#(\d+\.\d+(.\d+)?)#i", $url, $matches)) {
-                $version = $matches[0];
+            if (preg_match("#(\d+\.\d+(.\d+)?).zip#i", $url, $matches)) {
+                $version = $matches[1];
                 if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
-                        // http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.38.zip
-                        'url'     => 'http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-' . $version . '.zip'
+                        // formerly:  http://www.graphviz.org/pub/graphviz/stable/windows/graphviz-2.38.zip
+                        //            https://graphviz.gitlab.io/_pages/Download/windows/graphviz-2.38.zip
+                        'url'     => 'https://graphviz.gitlab.io/_pages/Download/windows/graphviz-' . $version . '.zip'
                     );
                 }
             }

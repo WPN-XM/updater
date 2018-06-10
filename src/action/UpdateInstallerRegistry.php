@@ -43,7 +43,7 @@ class UpdateInstallerRegistry extends ActionBase
                 // get only major.minor, e.g. "5.4", not "5.4.2"
                 $php_version = substr($installerRegistry[$component], 0, 3);
 
-                // empty bitsize defaults to x86, see website "get.php"
+                // an empty bitsize equals "x86" (default value in "get.php")
                 $bitsize = (false !== strpos($component, 'x64')) ? 'x64' : '';
             }
 

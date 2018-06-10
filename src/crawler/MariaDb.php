@@ -34,8 +34,6 @@ class MariaDb extends VersionCrawler
                         $version = '0.0.0';
                     };
 
-                    $filename = 'mariadb-' . $version . '-win32.zip';
-
                     /*
                      * Download Mirrors
                      *

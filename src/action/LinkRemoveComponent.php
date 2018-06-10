@@ -33,24 +33,22 @@ class LinkRemoveComponent extends ActionBase
     {
         // handle incoming values
         $software = filter_var($_POST['software'], FILTER_SANITIZE_STRING);
-        $url  = filter_var($_POST['url'], FILTER_SANITIZE_STRING);
-
-        if(!$software == '')
+        $url      = filter_var($_POST['url'], FILTER_SANITIZE_STRING);
 
         // get registry subset
-        $array = $this->registry[$software];
-        $url   = urldecode($url);
-
+        $subset = $this->registry[$software];
+        $url    = urldecode($url);
+        
         // delete url from array
         // iterate array and delete array key by value
-        foreach ($array as $key => $value){
+        foreach ($subset as $key => $value){
             if ($value == $url) {
-                unset($array[$key]);
+                unset($subset[$key]);
             }
         }
 
         // replace registry subset
-        $this->registry[$software] = $array;
+        $this->registry[$software] = $subset;
 
         Registry::writeRegistry($this->registry);
 

@@ -5,8 +5,8 @@
  * Copyright (c) Jens A. Koch <jakoch@web.de>
  * https://wpn-xm.org/
  *
- * This source file is subject to the terms of the MIT license.
- * For full copyright and license information, view the bundled LICENSE file.
+ * Licensed under the MIT License.
+ * See the bundled LICENSE file for copyright and license information.
  */
 
 namespace WPNXM\Updater;
@@ -29,8 +29,8 @@ class Registry
         $content .= "    * Copyright © 2010 - " . date("Y") . " Jens-André Koch <jakoch@web.de>\n";
         $content .= "    * https://wpn-xm.org/\n";
         $content .= "    *\n";
-        $content .= "    * This source file is subject to the terms of the MIT license.\n";
-        $content .= "    * For full copyright and license information, view the bundled LICENSE file.\n";
+        $content .= "    * Licensed under the MIT License.\n";
+        $content .= "    * See the bundled LICENSE file for copyright and license information.\n";
         $content .= "    */\n";
         $content .= "\n";
         $content .= "   /**\n";

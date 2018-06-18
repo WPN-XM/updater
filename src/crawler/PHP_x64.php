@@ -51,9 +51,9 @@ class PHP_x64 extends VersionCrawler
     }
 
     /**
-     * PHP release files are moved from "/releases" to "/releases/archives", with every new version.
-     * That means, latest version must point to "/releases".
-     * Every other version points to "/releases/archives".
+     * PHP release files are moved from "/releases" to "/releases/archives" with every new version.
+     * The latest version must point to "/releases".
+     * Every other version must point to "/releases/archives".
      */
     public function onAfterVersionInsert($registry)
     {

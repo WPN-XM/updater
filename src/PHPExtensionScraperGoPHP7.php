@@ -16,7 +16,7 @@ use WPNXM\Updater\FileCache;
 /**
  * The purpose of this class is to scrape all available PHP extensions
  * from the manually maintained PHP extensions list at 
- * http://github.com/gophp7/gophp7-ext/extensions-catalog.md
+ * https://github.com/gophp7/gophp7-ext/wiki/extensions-catalog
  *
  * This is done by fetching the markdown document from the wiki
  * and scraping the table data into a JSON list of all available PHP extensions.

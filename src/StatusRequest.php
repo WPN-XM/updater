@@ -154,7 +154,8 @@ class StatusRequest
 
         // create multiple cURL handles, set options and add them to curl_multi handler
         for ($i = 0; $i < $count; $i++) {
-            $ch[$i] = curl_init($targetUrls[$i]);
+            $url = $targetUrls[$i];
+            $ch[$i] = curl_init($url);
             curl_setopt_array($ch[$i], $options);
             curl_multi_add_handle($mh, $ch[$i]);
         }

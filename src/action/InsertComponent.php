@@ -24,36 +24,43 @@ class InsertComponent extends ActionBase
 
     public function __invoke()
     {
-        $component  = filter_input(INPUT_POST, 'software', FILTER_SANITIZE_STRING);
+        var_dump($_POST);
+
         $shorthand  = filter_input(INPUT_POST, 'shorthand', FILTER_SANITIZE_STRING);
+        $software   = filter_input(INPUT_POST, 'software', FILTER_SANITIZE_STRING);       
         $url        = filter_input(INPUT_POST, 'url', FILTER_SANITIZE_STRING);
         $version    = filter_input(INPUT_POST, 'version', FILTER_SANITIZE_STRING);
         $website    = filter_input(INPUT_POST, 'website', FILTER_SANITIZE_STRING);
         $phpversion = ($phpversion = filter_input(INPUT_POST, 'phpversion', FILTER_SANITIZE_STRING)) ? $phpversion : '5.5';
 
-        // create a registry entry for the component (array)
-        $array = Registry::getArrayForNewComponent($component, $shorthand, $url, $version, $website, $phpversion);
+        /**
+         * Registry Entry
+         */ 
 
-        // write array as new "registry scan"
-        Registry::writeRegistrySubset($shorthand, $array);
+        // create a registry entry for the component (array)
+        $array = Registry::getArrayForNewComponent($software, $shorthand, $url, $version, $website, $phpversion);
+
+        var_dump($shorthand, $array);
 
         $registry = Registry::load();
 
-        // insert into registry
-        $newRegistry = Registry::addLatestVersionScansIntoRegistry($registry, $component);
+        $registry[$shorthand] = $array;
 
-        // write registry
-        if ($newRegistry !== false) {
-            Registry::writeRegistry($newRegistry);
-        }
-
+        Registry::writeRegistry($registry);
+        
         // check result and send response
 
         $response_ok   = '<div class="alert alert-success">Successfully added to registry.</div>';
         $response_fail = '<div class="alert alert-danger">Component was not added to registry.</div>';
-        $response = (isset($newRegistry[$component]) === true) ? $response_ok : $response_fail;
+        $response = (isset($registry[$shorthand]) === true) ? $response_ok : $response_fail;
 
         echo $response;
+
+        /**
+         * Download File Entry
+         */ 
+
+        //$downloadfilename = filter_input(INPUT_POST, 'downloadfilename', FILTER_SANITIZE_STRING);
     }
 
 }

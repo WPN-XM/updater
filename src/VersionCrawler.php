@@ -159,6 +159,11 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
         $this->addHtmlContent($content);
     }
 
+    public function getJsonAsArray($url)
+    {
+        return json_decode(file_get_contents($url), true);
+    }
+
     /**
      * Each Version Crawler has to implement this "scraping" method.
      *

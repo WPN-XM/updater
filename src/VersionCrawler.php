@@ -130,6 +130,36 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
     }
 
     /**
+     * Returns content of URL (using cURL request).
+     *
+     * @param  string $url
+     * @return bool   Returns content, otherwise false.
+     */
+    public function fetchUrlContent($url)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+        $data = curl_exec($ch);
+        curl_close($ch);
+
+        return $data;
+    }
+
+    /**
+     * addUrlContentToCrawler()
+     * Request HTML content and set it to the crawler.
+     *
+     * @param  string $url
+     */
+    public function newHtmlScrapeRequest($url)
+    {
+        $content = $this->fetchUrlContent($url);
+        $this->addHtmlContent($content);
+    }
+
+    /**
      * Each Version Crawler has to implement this "scraping" method.
      *
      * The "how to scrape" one liner :)

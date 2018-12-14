@@ -50,7 +50,7 @@ class ViewHelper
 
         $html = '<span class="badge alert-success">' . $new_version . '</span>';
         $html .= '<span style="color:green; font-size: 16px">&nbsp;&#x25B2;&nbsp;</span>';
-        $html .= self::renderAnchorButton($link, 'Commit & Push');
+        $html .= self::renderAnchorButton($link, 'Git Commit & Push');
 
         return $html;
     }
@@ -63,6 +63,6 @@ class ViewHelper
      */
     public static function renderAnchorButton($link, $text)
     {
-        return '<a class="btn btn-secondary-outline btn-sm" href="' . $link . '">' . $text . '</a>';
+        return '<a class="btn btn-outline-success btn-sm" href="' . $link . '">' . $text . '</a>';
     }
 }

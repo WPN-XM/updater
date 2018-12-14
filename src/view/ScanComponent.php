@@ -1,7 +1,11 @@
+<h3>Scan Component(s)</h3>
 <table class="table table-sm table-hover table-striped table-bordered">
-<thead>
+<thead class="thead-light">
     <tr>
-        <th>Software Components (<?=$numberOfComponents?>)</th><th>(Old) Latest Version</th><th>(New) Latest Version</th><th>Action</th>
+        <th scope="col">Software Components (<?=$numberOfComponents?>)</th>
+        <th scope="col">(Old) Latest Version</th>
+        <th scope="col">(New) Latest Version</th>
+        <th scope="col">Action</th>
     </tr>
 </thead>
 <?php echo $tableHtml; ?>

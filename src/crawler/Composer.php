@@ -26,8 +26,7 @@ class Composer extends VersionCrawler
 
 	public function crawlVersion()
     {
-    	$protocol = extension_loaded('openssl') ? 'https' : 'http';
-    	$content  = file_get_contents($protocol.'://getcomposer.org/versions');
+    	$content  = file_get_contents($this->url);
     	$versions = json_decode($content, true);
 
     	// The following channels are available: 

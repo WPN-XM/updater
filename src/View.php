@@ -20,7 +20,7 @@ class View
      */
     public $data = [];
 
-    public function render($template = '')
+    public function renderTemplate($template = '')
     {
         // fetch template by name
         if (empty($template)) {
@@ -48,10 +48,17 @@ class View
         echo $result($template, $this->data);
     }
 
+    public function render()
+    {
+        $this->renderTemplate(TPL_DIR . 'header.html');       
+        $this->renderTemplate(); // -> renders main action
+        $this->renderTemplate(TPL_DIR . 'footer.html');
+    }
+
     protected static function getInstantiatingClass()
     {
         // find out where $view->render() was called
-        $class = debug_backtrace(2, 3)[2]['class'];
+        $class = debug_backtrace(2, 4)[3]['class'];
 
         // remove the namespace
         return (substr($class, strrpos($class, '\\') + 1));

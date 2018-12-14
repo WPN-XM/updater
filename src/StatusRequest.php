@@ -145,7 +145,7 @@ class StatusRequest
             CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_SSLVERSION     => 4,
             CURLOPT_TIMEOUT        => $timeout,
-            CURLOPT_USERAGENT      => 'WPN-XM Server Stack - Registry Status Tool - http://wpn-xm.org/',
+            CURLOPT_USERAGENT      => 'WPN-XM Server Stack - Registry Status Tool - https://wpn-xm.org/',
         ];
 
         $mh = curl_multi_init();

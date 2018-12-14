@@ -19,8 +19,6 @@ class ListActions extends ActionBase
 
     public function __invoke()
     {
-        echo __CLASS__ . ' invoked';
-
         echo '<pre>';
         foreach (glob(__DIR__ . '\*.php') as $filename) {
             $this->addHtmlPreTag($filename . "\n");

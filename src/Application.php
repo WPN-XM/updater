@@ -18,24 +18,16 @@ class Application
         // determine action to call
         $actionName = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
         if ($actionName === null) {
-            throw new \Exception('No action given.');
+            $actionName = 'Index';
         }
 
         // action to classname
         $className = implode('', array_map('ucfirst', explode('-', $actionName)));
         $class = 'WPNXM\Updater\Action\\' . $className;
 
-        // load and instantiate action class
-        $actionFile = __DIR__ . '/action/' . $className . '.php';
-        if (!is_file($actionFile)) {
-            throw new \Exception('Action not found: '. $className);
-        }
-        require __DIR__ . '/ActionBase.php';
-        require $actionFile;
-        $action = new $class;
-
+        // instantiate action class via composer autoloader
         // then call class as function. you need __invoke() in your actions.
-        $action();
+        (new $class)();
     }
 
 }

@@ -37,8 +37,10 @@ ini_set('display_errors', '1');
 // Constants
 define('DS', DIRECTORY_SEPARATOR);
 define('NL', "\n");
-define('DATA_DIR', dirname(__DIR__) . '\data' . DS);
-define('VENDOR_DIR', dirname(__DIR__) . '\vendor' . DS);
+define('APP_DIR', dirname(__DIR__) . DS);
+define('DATA_DIR', APP_DIR . 'data' . DS);
+define('VENDOR_DIR', APP_DIR . 'vendor' . DS);
+define('TPL_DIR', APP_DIR . 'templates' . DS);
 define('REGISTRY_DIR', DATA_DIR . 'registry' . DS);
 
 // Register Composer Autoloader

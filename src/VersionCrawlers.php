@@ -26,7 +26,12 @@ class VersionCrawlers
             $components = (array) $components;
             $crawlers = [];
             foreach($components as $component) {
-                $crawlers[] = self::getCrawlerFile($component)[0];
+                $files = self::getCrawlerFile($component);
+                if($files != false) {
+                    $crawlers[] = $files[0];
+                } else {
+                    echo 'Crawler not found for Component: ' .  $component;         
+                }
             }
             return $crawlers;
         }       

@@ -24,10 +24,15 @@
                                        
                     foreach ($registry as $item => $component) {
                       echo '<tr>';
-                      echo '<td>' . $component['name'] . '</td>';   
-                      echo '<td>' . $component['latest']['version'] . '</td>';
-                      echo '<td><a class="btn btn-info btn-xs" href="index.php?action=scan-component&amp;component=' . $item . '">Scan</a></td>';
-                      echo '<td><a class="btn btn-info btn-xs" href="index.php?action=link-status-component&amp;software=' . $item . '">Check Link Health</a></td>';
+                      echo '<td>' . $component['name'] . '</td>';
+                      if(array_key_exists('alias', $component)) {
+                        echo '<td><span class="badge badge-danger">Alias </span> ' . $component['alias'] . '</td>'; 
+                      } else {
+
+                        echo '<td>' . $component['latest']['version'] . '</td>';
+                        echo '<td><a class="btn btn-info btn-xs" href="index.php?action=scan-component&amp;component=' . $item . '">Scan</a></td>';
+                        echo '<td><a class="btn btn-info btn-xs" href="index.php?action=link-status-component&amp;software=' . $item . '">Check Link Health</a></td>';
+                      }
                       echo '</tr>';
                     }                
                 ?>

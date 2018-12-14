@@ -2,9 +2,7 @@
 <div class="row justify-content-md-center">
     <div class="col-md-8 col-md-offset-2">
         <div class="card">
-            <div class="card-header">
-              <span class="glyphicon glyphicon-list"></span><h3>Version Crawlers</h3>
-            </div>
+            <h5 class="card-header">Version Crawlers</h5>
             <div class="card-body">
               <table class="table table-sm table-hover table-striped table-bordered">
               <thead><tr><th>Software Component</th><th>Version</th><th>Action</th></tr></thead>

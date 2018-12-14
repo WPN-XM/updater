@@ -204,8 +204,7 @@ class ShowVersionMatrix extends ActionBase
         // 2nd header row - "use installer name buttons"
         $header .= '<tr><th>Use installer name</th>';
         for ($j = 1; $j <= $i; $j++) {
-            $header .= '<th><button type="button" id="syncInstallerNameButton' . $j . '" class="btn btn-default btn-block" title="Use name of this installer.">';
-            $header .= '<span class="glyphicon glyphicon-share-alt"></span>';
+            $header .= '<th><button type="button" id="syncInstallerNameButton' . $j . '" class="btn btn-default btn-block" title="Use name of this installer.">';            
             $header .= '</button></th>';
         }
         $header .= '</tr>';
@@ -214,7 +213,6 @@ class ShowVersionMatrix extends ActionBase
         $header .= '<tr><th>Derive versions from this installer</th>';
         for ($j = 1; $j <= $i; $j++) {
             $header .= '<th><button type="button" id="syncDropDownsButton' . $j . '" class="btn btn-default btn-block" title="Derive versions from this installer.">';
-            $header .= '<span class="glyphicon glyphicon-share-alt"></span>';
             $header .= '</button></th>';
         }
         $header .= '<th>&nbsp;</th>';

@@ -16,6 +16,8 @@ use WPNXM\Updater\VersionCrawler;
 /**
  * Microsoft Visual Studio Code - Version Crawler
  *
+ * Returns Microsoft Visual Studio Code version and download URL.
+ *
  * Download URLs:
  * - https://aka.ms/win32-x64-user-stable
  * - https://update.code.visualstudio.com/latest/win32-x64-user/stable

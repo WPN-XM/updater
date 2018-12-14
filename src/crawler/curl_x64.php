@@ -30,8 +30,7 @@ class curl_x64 extends VersionCrawler
     {
         return $this->filter('a')->each(function ($node)
         {
-            if (preg_match("#curl-((\d+\.\d+.\d+)(_\d+))-win64-mingw.zip#", 
-                $node->attr('href'), $matches)) 
+            if (preg_match("#curl-((\d+\.\d+.\d+)(_\d+))-win64-mingw.zip#", $node->attr('href'), $matches)) 
             {
                 $vb = $matches[1]; // version_plus_buildVersion
                 $version = $matches[2];

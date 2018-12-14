@@ -27,5 +27,8 @@ class UpdatePhpExtensionList extends ActionBase
        
         $scraper2 = new PHPExtensionScraperGoPHP7;
         $scraper2->updateExtensionList();
+
+        $view = new View();
+        $view->render();
     }
 }

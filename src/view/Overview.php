@@ -1,23 +1,23 @@
 <!-- Table -->
-<div class="row">
+<div class="row justify-content-md-center">
     <div class="col-md-8 col-md-offset-2">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-              <span class="glyphicon glyphicon-list"></span>&nbsp; Version Crawlers          
+        <div class="card">
+            <div class="card-header">
+              <span class="glyphicon glyphicon-list"></span><h3>Version Crawlers</h3>
             </div>
-            <div class="panel-body">
-              <table class="table table-sm table-hover table-striped table-bordered" style="font-size: 12px;">
-              <thead><tr><th style="width: 220px">Software Component</th><th>Version</th><th>Action</th></tr></thead>
+            <div class="card-body">
+              <table class="table table-sm table-hover table-striped table-bordered">
+              <thead><tr><th>Software Component</th><th>Version</th><th>Action</th></tr></thead>
               <tbody>
                 <?php 
                     // show the new crawlers, which do not have a registry entry, yet.
                     if($crawlers) {
                       foreach ($crawlers as $name) {
-                        echo '<tr>';
-                        echo '<td><span class="badge badge-danger">New Crawler</span> ' . $name . '</td>';   
-                        echo '<td>Not in registry, yet.</td>';
-                        echo '<td><a class="badge badge-danger" href="index.php?action=scan-component&amp;component=' . $name . '">Scan</a></td>';
-                        echo '<td><a class="badge badge-danger" href="index.php?action=add-component&amp;shorthand=' . $name . '">Add Registry Entry</a></td>';
+                        echo '<tr class="table-danger">';
+                        echo '<td><span class="badge badge-success">New Crawler</span> ' . $name . '</td>';   
+                        echo '<td><span class="badge badge-warning">Not in registry, yet.</span></td>';
+                        echo '<td><a class="badge badge-secondary" href="index.php?action=scan-component&amp;component=' . $name . '">Scan</a></td>';
+                        echo '<td><a class="badge badge-secondary" href="index.php?action=add-component&amp;shorthand=' . $name . '">Add Registry Entry</a></td>';
                         echo '</tr>';                          
                       }
                     }

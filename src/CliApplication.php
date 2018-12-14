@@ -43,12 +43,18 @@ class CliApplication
     		}
 
 			// "--crawl-versions"
-			// "--crawl-version a,b"
-			// "-c"
-			// "-c a,b"
-    		if($arg == 'crawl-versions' && is_bool($value) || is_array($value))  {
-				return $this->crawlVersions($value);
-    		}
+            // "--crawl-version a,b"
+            // "-c"
+            // "-c a,b"
+            if($arg == 'crawl-versions' && is_bool($value) || is_array($value))  {
+                return $this->crawlVersions($value);
+            }
+
+            // "--scan"
+            // "-s"
+            if($arg == 'scan' || $arg == 's')  {
+                return $this->crawlVersions();
+            }
 
     		// "--version"
     		if($arg == 'version') {
@@ -69,25 +75,35 @@ class CliApplication
     	echo $this->printVersion();
         echo 'Help'. PHP_EOL;
         echo '----'. PHP_EOL;
-        echo '--version              Show Version'. PHP_EOL;
-        echo '--help                 Show this Help'. PHP_EOL;
-        echo '--crawl-version, -c    Crawl single version'. PHP_EOL;
-        echo '--crawl-versions, -c   Crawl multiple versions'. PHP_EOL;
+        echo '--version                   Show Version'. PHP_EOL;
+        echo '--help                      Show this Help'. PHP_EOL;
+        echo '--crawl-version, -c         Crawl single version'. PHP_EOL;
+        echo '--crawl-versions, -c        Crawl multiple versions'. PHP_EOL;
+        echo '--crawl-all-versions, -ca   Crawl all versions'. PHP_EOL;
         echo PHP_EOL;
     }
 
-    public function crawlVersions($arg)
+    public function crawlVersions($arg = '')
     {
     	echo $this->printVersion();
 
-    	echo '[Started] Version Crawling for: ' . $arg . PHP_EOL;
-        echo PHP_EOL;
+        if(empty($arg)) {
+            echo '[Started] Version Crawling:' . PHP_EOL;
+            echo PHP_EOL;
 
-        $components = explode(',', $arg);
+            $crawl = new ScanComponent();
+            $crawl->crawl();
+            $crawl->getResults();
+        } else {
+        	echo '[Started] Version Crawling for: ' . $arg . PHP_EOL;
+            echo PHP_EOL;
 
-		$crawl = new ScanComponent();
-        $crawl->crawl($components);
-    	$crawl->getResults();
+            $components = explode(',', $arg);
+
+    		$crawl = new ScanComponent();
+            $crawl->crawl($components);
+        	$crawl->getResults();
+        }
     }
 }
 

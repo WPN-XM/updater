@@ -52,9 +52,9 @@ class ScanComponent extends ActionBase
         $view->render();
     }
 
-    public function crawl($component)
+    public function crawl($component = '')
     {       
-        if(isset($component)) {
+        if(!empty($component)) {
             if(is_array($component)) {
                 $this->prepareCrawlingMultipleComponents($component);
             } else {

@@ -12,6 +12,7 @@
 namespace WPNXM\Updater\Action;
 
 use WPNXM\Updater\ActionBase;
+use WPNXM\Updater\View;
 use WPNXM\Updater\PHPExtensionScraperPECL;
 use WPNXM\Updater\PHPExtensionScraperGoPHP7;
 

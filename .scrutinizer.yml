@@ -11,7 +11,7 @@ build:
       analysis:
         tests:
           override:
-            - php-scrutinizer-run
+            - php-scrutinizer-run --enable-security-analysis
 filter:
     dependency_paths:
         - vendor/*

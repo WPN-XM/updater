@@ -27,7 +27,19 @@ class RegistryHealth
         foreach ($this->registry as $software => $component) 
         {
             // Check for Keys
-            // the following array keys are required on each component
+
+            // 1. the following array keys are required on each aliased component
+
+            if(array_key_exists('alias', $component)) {
+                foreach (array('name', 'website', 'info') as $key) {
+                    if (!isset($component[$key])) {
+                        $this->errors[] = sprintf('The registry is missing the key "%s" for Component "%s".', $key, $software);
+                    }
+                }
+                continue; // exit loop
+            }
+
+            // 2. the following array keys are required on each (non-aliased) component
 
             foreach (array('name', 'website', 'latest') as $key) {
                 if (!isset($component[$key])) {

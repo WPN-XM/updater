@@ -13,6 +13,7 @@ namespace WPNXM\Updater\Action;
 
 use WPNXM\Updater\ActionBase;
 use WPNXM\Updater\View;
+use WPNXM\Updater\Registry;
 
 /**
  * insert version scans into main software registry
@@ -20,9 +21,7 @@ use WPNXM\Updater\View;
 class Update extends ActionBase
 {
     public function __invoke()
-    {
-        require dirname(__DIR__) . '\Registry.php';
-        
+    {       
         $registry = Registry::load();
 
         $registry = Registry::addLatestVersionScansIntoRegistry($registry);

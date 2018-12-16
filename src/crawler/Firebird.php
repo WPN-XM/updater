@@ -26,22 +26,21 @@ class Firebird extends VersionCrawler
 {
     public $name = 'firebird';
 
-    /**
-     * Download:    http://www.firebirdsql.org/en/firebird-2-5/
-     * SourceForge: http://sourceforge.net/projects/firebird/files/firebird-win32/
-     * RSS:         http://sourceforge.net/projects/firebird/rss?path=/firebird-win32
-     */
-    public $url = 'http://sourceforge.net/projects/firebird/rss?path=/firebird-win32';
+    public $url = 'https://github.com/FirebirdSQL/firebird/releases/latest';
+
+    public $dl_template = 'https://github.com/FirebirdSQL/firebird/releases/download/%release_version%/Firebird-%version%_0_x64.exe';
 
     public function crawlVersion()
     {
-        return $this->filterXPath('//channel//item//link')->each(function ($node) {
-            $url = $node->text();
-            if (preg_match("#firebird-win32/(\d+\.\d+(.\d|-RC1)+)/Firebird-#i", $url, $matches)) {
-                $version = $matches[1];
+        return $this->filter('a')->each(function ($node) {
+            if (preg_match("#download/(\w+)/firebird-(\d+.\d+.\d+.\d+)-0_x64.zip#i", $node->attr('href'), $matches)) {
+                $release_version = $matches[1];
+                $version = $matches[2];
+                $url = str_replace(['%release_version%','%version%'], [$release_version, $version], $this->dl_template);
                 if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
+                        // https://github.com/FirebirdSQL/firebird/releases/download/R3_0_4/Firebird-3.0.4.33054_0_x64.exe
                         'url'     => $url,
                     );
                 }

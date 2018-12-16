@@ -41,7 +41,7 @@ class aria2_x86 extends VersionCrawler
                  *
                  * Releases are tagged as "release-1.19.3", instead of "v1.19.3". Nevermind..
                  */
-                if (preg_match("#/tatsuhiro-t/aria2/releases/download/release-(\d+\.\d+.\d+)/aria2-#", $node->attr('href'), $matches)) {
+                if (preg_match("#/download/release-(\d+\.\d+.\d+)/aria2-#", $node->attr('href'), $matches)) {
                     $version = $matches[1];
 
                     $download_file = 'https://github.com/tatsuhiro-t/aria2/releases/download/release-' . $version . '/aria2-' . $version . '-win-32bit-build1.zip';

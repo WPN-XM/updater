@@ -22,9 +22,9 @@ use WPNXM\Updater\VersionCrawler;
  * The windows port is maintained by MSOpenTech over at
  * Github:  https://github.com/MSOpenTech/redis
  */
-class Redis extends VersionCrawler
+class Redis_x64 extends VersionCrawler
 {
-    public $name = 'redis';
+    public $name = 'redis-x64';
 
     // https://github.com/MSOpenTech/redis/releases/latest
     public $url = 'https://github.com/tporadowski/redis/releases/latest';

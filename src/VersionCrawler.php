@@ -235,7 +235,10 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
     /**
      * get PHP Extension URL from placeholder string
      *
-     * @param  $url A string with placeholders for the PHP extension.
+     * @param  string $url A string with placeholders for the PHP extension.
+     * @param string $version
+     * @param string $phpversion
+     * @param string $bitsize
      * @return string URL of PHP extension.
      */
     public static function getPHPExtensionURL($url, $version, $phpversion, $bitsize)
@@ -285,6 +288,8 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
      * @param array Only the versions array for this component from the registry.
      * @param string A version number, setting the minimum (>=).
      * @param string A version number, setting the maximum (<).
+     * @param string $minConstraint
+     * @param string $maxConstraint
      *
      * @return string Returns the latest version of a component given a min max version constraint.
      */

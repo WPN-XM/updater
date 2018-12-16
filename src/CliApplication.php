@@ -11,9 +11,9 @@
 
 namespace WPNXM\Updater;
 
+use WPNXM\Updater\Action\ScanComponent;
 use WPNXM\Updater\ApplicationVersion;
 use WPNXM\Updater\CliArguments;
-use WPNXM\Updater\Action\ScanComponent;
 
 class CliApplication
 {

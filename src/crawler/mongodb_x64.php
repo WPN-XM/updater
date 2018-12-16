@@ -21,8 +21,8 @@ class mongodb_x64 extends VersionCrawler
     public $name = 'mongodb-x64';
 
     // formerly http://www.mongodb.org/downloads
-    // warning: do not use http://dl.mongodb.org/dl/win32/ - use instead: https://www.mongodb.org/dl/win32/
-    public $url = 'https://www.mongodb.org/dl/win32/';
+    // warning: do not use https://www.mongodb.org/dl/win32/x86_64 - use instead: https://www.mongodb.org/dl/win32/x86_64
+    public $url = 'https://www.mongodb.org/dl/win32/x86_64';
 
     public function crawlVersion()
     {
@@ -35,13 +35,13 @@ class mongodb_x64 extends VersionCrawler
              *    Use legacy build on Windows Server 2003, 2008, or Windows Vista.
              *    Legacy RegExp: "mongodb-win32-x86_64-"
              */
-            if (preg_match("#mongodb-win32-x86_64-2008plus-(\d+\.\d+(\.\d+)*).zip$#", $node->attr('href'), $matches)) {
+            if (preg_match("#mongodb-win32-x86_64-2008plus-ssl-(\d+\.\d+(\.\d+)*).zip$#", $node->attr('href'), $matches)) {
                 $version = $matches[1];
                 if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
-                        # http://downloads.mongodb.org/win32/mongodb-win32-x86_64-2008plus-2.2.0.zip
-                        'url' => 'http://downloads.mongodb.org/win32/mongodb-win32-x86_64-2008plus-' . $version . '.zip',
+                        # http://downloads.mongodb.org/win32/mongodb-win32-x86_64-2008plus-ssl-3.6.9.zip
+                        'url' => 'http://downloads.mongodb.org/win32/mongodb-win32-x86_64-2008plus-ssl-' . $version . '.zip',
                     );
                 }
             }

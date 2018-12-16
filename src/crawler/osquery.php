@@ -41,7 +41,7 @@ class Osquery extends VersionCrawler
         if (version_compare($version, $this->latestVersion, '>=') === true) {
             return array(
                 'version' => $version,
-                'url'     => 'https://osquery-packages.s3.amazonaws.com/choco/osquery-'.$version.'.zip',
+                'url'     => 'https://pkg.osquery.io/windows/osquery-'.$version.'.zip',
             );
         }
     }

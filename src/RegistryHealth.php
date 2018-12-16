@@ -28,52 +28,55 @@ class RegistryHealth
         {
             // Check for Keys
 
-            // 1. the following array keys are required on each aliased component
-
-            if(array_key_exists('alias', $component)) {
-                foreach (array('name', 'website', 'info') as $key) {
-                    if (!isset($component[$key])) {
-                        $this->errors[] = sprintf('The registry is missing the key "%s" for Component "%s".', $key, $software);
-                    }
-                }
-                continue; // exit loop
+             if (!isset($component['name'])) {
+                $this->errors[] = sprintf('The registry is missing the key "name" for Component "%s".', $software);
             }
 
+            if (!isset($component['website'])) {
+                $this->errors[] = sprintf('The registry is missing the key "website" for Component "%s".', $software);
+            }
+
+            // 1. the following array keys are required on each aliased component
+
+            if (isset($component['alias'])) {
+                if (!isset($component['info'])) {
+                    $this->errors[] = sprintf('The registry is missing the key "info" for the aliased Component "%s".', $software);
+                }
+            }
+            
             // 2. the following array keys are required on each (non-aliased) component
 
-            foreach (array('name', 'website', 'latest') as $key) {
-                if (!isset($component[$key])) {
-                    $this->errors[] = sprintf('The registry is missing the key "%s" for Component "%s".', $key, $software);
-                }
+            if (!isset($component['latest'])) {
+                $this->errors[] = sprintf('The registry is missing the key "latest" for Component "%s".', $software);
             }
 
             if (!isset($component['latest']['url'])) {
-                $this->errors[] = 'The registry is missing the key "url" of the "latest" array for Component "' . $software . '".';
+                $this->errors[] = sprintf('The registry is missing the key "url" of the "latest" array for Component "%s".', $software);
             }
 
             if (!isset($component['latest']['version'])) {
-                $this->errors[] = 'The registry is missing the key "url" of the "latest" array for Component "' . $software . '".';
+                $this->errors[] = sprintf('The registry is missing the key "url" of the "latest" array for Component "%s".', $software);
             }
 
             // Check for Values
             // the following arrays must not be empty
 
             if (empty($component['latest']['url']) === true) {
-                $this->errors[] = 'The registry is missing the values for ["latest"]["url"] array for Component "' . $software . '".';
+                $this->errors[] = sprintf('The registry is missing the values for ["latest"]["url"] array for Component "%s".', $software);
             }
 
             if (empty($component['latest']['version']) === true) {
-                $this->errors[] = 'The registry is missing the values for ["latest"]["version"] array for Component "' . $software . '".';
+                $this->errors[] = sprintf('The registry is missing the values for ["latest"]["version"] array for Component "%s".', $software);
             }
 
             // the following version entry should not exist
             if(isset($component['0.0.0']) === true) {
-                $this->errors[] = 'The registry has an invalid version entry (0.0.0) for Component "' . $software . '".';
+                $this->errors[] = sprintf('The registry has an invalid version entry (0.0.0) for Component "%s".', $software);
             }
 
             foreach($component as $version => $urls) {
                 if(is_array($urls) && empty($urls)) {
-                    $this->errors[] = 'The registry has an invalid version entry (empty) '.$version.' for Component "' . $software . '".';
+                    $this->errors[] = sprintf('The registry has an invalid version entry (empty) '.$version.' for Component "%s".', $software);
                 }
             }
         }

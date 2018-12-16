@@ -55,7 +55,7 @@
          <nav class="nav flex-column">
             <a href="http://localhost/updater/index.php?action=add-component" class="btn btn-danger btn-sm">Add Software</a>
             <a href="http://localhost/updater/index.php?action=edit-component" class="btn btn-danger btn-sm">Edit Software</a>
-            <a href="http://localhost/updater/index.php?action=registry-health-check" class="btn btn-secondary btn-">Lint (schema)</a> 
+            <a href="http://localhost/updater/index.php?action=health-check-registry" class="btn btn-secondary btn-">Lint (schema)</a> 
           <br>
             <a href="http://localhost/updater/index.php?action=link-status" class="btn btn-secondary btn-sm">Check Links - All</a>
             <a href="http://localhost/updater/index.php?action=link-status-component" class="btn btn-danger btn-sm">Check Links - Single Component</a>  

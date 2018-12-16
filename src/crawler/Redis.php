@@ -25,7 +25,11 @@ use WPNXM\Updater\VersionCrawler;
 class Redis extends VersionCrawler
 {
     public $name = 'redis';
-    public $url = 'https://github.com/MSOpenTech/redis/releases/latest';
+
+    // https://github.com/MSOpenTech/redis/releases/latest
+    public $url = 'https://github.com/tporadowski/redis/releases/latest';
+
+    private $dl_url_template = 'https://github.com/tporadowski/redis/releases/download/%release_version%/Redis-x64-%version%.zip';
 
     public function crawlVersion()
     {
@@ -33,13 +37,19 @@ class Redis extends VersionCrawler
             /**
              * The download URL for a file looks like this:
              * https://github.com/MSOpenTech/redis/releases/download/win-2.8.21/redis-x64-2.8.21.zip
+             * New download URL is:
+             * https://github.com/tporadowski/redis/releases
+             * Full URL:
+             * https://github.com/tporadowski/redis/releases/download/v4.0.2.3-alpha/Redis-x64-4.0.2.3.zip
              */
-            if (preg_match("#download/win-(\d+\.\d+.\d+)/Redis-x64-(\d+\.\d+.\d+).zip#i", $node->attr('href'), $matches)) {
-                $version = $matches[1];
+            if (preg_match("#/download/(.*)/Redis-x64-(\d+.\d+.\d+.\d+).zip#i", $node->attr('href'), $matches)) {
+                $release_version = $matches[1];
+                $version = $matches[2];
+                $url = str_replace(['%release_version%', '%version%'], [$release_version, $version], $this->dl_url_template);
                 if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
-                        'url' => 'https://github.com/MSOpenTech/redis/releases/download/win-' . $version . '/redis-x64-' . $version . '.zip',
+                        'url' => $url,
                     );
                 }
             }

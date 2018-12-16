@@ -2,10 +2,16 @@
 # scrutinizer-ci.com Configuration File
 #
 # https://scrutinizer-ci.com/docs/
+# https://scrutinizer-ci.com/docs/build/commands
 #
 build:
     environment:
         php: 7.2.0
+    nodes:
+      analysis:
+        tests:
+          override:
+            - php-scrutinizer-run
 filter:
     dependency_paths:
         - vendor/*

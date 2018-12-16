@@ -22,9 +22,9 @@ use WPNXM\Updater\VersionCrawler;
  *
  * Website: http://www.firebirdsql.org/
  */
-class Firebird extends VersionCrawler
+class Firebird_x64 extends VersionCrawler
 {
-    public $name = 'firebird';
+    public $name = 'firebird-x64';
 
     public $url = 'https://github.com/FirebirdSQL/firebird/releases/latest';
 

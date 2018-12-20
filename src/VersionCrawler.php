@@ -212,9 +212,9 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
      */
     public function createPhpVersionsArrayForExtension($version, $url, $skipURLcheck = false)
     {
-        $bitsizes    = array('x86', 'x64');
-        $phpversions = array('5.6', '7.0', '7.1', '7.2', '7.3'); // EOL: 5.6
-        $urls        = array();
+        $bitsizes    = ['x86', 'x64'];
+        $phpversions = ['5.6', '7.0', '7.1', '7.2', '7.3']; // EOL: 5.6
+        $urls        = [];
 
         foreach ($bitsizes as $bitsize) {
             foreach ($phpversions as $phpversion) {
@@ -246,8 +246,8 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
         $compiler = self::getCompilerByPHPVersion($phpversion);
 
         return str_replace(
-            array('%version%', '%compiler%', '%phpversion%', '%bitsize%'),
-            array($version, $compiler, $phpversion, $bitsize),
+            ['%version%', '%compiler%', '%phpversion%', '%bitsize%'],
+            [$version, $compiler, $phpversion, $bitsize],
             $url
         );
     }
@@ -265,8 +265,8 @@ abstract class VersionCrawler extends \Symfony\Component\DomCrawler\Crawler
         }
 
         $map = [
-            '5.4' => 'vc9',
-            '5.5' => 'vc11',
+            #'5.4' => 'vc9',
+            #'5.5' => 'vc11',
             '5.6' => 'vc11',
             '7.0' => 'vc14',
             '7.1' => 'vc14',

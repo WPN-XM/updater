@@ -23,10 +23,10 @@ class phpext_ice extends VersionCrawler
 {
 	public $name = 'phpext_ice';
 	
-    public $url = 'http://www.iceframework.org/dll/';
+    public $url = 'https://www.iceframework.org/dll/';
 
     // https://www.iceframework.org/dll/ice-1.3.0-php-7.2-ts-vc15-x86.zip
-    private $url_template = 'http://www.iceframework.org/dll/ice-%version%-php-%phpversion%-nts-%compiler%-%bitsize%.zip';
+    private $url_template = 'https://www.iceframework.org/dll/ice-%version%-php-%phpversion%-nts-%compiler%-%bitsize%.zip';
 
     public function crawlVersion()
     {

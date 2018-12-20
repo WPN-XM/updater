@@ -5,7 +5,7 @@
             <h5 class="card-header">List of all Version Crawlers</h5>
             <div class="card-body">
               <table class="table table-sm table-light table-hover table-striped table-bordered">
-              <thead><tr><th>Software Component</th><th>Version</th><th>Action</th></tr></thead>
+              <thead><tr><th>Software Component</th><th>Version</th><th colspan="2">Action</th></tr></thead>
               <tbody>
                 <?php 
                     // show the new crawlers, which do not have a registry entry, yet.

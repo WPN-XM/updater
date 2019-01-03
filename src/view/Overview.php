@@ -22,7 +22,11 @@
                                        
                     foreach ($registry as $item => $component) {
                       echo '<tr>';
-                      echo '<td>' . $component['name'] . '</td>';
+                      if(array_key_exists('name', $component)) {
+                        echo '<td>' . $component['name'] . '</td>';
+                      } else {
+                        echo sprintf('<td><span class="badge badge-danger">Name entry missing for item (key):</span>%s</td>', $item);
+                      }
                       if(array_key_exists('alias', $component)) {
                         echo '<td><span class="badge badge-danger">Alias </span> ' . $component['alias'] . '</td>'; 
                       } else {

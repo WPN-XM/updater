@@ -10,9 +10,9 @@
       <td></td>
       <td> 
         <nav class="nav flex-column">
-           <a href="http://localhost/updater/index.php?action=overview" class="btn btn-secondary btn-sm" data-toggle="tooltip" 
+            <a href="index.php?action=overview" class="btn btn-secondary btn-sm" data-toggle="tooltip" 
                      title="The overview shows the latest versions for components and allows to scan single components.">Overview</a>
-            <a href="http://localhost/updater/index.php?action=scan-component" class="btn btn-secondary btn-sm" data-toggle="tooltip" 
+            <a href="index.php?action=scan-component" class="btn btn-secondary btn-sm" data-toggle="tooltip" 
                      title="Do a version crawl for all components.">Scan for new Versions</a>
         </nav> 
     </td>
@@ -30,16 +30,16 @@
       </td>
       <td>
         <nav class="nav flex-column">
-          <a href="http://localhost/updater/index.php?action=update-components" class="nav-link btn btn-secondary btn-sm" data-toggle="tooltip"
+          <a href="index.php?action=update-components" class="nav-link btn btn-secondary btn-sm" data-toggle="tooltip"
                    title="Automatically raise the version of each Component to its latest version in all installer registries of the next, but unreleased version.">
                    Update Versions</a>
-          <a href="http://localhost/updater/index.php?action=show-version-matrix" class="nav-link btn btn-secondary btn-sm" data-toggle="tooltip"
+          <a href="index.php?action=show-version-matrix" class="nav-link btn btn-secondary btn-sm" data-toggle="tooltip"
              title="Full overview of all components and versions included in all installers.">
              Show Version Matrix</a> 
-          <a href="http://localhost/updater/index.php?action=compare-installers" class="nav-link btn btn-danger btn-sm" data-toggle="tooltip"
+          <a href="index.php?action=compare-installers" class="nav-link btn btn-danger btn-sm" data-toggle="tooltip"
              title="Compare two installer registries.">
              Compare Installers</a>
-          <a href="http://localhost/updater/index.php?action=pretty-print-registries" class="nav-link btn btn-secondary btn-sm" data-toggle="tooltip"
+          <a href="index.php?action=pretty-print-registries" class="nav-link btn btn-secondary btn-sm" data-toggle="tooltip"
              title="This enables you to prettify the registries after a manual modification.">
              Pretty Print Registries</a>
         </nav>
@@ -53,12 +53,13 @@
       </td>
       <td>     
          <nav class="nav flex-column">
-            <a href="http://localhost/updater/index.php?action=add-component" class="btn btn-danger btn-sm">Add Software</a>
-            <a href="http://localhost/updater/index.php?action=edit-component" class="btn btn-danger btn-sm">Edit Software</a>
-            <a href="http://localhost/updater/index.php?action=health-check-registry" class="btn btn-secondary btn-">Lint (schema)</a> 
+            <a href="index.php?action=softwarerepositoryreport" class="btn btn-danger btn-sm">Report</a>
+            <a href="index.php?action=add-component" class="btn btn-danger btn-sm">Add Software</a>
+            <a href="index.php?action=edit-component" class="btn btn-danger btn-sm">Edit Software</a>
+            <a href="index.php?action=health-check-registry" class="btn btn-secondary btn-">Lint (schema)</a> 
           <br>
-            <a href="http://localhost/updater/index.php?action=link-status" class="btn btn-secondary btn-sm">Check Links - All</a>
-            <a href="http://localhost/updater/index.php?action=link-status-component" class="btn btn-danger btn-sm">Check Links - Single Component</a>  
+            <a href="index.php?action=link-status" class="btn btn-secondary btn-sm">Check Links - All</a>
+            <a href="index.php?action=link-status-component" class="btn btn-danger btn-sm">Check Links - Single Component</a>  
           </nav>        
       </td>
     </tr>
@@ -67,7 +68,7 @@
       <td><a href="https://github.com/WPN-XM/registry/blob/master/wpnxm-php-software-registry.php" class="badge badge-secondary">wpnxm-php-software-registry.php</a></td>
       <td>
          <nav class="nav flex-column">
-          <a href="http://localhost/updater/index.php?action=add-component" class="btn btn-danger btn-sm" title="Add PHP Software">Add</a>
+          <a href="index.php?action=add-component" class="btn btn-danger btn-sm" title="Add PHP Software">Add</a>
               <a href="" class="btn btn-danger btn-sm" title="Edit PHP Software">Edit</a>
               <a href="" class="btn btn-danger btn-sm" title="Lint: Check schema and structure of the registry.">Lint (schema)</a>
           </nav>
@@ -91,7 +92,7 @@
       </td>
       <td> 
         <nav class="nav flex-column">
-          <a href="http://localhost/updater/index.php?action=update-phpextension-list" class="btn btn-secondary btn-sm" data-toggle="tooltip"
+          <a href="index.php?action=update-phpextension-list" class="btn btn-secondary btn-sm" data-toggle="tooltip"
                title="Scan PECL (https://pecl.php.net/) for new PHP Extensions.">Update PHP Extension List</a>         
         </nav>
       </td>

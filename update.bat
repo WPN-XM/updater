@@ -12,4 +12,10 @@ echo  ================
 echo.
 git submodule status
 echo.
+echo.
+echo  Updating Composer Packages
+echo  ==========================
+echo.
+..\..\bin\composer\composer.bat update
+echo.
 pause

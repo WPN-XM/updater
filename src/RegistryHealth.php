@@ -26,22 +26,29 @@ class RegistryHealth
     {
         foreach ($this->registry as $software => $component) 
         {
-            // Check for Keys
+            // 1. the following array keys are required on each aliased component
 
-             if (!isset($component['name'])) {
+            if (isset($component['alias'])) {
+                if (!isset($component['name'])) {
+                $this->errors[] = sprintf('The registry is missing the key "name" for Component "%s".', $software);
+                }
+                if (!isset($component['website'])) {
+                    $this->errors[] = sprintf('The registry is missing the key "website" for Component "%s".', $software);
+                }
+                if (!isset($component['info'])) {
+                    $this->errors[] = sprintf('The registry is missing the key "info" for the aliased Component "%s".', $software);
+                }
+                continue;
+            }
+
+            // 2. Check for Keys on normal components
+
+            if (!isset($component['name'])) {
                 $this->errors[] = sprintf('The registry is missing the key "name" for Component "%s".', $software);
             }
 
             if (!isset($component['website'])) {
                 $this->errors[] = sprintf('The registry is missing the key "website" for Component "%s".', $software);
-            }
-
-            // 1. the following array keys are required on each aliased component
-
-            if (isset($component['alias'])) {
-                if (!isset($component['info'])) {
-                    $this->errors[] = sprintf('The registry is missing the key "info" for the aliased Component "%s".', $software);
-                }
             }
             
             // 2. the following array keys are required on each (non-aliased) component

@@ -19,7 +19,7 @@ class PHP_QA extends VersionCrawler
 {
     public $name = 'php-qa';
 
-    public $url = 'http://windows.php.net/downloads/qa/';
+    public $url = 'https://windows.php.net/downloads/qa/';
 
     public function crawlVersion()
     {
@@ -36,7 +36,7 @@ class PHP_QA extends VersionCrawler
                 if (version_compare($version, $this->latestVersion, '>=') === true) {
                     return array(
                         'version' => $version,
-                        'url'     => 'http://windows.php.net/downloads/qa/' . $node->text(),
+                        'url'     => 'https://windows.php.net/downloads/qa/' . $node->text(),
                     );
                 }
             }

@@ -25,16 +25,16 @@ class PHP extends VersionCrawler
      * - http://php.net/releases/index.php?json&version=5&max=10
      * - http://php.net/releases/active.php
      */
-    public $url = 'http://windows.php.net/downloads/releases/';
+    public $url = 'https://windows.php.net/downloads/releases/';
 
     public function crawlVersion()
     {
         return $this->filter('a')->each(function ($node) {
             /**
              * Notes for the Regular Expression:
-             * "VC11" is needed for PHP 5.5 & 5.6.
+             * "VC11" is needed for PHP 5.5, 5.6.
              * "VC14" is needed for PHP 7.
-             * "VC15" is needed for PHP 7.2.
+             * "VC15" is needed for PHP 7.2, 7.3.
              */
             if (preg_match("#php-(\d+\.\d+(\.\d+)*)-nts-Win32-VC(11|14|15)-x86.zip$#", $node->text(), $matches)) {
                 $version = $matches[1];
@@ -43,7 +43,7 @@ class PHP extends VersionCrawler
                     or isset($this->registry['php'][$version]) === false) {
                     return array(
                         'version' => $version,
-                        'url'     => 'http://windows.php.net/downloads/releases/' . $node->text(),
+                        'url'     => 'https://windows.php.net/downloads/releases/' . $node->text(),
                     );
                 }
             }

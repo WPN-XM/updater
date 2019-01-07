@@ -20,7 +20,7 @@ class PHP_x64 extends VersionCrawler
 {
     public $name = 'php-x64';
 
-    public $url = 'http://windows.php.net/downloads/releases/';
+    public $url = 'https://windows.php.net/downloads/releases/';
 
     public function crawlVersion()
     {
@@ -43,7 +43,7 @@ class PHP_x64 extends VersionCrawler
                     or isset($this->registry['php-x64'][$version]) === false) {
                     return array(
                         'version' => $version,
-                        'url'     => 'http://windows.php.net/downloads/releases/' . $node->text(),
+                        'url'     => 'https://windows.php.net/downloads/releases/' . $node->text(),
                     );
                 }
             }

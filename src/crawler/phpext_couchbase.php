@@ -20,9 +20,9 @@ class phpext_couchbase extends VersionCrawler
 {
 	public $name = 'phpext_couchbase';
 	
-    public $url = 'http://windows.php.net/downloads/pecl/releases/couchbase/';
+    public $url = 'https://windows.php.net/downloads/pecl/releases/couchbase/';
 
-    private $url_template = 'http://windows.php.net/downloads/pecl/releases/couchbase/%version%/php_couchbase-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
+    private $url_template = 'https://windows.php.net/downloads/pecl/releases/couchbase/%version%/php_couchbase-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
 
     public function crawlVersion()
     {

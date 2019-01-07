@@ -20,9 +20,9 @@ class phpext_trader extends VersionCrawler
 {
 	public $name = 'phpext_trader';
 	
-    public $url = 'http://windows.php.net/downloads/pecl/releases/trader/';
+    public $url = 'https://windows.php.net/downloads/pecl/releases/trader/';
 
-    private $url_template = 'http://windows.php.net/downloads/pecl/releases/trader/%version%/php_trader-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
+    private $url_template = 'https://windows.php.net/downloads/pecl/releases/trader/%version%/php_trader-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
 
     public function crawlVersion()
     {

@@ -21,15 +21,15 @@ use WPNXM\Updater\VersionCrawler;
  *
  * Website: http://hprose.com/
  * Github:  https://github.com/hprose
- * PECL:    http://windows.php.net/downloads/pecl/releases/hprose/
+ * PECL:    https://windows.php.net/downloads/pecl/releases/hprose/
  */
 class phpext_hprose extends VersionCrawler
 {
 	public $name = 'phpext_hprose';
 	
-    public $url = 'http://windows.php.net/downloads/pecl/releases/hprose/';
+    public $url = 'https://windows.php.net/downloads/pecl/releases/hprose/';
 
-    private $url_template = 'http://windows.php.net/downloads/pecl/releases/hprose/%version%/php_hprose-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
+    private $url_template = 'https://windows.php.net/downloads/pecl/releases/hprose/%version%/php_hprose-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
 
     public function crawlVersion()
     {

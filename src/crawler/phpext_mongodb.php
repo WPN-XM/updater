@@ -28,9 +28,9 @@ class phpext_mongodb extends VersionCrawler
 {
 	public $name = 'phpext_mongodb';
 	
-    public $url = 'http://windows.php.net/downloads/pecl/releases/mongodb/';
+    public $url = 'https://windows.php.net/downloads/pecl/releases/mongodb/';
 
-    private $url_template = 'http://windows.php.net/downloads/pecl/releases/mongodb/%version%/php_mongodb-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
+    private $url_template = 'https://windows.php.net/downloads/pecl/releases/mongodb/%version%/php_mongodb-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
 
     public function crawlVersion()
     {

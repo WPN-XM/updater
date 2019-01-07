@@ -20,9 +20,9 @@ class phpext_yaf extends VersionCrawler
 {
 	public $name = 'phpext_yaf';
 	
-    public $url = 'http://windows.php.net/downloads/pecl/releases/yaf/';
+    public $url = 'https://windows.php.net/downloads/pecl/releases/yaf/';
 
-    private $url_template = 'http://windows.php.net/downloads/pecl/releases/yaf/%version%/php_yaf-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
+    private $url_template = 'https://windows.php.net/downloads/pecl/releases/yaf/%version%/php_yaf-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
 
     public function crawlVersion()
     {

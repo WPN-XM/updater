@@ -19,11 +19,11 @@ use WPNXM\Updater\VersionCrawler;
 class phpext_amqp extends VersionCrawler
 {
     public $name = 'phpext_amqp';
-    public $url = 'http://windows.php.net/downloads/pecl/releases/amqp/';
+    public $url = 'https://windows.php.net/downloads/pecl/releases/amqp/';
 
-    // http://windows.php.net/downloads/pecl/releases/amqp/1.4.0/php_amqp-1.4.0-5.6-ts-vc11-x86.zip
-    // http://windows.php.net/downloads/pecl/releases/amqp/%version%/php_amqp-%version%-%phpversion%-%thread%-%compiler%-%bitsize%.zip
-    private $url_template = 'http://windows.php.net/downloads/pecl/releases/amqp/%version%/php_amqp-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
+    // https://windows.php.net/downloads/pecl/releases/amqp/1.4.0/php_amqp-1.4.0-5.6-ts-vc11-x86.zip
+    // https://windows.php.net/downloads/pecl/releases/amqp/%version%/php_amqp-%version%-%phpversion%-%thread%-%compiler%-%bitsize%.zip
+    private $url_template = 'https://windows.php.net/downloads/pecl/releases/amqp/%version%/php_amqp-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
 
     public function crawlVersion()
     {

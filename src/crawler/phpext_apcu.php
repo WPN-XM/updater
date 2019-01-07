@@ -21,9 +21,9 @@ class phpext_apcu extends VersionCrawler
 {
 	public $name = 'phpext_apcu';
 	
-    public $url = 'http://windows.php.net/downloads/pecl/releases/apcu/';
+    public $url = 'https://windows.php.net/downloads/pecl/releases/apcu/';
 
-    private $url_template = 'http://windows.php.net/downloads/pecl/releases/apcu/%version%/php_apcu-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
+    private $url_template = 'https://windows.php.net/downloads/pecl/releases/apcu/%version%/php_apcu-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
 
     public function crawlVersion()
     {

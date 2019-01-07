@@ -16,14 +16,14 @@ use WPNXM\Updater\VersionCrawler;
  * PHP Extension stats - Version Crawler
  *
  * Website:   https://pecl.php.net/package/stats
- * Downloads: http://windows.php.net/downloads/pecl/releases/stats/
+ * Downloads: https://windows.php.net/downloads/pecl/releases/stats/
  */
 class phpext_stats extends VersionCrawler
 {
 	public $name = 'phpext_stats';
-    public $url = 'http://windows.php.net/downloads/pecl/releases/stats/';
+    public $url = 'https://windows.php.net/downloads/pecl/releases/stats/';
 
-    private $url_template = 'http://windows.php.net/downloads/pecl/releases/stats/%version%/php_stats-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
+    private $url_template = 'https://windows.php.net/downloads/pecl/releases/stats/%version%/php_stats-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
 
     public function crawlVersion()
     {

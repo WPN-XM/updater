@@ -20,9 +20,9 @@ class phpext_solr extends VersionCrawler
 {
 	public $name = 'phpext_solr';
 	
-    public $url = 'http://windows.php.net/downloads/pecl/releases/solr/';
+    public $url = 'https://windows.php.net/downloads/pecl/releases/solr/';
 
-    private $url_template = 'http://windows.php.net/downloads/pecl/releases/solr/%version%/php_solr-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
+    private $url_template = 'https://windows.php.net/downloads/pecl/releases/solr/%version%/php_solr-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
 
     public function crawlVersion()
     {

@@ -21,9 +21,9 @@ class phpext_redis extends VersionCrawler
 {
 	public $name = 'phpext_redis';
 	
-    public $url = 'http://windows.php.net/downloads/pecl/releases/redis/';
+    public $url = 'https://windows.php.net/downloads/pecl/releases/redis/';
 
-    private $url_template = 'http://windows.php.net/downloads/pecl/releases/redis/%version%/php_redis-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
+    private $url_template = 'https://windows.php.net/downloads/pecl/releases/redis/%version%/php_redis-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
 
     public function crawlVersion()
     {

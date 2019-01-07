@@ -21,9 +21,9 @@ class phpext_parle extends VersionCrawler
 {
 	public $name = 'phpext_parle';
 	
-    public $url = 'http://windows.php.net/downloads/pecl/releases/parle/';
+    public $url = 'https://windows.php.net/downloads/pecl/releases/parle/';
 
-    private $url_template = 'http://windows.php.net/downloads/pecl/releases/parle/%version%/php_parle-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
+    private $url_template = 'https://windows.php.net/downloads/pecl/releases/parle/%version%/php_parle-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
 
     public function crawlVersion()
     {

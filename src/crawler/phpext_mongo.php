@@ -30,13 +30,13 @@ class phpext_mongo extends VersionCrawler
      *
      * Downloads are now on AS3.
      */
-    public $url = 'http://windows.php.net/downloads/pecl/releases/mongo/';
+    public $url = 'https://windows.php.net/downloads/pecl/releases/mongo/';
 
     /**
      * S3 URL:   http://s3.amazonaws.com/drivers.mongodb.org/php/php_mongo-'.$version.'.zip
-     * PECL URL: http://windows.php.net/downloads/pecl/releases/mongo/1.5.5/php_mongo-1.5.5-5.6-nts-vc11-x86.zip
+     * PECL URL: https://windows.php.net/downloads/pecl/releases/mongo/1.5.5/php_mongo-1.5.5-5.6-nts-vc11-x86.zip
      */
-    private $url_template = 'http://windows.php.net/downloads/pecl/releases/mongo/%version%/php_mongo-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
+    private $url_template = 'https://windows.php.net/downloads/pecl/releases/mongo/%version%/php_mongo-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
 
     public function crawlVersion()
     {

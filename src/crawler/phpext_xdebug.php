@@ -20,9 +20,9 @@ class phpext_xdebug extends VersionCrawler
 {
 	public $name = 'phpext_xdebug';
 	
-    public $url = 'http://windows.php.net/downloads/pecl/releases/xdebug/';
+    public $url = 'https://windows.php.net/downloads/pecl/releases/xdebug/';
 
-    private $url_template = 'http://windows.php.net/downloads/pecl/releases/xdebug/%version%/php_xdebug-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
+    private $url_template = 'https://windows.php.net/downloads/pecl/releases/xdebug/%version%/php_xdebug-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
 
     public function crawlVersion()
     {

@@ -20,9 +20,9 @@ class phpext_cassandra extends VersionCrawler
 {
 	public $name = 'phpext_cassandra';
 	
-    public $url = 'http://windows.php.net/downloads/pecl/releases/cassandra/';
+    public $url = 'https://windows.php.net/downloads/pecl/releases/cassandra/';
 
-    private $url_template = 'http://windows.php.net/downloads/pecl/releases/cassandra/%version%/php_cassandra-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
+    private $url_template = 'https://windows.php.net/downloads/pecl/releases/cassandra/%version%/php_cassandra-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
 
     public function crawlVersion()
     {

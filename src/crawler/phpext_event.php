@@ -20,9 +20,9 @@ class phpext_event extends VersionCrawler
 {
 	public $name = 'phpext_event';
 	
-    public $url = 'http://windows.php.net/downloads/pecl/releases/event/';
+    public $url = 'https://windows.php.net/downloads/pecl/releases/event/';
 
-    private $url_template = 'http://windows.php.net/downloads/pecl/releases/event/%version%/php_event-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
+    private $url_template = 'https://windows.php.net/downloads/pecl/releases/event/%version%/php_event-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
 
     public function crawlVersion()
     {

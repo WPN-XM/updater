@@ -18,15 +18,15 @@ use WPNXM\Updater\VersionCrawler;
  *
  * Website:   https://github.com/Azure/msphpsql
  * Downloads: https://github.com/Azure/msphpsql/releases
- * PECL:      http://windows.php.net/downloads/pecl/releases/pdo_sqlsrv/
+ * PECL:      https://windows.php.net/downloads/pecl/releases/pdo_sqlsrv/
  */
 class phpext_pdo_sqlsrv extends VersionCrawler
 {
 	public $name = 'phpext_pdo_sqlsrv';
 	
-    public $url = 'http://windows.php.net/downloads/pecl/releases/pdo_sqlsrv/';
+    public $url = 'https://windows.php.net/downloads/pecl/releases/pdo_sqlsrv/';
 
-    private $url_template = 'http://windows.php.net/downloads/pecl/releases/pdo_sqlsrv/%version%/php_pdo_sqlsrv-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
+    private $url_template = 'https://windows.php.net/downloads/pecl/releases/pdo_sqlsrv/%version%/php_pdo_sqlsrv-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
 
     public function crawlVersion()
     {

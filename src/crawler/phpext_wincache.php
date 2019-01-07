@@ -21,9 +21,9 @@ class phpext_wincache extends VersionCrawler
 {
 	public $name = 'phpext_wincache';
 	
-    public $url = 'http://windows.php.net/downloads/pecl/releases/wincache/';
+    public $url = 'https://windows.php.net/downloads/pecl/releases/wincache/';
 
-    private $url_template = 'http://windows.php.net/downloads/pecl/releases/wincache/%version%/php_wincache-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
+    private $url_template = 'https://windows.php.net/downloads/pecl/releases/wincache/%version%/php_wincache-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
 
     public function crawlVersion()
     {

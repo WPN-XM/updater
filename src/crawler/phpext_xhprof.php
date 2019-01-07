@@ -21,9 +21,9 @@ class phpext_xhprof extends VersionCrawler
 {
 	public $name = 'phpext_xhprof';
 	
-    public $url = 'http://windows.php.net/downloads/pecl/releases/xhprof/';
+    public $url = 'https://windows.php.net/downloads/pecl/releases/xhprof/';
 
-    private $url_template = 'http://windows.php.net/downloads/pecl/releases/xhprof/%version%/php_xhprof-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
+    private $url_template = 'https://windows.php.net/downloads/pecl/releases/xhprof/%version%/php_xhprof-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
 
     public function crawlVersion()
     {

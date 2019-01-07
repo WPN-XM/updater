@@ -20,9 +20,9 @@ class phpext_oci8 extends VersionCrawler
 {
 	public $name = 'phpext_oci8';
 	
-    public $url = 'http://windows.php.net/downloads/pecl/releases/oci8/';
+    public $url = 'https://windows.php.net/downloads/pecl/releases/oci8/';
 
-    private $url_template = 'http://windows.php.net/downloads/pecl/releases/oci8/%version%/php_oci8-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
+    private $url_template = 'https://windows.php.net/downloads/pecl/releases/oci8/%version%/php_oci8-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
 
     public function crawlVersion()
     {

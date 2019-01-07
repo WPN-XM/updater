@@ -20,9 +20,9 @@ class phpext_runkit extends VersionCrawler
 {
 	public $name = 'phpext_runkit';
 	
-    public $url = 'http://windows.php.net/downloads/pecl/releases/runkit/';
+    public $url = 'https://windows.php.net/downloads/pecl/releases/runkit/';
 
-    private $url_template = 'http://windows.php.net/downloads/pecl/releases/runkit/%version%/php_runkit-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
+    private $url_template = 'https://windows.php.net/downloads/pecl/releases/runkit/%version%/php_runkit-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
 
     public function crawlVersion()
     {

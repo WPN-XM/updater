@@ -20,9 +20,9 @@ class phpext_geoip extends VersionCrawler
 {
 	public $name = 'phpext_geoip';
 	
-    public $url = 'http://windows.php.net/downloads/pecl/releases/geoip/';
+    public $url = 'https://windows.php.net/downloads/pecl/releases/geoip/';
 
-    private $url_template = 'http://windows.php.net/downloads/pecl/releases/geoip/%version%/php_geoip-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
+    private $url_template = 'https://windows.php.net/downloads/pecl/releases/geoip/%version%/php_geoip-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
 
     public function crawlVersion()
     {

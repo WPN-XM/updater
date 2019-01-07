@@ -20,9 +20,9 @@ class phpext_oauth extends VersionCrawler
 {
 	public $name = 'phpext_oauth';
 	
-    public $url = 'http://windows.php.net/downloads/pecl/releases/oauth/';
+    public $url = 'https://windows.php.net/downloads/pecl/releases/oauth/';
 
-    private $url_template = 'http://windows.php.net/downloads/pecl/releases/oauth/%version%/php_oauth-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
+    private $url_template = 'https://windows.php.net/downloads/pecl/releases/oauth/%version%/php_oauth-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
 
     public function crawlVersion()
     {

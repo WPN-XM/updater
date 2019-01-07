@@ -21,9 +21,9 @@ class phpext_varnish extends VersionCrawler
 {
 	public $name = 'phpext_varnish';
 	
-    public $url =  'http://windows.php.net/downloads/pecl/releases/varnish/';
+    public $url =  'https://windows.php.net/downloads/pecl/releases/varnish/';
 
-    private $url_template = 'http://windows.php.net/downloads/pecl/releases/varnish/%version%/php_varnish-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
+    private $url_template = 'https://windows.php.net/downloads/pecl/releases/varnish/%version%/php_varnish-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
 
     public function crawlVersion()
     {

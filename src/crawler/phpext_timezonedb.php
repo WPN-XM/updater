@@ -20,9 +20,9 @@ class phpext_timezonedb extends VersionCrawler
 {
 	public $name = 'phpext_timezonedb';
 	
-    public $url = 'http://windows.php.net/downloads/pecl/releases/timezonedb/';
+    public $url = 'https://windows.php.net/downloads/pecl/releases/timezonedb/';
 
-    private $url_template = 'http://windows.php.net/downloads/pecl/releases/timezonedb/%version%/php_timezonedb-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
+    private $url_template = 'https://windows.php.net/downloads/pecl/releases/timezonedb/%version%/php_timezonedb-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
 
     public function crawlVersion()
     {

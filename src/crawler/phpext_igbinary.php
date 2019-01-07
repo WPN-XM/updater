@@ -20,9 +20,9 @@ class phpext_igbinary extends VersionCrawler
 {
 	public $name = 'phpext_igbinary';
 	
-    public $url = 'http://windows.php.net/downloads/pecl/releases/igbinary/';
+    public $url = 'https://windows.php.net/downloads/pecl/releases/igbinary/';
 
-    private $url_template = 'http://windows.php.net/downloads/pecl/releases/igbinary/%version%/php_igbinary-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
+    private $url_template = 'https://windows.php.net/downloads/pecl/releases/igbinary/%version%/php_igbinary-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
 
     public function crawlVersion()
     {

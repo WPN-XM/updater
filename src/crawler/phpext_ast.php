@@ -21,9 +21,9 @@ class phpext_ast extends VersionCrawler
 {
 	public $name = 'phpext_ast';
 	
-    public $url = 'http://windows.php.net/downloads/pecl/releases/ast/';
+    public $url = 'https://windows.php.net/downloads/pecl/releases/ast/';
 
-    private $url_template = 'http://windows.php.net/downloads/pecl/releases/ast/%version%/php_ast-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
+    private $url_template = 'https://windows.php.net/downloads/pecl/releases/ast/%version%/php_ast-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
 
     public function crawlVersion()
     {

@@ -20,14 +20,14 @@ use WPNXM\Updater\VersionCrawler;
  * This extension provides bindings for libsphinxclient, client library for Sphinx.
  *
  * Website:   https://pecl.php.net/package/sphinx
- * Downloads: http://windows.php.net/downloads/pecl/releases/sphinx/
+ * Downloads: https://windows.php.net/downloads/pecl/releases/sphinx/
  */
 class phpext_sphinx extends VersionCrawler
 {
 	public $name = 'phpext_sphinx';
-    public $url = 'http://windows.php.net/downloads/pecl/releases/sphinx/';
+    public $url = 'https://windows.php.net/downloads/pecl/releases/sphinx/';
 
-    private $url_template = 'http://windows.php.net/downloads/pecl/releases/sphinx/%version%/php_sphinx-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
+    private $url_template = 'https://windows.php.net/downloads/pecl/releases/sphinx/%version%/php_sphinx-%version%-%phpversion%-nts-%compiler%-%bitsize%.zip';
 
     public function crawlVersion()
     {

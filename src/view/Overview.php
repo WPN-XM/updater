@@ -21,9 +21,9 @@
                     }
                                        
                     foreach ($registry as $item => $component) {
-                      $isBitsizeX86 = (substr($item, -3) == 'x86') ? true : false;
                       echo '<tr>';
                       if(array_key_exists('name', $component)) {
+                        $isBitsizeX86 = (strpos($component['name'], 'x86', -3)) ? true : false;
                         echo '<td>' . $component['name'] . '</td>';
                       } else {
                         echo '<td><span class="badge badge-danger">';

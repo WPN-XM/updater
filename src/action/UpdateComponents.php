@@ -12,6 +12,7 @@
 namespace WPNXM\Updater\Action;
 
 use WPNXM\Updater\ActionBase;
+use WPNXM\Updater\View;
 use WPNXM\Updater\InstallerRegistries;
 use WPNXM\Updater\DownloadFilenames;
 use WPNXM\Updater\InstallerRegistry;
@@ -35,10 +36,9 @@ class UpdateComponents extends ActionBase
 
     public function __invoke()
     {
-        $nextRegistries = InstallerRegistries::getRegistriesOfNextRelease();
+        $html = '';
 
-        echo '<h3>Update all software components to their latest version.</h3>';
-        echo '<small>Raises the versions of all software components of all installation wizards of the next release automatically.</small>';
+        $nextRegistries = InstallerRegistries::getRegistriesOfNextRelease();
 
         $downloadFilenames = DownloadFilenames::load();
 
@@ -46,7 +46,7 @@ class UpdateComponents extends ActionBase
         {
             $filename        = basename($file);
 
-            echo '<br>Processing Installer <strong>' . $filename . '</strong>:&nbsp;<br>';
+            $html .= '<br>Processing Installer <strong>' . $filename . '</strong>:&nbsp;<br>';
             
             $registry      = json_decode(file_get_contents($file), true);
             $version_updated = false;            
@@ -85,7 +85,7 @@ class UpdateComponents extends ActionBase
                         $registry[$i][1] = str_replace($version, $latestVersion, $url);
                     }
 
-                    echo 'Updated "' . $componentName . '" from v' . $version . ' to v' . $latestVersion . '.<br>';
+                    $html .= 'Updated "' . $componentName . '" from v' . $version . ' to v' . $latestVersion . '.<br>';
                     $version_updated = true;
                 }
             }
@@ -93,17 +93,15 @@ class UpdateComponents extends ActionBase
             if ($version_updated === true) {
                 InstallerRegistry::write($file, $registry);   
             } else {
-                echo 'The installer registry is up-to-date.';
+                $html .= 'The installer registry is up-to-date.';
             }
         }
 
-        $html = '<div class="alert alert-success" role="alert">';
-        $html .= 'You might "git commit/push" now!<br> Commit Message: <b>updated installer registries of "next" version</b>';
-        $html .= '</div>';
+        /* View */
 
-        $html .= '<a class="btn btn-primary" href="index.php?action=GitPushNextVersionRegistries&gitpush=true" role="button">Git Commit, then Push</a>';
-
-        echo $html;
+        $view = new View();
+        $view->data['html'] = $html;
+        $view->render();
     }
 
 

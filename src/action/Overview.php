@@ -21,13 +21,12 @@ class Overview extends ActionBase
     public function __invoke()
     {        
         $registry = Registry::load();        
-        $crawlers = VersionCrawlers::findCrawlersWithoutRegistryEntry($registry);
+        $newCrawlers = VersionCrawlers::findCrawlersWithoutRegistryEntry($registry);
        
-        /* View */
-
-        $view                    = new View();
-        $view->data['registry']  = $registry;
-        $view->data['crawlers']  = $crawlers;
+        // View
+        $view = new View();
+        $view->data['registry']     = $registry;
+        $view->data['newCrawlers']  = $newCrawlers;
         $view->render();
     } 
 }

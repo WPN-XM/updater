@@ -14,7 +14,6 @@ namespace WPNXM\Updater;
 
 
 use WPNXM\Updater\VersionCrawlers;
-use Goutte\Client as GoutteClient;
 
 use GuzzleHttp\Pool;
 use GuzzleHttp\Client;
@@ -130,8 +129,13 @@ class RegistryUpdater
         // Initiate the transfers and create a promise.
         $promise = $pool->promise();
 
-        // Wait for Pool of Requests to complete.
-        $promise->wait();
+        try {
+            // Wait for Pool of Requests to complete.
+            $promise->wait();
+        } catch(\GuzzleHttp\Promise\RejectionException $e) {
+            var_dump($e->getReason());
+            var_dump($promise);
+        }                
     }
 
     /**

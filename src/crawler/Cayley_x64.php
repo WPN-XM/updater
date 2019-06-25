@@ -20,8 +20,6 @@ use WPNXM\Updater\VersionCrawler;
  * Its goal is to be a part of the developer's toolbox where Linked Data 
  * and graph-shaped data (semantic webs, social networks, etc) in general are concerned.
  *
- * We use the DataStax Community Edition of Apache Cassandra.
- *
  * Website:       https://github.com/google/cayley/
  * Downloads:     https://github.com/google/cayley/releases
  */
